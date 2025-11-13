@@ -1,0 +1,2 @@
+# Ignorar todos los módulos de NodeJs
+/Back/node_modules
