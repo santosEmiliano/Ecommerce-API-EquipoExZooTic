@@ -1,0 +1,188 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+:root {
+  --color-rojo: #e8332f;
+  --color-celeste: #44c2dd;
+  --color-amarillo: #d9c93b;
+  --color-verde-agua: #1d8e7a;
+  --color-verde: #7ab24e;
+
+  --color-azul-suave: #56a4af;
+  --color-azul-oscuro: #403786;
+  --color-gris-claro: #eeefee;
+  --color-verde-oscuro: #4c5f41;
+  --color-negro: #111110;
+}
+
+.header {
+  background-color: var(--color-verde);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-decoration: none;
+  box-shadow: 0vh 0vh 0vh var(--color-verde-oscuro);
+}
+
+.header-derecha {
+  display: flex;
+  align-items: center;
+  gap: 2vh;
+  margin-right: 2vh;
+}
+
+.logo-img {
+  height: 13vh;
+  width: auto;
+}
+
+.header-link {
+  color: var(--color-gris-claro);
+  text-decoration: none;
+  font-size: 2.2vh;
+  font-weight: bold;
+  transition: color 0.4s ease;
+  text-shadow: 0 0.3vh 0.5vh rgba(0, 0, 0, 0.35);
+}
+
+.header-link:hover {
+  color: var(--color-amarillo);
+  text-shadow: 0 0.3vh 0.5vh rgba(0, 0, 0, 0.55);
+}
+
+.submenu-container {
+  position: relative;
+}
+
+.header-submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--color-verde-oscuro);
+  list-style: none;
+  min-width: 18vh;
+  border-radius: 0.5vh;
+  overflow: hidden;
+  box-shadow: 0 0.6vh 1.2vh rgba(0, 0, 0, 0.3);
+  z-index: 999;
+}
+.footer {
+  background: var(--color-verde);
+  text-align: center;
+  padding: 1.5vh 0;
+  color: var(--color-gris-claro);
+  box-shadow: 0 -0.4vh 1vh rgba(0, 0, 0, 0.15);
+}
+
+.footer-titulo {
+  font-size: 1.9vh;
+  margin: 1.5vh 0;
+  font-weight: bold;
+}
+
+.footer-contacto {
+  background: var(--color-verde-oscuro);
+  margin: 1.8vh 0;
+  padding: 0.8vh 2.2vh;
+  border-radius: 0.8vh;
+  font-size: 1.8vh;
+  color: black;
+  font-weight: bold;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.footer-icon {
+  font-size: 3.2vh;
+  color: white;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.footer-icon:hover {
+  transform: scale(1.15);
+  color: var(--color-amarillo);
+}
+
+.footer-copyright {
+  margin-top: 1.5vh;
+  font-size: 1.6vh;
+  opacity: 0.8;
+}
+
+/* Botón flotante */
+.accessibility-widget {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 9999;
+}
+
+.access-btn {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: none;
+  background: #0077ff;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Panel */
+.access-panel {
+  display: none;
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  background: #fff;
+  border-radius: 10px;
+  padding: 12px;
+  width: 180px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.access-panel button {
+  width: 100%;
+  margin: 5px 0;
+  padding: 8px;
+  border: none;
+  cursor: pointer;
+  background: #e5e5e5;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.access-panel button:hover {
+  background: #ccc;
+}
+
+/* Modo oscuro aplicado al body */
+.dark-mode {
+  background-color: #121212 !important;
+  color: #f1f1f1 !important;
+}
+
+.dark-mode a {
+  color: #79b7ff !important;
+}
+
+/* Ajuste global del texto */
+body.big-text {
+  font-size: 110%;
+}
+
+body.bigger-text {
+  font-size: 125%;
+}
