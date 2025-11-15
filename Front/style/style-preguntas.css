@@ -1,0 +1,41 @@
+:root {
+  --color-rojo: #e8332f;
+  --color-celeste: #44c2dd;
+  --color-amarillo: #d9c93b;
+  --color-verde-agua: #1d8e7a;
+  --color-verde: #7ab24e;
+  --color-azul-suave: #56a4af;
+  --color-azul-oscuro: #403786;
+  --color-gris-claro: #eeefee;
+  --color-verde-oscuro: #4c5f41;
+  --color-negro: #111110;
+}
+
+.container-pregunta {
+  margin-top: 3vh;
+}
+
+.btn-pregunta {
+  width: 100%;
+  border: none;
+  padding: 15px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.3s;
+  background-color: var(--color-verde-agua);
+}
+
+.btn-pregunta:hover {
+  background-color: var(--color-azul-suave);
+}
+
+.respuesta-pregunta {
+  max-height: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0 15px;
+  background: #f9f9f9;
+  transition: max-height 0.3s ease;
+  background-color: var(--color-gris-claro);
+  margin-bottom: 3vh;
+}

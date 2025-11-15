@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style/style-base.css" />
+    <link rel="stylesheet" href="./style/style-nosotros.css" />
+    <title>Tienda en línea</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <!-- header -->
+    <nav class="header">
+      <div class="header-izquierda">
+        <a href="index.html" class="nav-logo">
+          <img class="logo-img" src="media/logo.png" alt="logo" />
+        </a>
+      </div>
+      <div class="header-derecha">
+        <a href="index.html" class="header-link">Inicio</a>
+        <div class="submenu-container">
+          <a href="#" class="header-link submenu-btn">Nuestros Animales</a>
+          <ul class="header-submenu">
+            <li><a href="#" class="header-submenu-link">Categoría 1</a></li>
+            <li><a href="#" class="header-submenu-link">Categoría 2</a></li>
+            <li><a href="#" class="header-submenu-link">Categoría 3</a></li>
+          </ul>
+        </div>
+        <a href="contacto.html" class="header-link">Contacto</a>
+        <a href="preguntas.html" class="header-link">Preguntas</a>
+        <a href="nosotros.html" class="header-link">Nosotros</a>
+        <div class="nombreUsuario">
+          <i id="userIcon" class="fa-solid fa-user user-name"></i>
+          <span id="userName" class="user-name"></span>
+        </div>
+        <button id="logInbtn" title="Login">
+          <span class="loginStyle">Iniciar Sesión</span>
+        </button>
+        <button id="logOutbtn" title="LogOut">
+          <span class="loginStyle">Cerrar Sesión</span>
+        </button>
+        <button
+          id="logoutBtn"
+          class="icon-btn"
+          title="Logout"
+          style="display: none"
+        >
+          <span class="logout-icon">Salir Sesión</span>
+        </button>
+      </div>
+    </nav>
+
+    <main>
+      <section class="timeline-section">
+        <div class="timeline-bar">
+          <div class="timeline-fill"></div>
+        </div>
+
+        <div class="timeline-container">
+          <div class="timeline-item reveal">
+            <div class="timeline-content left">
+              <div class="card">
+                <img src="img1.jpg" class="foto" />
+                <h3>Nombre 1</h3>
+                <p>Descripción del miembro 1. Lorem ipsum dolor sit amet.</p>
+              </div>
+            </div>
+            <div class="timeline-icon">
+              <img src="media/icon-sample1.png" alt="Icono 1" />
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-icon">
+              <img src="media/icon-sample2.png" alt="Icono 2" />
+            </div>
+            <div class="timeline-content right">
+              <div class="card">
+                <img src="img2.jpg" class="foto" />
+                <h3>Nombre 2</h3>
+                <p>Descripción del miembro 2. Consectetur adipiscing elit.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-content left">
+              <div class="card">
+                <img src="img3.jpg" class="foto" />
+                <h3>Nombre 3</h3>
+                <p>Descripción del miembro 3. Sed do eiusmod tempor.</p>
+              </div>
+            </div>
+            <div class="timeline-icon">
+              <img src="media/icon-sample3.png" alt="Icono 3" />
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-icon">
+              <img src="media/icon-sample1.png" alt="Icono 1" />
+            </div>
+            <div class="timeline-content right">
+              <div class="card">
+                <img src="img2.jpg" class="foto" />
+                <h3>Nombre 4</h3>
+                <p>Descripción del miembro 4. Ut labore et dolore magna.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- footer -->
+    <footer class="footer">
+      <h4 class="footer-titulo">
+        ¿Tienes alguna duda? Envíanos un correo!<br />
+      </h4>
+      <h4><button class="footer-contacto">Da click aquí!</button></h4>
+      <h4 class="footer-titulo">Siguenos en nuestras redes sociales</h4>
+      <div class="footer-redes">
+        <a href="#" target="_blank"
+          ><i class="fa-brands fa-instagram footer-icon"></i
+        ></a>
+      </div>
+      <p class="footer-copyright">
+        © 2025 Proyecto académico, no es una tienda real.
+      </p>
+    </footer>
+    <script src="./scripts/styles.js"></script>
+    <script src="./scripts/app.js"></script>
+  </body>
+</html>
