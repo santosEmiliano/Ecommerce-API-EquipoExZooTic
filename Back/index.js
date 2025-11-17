@@ -18,6 +18,10 @@ app.use(express.json());
 
 // Funcion que hace una consulta de prueba mínima que
 // confirma que todo el circuito conexión → consulta → respuesta está funcionando
+
+app.use('./media/images', express.static(path.join(__dirname, 'images')));//hacer la carpeta imagenes publica
+//dara problemas con el CORBS no CORS 
+
 async function testConnection() {
     try {
         const [rows] = await pool.query('SELECT 1 + 1 AS result'); 
