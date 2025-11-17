@@ -42,16 +42,13 @@
         <button id="logInbtn" title="Login">
           <span class="loginStyle">Iniciar Sesión</span>
         </button>
+
         <button id="logOutbtn" title="LogOut">
           <span class="loginStyle">Cerrar Sesión</span>
         </button>
-        <button
-          id="logoutBtn"
-          class="icon-btn"
-          title="Logout"
-          style="display: none"
-        >
-          <span class="logout-icon">Salir Sesión</span>
+
+        <button id="regbtn" title="Register">
+          <span class="loginStyle">Regístrate</span>
         </button>
       </div>
     </nav>
@@ -203,6 +200,86 @@
         </section>
       </section>
     </main>
+    <!-- login -->
+    <div id="loginModal" class="modal">
+      <div class="modal-content">
+        <span id="closeModalLogin" class="close">&times;</span>
+        <h2>Iniciar Sesión</h2>
+        <form id="formLogin">
+          <input
+            type="text"
+            id="login"
+            class="inputLogin"
+            placeholder="Usuario"
+            required
+          />
+          <input
+            type="password"
+            id="password"
+            class="inputPassword"
+            placeholder="Contraseña"
+            required
+          />
+          <!-- MENSAJE PARA EDSON: Aquí debes implementar la generación del captcha -->
+
+          <!-- 
+Este input de abajo es para que el usuario escriba el captcha que se le muestra. -->
+          <!-- 
+En el registrar NO necesitas agregar el captcha
+abajo de esta sección está el menú de registrarse para que le añadas también la lógica de las verificaciones ahí
+ -->
+          <input
+            type="text"
+            id="captchaText"
+            class="inputCaptcha"
+            placeholder="Escribe el captcha"
+            required
+          />
+
+          <button type="submit">Enviar</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- REGISTRO -->
+    <div id="registerModal" class="modal">
+      <div class="modal-content">
+        <span id="closeModalRegister" class="close">&times;</span>
+        <h2>Regístrate</h2>
+
+        <form id="formRegister">
+          <input
+            type="text"
+            id="regUser"
+            class="inputRegUser"
+            placeholder="Usuario"
+            required
+          />
+          <input
+            type="email"
+            id="regEmail"
+            class="inputRegEmail"
+            placeholder="Correo electrónico"
+            required
+          />
+          <input
+            type="password"
+            id="regPass1"
+            class="inputRegPass"
+            placeholder="Contraseña"
+            required
+          />
+          <input
+            type="password"
+            id="regPass2"
+            class="inputRegPass"
+            placeholder="Repetir contraseña"
+            required
+          />
+          <button type="submit">Crear cuenta</button>
+        </form>
+      </div>
+    </div>
 
     <!-- footer -->
     <footer class="footer">
