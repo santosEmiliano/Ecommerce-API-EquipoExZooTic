@@ -55,3 +55,32 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("scroll", updateTimelineFill);
   updateTimelineFill();
 });
+
+//Alert diseño
+function toast(msg, color ) {
+  Toastify({
+    text: msg,
+    duration: 3800,
+    gravity: "top",
+    position: "right",
+    close: true,
+    stopOnFocus: true,
+    offset: {
+      x: 25,
+      y: 80
+    },
+    style: {
+      background: `${color}`,
+      border: "0.5vh solid #4C5F41",
+      borderRadius: "1.8vh",
+      padding: "2.2vh 3vh",
+      fontSize: "2.4vh",
+      fontWeight: "600",
+      minWidth: "32vh",
+      maxWidth: "46vh",
+      color: "#000000",
+      textAlign: "center",
+      boxShadow: "0 0.8vh 1.6vh rgba(0,0,0,0.35)",
+    }
+  }).showToast();
+}
