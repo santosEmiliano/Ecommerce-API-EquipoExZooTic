@@ -1,6 +1,7 @@
 //      RUTAS PARA LAS FUNCIONES CRUD (Create, Read, Update y Delete)
 
 //          IMPORTS PROVENIENTES DEL MIDDLEWARE
+const subirImagen = require('../middleware/subirImagen');
 
 
 //          IMPORTS QUE PROVIENEN DEL CONTROLLER
@@ -9,7 +10,6 @@ const crudFunctions = require('../controllers/crud.controller');
 //Imports de express
 const express = require("express");
 const router = express.Router();
-
 
 //  Ruta para obtener todos los productos (Y sus derivadas de Query Params) -----------------------------------------------------------------------------------------------------------------------
 router.get('/productos', crudFunctions.readProductos);
@@ -28,7 +28,7 @@ router.get('/productos/:id', crudFunctions.readProdId);
 */
 
 //  Ruta para agregar un producto -----------------------------------------------------------------------------------------------------------------------
-router.post('/productos', ); 
+router.post('/productos', subirImagen.single('imagen'), crudFunctions.createProduct); 
 
 //Descripcion del funcionamiento y llamada
 /*
@@ -36,7 +36,7 @@ router.post('/productos', );
 */
 
 //  Ruta para modificar un producto -----------------------------------------------------------------------------------------------------------------------
-router.put('productos/:id', )
+router.put('/productos/:id', subirImagen.single('imagen'), crudFunctions.updateProduct)
 
 //Descripcion del funcionamiento y llamada
 /*
@@ -45,7 +45,7 @@ router.put('productos/:id', )
 
 //  Ruta para eliminar un producto -----------------------------------------------------------------------------------------------------------------------
 
-router.delete('/productos/:id', );
+router.delete('/productos/:id', crudFunctions.deleteProduct );
 
 //Descripcion del funcionamiento y llamada
 /*

@@ -2,6 +2,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const path = require("path");
 
 //Importaciones de las rutas
 const crudRoutes = require('./routes/crud.routes'); //Rutas del CRUD
@@ -16,10 +17,11 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+
 // Funcion que hace una consulta de prueba mínima que
 // confirma que todo el circuito conexión → consulta → respuesta está funcionando
 
-app.use('./media/images', express.static(path.join(__dirname, 'images')));//hacer la carpeta imagenes publica
+app.use('/images', express.static(path.join(__dirname, 'media/images')));//hacer la carpeta imagenes publica
 //dara problemas con el CORBS no CORS 
 
 async function testConnection() {

@@ -1,13 +1,15 @@
 //Middleware para subir imagenes
 
 const multer = require("multer");
+const path = require("path"); 
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "../media/images");
+        cb(null, path.join(__dirname, '../../media/images'));
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname);
+        const uniqueName = `${Date.now()}-${file.originalname}`;
+        cb(null, uniqueName);
     }
 });
 

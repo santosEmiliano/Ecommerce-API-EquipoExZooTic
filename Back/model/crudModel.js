@@ -63,11 +63,11 @@ async function getProdOferta() {
 //  CONJUNTO DE RUTAS PARA EL ENVIO DE PRODUCTOS
 
 //Funcion para agregar un producto
-async function addProduct(nombre, categoria, descripcion, precio, existencias, descuento) {
+async function addProduct(nombre, categoria, descripcion, precio, existencias, descuento, imagen) {
     try {
         const [result] = await pool.query(
-            'INSERT INTO productos (nombre, categoria, descripcion, precio, existencias, descuento) VALUES (?, ?, ?, ?, ?, ?)',
-            [nombre, categoria, descripcion, precio, existencias, descuento]
+            'INSERT INTO productos (nombre, categoria, descripcion, precio, existencias, descuento, imagen) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [nombre, categoria, descripcion, precio, existencias, descuento, imagen]
         )
         return result.insertId;
     } catch (error) {
@@ -77,11 +77,11 @@ async function addProduct(nombre, categoria, descripcion, precio, existencias, d
 }
 
 // Funcion para actualizar producto existente
-async function updateProducto(id, nombre, categoria, descripcion, precio, existencias, descuento) {
+async function updateProducto(id, nombre, categoria, descripcion, precio, existencias, descuento, imagen) {
     try {
         const [result] = await pool.query(
-            'UPDATE productos SET nombre = ?, categoria = ?, descripcion = ?, precio = ?, existencias = ?, descuento = ? WHERE id = ?',
-            [nombre, categoria, descripcion, precio, existencias, descuento, id]
+            'UPDATE productos SET nombre = ?, categoria = ?, descripcion = ?, precio = ?, existencias = ?, descuento = ?, imagen = ? WHERE id = ?',
+            [nombre, categoria, descripcion, precio, existencias, descuento, imagen, id]
         );
         return result.affectedRows;
     } catch (error) {
