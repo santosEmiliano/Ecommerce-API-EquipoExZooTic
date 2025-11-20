@@ -169,10 +169,12 @@ const deleteProduct = async (req, res) => {
 const borrarImagenFisica = (rutaUrl) => {
     if (!rutaUrl) return;
 
-    //Divides por cada parte de la ruta
+    if (typeof rutaUrl !== 'string') {
+        console.error("Error: La ruta no es un texto. Valor recibido:", rutaUrl);
+        return;
+    }
     const nombreArchivo = rutaUrl.split('/').pop();
-    //Pones la ruta segun el path del backend
-    const rutaFisica = path.join(__dirname, '../../media/images', nombreArchivo);
+    const rutaFisica = path.join(__dirname, '../media/images', nombreArchivo);
 
     if (fs.existsSync(rutaFisica)) {
         try {
