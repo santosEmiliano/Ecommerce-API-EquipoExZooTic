@@ -1,0 +1,228 @@
+
+        /* --- Reset Básico y Estilos Globales --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f1f5f9; /* Color de fondo (como bg-slate-100) */
+            color: #111827; /* Color de texto principal */
+            line-height: 1.5;
+            min-height: 100vh; /* Ocupa al menos toda la altura de la pantalla */
+        }
+
+        /* --- Contenedor Principal --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1rem; /* Padding para móviles, se centra en desktop */
+        }
+
+        /* --- Tipografía Responsiva (uso de vw) --- */
+        h1 {
+            /* El texto será el 5% del ancho de la pantalla, pero nunca más pequeño que 2rem o más grande que 2.5rem */
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-size: clamp(1.25rem, 4vw, 1.5rem);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* --- Diseño de Rejilla (Flexbox) --- */
+        .checkout-grid {
+            display: flex;
+            flex-wrap: wrap; /* Permite que se apilen en pantallas pequeñas */
+            gap: 2rem;
+        }
+
+        .form-column {
+            flex: 2; /* Ocupa 2/3 del espacio */
+            min-width: 300px; /* Ancho mínimo antes de apilarse */
+        }
+
+        .summary-column {
+            flex: 1; /* Ocupa 1/3 del espacio */
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* --- Estilo de Tarjetas (Cards) --- */
+        .card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* --- Estilos de Formularios --- */
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.25rem;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db; /* border-gray-300 */
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #4f46e5; /* focus:border-indigo-500 */
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2); /* focus:ring-indigo-500 */
+        }
+
+        /* Rejilla para Ciudad, Estado, CP -- CAMBIADO */
+        .address-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        
+        /* --- Resumen del Pedido --- */
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            color: #4b5563;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: #111827;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* --- Opciones de Pago --- */
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .payment-option {
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .payment-option:has(input:checked) {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+        }
+
+        .payment-option input[type="radio"] {
+            margin-right: 0.75rem;
+            accent-color: #4f46e5;
+        }
+
+        .payment-option label {
+            font-weight: 500;
+            color: #111827;
+        }
+
+        /* --- Detalles de Pago --- */
+        /* --- CLASE NUEVA --- */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .payment-details .form-group-grid {
+            margin-bottom: 1.25rem;
+        }
+        
+        /* Simulación de Ocultar/Mostrar (SIN JS) */
+        /* Por defecto, solo se muestra el de tarjeta */
+        #spei-info,
+        #oxxo-info {
+            display: none; /* Oculto por defecto */
+            font-size: 0.9rem;
+            color: #4b5563;
+            background-color: #f9fafb; /* bg-slate-50 */
+            padding: 1rem;
+            border-radius: 6px;
+            line-height: 1.4;
+        }
+        
+        #card-form {
+            display: block; /* Mostrado por defecto */
+        }
+
+        /* --- Botón Principal --- */
+        .btn-primary {
+            display: block;
+            width: 100%;
+            background-color: #4f46e5; /* bg-indigo-600 */
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 0.85rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.2s;
+            margin-top: 2rem;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #4338ca; /* bg-indigo-700 */
+        }
+
+
+        /* --- Media Query para Responsividad --- */
+        @media (max-width: 768px) {
+            .checkout-grid {
+                flex-direction: column; /* Apila las columnas */
+            }
+        }
+        
+        @media (max-width: 500px) {
+            /* Aplicamos la regla solo a la rejilla de dirección -- CAMBIADO */
+            .address-grid {
+                grid-template-columns: 1fr; /* Apila ciudad, estado y cp */
+            }
+            .card {
+                padding: 1.5rem 1rem;
+            }
+        }
+

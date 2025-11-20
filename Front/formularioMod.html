@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style/style-base.css" />
+    <link rel="stylesheet" href="./style/style-forms.css" />
+    <title>Modificar Producto</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+
+  <body>
+    <!-- header -->
+    <nav class="header">
+      <div class="header-izquierda">
+        <a href="index.html" class="nav-logo">
+          <img class="logo-img" src="media/logo.png" alt="logo" />
+        </a>
+      </div>
+
+      <div class="header-derecha">
+        <a href="index.html" class="header-link">Inicio</a>
+
+        <div class="submenu-container">
+          <a href="#" class="header-link submenu-btn">Nuestros Animales</a>
+          <ul class="header-submenu">
+            <li><a href="#" class="header-submenu-link">Categoría 1</a></li>
+            <li><a href="#" class="header-submenu-link">Categoría 2</a></li>
+            <li><a href="#" class="header-submenu-link">Categoría 3</a></li>
+          </ul>
+        </div>
+
+        <a href="contacto.html" class="header-link">Contacto</a>
+        <a href="preguntas.html" class="header-link">Preguntas</a>
+        <a href="nosotros.html" class="header-link">Nosotros</a>
+
+        <div class="nombreUsuario">
+          <i id="userIcon" class="fa-solid fa-user user-name"></i>
+          <span id="userName" class="user-name"></span>
+        </div>
+
+        <button id="logInbtn" title="Login">
+          <span class="loginStyle">Iniciar Sesión</span>
+        </button>
+
+        <button id="logOutbtn" title="LogOut">
+          <span class="loginStyle">Cerrar Sesión</span>
+        </button>
+
+        <button id="regbtn" title="Register">
+          <span class="loginStyle">Regístrate</span>
+        </button>
+      </div>
+    </nav>
+
+    <main>
+      <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+          <h2 class="sidebar-title">Panel Admin</h2>
+
+          <ul class="sidebar-menu">
+            <li><a href="#" class="sidebar-link"><i class="fa-solid fa-box"></i> Productos</a></li>
+            <li><a href="/Front/panelGraficas.html" class="sidebar-link"><i class="fa-solid fa-chart-line"></i> Gráficas</a></li>
+          </ul>
+        </aside>
+
+        <!-- CONTENIDO -->
+        <section class="admin-content">
+          <h1 class="admin-welcome">Modificar Producto</h1>
+          <p class="admin-text">Actualiza los datos del producto seleccionado.</p>
+
+          <!-- FORMULARIO DE MODIFICACIÓN -->
+          <div class="form-alta-container">
+            <h2 class="form-title">Editar Producto</h2>
+
+            <form id="formModificar" class="form-alta">
+
+              <!-- ID DEL PRODUCTO (oculto) -->
+              <input type="hidden" id="idProducto" />
+
+              
+
+              <!-- Nombre -->
+              <div class="form-group">
+                <label for="nombre">Nombre del producto</label>
+                <input type="text" id="nombre" required />
+              </div>
+
+              <div class="form-group">
+                <label for="categoria">Categoría</label>
+                <select id="categoria" required>
+                  <option value="">Seleccione una categoría</option>
+                  <option value="Categoria 1">Categoría 1</option>
+                  <option value="Categoria 2">Categoría 2</option>
+                  <option value="Categoria 3">Categoría 3</option>
+                </select>
+              </div>
+
+              <!-- Precio -->
+              <div class="form-group">
+                <label for="precio">Precio</label>
+                <input type="number" id="precio" step="0.01" required />
+              </div>
+
+              <!-- Descuento -->
+              <div class="form-group">
+              <label for="descuento">Descuento (%)</label>
+              <input type="number" id="descuento" min="0" max="100" step="1" required />
+              </div>
+
+              <!-- Stock actual -->
+              <div class="form-group">
+                <label for="stock">Stock actual</label>
+                <input type="number" id="stock" min="0" required />
+              </div>
+
+              <!-- Imagen -->
+              <div class="form-group">
+                <label for="imagen">Imagen del producto </label>
+                <input type="file" id="imagen" accept="image/*" />
+                <small>Si no seleccionas una imagen, se conservará la actual.</small>
+              </div>
+
+              <!-- descripcion -->
+              <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <textarea id="descripcion" rows="4" required></textarea>
+              </div>
+
+              
+              <!-- Botón Guardar Cambios -->
+              <button type="submit" class="btn-guardar">Guardar Cambios</button>
+
+            </form>
+          </div>
+
+        </section>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <h4 class="footer-titulo">¿Tienes alguna duda? Envíanos un correo!<br /></h4>
+      <h4><button class="footer-contacto">Da click aquí!</button></h4>
+
+      <h4 class="footer-titulo">Síguenos en nuestras redes sociales</h4>
+      <div class="footer-redes">
+        <a href="#"><i class="fa-brands fa-instagram footer-icon"></i></a>
+      </div>
+
+      <p class="footer-copyright">
+        © 2025 Proyecto académico, no es una tienda real.
+      </p>
+    </footer>
+
+    <script src="./scripts/app.js"></script>
+  </body>
+</html>
