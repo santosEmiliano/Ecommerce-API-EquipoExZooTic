@@ -1,0 +1,104 @@
+
+    /* ===== Dashboard PRO Layout ===== */
+    .dashboard {
+      padding: 20px;
+      width: 100%;
+    }
+
+    /* Tarjetas resumen */
+    .cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card-icon {
+      font-size: 26px;
+      color: #4e79a7;
+    }
+
+    .card-title {
+      font-size: 15px;
+      color: #555;
+    }
+
+    .card-value {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    /* Gráficas */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .chart-box {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+    }
+
+    .chart-title {
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    /* Reporte */
+    .report-box {
+      margin-top: 30px;
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background: #f7f7f7;
+    }
+
+    .filter-bar {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    #barChart {
+  max-width: 700px;  
+  max-height: 600px; 
+}
+
+    .chart-box {
+    width: 100%;
+    max-width: 600px; 
+    height: 300px;    
+    margin: auto;
+  }
+
