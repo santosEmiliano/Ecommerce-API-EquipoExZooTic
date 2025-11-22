@@ -54,26 +54,108 @@
     </nav>
 
     <main>
-  <div class="admin-container">
+      <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+          <h2 class="sidebar-title">Panel Admin</h2>
+          <ul class="sidebar-menu">
+            <li>
+              <button id="btnProd" class="sidebar-link">
+                <i class="fa-solid fa-box">Productos</i>
+              </button>
+            </li>
+            <li>
+              <button id="btnStats" class="sidebar-link">
+                <i class="fa-solid fa-users">Estadísticas</i>
+              </button>
+            </li>
+          </ul>
+        </aside>
 
-    <!-- Sidebar -->
-    <aside class="admin-sidebar">
-      <h2 class="sidebar-title">Panel Admin</h2>
-      <ul class="sidebar-menu">
-        <li><a href="#" class="sidebar-link"><i class="fa-solid fa-box"></i> Productos</a></li>
-        <li><a href="/Front/panelGraficas.html" class="sidebar-link"><i class="fa-solid fa-users"></i> Graficas</a></li>
+        <!-- Contenido principal -->
+        <section class="admin-content"></section>
+      </div>
+    </main>
 
-      </ul>
-    </aside>
+    <div id="loginModal" class="modal">
+      <div class="modal-content">
+        <span id="closeModalLogin" class="close">&times;</span>
+        <h2>Iniciar Sesión</h2>
+        <form id="formLogin">
+          <input
+            type="text"
+            id="login"
+            class="inputLogin"
+            placeholder="Usuario"
+            required
+          />
+          <input
+            type="password"
+            id="password"
+            class="inputPassword"
+            placeholder="Contraseña"
+            required
+          />
+          <!-- MENSAJE PARA EDSON: Aquí debes implementar la generación del captcha -->
 
-    <!-- Contenido principal -->
-    <section class="admin-content">
-      <h1 class="admin-welcome">Bienvenido al Panel de Administrador</h1>
-      <p class="admin-text">Selecciona una opción del menú lateral para comenzar.</p>
-    </section>
+          <!-- 
+Este input de abajo es para que el usuario escriba el captcha que se le muestra. -->
+          <!-- 
+En el registrar NO necesitas agregar el captcha
+abajo de esta sección está el menú de registrarse para que le añadas también la lógica de las verificaciones ahí
+ -->
+          <input
+            type="text"
+            id="captchaText"
+            class="inputCaptcha"
+            placeholder="Escribe el captcha"
+            required
+          />
 
-  </div>
-</main>
+          <button type="submit">Enviar</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- REGISTRO -->
+    <div id="registerModal" class="modal">
+      <div class="modal-content">
+        <span id="closeModalRegister" class="close">&times;</span>
+        <h2>Regístrate</h2>
+
+        <form id="formRegister">
+          <input
+            type="text"
+            id="regUser"
+            class="inputRegUser"
+            placeholder="Usuario"
+            required
+          />
+          <input
+            type="email"
+            id="regEmail"
+            class="inputRegEmail"
+            placeholder="Correo electrónico"
+            required
+          />
+          <input
+            type="password"
+            id="regPass1"
+            class="inputRegPass"
+            placeholder="Contraseña"
+            required
+          />
+          <input
+            type="password"
+            id="regPass2"
+            class="inputRegPass"
+            placeholder="Repetir contraseña"
+            required
+          />
+          <button type="submit">Crear cuenta</button>
+        </form>
+      </div>
+    </div>
 
     <!-- footer -->
     <footer class="footer">
@@ -91,6 +173,11 @@
         © 2025 Proyecto académico, no es una tienda real.
       </p>
     </footer>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="./scripts/styles.js"></script>
     <script src="./scripts/app.js"></script>
+    <script src="./scripts/admin.js" type="module"></script>
   </body>
-</html> 
+</html>
