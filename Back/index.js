@@ -9,6 +9,8 @@ const crudRoutes = require('./routes/crud.routes'); //Rutas del CRUD
 //Importacion de la conexion a la base de datos
 const pool = require('./db/conexion'); 
 
+const userRoutes= require("./routes/user.routes");
+
 //Configuracion del app de express y del puerto
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,8 +19,10 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-//Para que el CRUD utilice /productos
+//Para que el CRUD utilice /productos //se agrego crear usuario a esta ruta 
 app.use('/', crudRoutes);
+
+app.use("/auth",userRoutes);
 
 // Funcion que hace una consulta de prueba mínima que
 // confirma que todo el circuito conexión → consulta → respuesta está funcionando
