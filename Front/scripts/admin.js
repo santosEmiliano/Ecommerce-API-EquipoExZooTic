@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
         html += `
             <div class="card">
                 <div class="card-image-container">
-                    <img src="${producto.imagen}" alt="${producto.nombre}" onerror="this.src='media/logo.png'">
+                    <img src="../Back/media${producto.imagen}" alt="${producto.nombre}" onerror="this.src='media/logo.png'">
                 </div>
                 <div class="card-body">
                     <h2>${producto.nombre}</h2>
@@ -165,9 +165,9 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <label for="categoria">Categoría</label>
                                 <select id="categoria" class="input-modal" required>
                                     <option value="">Selecciona...</option>
-                                    <option value="Categoria 1">Categoría 1</option>
-                                    <option value="Categoria 2">Categoría 2</option>
-                                    <option value="Categoria 3">Categoría 3</option>
+                                    <option value="Categoria 1">patrimonales</option>
+                                    <option value="Categoria 2">megafaunas</option>
+                                    <option value="Categoria 3">superdepredadores</option>
                                 </select>
                             </div>
                         </div>
@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 <div class="modal-actions">
                     <button type="button" class="btn-cancelar" id="btnCancelarAlta">Cancelar</button>
-                    <button type="submit" id="btn-guardar" class="btn-guardar">
+                    <button type="submit" id="btn-guardar" form="formAltaModal" class="btn-guardar">
                         <i class="fa-solid fa-save"></i> Guardar Producto
                     </button>
                 </div>
@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("btnCancelarAlta").onclick =
       cerrarModalConAnimacion;
 
-    const form = document.getElementById("btn-guardar");
+    const form = document.getElementById("formAltaModal");
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
 
@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Los nombres ("keys") de los datos deben coincidir con lo que espera tu backend (req.body) porfa
 
       //Aca lo agarran de donde ocupen, estos son solo datos de ejemplo
-      formData.append("nombnre", nombre);
+      formData.append("nombre", nombre);
       formData.append("categoria", categoria);
       formData.append("descripcion", descripcion);
       formData.append("precio", precio);
@@ -211,8 +211,8 @@ document.addEventListener("DOMContentLoaded", () => {
       formData.append("descuento", descuento);
 
       // 'imagen' debe coincidir con upload.single('imagen') en tu ruta tambien porfa que sino se traba esto
-      if (inputImagen.files) {
-        formData.append("imagen", inputImagen.files);
+      if (inputImagen.files && inputImagen.files[0]) {
+        formData.append("imagen", inputImagen.files[0]);
       }
 
       try {
@@ -236,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       console.log("Guardando producto nuevo...");
 
-      alert("Producto guardado (simulación)");
+      alert("Producto guardado");
     });
   });
   // Listener global para cerrar si das click fuera del modal
