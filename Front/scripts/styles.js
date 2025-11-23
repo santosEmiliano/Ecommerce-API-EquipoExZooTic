@@ -1,5 +1,87 @@
 const preguntas = document.querySelectorAll(".container-pregunta");
 
+//Sección General
+//Animación de patitas
+window.dispatchEvent(new Event("scroll"));
+document.addEventListener("DOMContentLoaded", () => {
+  let lastX = 0;
+  let lastY = 0;
+  // Controla qué tan seguido aparecen las huellas (cada 50px de movimiento)
+  const distanceThreshold = 100;
+
+  document.addEventListener("mousemove", (e) => {
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+
+    // Calcular la distancia recorrida desde la última huella
+    const distance = Math.sqrt(
+      Math.pow(mouseX - lastX, 2) + Math.pow(mouseY - lastY, 2)
+    );
+
+    if (distance > distanceThreshold) {
+      crearHuella(mouseX, mouseY, lastX, lastY);
+      lastX = mouseX;
+      lastY = mouseY;
+    }
+  });
+
+  function crearHuella(x, y, oldX, oldY) {
+    const huella = document.createElement("i");
+    huella.classList.add("fa-solid", "fa-paw", "huella-animada");
+    const deltaX = x - oldX;
+    const deltaY = y - oldY;
+    const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
+    const rotation = angle + 90;
+    huella.style.left = `${x}px`;
+    huella.style.top = `${y}px`;
+    huella.style.setProperty("--rotacion", `${rotation}deg`);
+
+    const tonos = [
+      "var(--color--cafe-tierra)",
+      "var(--color--cafe-madera)",
+      "var(--color--cafe-claro)",
+    ];
+    huella.style.color = tonos[Math.floor(Math.random() * tonos.length)];
+
+    document.body.appendChild(huella);
+    setTimeout(() => {
+      huella.remove();
+    }, 1500);
+  }
+});
+
+//Animación de scroll
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px" 
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+        } else {
+            entry.target.classList.remove('show'); 
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.main-card, .card-certificacion, .comentarios-card').forEach((el) => {
+    el.classList.add('hidden', 'fade-up');
+    observer.observe(el);
+});
+
+document.querySelectorAll('.main-titulo').forEach((el) => {
+    el.classList.add('hidden', 'fade-right');
+    observer.observe(el);
+});
+
+document.querySelectorAll('.main-descripcion').forEach((el) => {
+    el.classList.add('hidden', 'fade-left');
+    observer.observe(el);
+});
+
+
 //Sección Main
 const ZOOM_SCROLL_RANGE = 1200;
 const INITIAL_MASK_SIZE = 600;
@@ -51,8 +133,6 @@ window.addEventListener("scroll", () => {
     contentInner.style.transform = `translateY(-${contentScroll}px)`;
   }
 });
-
-window.dispatchEvent(new Event("scroll"));
 
 //Sección de preguntas
 preguntas.forEach((p) => {

@@ -58,18 +58,16 @@ html {
   margin: 0;
   padding: 0;
   width: 100%;
-  background-image: url("../media/Background.jpg");
+  background-image: url("../media/Background.png");
   background-position: center;
   background-size: cover;
   background-attachment: fixed;
-
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .imagen-fondo {
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)),
-    url("../media/imagen_prueba.jpg");
-  background-size: 110%;
+    url("../media/banner.jpg");
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   display: flex;
@@ -117,6 +115,45 @@ html {
   color: var(--color--gris-borde);
 }
 
+.datos-seccion {
+  padding: 5vh 5vw;
+  text-align: center;
+  background-color: var(--color--verde-bosque);
+}
+
+.datos-titulo {
+  color: var(--color--verde-lima);
+  margin-bottom: 5vh;
+  font-size: 4vh;
+}
+
+.datos-container {
+  display: flex;
+  justify-content: center;
+  gap: 3vw;
+  flex-wrap: wrap;
+}
+
+.datos-card {
+  background: white;
+  padding: 4vh 2vw;
+  border-radius: 15px;
+  width: 250px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, background-color 0.3s;
+  border-bottom: 5px solid var(--color--verde-medio);
+}
+
+.datos-card:hover {
+  transform: translateY(-10px);
+  background-color: var(--color--blanco-hueso);
+}
+
+.datos-card h4 {
+  color: var(--color--cafe-tierra);
+  margin-bottom: 1vh;
+}
+
 .main-card-categorias {
   display: flex;
   flex-wrap: wrap;
@@ -125,6 +162,7 @@ html {
   gap: 3vh;
   margin-bottom: 8vh;
   margin: 5vh;
+  transition: 0.2s ease-in;
 }
 
 .main-card {
@@ -139,7 +177,6 @@ html {
   max-width: 100%;
   display: flex;
   flex-direction: column;
-  transition: 0.4s ease-in;
 }
 
 .main-card h4 {
@@ -159,6 +196,87 @@ html {
 .main-card p {
   flex-grow: 1;
 }
+
+.section-destacado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color--blanco-hueso);
+  padding: 8vh 10vw;
+  margin: 5vh 0;
+  gap: 5vw;
+  overflow: hidden;
+}
+
+.destacado-contenido {
+  flex: 1;
+  z-index: 2;
+}
+
+.destacado-titulo {
+  font-size: 5vh;
+  color: var(--color--verde-bosque);
+  margin-bottom: 1vh;
+}
+
+.resaltado {
+  color: var(--color-rojo);
+  font-family: "Brush Script MT", cursive;
+}
+
+.destacado-subtitulo {
+  color: var(--color--cafe-tierra);
+  margin-bottom: 3vh;
+  font-size: 3vh;
+}
+
+.destacado-imagen-wrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.destacado-img {
+  width: 100%;
+  max-width: 400px;
+  z-index: 2;
+  transition: transform 0.5s ease;
+}
+
+.destacado-img:hover {
+  transform: scale(1.05) rotate(3deg);
+}
+
+.circulo-deco {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35vw;
+  height: 35vw;
+  background-color: var(--color--amarillo-suave);
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.boton-secundario {
+  background-color: var(--color--verde-bosque);
+  color: white;
+  padding: 1.5vh 3vw;
+  border: none;
+  border-radius: 20px;
+  font-size: 2vh;
+  cursor: pointer;
+  margin-top: 2vh;
+  transition: 0.3s;
+}
+
+.boton-secundario:hover {
+  background-color: var(--color-verde);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
 .section-certificacion {
   display: flex;
   gap: 4vw;
@@ -178,7 +296,7 @@ html {
   padding: 3vh 2vw;
   border-radius: 2vh;
   background-color: var(--color--verde-claro);
-  text-align: justify;
+  text-align: center;
   transition: 0.4s ease-in;
 }
 
@@ -195,11 +313,68 @@ html {
   border-radius: 1.5vh;
   border: 0.5vh solid var(--color-verde);
   text-align: center;
+  background: var(--color--verde-lima);
 }
 
 .card-certificacion p {
   font-size: 2.2vh;
   line-height: 3vh;
+}
+
+.suscripcion-section {
+  background: linear-gradient(
+    135deg,
+    var(--color-verde-oscuro),
+    var(--color--verde-bosque)
+  );
+  padding: 8vh 2vw;
+  text-align: center;
+  color: white;
+  margin-top: 5vh;
+}
+
+.suscripcion-content h2 {
+  font-size: 4vh;
+  margin-bottom: 2vh;
+}
+
+.suscripcion-content p {
+  font-size: 2.2vh;
+  margin-bottom: 3vh;
+}
+
+.suscripcion-form {
+  display: flex;
+  justify-content: center;
+  gap: 1vw;
+  margin-top: 3vh;
+  flex-wrap: wrap;
+}
+
+.suscripcion-form input {
+  padding: 1.5vh 2vw;
+  border-radius: 30px;
+  border: none;
+  width: 300px;
+  font-size: 2vh;
+  outline: none;
+}
+
+.suscripcion-form button {
+  padding: 1.5vh 3vw;
+  border-radius: 30px;
+  border: none;
+  background-color: var(--color-amarillo);
+  color: var(--color-negro);
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 2vh;
+  transition: 0.3s;
+}
+
+.suscripcion-form button:hover {
+  background-color: var(--color--naranja-suave);
+  transform: scale(1.05);
 }
 
 .comentarios {
@@ -242,12 +417,21 @@ html {
 }
 
 .comentarios-img {
-  width: 10vh;
-  height: 10vh;
   border-radius: 50%;
   object-fit: cover;
   border: 0.4vh solid var(--color--verde-hoover);
   margin-bottom: 2vh;
+}
+
+.comentarios img {
+  height: 10;
+  width: 10vw;
+  transition: 0.4s ease-in;
+}
+
+.comentarios img:hover {
+  filter: invert();
+  transform: translateY(-1vh);
 }
 
 .comentarios-card h3 {
