@@ -1,11 +1,67 @@
 const preguntas = document.querySelectorAll(".container-pregunta");
 
+//Sección Main
+const ZOOM_SCROLL_RANGE = 1200;
+const INITIAL_MASK_SIZE = 600;
+
+const stage = document.getElementById("fixed-stage");
+const contentInner = document.getElementById("content-inner");
+
+function updateBodyHeight() {
+  const contentHeight = contentInner.offsetHeight;
+  document.body.style.height = ZOOM_SCROLL_RANGE + contentHeight + "px";
+}
+
+window.addEventListener("load", updateBodyHeight);
+window.addEventListener("resize", updateBodyHeight);
+
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
+
+  if (scrollY < ZOOM_SCROLL_RANGE) {
+    if (!stage.classList.contains("masked")) {
+      stage.classList.add("masked");
+      stage.style.maskImage = "";
+      stage.style.webkitMaskImage = "";
+    }
+
+    const progress = scrollY / ZOOM_SCROLL_RANGE;
+    const newSize = INITIAL_MASK_SIZE + Math.pow(progress, 4) * 150000;
+
+    stage.style.webkitMaskSize = `${newSize}px`;
+    stage.style.maskSize = `${newSize}px`;
+
+    let newOpacity = progress * 1.5;
+    if (newOpacity > 1) newOpacity = 1;
+
+    contentInner.style.opacity = newOpacity;
+    stage.style.opacity = 0.7 + newOpacity;
+
+    contentInner.style.transform = `translateY(0px)`;
+  } else {
+    stage.classList.remove("masked");
+    stage.style.webkitMaskSize = "auto";
+    stage.style.maskSize = "auto";
+    stage.style.maskImage = "none";
+    stage.style.webkitMaskImage = "none";
+
+    contentInner.style.opacity = 1;
+
+    const contentScroll = scrollY - ZOOM_SCROLL_RANGE;
+    contentInner.style.transform = `translateY(-${contentScroll}px)`;
+  }
+});
+
+window.dispatchEvent(new Event("scroll"));
+
+//Sección de preguntas
 preguntas.forEach((p) => {
   p.querySelector(".btn-pregunta").addEventListener("click", () => {
     p.classList.toggle("activa");
   });
 });
 
+//Sección Sobre Nosotros
 document.addEventListener("DOMContentLoaded", function () {
   const items = document.querySelectorAll(".reveal");
 

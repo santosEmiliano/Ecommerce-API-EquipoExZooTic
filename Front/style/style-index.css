@@ -53,10 +53,23 @@
   box-sizing: border-box;
 }
 
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-image: url("../media/Background.jpg");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 .imagen-fondo {
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)),
     url("../media/imagen_prueba.jpg");
-  background-size: cover;
+  background-size: 110%;
   background-position: center;
   background-repeat: no-repeat;
   display: flex;
@@ -68,6 +81,40 @@
   font-size: 6vh;
   padding: 3vh 6vw;
   color: var(--color-gris-claro);
+  position: relative;
+  overflow: hidden;
+  animation: moverFondo 25s ease-in-out infinite alternate;
+}
+
+@keyframes moverFondo {
+  0% {
+    background-position: 50% 50%;
+  }
+  50% {
+    background-position: 75% 25%;
+  }
+  100% {
+    background-position: 25% 75%;
+  }
+}
+.main-boton {
+  margin-top: 5vh;
+  height: 8vh;
+  font-size: 4vh;
+  padding: 4vh;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  transition: 0.4s ease-in;
+  color: var(--color--blanco-hueso);
+  border-radius: 20px;
+}
+
+.main-boton:hover {
+  transform: translateX(2vw);
+  color: var(--color--gris-borde);
 }
 
 .main-card-categorias {
@@ -76,20 +123,37 @@
   justify-content: center;
   text-align: justify;
   gap: 3vh;
-  margin: 3vh;
+  margin-bottom: 8vh;
+  margin: 5vh;
 }
 
 .main-card {
-  background-color: var(--color-verde);
+  background-color: var(--color--verde-claro);
+  max-width: 25vw;
   padding: 3vh;
   border-style: solid;
   border-width: 0.5vh;
-  border-color: var(--color-verde-oscuro);
+  border-color: var(--color--cafe-tierra);
   border-radius: 1vh;
   flex: 1 1 30vw;
   max-width: 100%;
   display: flex;
   flex-direction: column;
+  transition: 0.4s ease-in;
+}
+
+.main-card h4 {
+  text-align: center;
+  font-size: 2.5vh;
+  padding-bottom: 3vh;
+}
+
+.main-card:hover,
+.section-certificacion:hover {
+  border-color: var(--color--cafe-hoover);
+  background-color: var(--color--verde-medio);
+  transform: translateY(-1vh);
+  box-shadow: 0 1vh 2vh var(--color--gris-oscuro);
 }
 
 .main-card p {
@@ -100,11 +164,10 @@
   gap: 4vw;
   margin: 5vh;
   padding: 4vh;
-
-  border: 0.6vh solid var(--color-verde-oscuro);
+  border: 0.6vh solid var(--color--cafe-tierra);
   border-radius: 2vh;
-
-  background-color: var(--color-verde);
+  background-color: var(--color--verde-medio);
+  transition: 0.4s ease-in;
 }
 
 .card-certificacion {
@@ -113,10 +176,16 @@
   flex-direction: column;
   gap: 2vh;
   padding: 3vh 2vw;
-  border: 0.5vh solid var(--color-verde-oscuro);
   border-radius: 2vh;
-  background-color: var(--color-gris-claro);
+  background-color: var(--color--verde-claro);
   text-align: justify;
+  transition: 0.4s ease-in;
+}
+
+.card-certificacion:hover {
+  border-color: var(--color--cafe-hoover);
+  transform: translateX(-0.8vw);
+  box-shadow: 0 1vh 2vh var(--color--gris-oscuro);
 }
 
 .certificacion-img img {
@@ -125,9 +194,7 @@
   object-fit: cover;
   border-radius: 1.5vh;
   border: 0.5vh solid var(--color-verde);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
 }
 
 .card-certificacion p {
@@ -151,12 +218,12 @@
   text-align: center;
   margin-bottom: 3vh;
   font-size: 3vh;
-  color: var(--color-gris-claro);
+  color: var(--color--blanco-hueso);
 }
 
 .comentarios-card {
-  background-color: var(--color-gris-claro);
-  border: 0.3vh solid var(--color-verde);
+  background-color: var(--color--blanco-hueso);
+  border: 0.3vh solid var(--color--cafe-tierra);
   border-radius: 2vh;
   padding: 4vh 2vw;
   flex-basis: 30vw;
@@ -165,6 +232,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: 0.4s ease-in;
+}
+
+.comentarios-card:hover {
+  transform: translateY(-1vh);
+  box-shadow: 0 1vh 2vh var(--color--gris-oscuro);
+  background-color: var(--color-gris-claro);
 }
 
 .comentarios-img {
@@ -172,7 +246,7 @@
   height: 10vh;
   border-radius: 50%;
   object-fit: cover;
-  border: 0.4vh solid var(--color-verde);
+  border: 0.4vh solid var(--color--verde-hoover);
   margin-bottom: 2vh;
 }
 
@@ -188,4 +262,57 @@
   line-height: 3vh;
   font-size: 2vh;
   flex-grow: 1;
+}
+
+/*Animación*/
+
+/* 2. EL ESCENARIO FIJO */
+#fixed-stage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+
+  /* Esto asegura que si algo falla, el fondo sea blanco */
+  background-color: white;
+
+  /* --- MÁSCARA --- */
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  /* Tamaño inicial */
+  -webkit-mask-size: 600px;
+  mask-size: 600px;
+
+  will-change: mask-size, transform;
+}
+
+.masked {
+  -webkit-mask-image: url("../media/maskImg.png");
+  mask-image: url("../media/maskImg.png");
+}
+
+/* 3. NUEVA CAPA: EL FONDO BLANCO SÓLIDO */
+/* Esta capa sirve para que las letras se vean blancas cuando el contenido es transparente */
+#white-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 0; /* Detrás del contenido */
+}
+
+/* 4. CONTENIDO INTERNO (EL RELLENO) */
+#content-inner {
+  position: relative;
+  width: 100%;
+  z-index: 1; /* Encima del fondo blanco */
+  /* Inicialmente opacidad 0, JS la controlará */
+  opacity: 0;
 }

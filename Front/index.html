@@ -15,289 +15,304 @@
     />
   </head>
   <body>
-    <!-- header -->
-    <nav class="header">
-      <div class="header-izquierda">
-        <a href="index.html" class="nav-logo">
-          <img class="logo-img" src="media/logo.png" alt="logo" />
-        </a>
-      </div>
-      <div class="header-derecha">
-        <a href="index.html" class="header-link">Inicio</a>
-        <div class="submenu-container">
-          <a href="#" class="header-link submenu-btn">Nuestros Animales</a>
-          <ul class="header-submenu">
-            <li><a href="#" class="header-submenu-link">Categoría 1</a></li>
-            <li><a href="#" class="header-submenu-link">Categoría 2</a></li>
-            <li><a href="#" class="header-submenu-link">Categoría 3</a></li>
-          </ul>
-        </div>
-        <a href="contacto.html" class="header-link">Contacto</a>
-        <a href="preguntas.html" class="header-link">Preguntas</a>
-        <a href="nosotros.html" class="header-link">Nosotros</a>
-        <div class="nombreUsuario">
-          <i id="userIcon" class="fa-solid fa-user user-name"></i>
-          <span id="userName" class="user-name"></span>
-        </div>
-        <button id="logInbtn" title="Login">
-          <span class="loginStyle">Iniciar Sesión</span>
-        </button>
+    <div id="fixed-stage" class="masked">
+      <div id="white-layer"></div>
 
-        <button id="logOutbtn" title="LogOut">
-          <span class="loginStyle">Cerrar Sesión</span>
-        </button>
-
-        <button id="regbtn" title="Register">
-          <span class="loginStyle">Regístrate</span>
-        </button>
-      </div>
-    </nav>
-
-    <!-- main -->
-    <main>
-      <section class="main-section">
-        <section class="imagen-principal">
-          <div class="imagen-fondo">
-            <h1 class="main-titulo">Bienvenido a Nuestra Tienda en Línea</h1>
-            <p class="main-descripcion">
-              Explora nuestra amplia gama de productos y encuentra lo que
-              necesitas con facilidad.
-            </p>
-            <button class="main-boton">Explorar Productos</button>
+      <div id="content-inner">
+        <!-- header -->
+        <nav class="header">
+          <div class="header-izquierda">
+            <a href="index.html" class="nav-logo">
+              <img class="logo-img" src="media/logo.png" alt="logo" />
+            </a>
           </div>
-          <div class="main-mapa">
-            <h2 class="main-titulo">Adentrate en nuestro recorrido!</h2>
-          </div>
-        </section>
-
-        <section class="main-card-categorias">
-          <div class="main-card">
-            <h4 class="card-titulo">Categoria 1</h4>
-            <div class="card-img">
-              <img src="media/imagen_prueba.jpg" alt="img-categoria" />
+          <div class="header-derecha">
+            <a href="index.html" class="header-link">Inicio</a>
+            <div class="submenu-container">
+              <a href="#" class="header-link submenu-btn">Nuestros Animales</a>
+              <ul class="header-submenu">
+                <li><a href="#" class="header-submenu-link">Categoría 1</a></li>
+                <li><a href="#" class="header-submenu-link">Categoría 2</a></li>
+                <li><a href="#" class="header-submenu-link">Categoría 3</a></li>
+              </ul>
             </div>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit
-              totam praesentium tempora unde consequuntur eaque voluptate magni
-              id saepe, a quasi. Corporis praesentium distinctio placeat nemo
-              saepe voluptatum possimus eum? Dolore qui et cumque eos
-              repudiandae sequi reiciendis provident dolores laboriosam iure
-              quidem nostrum natus esse eligendi tenetur tempora in, error eaque
-              nihil aut quisquam! Saepe, assumenda delectus? Accusantium, at!
-              Nihil odio iusto aperiam est nisi enim laboriosam architecto unde,
-              sunt cumque dolorum molestiae porro officia delectus amet totam
-              ducimus repellat. Unde, suscipit laboriosam aspernatur
-              consequuntur voluptas minima doloremque quia.
-            </p>
-          </div>
-          <div class="main-card">
-            <h4 class="card-titulo">Categoria 1</h4>
-            <div class="card-img">
-              <img src="media/imagen_prueba.jpg" alt="img-categoria" />
+            <a href="contacto.html" class="header-link">Contacto</a>
+            <a href="preguntas.html" class="header-link">Preguntas</a>
+            <a href="nosotros.html" class="header-link">Nosotros</a>
+            <div class="nombreUsuario">
+              <i id="userIcon" class="fa-solid fa-user user-name"></i>
+              <span id="userName" class="user-name"></span>
             </div>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit
-              totam praesentium tempora unde consequuntur eaque voluptate magni
-              id saepe, a quasi. Corporis praesentium distinctio placeat nemo
-              saepe voluptatum possimus eum? Dolore qui et cumque eos
-              repudiandae sequi reiciendis provident dolores laboriosam iure
-              quidem nostrum natus esse eligendi tenetur tempora in, error eaque
-              nihil aut quisquam! Saepe, assumenda delectus? Accusantium, at!
-              Nihil odio iusto aperiam est nisi enim laboriosam architecto unde,
-              sunt cumque dolorum molestiae porro officia delectus amet totam
-              ducimus repellat. Unde, suscipit laboriosam aspernatur
-              consequuntur voluptas minima doloremque quia.
-            </p>
-          </div>
-          <div class="main-card">
-            <h4 class="card-titulo">Categoria 1</h4>
-            <div class="card-img">
-              <img src="media/imagen_prueba.jpg" alt="img-categoria" />
-            </div>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit
-              totam praesentium tempora unde consequuntur eaque voluptate magni
-              id saepe, a quasi. Corporis praesentium distinctio placeat nemo
-              saepe voluptatum possimus eum? Dolore qui et cumque eos
-              repudiandae sequi reiciendis provident dolores laboriosam iure
-              quidem nostrum natus esse eligendi tenetur tempora in, error eaque
-              nihil aut quisquam! Saepe, assumenda delectus? Accusantium, at!
-              Nihil odio iusto aperiam est nisi enim laboriosam architecto unde,
-              sunt cumque dolorum molestiae porro officia delectus amet totam
-              ducimus repellat. Unde, suscipit laboriosam aspernatur
-              consequuntur voluptas minima doloremque quia.
-            </p>
-          </div>
-        </section>
+            <button id="logInbtn" title="Login">
+              <span class="loginStyle">Iniciar Sesión</span>
+            </button>
 
-        <section class="section-certificacion">
-          <div class="card-certificacion">
-            <div class="certificacion-img">
-              <img src="media/imagen_prueba.jpg" alt="certificacion1" />
-            </div>
-            <p>
-              <span
-                >Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa
-                obcaecati ducimus quibusdam dolor dignissimos nesciunt ullam qui
-                rem dolorem quasi eius, atque aspernatur modi illum, maxime
-                odit, accusantium nemo exercitationem.</span
-              >
-            </p>
-          </div>
-          <hr />
-          <div class="card-certificacion">
-            <div class="certificacion-img">
-              <img src="media/imagen_prueba.jpg" alt="certificacion1" />
-            </div>
-            <p>
-              <span
-                >Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa
-                obcaecati ducimus quibusdam dolor dignissimos nesciunt ullam qui
-                rem dolorem quasi eius, atque aspernatur modi illum, maxime
-                odit, accusantium nemo exercitationem.</span
-              >
-            </p>
-          </div>
-        </section>
+            <button id="logOutbtn" title="LogOut">
+              <span class="loginStyle">Cerrar Sesión</span>
+            </button>
 
-        <section class="comentarios">
-          <div class="comentarios-card">
-            <img
-              src="media/imagen_prueba.jpg"
-              alt="comentarios"
-              class="comentarios-img"
-            />
-            <h3>Juan Pérez</h3>
-            <p>
-              "Excelente servicio y productos de alta calidad. ¡Muy
-              recomendable!"
-            </p>
+            <button id="regbtn" title="Register">
+              <span class="loginStyle">Regístrate</span>
+            </button>
           </div>
-          <div class="comentarios-card">
-            <img
-              src="media/imagen_prueba.jpg"
-              alt="comentarios"
-              class="comentarios-img"
-            />
-            <h3>Juan Pérez</h3>
-            <p>
-              "Excelente servicio y productos de alta calidad. ¡Muy
-              recomendable!"
-            </p>
-          </div>
-          <div class="comentarios-card">
-            <img
-              src="media/imagen_prueba.jpg"
-              alt="comentarios"
-              class="comentarios-img"
-            />
-            <h3>Juan Pérez</h3>
-            <p>
-              "Excelente servicio y productos de alta calidad. ¡Muy
-              recomendable!"
-            </p>
-          </div>
-        </section>
-      </section>
-    </main>
-    <!-- login -->
-    <div id="loginModal" class="modal">
-      <div class="modal-content">
-        <span id="closeModalLogin" class="close">&times;</span>
-        <h2>Iniciar Sesión</h2>
-        <form id="formLogin">
-          <input
-            type="text"
-            id="login"
-            class="inputLogin"
-            placeholder="Usuario"
-            required
-          />
-          <input
-            type="password"
-            id="password"
-            class="inputPassword"
-            placeholder="Contraseña"
-            required
-          />
-          <!-- MENSAJE PARA EDSON: Aquí debes implementar la generación del captcha -->
+        </nav>
 
-          <!-- 
+        <!-- main -->
+        <main>
+          <section class="main-section">
+            <section class="imagen-principal">
+              <div class="imagen-fondo">
+                <canvas id="rippleCanvas"></canvas>
+                <h1 class="main-titulo">
+                  Bienvenido a Nuestra Tienda en Línea
+                </h1>
+                <p class="main-descripcion">
+                  Explora nuestra amplia gama de productos y encuentra lo que
+                  necesitas con facilidad.
+                </p>
+                <div class="mainbtn">
+                  <button class="main-boton">Explorar Productos</button>
+                </div>
+              </div>
+            </section>
+            <section class="main-card-categorias">
+              <div class="main-card">
+                <h4 class="card-titulo">Categoria 1</h4>
+                <div class="card-img">
+                  <img src="media/imagen_prueba.jpg" alt="img-categoria" />
+                </div>
+                <p>
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                  Velit totam praesentium tempora unde consequuntur eaque
+                  voluptate magni id saepe, a quasi. Corporis praesentium
+                  distinctio placeat nemo saepe voluptatum possimus eum? Dolore
+                  qui et cumque eos repudiandae sequi reiciendis provident
+                  dolores laboriosam iure quidem nostrum natus esse eligendi
+                  tenetur tempora in, error eaque nihil aut quisquam! Saepe,
+                  assumenda delectus? Accusantium, at! Nihil odio iusto aperiam
+                  est nisi enim laboriosam architecto unde, sunt cumque dolorum
+                  molestiae porro officia delectus amet totam ducimus repellat.
+                  Unde, suscipit laboriosam aspernatur consequuntur voluptas
+                  minima doloremque quia.
+                </p>
+              </div>
+              <div class="main-card">
+                <h4 class="card-titulo">Categoria 1</h4>
+                <div class="card-img">
+                  <img src="media/imagen_prueba.jpg" alt="img-categoria" />
+                </div>
+                <p>
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                  Velit totam praesentium tempora unde consequuntur eaque
+                  voluptate magni id saepe, a quasi. Corporis praesentium
+                  distinctio placeat nemo saepe voluptatum possimus eum? Dolore
+                  qui et cumque eos repudiandae sequi reiciendis provident
+                  dolores laboriosam iure quidem nostrum natus esse eligendi
+                  tenetur tempora in, error eaque nihil aut quisquam! Saepe,
+                  assumenda delectus? Accusantium, at! Nihil odio iusto aperiam
+                  est nisi enim laboriosam architecto unde, sunt cumque dolorum
+                  molestiae porro officia delectus amet totam ducimus repellat.
+                  Unde, suscipit laboriosam aspernatur consequuntur voluptas
+                  minima doloremque quia.
+                </p>
+              </div>
+              <div class="main-card">
+                <h4 class="card-titulo">Categoria 1</h4>
+                <div class="card-img">
+                  <img src="media/imagen_prueba.jpg" alt="img-categoria" />
+                </div>
+                <p>
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                  Velit totam praesentium tempora unde consequuntur eaque
+                  voluptate magni id saepe, a quasi. Corporis praesentium
+                  distinctio placeat nemo saepe voluptatum possimus eum? Dolore
+                  qui et cumque eos repudiandae sequi reiciendis provident
+                  dolores laboriosam iure quidem nostrum natus esse eligendi
+                  tenetur tempora in, error eaque nihil aut quisquam! Saepe,
+                  assumenda delectus? Accusantium, at! Nihil odio iusto aperiam
+                  est nisi enim laboriosam architecto unde, sunt cumque dolorum
+                  molestiae porro officia delectus amet totam ducimus repellat.
+                  Unde, suscipit laboriosam aspernatur consequuntur voluptas
+                  minima doloremque quia.
+                </p>
+              </div>
+            </section>
+
+            <section class="section-certificacion">
+              <div class="card-certificacion">
+                <div class="certificacion-img">
+                  <img src="media/imagen_prueba.jpg" alt="certificacion1" />
+                </div>
+                <hr />
+                <p>
+                  <span
+                    >Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Culpa obcaecati ducimus quibusdam dolor dignissimos nesciunt
+                    ullam qui rem dolorem quasi eius, atque aspernatur modi
+                    illum, maxime odit, accusantium nemo exercitationem.</span
+                  >
+                </p>
+              </div>
+              <hr />
+              <div class="card-certificacion">
+                <div class="certificacion-img">
+                  <img src="media/imagen_prueba.jpg" alt="certificacion1" />
+                </div>
+                <hr />
+                <p>
+                  <span
+                    >Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Culpa obcaecati ducimus quibusdam dolor dignissimos nesciunt
+                    ullam qui rem dolorem quasi eius, atque aspernatur modi
+                    illum, maxime odit, accusantium nemo exercitationem.</span
+                  >
+                </p>
+              </div>
+            </section>
+
+            <section class="comentarios">
+              <div class="comentarios-card">
+                <img
+                  src="media/imagen_prueba.jpg"
+                  alt="comentarios"
+                  class="comentarios-img"
+                />
+                <h3>Juan Pérez</h3>
+                <p>
+                  "Excelente servicio y productos de alta calidad. ¡Muy
+                  recomendable!"
+                </p>
+              </div>
+              <div class="comentarios-card">
+                <img
+                  src="media/imagen_prueba.jpg"
+                  alt="comentarios"
+                  class="comentarios-img"
+                />
+                <h3>Juan Pérez</h3>
+                <p>
+                  "Excelente servicio y productos de alta calidad. ¡Muy
+                  recomendable!"
+                </p>
+              </div>
+              <div class="comentarios-card">
+                <img
+                  src="media/imagen_prueba.jpg"
+                  alt="comentarios"
+                  class="comentarios-img"
+                />
+                <h3>Juan Pérez</h3>
+                <p>
+                  "Excelente servicio y productos de alta calidad. ¡Muy
+                  recomendable!"
+                </p>
+              </div>
+            </section>
+          </section>
+        </main>
+        <!-- login -->
+        <div id="loginModal" class="modal">
+          <div class="modal-content">
+            <span id="closeModalLogin" class="close">&times;</span>
+            <h2>Iniciar Sesión</h2>
+            <form id="formLogin">
+              <input
+                type="text"
+                id="login"
+                class="inputLogin"
+                placeholder="Usuario"
+                required
+              />
+              <input
+                type="password"
+                id="password"
+                class="inputPassword"
+                placeholder="Contraseña"
+                required
+              />
+              <!-- MENSAJE PARA EDSON: Aquí debes implementar la generación del captcha -->
+
+              <!-- 
 Este input de abajo es para que el usuario escriba el captcha que se le muestra. -->
-          <!-- 
+              <!-- 
 En el registrar NO necesitas agregar el captcha
 abajo de esta sección está el menú de registrarse para que le añadas también la lógica de las verificaciones ahí
  -->
-          <input
-            type="text"
-            id="captchaText"
-            class="inputCaptcha"
-            placeholder="Escribe el captcha"
-            required
-          />
+              <input
+                type="text"
+                id="captchaText"
+                class="inputCaptcha"
+                placeholder="Escribe el captcha"
+                required
+              />
 
-          <button type="submit">Enviar</button>
-        </form>
+              <button type="submit">Enviar</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- REGISTRO -->
+        <div id="registerModal" class="modal">
+          <div class="modal-content">
+            <span id="closeModalRegister" class="close">&times;</span>
+            <h2>Regístrate</h2>
+
+            <form id="formRegister">
+              <input
+                type="text"
+                id="regUser"
+                class="inputRegUser"
+                placeholder="Usuario"
+                required
+              />
+              <input
+                type="email"
+                id="regEmail"
+                class="inputRegEmail"
+                placeholder="Correo electrónico"
+                required
+              />
+              <input
+                type="password"
+                id="regPass1"
+                class="inputRegPass"
+                placeholder="Contraseña"
+                required
+              />
+              <input
+                type="password"
+                id="regPass2"
+                class="inputRegPass"
+                placeholder="Repetir contraseña"
+                required
+              />
+              <button type="submit">Crear cuenta</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- footer -->
+        <footer class="footer">
+          <h4 class="footer-titulo">
+            ¿Tienes alguna duda? Envíanos un correo!<br />
+          </h4>
+          <h4><button class="footer-contacto">Da click aquí!</button></h4>
+          <h4 class="footer-titulo">Siguenos en nuestras redes sociales</h4>
+          <div class="footer-redes">
+            <a href="#" target="_blank"
+              ><i class="fa-brands fa-instagram footer-icon"></i
+            ></a>
+          </div>
+          <p class="footer-copyright">
+            © 2025 Proyecto académico, no es una tienda real.
+          </p>
+        </footer>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+        />
       </div>
     </div>
-
-    <!-- REGISTRO -->
-    <div id="registerModal" class="modal">
-      <div class="modal-content">
-        <span id="closeModalRegister" class="close">&times;</span>
-        <h2>Regístrate</h2>
-
-        <form id="formRegister">
-          <input
-            type="text"
-            id="regUser"
-            class="inputRegUser"
-            placeholder="Usuario"
-            required
-          />
-          <input
-            type="email"
-            id="regEmail"
-            class="inputRegEmail"
-            placeholder="Correo electrónico"
-            required
-          />
-          <input
-            type="password"
-            id="regPass1"
-            class="inputRegPass"
-            placeholder="Contraseña"
-            required
-          />
-          <input
-            type="password"
-            id="regPass2"
-            class="inputRegPass"
-            placeholder="Repetir contraseña"
-            required
-          />
-          <button type="submit">Crear cuenta</button>
-        </form>
-      </div>
-    </div>
-
-    <!-- footer -->
-    <footer class="footer">
-      <h4 class="footer-titulo">
-        ¿Tienes alguna duda? Envíanos un correo!<br />
-      </h4>
-      <h4><button class="footer-contacto">Da click aquí!</button></h4>
-      <h4 class="footer-titulo">Siguenos en nuestras redes sociales</h4>
-      <div class="footer-redes">
-        <a href="#" target="_blank"
-          ><i class="fa-brands fa-instagram footer-icon"></i
-        ></a>
-      </div>
-      <p class="footer-copyright">
-        © 2025 Proyecto académico, no es una tienda real.
-      </p>
-    </footer>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="./scripts/styles.js"></script>
     <script src="./scripts/app.js"></script>
