@@ -145,6 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.getElementById("btnConfirmarBorrar").onclick = async () => {
              console.log("Eliminando ID:", id);
+             servicios.deleteProd(id);
              cerrarModalConAnimacion();
              cargarProductos();
         };
@@ -211,9 +212,9 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <label for="categoria">Categoría</label>
                                 <select id="categoria" class="input-modal" required>
                                     <option value="">Selecciona...</option>
-                                    <option value="Categoria 1">patrimonales</option>
-                                    <option value="Categoria 2">megafaunas</option>
-                                    <option value="Categoria 3">superdepredadores</option>
+                                    <option value="patrimoniales">patrimonales</option>
+                                    <option value="megafaunas">megafaunas</option>
+                                    <option value="superpredadores">superdepredadores</option>
                                 </select>
                             </div>
                         </div>

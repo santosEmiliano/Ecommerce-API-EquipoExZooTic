@@ -13,8 +13,27 @@ const getProd = async () => {
     }
 };
 
+const deleteProd = async (id) => {
+    try {
+        const response = await fetch(`http://localhost:3000/productos/${id}`, {
+            method: "DELETE"
+        });
+
+        const result = await response.json();
+        
+        if (response.ok) {
+            console.log("Producto eliminado correctamente");
+        } else {
+            console.error("Error:", result.message);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 const servicios = {
-  getProd
+  getProd,
+  deleteProd
 };
 
 export default servicios;
