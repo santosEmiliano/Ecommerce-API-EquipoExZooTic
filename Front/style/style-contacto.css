@@ -46,3 +46,102 @@
   --color--cafe-hoover: #4e342e;
   --color--gris-borde: #c5c5c5;
 }
+
+body {
+  background-image: url("/Front/media/mapa.png");
+  background-size: cover;
+  background-repeat: repeat;
+  background-attachment: fixed;
+}
+
+main {
+  max-width: 1200px;
+  margin: 4vh auto;
+  padding: 2vh;
+}
+
+h1 {
+  text-align: center;
+  font-size: 4vh;
+  margin-bottom: 1vh;
+}
+
+h6 {
+  text-align: center;
+  font-size: 2vh;
+  margin-bottom: 4vh;
+}
+
+.formulario-container {
+  background: var(--color--verde-claro);
+  padding: 3vh;
+  padding-right: 6vw;
+  border-radius: 18px;
+  box-shadow: 0vh 0.4vh 1vh var(--color--gris-borde);
+  border-style: solid;
+  border-color: var(--color--cafe-tierra);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  margin: auto;
+}
+
+.formulario-container:hover {
+  border-color: var(--color--cafe-madera);
+  transform: translateY(-0.4vh);
+  box-shadow: 0vh 0.8vh 1.6vh;
+}
+
+#formularioContacto {
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+}
+
+#formularioContacto label {
+  font-size: 1.8vh;
+  font-weight: bold;
+}
+
+.textFrom {
+  width: 100%;
+  padding: 1.2vh 1vw;
+  border-radius: 10px;
+  border: 2px solid var(--color--gris-borde);
+  font-size: 1.8vh;
+  background: var(--color--blanco-hueso);
+  transition: 0.3s ease;
+}
+
+.div4 input[type="submit"] {
+  width: 100%;
+  padding: 1.8vh;
+  background: var(--color-verde-oscuro);
+  color: var(--color--blanco-hueso);
+  border: none;
+  font-size: 2vh;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-weight: bold;
+  box-shadow: 0vh 0.4vh 0.9vh rgba(0, 0, 0, 0.2);
+}
+
+.div4 input[type="submit"]:hover {
+  background: var(--color--verde-bosque);
+  transform: translateY(-0.3vh);
+  box-shadow: 0vh 0.8vh 1.5vh rgba(0, 0, 0, 0.25);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(0.5vh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.formulario-container {
+  animation: fadeIn 0.4s ease;
+}

@@ -1,6 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Kablammo&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 * {
   margin: 0;
   padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "DynaPuff", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+p,
+label {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
 }
 
 main {
@@ -70,10 +97,13 @@ body {
   justify-content: space-between;
   align-items: center;
   text-decoration: none;
-  padding: 0 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  z-index: 100;
-  position: relative;
+  box-shadow: 0vh 0vh 0vh var(--color-verde-oscuro);
+
+  font-family: "Kablammo", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "MORF" 0;
 }
 
 .header-derecha {
@@ -332,6 +362,200 @@ body {
   opacity: 0.8;
 }
 
+/*Responsive*/
+@media (max-width: 900px) {
+  .header {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 2vh 0;
+    text-align: center;
+  }
 
-/*---------------------------------------------------------------------*/
+  .logo-img {
+    height: 10vh;
+  }
 
+  .header-derecha {
+    margin-right: 0;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .header-link {
+    font-size: 2vh;
+  }
+
+  #logInbtn,
+  #logOutbtn,
+  #regbtn {
+    height: 5vh;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    gap: 2vh;
+    padding-bottom: 2vh;
+  }
+
+  .logo-img {
+    height: 9vh;
+  }
+
+  .header-derecha {
+    flex-direction: column;
+    gap: 1.2vh;
+  }
+
+  .header-link {
+    font-size: 1.8vh;
+  }
+
+  #logInbtn,
+  #logOutbtn,
+  #regbtn {
+    width: 70%;
+    font-size: 14px;
+  }
+
+  .submenu-container {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 900px) {
+  .footer {
+    padding: 2vh;
+  }
+
+  .footer-titulo {
+    font-size: 1.8vh;
+  }
+
+  .footer-contacto {
+    font-size: 1.7vh;
+    padding: 1vh 2vh;
+  }
+
+  .footer-icon {
+    font-size: 3vh;
+  }
+
+  .footer-copyright {
+    font-size: 1.5vh;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer {
+    padding: 3vh 1vw;
+  }
+
+  .footer-titulo {
+    font-size: 2vh;
+    margin-bottom: 1vh;
+  }
+
+  .footer-contacto {
+    width: 80%;
+    font-size: 1.9vh;
+    padding: 1vh 0;
+  }
+
+  .footer-icon {
+    font-size: 3.5vh;
+    margin: 0 1vh;
+  }
+
+  .footer-contacto:hover,
+  .footer-icon:hover {
+    transform: scale(1.08);
+  }
+
+  .footer-copyright {
+    font-size: 1.8vh;
+  }
+}
+
+/*Animación mouse*/
+
+.huella-animada {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  font-size: 24px;
+  color: var(--color--cafe-tierra);
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  animation: huellita 1.5s linear forwards;
+}
+
+@keyframes huellita {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.5) rotate(var(--rotacion));
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1.1) rotate(var(--rotacion));
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1) translateY(-20px) rotate(var(--rotacion));
+  }
+}
+
+/* --- ANIMACIONES DE SCROLL (SCROLL REVEAL) --- */
+
+/* Estado inicial oculto */
+.hidden {
+  opacity: 0;
+  filter: blur(5px); /* Un desenfoque inicial se ve muy elegante */
+  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Transición suave */
+}
+
+/* Animación: Aparecer desde abajo */
+.hidden.fade-up {
+  transform: translateY(50px);
+}
+
+/* Animación: Aparecer desde la izquierda */
+.hidden.fade-left {
+  transform: translateX(-50px);
+}
+
+/* Animación: Aparecer desde la derecha */
+.hidden.fade-right {
+  transform: translateX(50px);
+}
+
+/* CLASE QUE ACTIVA LA ANIMACIÓN (JS la agrega) */
+.show {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate(0) !important; /* Regresa a su posición original */
+}
+
+/* --- Delay escalonado para tarjetas (Staggering) --- */
+/* Esto hace que si hay 3 tarjetas, aparezcan una tras otra */
+.main-card:nth-child(2) {
+  transition-delay: 0.2s;
+}
+.main-card:nth-child(3) {
+  transition-delay: 0.4s;
+}
+
+.card-certificacion:nth-child(even) {
+  transition-delay: 0.2s;
+}
+
+.comentarios-card:nth-child(2) {
+  transition-delay: 0.2s;
+}
+.comentarios-card:nth-child(3) {
+  transition-delay: 0.4s;
+}
