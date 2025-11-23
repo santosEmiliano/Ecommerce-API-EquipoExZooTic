@@ -50,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Función helper para cerrar con animación
   function cerrarModalConAnimacion() {
     const card = modal.querySelector(".admin-modal-card");
     if (!card) {
@@ -73,38 +72,85 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (btn) {
       const id = btn.dataset.id;
+      const producto = productos.find(p => p.id == id);
 
-      // Aseguramos que no tenga clases de cierre previas al abrir
+      if (!producto) return;
+
       modal.classList.remove("is-fading-out");
       modal.style.display = "flex";
 
       modal.innerHTML = `
         <div class="admin-modal-card">
             <div class="modal-header">
-                <h3>Detalles del Producto</h3>
+                <h3><i class="fa-solid fa-id-card"></i> Ficha del Producto</h3>
                 <span class="close" id="closeInfoModal">&times;</span>
             </div>
+            
             <div class="modal-body">
-                <p>Estás editando el producto con ID: <strong>${id}</strong></p>
-                <p>Aquí irían los campos del formulario de edición...</p>
+                <div class="details-grid">
+                    <div class="details-img-container">
+                        <img src="../Back/media/${producto.imagen}" alt="${producto.nombre}" onerror="this.src='media/logo.png'">
+                    </div>
+                    <div class="details-info">
+                        <h2>${producto.nombre}</h2>
+                        <div class="detail-row"><span>ID:</span><strong>#${producto.id}</strong></div>
+                        <div class="detail-row"><span>Categoría:</span><strong>${producto.categoria}</strong></div>
+                        <div class="detail-row"><span>Precio:</span><span class="tag-price">$${producto.precio}</span></div>
+                        <div class="detail-row"><span>Stock:</span><strong>${producto.existencias}</strong></div>
+                        <div class="detail-row" style="flex-direction:column; align-items:flex-start;">
+                            <span>Descripción:</span>
+                            <p style="font-size: 14px; margin-top:5px;">${producto.descripcion}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-actions">
-                <button id="btnEditar" data-id="${id}">
-                    <i class="fa-solid fa-pen-to-square"></i> Guardar Cambios
-                </button>
-            </div>
+
+            <div class="modal-actions" id="modalActions">
+                </div>
         </div>
       `;
 
-      // Usamos la nueva función para cerrar
-      document.getElementById("closeInfoModal").onclick =
-        cerrarModalConAnimacion;
+      document.getElementById("closeInfoModal").onclick = cerrarModalConAnimacion;
 
-      const btnEditar = document.getElementById("btnEditar");
-      btnEditar.onclick = () => {
-        console.log("Guardando cambios del ID:", id);
-        cerrarModalConAnimacion();
-      };
+      const actionsContainer = document.getElementById("modalActions");
+
+      function restaurarBotones() {
+        actionsContainer.innerHTML = `
+            <button id="btnEliminar" class="btn-eliminar">
+                <i class="fa-solid fa-trash"></i> Eliminar
+            </button>
+            <button id="btnModificar" class="btn-modificar" data-id="${id}">
+                <i class="fa-solid fa-pen"></i> Modificar
+            </button>
+        `;
+
+        document.getElementById("btnModificar").onclick = () => {
+            console.log("Abriendo formulario para editar ID:", id);
+            cerrarModalConAnimacion();
+        };
+
+        document.getElementById("btnEliminar").onclick = mostrarConfirmacion;
+      }
+
+      function mostrarConfirmacion() {
+        actionsContainer.innerHTML = `
+            <span class="text-danger" style="font-weight:bold; margin-right:10px;">¿Estás seguro de eliminar esto?</span>
+            <button id="btnCancelarBorrar" class="btn-modificar" style="background:#ccc; color:black;">Cancelar</button>
+            <button id="btnConfirmarBorrar" class="btn-eliminar">¡Sí, Eliminar!</button>
+        `;
+
+        document.getElementById("btnCancelarBorrar").onclick = () => {
+            restaurarBotones();
+        };
+
+        document.getElementById("btnConfirmarBorrar").onclick = async () => {
+             console.log("Eliminando ID:", id);
+             cerrarModalConAnimacion();
+             cargarProductos();
+        };
+      }
+
+      restaurarBotones();
     }
   });
 
@@ -191,18 +237,16 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
 
-      const inputImagen = document.querySelector("#imagen"); // como sea que tengan el html que agarra las imagenes
-      const nombre = document.querySelector("#nombre").value; // Nombre
-      const categoria = document.querySelector("#categoria").value; // Categoria
-      const descripcion = document.querySelector("#descripcion").value; // descripcion
+      const inputImagen = document.querySelector("#imagen");
+      const nombre = document.querySelector("#nombre").value;
+      const categoria = document.querySelector("#categoria").value;
+      const descripcion = document.querySelector("#descripcion").value;
       const precio = document.querySelector("#precio").value
       const existencias = document.querySelector("#cantidadAlta").value
       const descuento = document.querySelector("#descuento").value
 
       const formData = new FormData();
-      // Los nombres ("keys") de los datos deben coincidir con lo que espera tu backend (req.body) porfa
 
-      //Aca lo agarran de donde ocupen, estos son solo datos de ejemplo
       formData.append("nombre", nombre);
       formData.append("categoria", categoria);
       formData.append("descripcion", descripcion);
@@ -210,7 +254,6 @@ document.addEventListener("DOMContentLoaded", () => {
       formData.append("existencias", existencias);
       formData.append("descuento", descuento);
 
-      // 'imagen' debe coincidir con upload.single('imagen') en tu ruta tambien porfa que sino se traba esto
       if (inputImagen.files && inputImagen.files[0]) {
         formData.append("imagen", inputImagen.files[0]);
       }
@@ -225,7 +268,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (response.ok) {
           console.log("Creado con ID:", result.id);
 
-          // Recargamos la lista de productos para ver el nuevo
           cargarProductos(); 
           cerrarModalConAnimacion();
         } else {
@@ -239,8 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Producto guardado");
     });
   });
-  // Listener global para cerrar si das click fuera del modal
-  // Usamos addEventListener para no sobreescribir el de admin.js
+
   window.addEventListener("click", (event) => {
     if (event.target == modal) {
       cerrarModalConAnimacion();

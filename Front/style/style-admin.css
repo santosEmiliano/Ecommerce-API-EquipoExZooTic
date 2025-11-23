@@ -211,19 +211,16 @@
   background: white;
   padding: 0;
   border-radius: 20px;
-  width: 500px; 
-  max-width: 90%;
+  width: 800px;  
+  max-width: 90%; 
   position: relative;
   overflow: hidden;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
-  
-  /* Animación de ENTRADA por defecto */
   animation: modalPopIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
-/* CLASE PARA LA ANIMACIÓN DE SALIDA (Se activa con JS) */
 .admin-modal-card.is-closing {
   animation: modalPopOut 0.25s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
 }
@@ -248,6 +245,7 @@
   background: #f9f9f9;
   display: flex;
   justify-content: flex-end;
+  gap: 15px; 
 }
 
 #btnEditar {
@@ -281,13 +279,11 @@
   100% { transform: scale(1); opacity: 1; }
 }
 
-/* Salida (Pop Out - Inversa) */
 @keyframes modalPopOut {
   0% { transform: scale(1); opacity: 1; }
   100% { transform: scale(0.9); opacity: 0; }
 }
 
-/* Opcional: Animación para desvanecer el fondo oscuro suavemente */
 .modal.is-fading-out {
     animation: fadeOutBackdrop 0.25s forwards;
 }
@@ -297,13 +293,9 @@
     to { background-color: rgba(30, 30, 30, 0); }
 }
 
-/*Añadir Productos*/
 #add-products{
  display: none; 
 }
-
-/* --- FORMULARIO DE ALTAS --- */
-
 
 .input-modal {
     width: 100%;
@@ -394,4 +386,104 @@
     border-radius: 5px;
     cursor: pointer;
     margin-right: 10px;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr; 
+  gap: 25px;
+  height: 100%;
+}
+
+.details-img-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background: #f0f0f0;
+}
+
+.details-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
+
+.details-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--color--gris-oscuro);
+}
+
+.details-info h2 {
+  font-size: 24px;
+  color: var(--color--verde-bosque);
+  border-bottom: 2px solid var(--color--verde-lima);
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+  padding: 8px 0;
+}
+
+.detail-row strong {
+  color: var(--color-negro);
+}
+
+.tag-price {
+  background-color: var(--color--verde-claro);
+  color: var(--color--verde-bosque);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.btn-modificar {
+  background-color: var(--color-amarillo);
+  color: var(--color-negro);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-modificar:hover {
+  background-color: var(--color--amarillo-ocre);
+  transform: translateY(-2px);
+}
+
+.btn-eliminar {
+  background-color: var(--color-rojo);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-eliminar:hover {
+  background-color: #c02825; 
+  transform: translateY(-2px);
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.text-danger {
+  color: var(--color-rojo);
+  font-weight: bold;
+  margin-right: 10px;
 }
