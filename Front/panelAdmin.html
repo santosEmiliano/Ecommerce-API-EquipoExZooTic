@@ -15,7 +15,7 @@
     />
   </head>
   <body>
-    <!-- header -->
+    <div id="info-modal" class="modal"></div>
     <nav class="header">
       <div class="header-izquierda">
         <a href="index.html" class="nav-logo">
@@ -54,28 +54,147 @@
     </nav>
 
     <main>
-  <div class="admin-container">
+      <div class="admin-container">
+        <aside class="admin-sidebar">
+          <h2 class="sidebar-title">Panel Admin</h2>
+          <ul class="sidebar-menu">
+            <li>
+              <button id="btnProd" class="sidebar-link">
+                <i class="fa-solid fa-box"></i> Productos
+                <i
+                  class="fa-solid fa-chevron-down"
+                  style="margin-left: auto; font-size: 0.8em"
+                ></i>
+              </button>
 
-    <!-- Sidebar -->
-    <aside class="admin-sidebar">
-      <h2 class="sidebar-title">Panel Admin</h2>
-      <ul class="sidebar-menu">
-        <li><a href="#" class="sidebar-link"><i class="fa-solid fa-box"></i> Productos</a></li>
-        <li><a href="/Front/panelGraficas.html" class="sidebar-link"><i class="fa-solid fa-users"></i> Graficas</a></li>
+              <div id="submenu-filtros" class="sidebar-submenu">
+                <div class="filter-group">
+                  <label>Categoría:</label>
+                  <select id="filtro-categoria" class="filter-input">
+                    <option value="">Todas</option>
+                    <option value="patrimoniales">Patrimoniales</option>
+                    <option value="megafaunas">Megafaunas</option>
+                    <option value="superdepredadores">Superdepredadores</option>
+                  </select>
+                </div>
 
-      </ul>
-    </aside>
+                <div class="filter-group">
+                  <label
+                    >Precio Máximo: $<span id="price-val">5000</span></label
+                  >
+                  <input
+                    type="range"
+                    id="filtro-precio"
+                    class="filter-range"
+                    min="0"
+                    max="10000"
+                    step="100"
+                    value="5000"
+                  />
+                </div>
 
-    <!-- Contenido principal -->
-    <section class="admin-content">
-      <h1 class="admin-welcome">Bienvenido al Panel de Administrador</h1>
-      <p class="admin-text">Selecciona una opción del menú lateral para comenzar.</p>
-    </section>
+                <div class="filter-group-checkbox">
+                  <input type="checkbox" id="filtro-oferta" />
+                  <label for="filtro-oferta">Solo Ofertas</label>
+                </div>
 
-  </div>
-</main>
+                <button id="btn-aplicar-filtros" class="btn-filter-apply">
+                  Aplicar Filtros
+                </button>
+              </div>
+            </li>
 
-    <!-- footer -->
+            <li>
+              <button id="btnStats" class="sidebar-link">
+                <i class="fa-solid fa-users"></i> Estadísticas
+              </button>
+            </li>
+          </ul>
+        </aside>
+
+        <section class="admin-content">
+          <div class="header-admin-content">
+            <h1>PRODUCTOS REGISTRADOS</h1>
+            <button id="btn-add-product">
+              <i class="fa-regular fa-square-plus"></i>Añadir Producto
+            </button>
+          </div>
+          <div class="products-grid" id="products-grid"></div>
+        </section>
+      </div>
+    </main>
+
+    <div id="loginModal" class="modal">
+      <div class="modal-content">
+        <span id="closeModalLogin" class="close">&times;</span>
+        <h2>Iniciar Sesión</h2>
+        <form id="formLogin">
+          <input
+            type="text"
+            id="login"
+            class="inputLogin"
+            placeholder="Usuario"
+            required
+          />
+          <input
+            type="password"
+            id="password"
+            class="inputPassword"
+            placeholder="Contraseña"
+            required
+          />
+          <input
+            type="text"
+            id="captchaText"
+            class="inputCaptcha"
+            placeholder="Escribe el captcha"
+            required
+          />
+
+          <button type="submit">Enviar</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="registerModal" class="modal">
+      <div class="modal-content">
+        <span id="closeModalRegister" class="close">&times;</span>
+        <h2>Regístrate</h2>
+
+        <form id="formRegister">
+          <input
+            type="text"
+            id="regUser"
+            class="inputRegUser"
+            placeholder="Usuario"
+            required
+          />
+          <input
+            type="email"
+            id="regEmail"
+            class="inputRegEmail"
+            placeholder="Correo electrónico"
+            required
+          />
+          <input
+            type="password"
+            id="regPass1"
+            class="inputRegPass"
+            placeholder="Contraseña"
+            required
+          />
+          <input
+            type="password"
+            id="regPass2"
+            class="inputRegPass"
+            placeholder="Repetir contraseña"
+            required
+          />
+          <button type="submit">Crear cuenta</button>
+        </form>
+      </div>
+    </div>
+
     <footer class="footer">
       <h4 class="footer-titulo">
         ¿Tienes alguna duda? Envíanos un correo!<br />
@@ -91,6 +210,14 @@
         © 2025 Proyecto académico, no es una tienda real.
       </p>
     </footer>
-    <script src="./scripts/app.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="./scripts/styles.js"></script>
+    <script src="./scripts/app.js" type="module"></script>
+    <script src="./scripts/admin.js" type="module"></script>
   </body>
-</html> 
+</html>
