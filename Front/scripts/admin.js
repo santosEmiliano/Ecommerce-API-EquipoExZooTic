@@ -5,9 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
   let productos;
 
   cargarProductos();
-  document.getElementById("btnProd").onclick = () => {
-    cargarProductos();
-  };
+  
+  const btnProd = document.getElementById("btnProd");
+  if(btnProd) {
+      btnProd.onclick = () => cargarProductos();
+  }
 
   async function cargarProductos() {
     try {
@@ -16,38 +18,59 @@ document.addEventListener("DOMContentLoaded", () => {
       let html = "";
 
       if (!Array.isArray(productos) || productos.length === 0) {
-        console.log("No hay productos o el formato es incorrecto");
+        productosGrid.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; color: gray; padding: 50px;">
+                <i class="fa-solid fa-box-open" style="font-size: 50px; margin-bottom: 20px;"></i>
+                <h3>No hay productos disponibles</h3>
+            </div>`;
         return;
       }
 
       productos.forEach((producto) => {
         html += `
-                <div class="card">
-                    <img src="${producto.imagen}" alt="${producto.nombre}">
+            <div class="card">
+                <div class="card-image-container">
+                    <img src="${producto.imagen}" alt="${producto.nombre}" onerror="this.src='media/logo.png'">
+                </div>
+                <div class="card-body">
                     <h2>${producto.nombre}</h2>
-                    <button class="btnDetails" data-id="${producto.id}">Ver Detalles</button>
-                </div>`;
+                    <button class="btnDetails" data-id="${producto.id}">
+                        <i class="fa-solid fa-eye"></i> Ver Detalles
+                    </button>
+                </div>
+            </div>`;
       });
 
       productosGrid.innerHTML = html;
     } catch (error) {
       console.error("Hubo un error cargando los productos:", error);
+      productosGrid.innerHTML = `<p style="color: red; text-align: center;">Error al cargar productos.</p>`;
     }
   }
 
   productosGrid.addEventListener("click", (e) => {
-    if (e.target.classList.contains("btnDetails")) {
-      const id = e.target.dataset.id;
+    const btn = e.target.closest(".btnDetails");
+    
+    if (btn) {
+      const id = btn.dataset.id;
       const modal = document.getElementById("info-modal");
 
       modal.style.display = "flex";
 
       modal.innerHTML = `
-        <div class="admin-modal-card"> <span class="close" id="closeInfoModal">&times;</span>
-            <h2>Detalles del Producto</h2>
-            <p>Estás viendo el producto con ID: <strong>${id}</strong></p>
+        <div class="admin-modal-card">
+            <div class="modal-header">
+                <h3>Detalles del Producto</h3>
+                <span class="close" id="closeInfoModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Estás editando el producto con ID: <strong>${id}</strong></p>
+                <p>Aquí irían los campos del formulario de edición...</p>
+            </div>
             <div class="modal-actions">
-                <button id="btnEditar" data-id="${id}">Editar este producto</button>
+                <button id="btnEditar" data-id="${id}">
+                    <i class="fa-solid fa-pen-to-square"></i> Guardar Cambios
+                </button>
             </div>
         </div>
       `;
@@ -59,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const btnEditar = document.getElementById("btnEditar");
       btnEditar.onclick = () => {
-        console.log("Ir a la pantalla de edición del ID:", id);
+        console.log("Guardando cambios del ID:", id);
         modal.style.display = "none";
         modal.innerHTML = "";
       };
