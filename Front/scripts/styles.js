@@ -1,14 +1,8 @@
-const preguntas = document.querySelectorAll(".btn-pregunta");
+const preguntas = document.querySelectorAll(".container-pregunta");
 
-preguntas.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const respuesta = btn.nextElementSibling;
-
-    if (respuesta.style.maxHeight) {
-      respuesta.style.maxHeight = null;
-    } else {
-      respuesta.style.maxHeight = respuesta.scrollHeight + "px";
-    }
+preguntas.forEach((p) => {
+  p.querySelector(".btn-pregunta").addEventListener("click", () => {
+    p.classList.toggle("activa");
   });
 });
 
@@ -57,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 //Alert diseño
-function toast(msg, color ) {
+function toast(msg, color) {
   Toastify({
     text: msg,
     duration: 3800,
@@ -67,7 +61,7 @@ function toast(msg, color ) {
     stopOnFocus: true,
     offset: {
       x: 25,
-      y: 80
+      y: 80,
     },
     style: {
       background: `${color}`,
@@ -81,6 +75,6 @@ function toast(msg, color ) {
       color: "#000000",
       textAlign: "center",
       boxShadow: "0 0.8vh 1.6vh rgba(0,0,0,0.35)",
-    }
+    },
   }).showToast();
 }

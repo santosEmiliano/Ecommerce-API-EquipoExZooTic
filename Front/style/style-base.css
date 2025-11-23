@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Kablammo&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -6,6 +7,26 @@
 body {
   display: flex;
   flex-direction: column;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "DynaPuff", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+p, label {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
 }
 
 main {
@@ -69,6 +90,12 @@ main {
   justify-content: space-between;
   text-decoration: none;
   box-shadow: 0vh 0vh 0vh var(--color-verde-oscuro);
+
+  font-family: "Kablammo", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "MORF" 0;
 }
 
 .header-derecha {
@@ -327,6 +354,4 @@ main {
   opacity: 0.8;
 }
 
-
 /*---------------------------------------------------------------------*/
-
