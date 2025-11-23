@@ -1,134 +1,364 @@
-/* --- Estructura de la Línea de Tiempo --- */
+:root {
+  /*paleta básica*/
+  --color-rojo: #e8332f;
+  --color-celeste: #44c2dd;
+  --color-amarillo: #d9c93b;
+  --color-verde-agua: #1d8e7a;
+  --color-verde: #7ab24e;
+
+  --color-azul-suave: #56a4af;
+  --color-azul-oscuro: #403786;
+  --color-gris-claro: #dadada;
+  --color-verde-oscuro: #4c5f41;
+  --color-negro: #111110;
+
+  /*verdes*/
+  --color--verde-claro: #9fdc7a;
+  --color--verde-medio: #6fae5c;
+  --color--verde-bosque: #2f5d34;
+  --color--verde-musgo: #597a4a;
+  --color--verde-menta: #90d8c2;
+  --color--verde-lima: #c7e86a;
+
+  /*azules*/
+  --color--azul-cielo: #7dd5ef;
+  --color--azul-profundo: #2b2f5b;
+  --color--azul-turquesa: #2fb8b0;
+  --color--azul-gris: #8aa9b1;
+
+  /*amarillos*/
+  --color--amarillo-suave: #f3e57c;
+  --color--amarillo-ocre: #d3a724;
+  --color--naranja-suave: #e8a16a;
+
+  /*cafés*/
+  --color--cafe-madera: #6a4a2b;
+  --color--cafe-claro: #d7b89c;
+  --color--cafe-arena: #c9a27d;
+  --color--cafe-tierra: #8b5e34;
+
+  /*grises*/
+  --color--gris-medio: #a0a0a0;
+  --color--gris-oscuro: #5a5a5a;
+  --color--blanco-hueso: #f4f4f1;
+
+  --color--verde-hoover: #4fe721;
+  --color--cafe-hoover: #4e342e;
+  --color--gris-borde: #c5c5c5;
+}
+
+body {
+  background-image: url("/Front/media/mapa.png");
+  background-size: cover;
+  background-repeat: repeat;
+  background-attachment: fixed;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.section-1 {
+  width: 90vw;
+  margin: 4vh auto;
+}
+
+.mision-contenedor {
+  background-color: var(--color--verde-bosque);
+  padding: 4vh;
+  border-radius: 2vh;
+  text-align: center;
+  position: relative;
+}
+.mision-contenedor::after {
+  content: "";
+  position: absolute;
+  top: 1vh;
+  left: 1vw;
+  right: 1vw;
+  bottom: 1vh;
+  border: 0.3vh dashed var(--color--verde-lima);
+  border-radius: 1.5vh;
+  pointer-events: none;
+}
+
+.titulo {
+  font-size: 4vh;
+  color: var(--color--blanco-hueso);
+  text-transform: uppercase;
+  letter-spacing: 0.2vw;
+}
+
+.section-2 {
+  width: 90vw;
+  margin: 0 auto 8vh auto;
+}
+
+.container-grid {
+  display: flex;
+  align-items: center;
+  gap: 4vw;
+  background-color: rgba(159, 220, 122, 0.6);
+  padding: 4vh;
+  border-radius: 2vh;
+}
+
+.container-left {
+  flex: 1.5;
+}
+
+.subtitulo {
+  font-size: 3vh;
+  margin-bottom: 2vh;
+  border-bottom: 0.4vh solid var(--color--amarillo-ocre);
+  display: inline-block;
+  padding-bottom: 0.5vh;
+}
+
+.pharagraph p {
+  font-size: 2vh;
+  line-height: 1.6;
+  margin-bottom: 2vh;
+  text-align: justify;
+}
+
+.container-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.card-rgb img {
+  width: 100%;
+  max-width: 30vw;
+  border-radius: 1vh;
+  border: 1vh solid var(--color--verde-lima);
+  box-shadow: 0 1vh 2vh rgba(0, 0, 0, 0.4);
+  transform: rotate(3deg);
+  transition: transform 0.3s ease;
+}
+
+.card-rgb img:hover {
+  transform: rotate(0deg) scale(1.05);
+}
+
+.section-3 {
+  width: 90vw;
+  margin: 0 auto 10vh auto;
+}
+
+.subtitulo-valor {
+  text-align: center;
+  font-size: 3.5vh;
+  color: var(--color--cafe-tierra);
+  margin-bottom: 5vh;
+  background-color: var(--color--verde-claro);
+  padding: 1vh 2vw;
+  border-radius: 1vh;
+  border: 0.3vh solid var(--color--cafe-madera);
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.valores-container {
+  display: flex;
+  justify-content: center;
+  gap: 3vw;
+  flex-wrap: wrap;
+}
+
+.valor {
+  flex: 1;
+  min-width: 25vw;
+  background-color: var(--color--verde-claro);
+  border: 0.4vh solid var(--color--verde-bosque);
+  border-radius: 2vh;
+  padding: 3vh 2vw;
+  text-align: center;
+  box-shadow: 0 0.8vh 0 var(--color--verde-oscuro);
+  transition: transform 0.3s ease, background-color 0.3s;
+}
+
+.valor:hover {
+  transform: translateY(-1vh);
+  background-color: var(--color--verde-lima);
+}
+
+.icon-container {
+  background-color: transparent;
+  width: 10vh;
+  height: 10vh;
+  border-radius: 50%;
+  margin: 0 auto 2vh auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.3vh solid var(--color--cafe-tierra);
+}
+
+.icon {
+  width: 60%;
+  height: auto;
+}
+
+.valor-titulo {
+  font-size: 2.2vh;
+  color: var(--color--cafe-madera);
+  margin-bottom: 1.5vh;
+  font-weight: bold;
+}
+
+.valor-texto {
+  font-size: 1.8vh;
+  color: var(--color--negro);
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .container-grid {
+    flex-direction: column;
+  }
+
+  .card-rgb img {
+    max-width: 70vw;
+    margin-top: 3vh;
+    transform: rotate(0deg);
+  }
+
+  .valores-container {
+    flex-direction: column;
+  }
+
+  .valor {
+    margin-bottom: 3vh;
+  }
+}
 
 .timeline-section {
   position: relative;
-  padding: 50px 0;
-  /* Un fondo sutil para la sección */
-  background-color: #f9f9f9;
+  padding: 5vh 0;
+  width: 100vw;
+  max-width: 90vw;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
-/* La barra vertical (el "track" gris) */
 .timeline-bar {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 50%;
-  width: 6px;
-  background-color: #e0e0e0;
+  width: 1.5vw;
   transform: translateX(-50%);
-  z-index: 1;
+  background-color: var(--color--gris-claro);
+  border: 0.2vh dashed var(--color--cafe-claro);
+  border-radius: 1vh;
+  z-index: 0;
 }
 
-/* El relleno de color que crecerá con el scroll */
 .timeline-fill {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 0; /* Inicia en 0, JavaScript la controlará */
-  background-color: #007bff; /* Cambia esto por tu color principal */
-  z-index: 2;
+  height: 0%;
+  background-color: var(--color--cafe-hoover);
+  border-radius: 1vh;
+  transition: height 0.1s linear;
+  box-shadow: 0 0 1vh var(--color--cafe-arena);
 }
 
 .timeline-container {
   position: relative;
-  z-index: 3; /* Asegura que el contenido esté sobre la barra */
+  z-index: 1;
 }
 
-/* --- Contenedor de cada fila (Tarjeta + Icono) --- */
 .timeline-item {
   display: flex;
-  position: relative;
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 8vh;
+  position: relative;
+  opacity: 0;
+  transform: translateY(5vh);
+  transition: all 0.6s ease-out;
 }
 
-/* El "punto" o "círculo" en la línea de tiempo */
-.timeline-item::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 25px; /* Ajusta esto para centrarlo verticalmente con tu icono/card */
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background-color: #ffffff;
-  border: 4px solid #007bff; /* Mismo color que el relleno */
-  transform: translateX(-50%);
-  z-index: 4;
+.timeline-item.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* --- Lados Izquierdo y Derecho --- */
-
-.timeline-content,
-.timeline-icon {
-  width: 50%;
-  padding: 10px 40px;
-  box-sizing: border-box;
-}
-
-/* Estilos para el lado del icono */
-.timeline-icon {
-  display: flex;
-  align-items: center;
-}
-.timeline-icon img {
-  width: 60px;
-  height: 60px;
-  opacity: 0.7;
-}
-
-/* Alineación de los iconos */
-.timeline-content.left + .timeline-icon {
-  /* Icono a la derecha */
+.timeline-item:nth-child(odd) {
   justify-content: flex-start;
 }
-.timeline-icon + .timeline-content.right {
-  /* Icono a la izquierda */
+
+.timeline-item:nth-child(even) {
   justify-content: flex-end;
 }
 
-/* --- Estilos de la Tarjeta --- */
-.card {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border: 1px solid #eee;
+.timeline-content {
+  width: 45%;
+  position: relative;
 }
 
-.card .foto {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 10px;
-  border: 3px solid #eee;
+.timeline-item:nth-child(odd) .timeline-content {
+  margin-right: 5%;
+  text-align: right;
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+  margin-left: 5%;
+  text-align: left;
+}
+
+.card {
+  background-color: var(--color--verde-claro);
+  padding: 3vh;
+  border-radius: 2vh;
+  border: 0.4vh solid var(--color--verde-bosque);
+  box-shadow: 0.5vh 0.5vh 0 var(--color--verde-bosque);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  background-color: var(--color--verde-lima);
 }
 
 .card h3 {
-  margin: 0 0 10px 0;
-  font-size: 1.3rem;
-  color: #333;
+  color: var(--color--cafe-madera);
+  font-size: 2.5vh;
+  margin: 1vh 0;
 }
 
-.card p {
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: #666;
-  margin: 0;
+.foto {
+  width: 15vh;
+  height: 15vh;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 0.4vh solid var(--color--amarillo-ocre);
+  box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.2);
+  display: block;
+  margin: 0 auto 2vh auto;
 }
 
-/* --- Animación de Aparición (Reveal) --- */
+@media (max-width: 768px) {
+  .timeline-bar {
+    left: 4vw;
+  }
 
-.reveal {
-  position: relative;
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
+  .timeline-item:nth-child(odd),
+  .timeline-item:nth-child(even) {
+    justify-content: flex-end;
+  }
 
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
+  .timeline-content {
+    width: 85%;
+    margin: 0;
+    padding-left: 4vw;
+    text-align: left !important;
+  }
 }

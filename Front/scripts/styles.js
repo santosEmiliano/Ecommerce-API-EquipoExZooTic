@@ -52,35 +52,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
 //Animación de scroll
 const observerOptions = {
-    threshold: 0.1,
-    rootMargin: "0px 0px -50px 0px" 
+  threshold: 0.1,
+  rootMargin: "0px 0px -50px 0px",
 };
 
 const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('show');
-        } else {
-            entry.target.classList.remove('show'); 
-        }
-    });
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+    } else {
+      entry.target.classList.remove("show");
+    }
+  });
 }, observerOptions);
 
-document.querySelectorAll('.main-card, .card-certificacion, .comentarios-card').forEach((el) => {
-    el.classList.add('hidden', 'fade-up');
+document
+  .querySelectorAll(".main-card, .card-certificacion, .comentarios-card")
+  .forEach((el) => {
+    el.classList.add("hidden", "fade-up");
     observer.observe(el);
+  });
+
+document.querySelectorAll(".main-titulo").forEach((el) => {
+  el.classList.add("hidden", "fade-right");
+  observer.observe(el);
 });
 
-document.querySelectorAll('.main-titulo').forEach((el) => {
-    el.classList.add('hidden', 'fade-right');
-    observer.observe(el);
+document.querySelectorAll(".main-descripcion").forEach((el) => {
+  el.classList.add("hidden", "fade-left");
+  observer.observe(el);
 });
-
-document.querySelectorAll('.main-descripcion').forEach((el) => {
-    el.classList.add('hidden', 'fade-left');
-    observer.observe(el);
-});
-
 
 //Sección Main
 const ZOOM_SCROLL_RANGE = 1200;
@@ -143,12 +144,46 @@ preguntas.forEach((p) => {
 
 //Sección Sobre Nosotros
 document.addEventListener("DOMContentLoaded", function () {
-  const items = document.querySelectorAll(".reveal");
+  // --- 1. LÓGICA DE LA LÍNEA QUE SE LLENA (EL MAPA) ---
+  const timelineSection = document.querySelector(".timeline-section");
+  const timelineFill = document.querySelector(".timeline-fill");
+
+  function updateTimelineFill() {
+    if (!timelineSection || !timelineFill) return;
+
+    // Obtenemos posiciones
+    const scrollTop = window.scrollY;
+    const viewportHeight = window.innerHeight;
+    const sectionTop = timelineSection.offsetTop;
+    const sectionHeight = timelineSection.offsetHeight;
+
+    // Calculamos cuándo empieza a verse la sección en pantalla
+    // startPoint: cuando la parte superior de la sección llega a la mitad de la pantalla
+    const startPoint = sectionTop - viewportHeight / 2;
+
+    // Cuánto hemos scrolleado dentro de la sección
+    let pixelsScrolled = scrollTop - startPoint;
+
+    // Distancia total a recorrer (ajustamos un poco para que termine antes del final exacto)
+    let totalScrollableDistance = sectionHeight - viewportHeight / 2;
+
+    // Convertimos a porcentaje (0 a 100)
+    let percent = (pixelsScrolled / totalScrollableDistance) * 100;
+
+    // Limitamos entre 0% y 100%
+    percent = Math.min(100, Math.max(0, percent));
+
+    // Aplicamos la altura
+    timelineFill.style.height = percent + "%";
+  }
+
+  // --- 2. LÓGICA PARA QUE LAS TARJETAS APAREZCAN (REVEAL) ---
+  const items = document.querySelectorAll(".timeline-item");
 
   const observerOptions = {
-    root: null,
+    root: null, // viewport
     rootMargin: "0px",
-    threshold: 0.3,
+    threshold: 0.3, // Se activa cuando el 30% del elemento es visible
   };
 
   const observer = new IntersectionObserver((entries, observer) => {
@@ -156,7 +191,8 @@ document.addEventListener("DOMContentLoaded", function () {
       if (entry.isIntersecting) {
         entry.target.classList.add("active");
       } else {
-        entry.target.classList.remove("active");
+        // Opcional: Si quieres que desaparezcan al subir, descomenta esto:
+        // entry.target.classList.remove('active');
       }
     });
   }, observerOptions);
@@ -165,24 +201,10 @@ document.addEventListener("DOMContentLoaded", function () {
     observer.observe(item);
   });
 
-  const timelineSection = document.querySelector(".timeline-section");
-  const timelineFill = document.querySelector(".timeline-fill");
-
-  function updateTimelineFill() {
-    if (!timelineSection || !timelineFill) return;
-
-    const scrollTop = window.scrollY;
-    const viewportHeight = window.innerHeight;
-    const sectionTop = timelineSection.offsetTop;
-    const sectionHeight = timelineSection.offsetHeight;
-    const startPoint = sectionTop - viewportHeight / 2;
-    let pixelsScrolled = scrollTop - startPoint;
-    let totalScrollableDistance = sectionHeight - viewportHeight / 2;
-    let percent = (pixelsScrolled / totalScrollableDistance) * 100;
-    percent = Math.min(100, Math.max(0, percent));
-    timelineFill.style.height = percent + "%";
-  }
+  // Escuchar el evento scroll para la línea
   window.addEventListener("scroll", updateTimelineFill);
+
+  // Ejecutar una vez al inicio por si ya estamos a mitad de página
   updateTimelineFill();
 });
 
