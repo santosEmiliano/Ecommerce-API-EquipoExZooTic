@@ -377,23 +377,11 @@ document.addEventListener("DOMContentLoaded", () => {
         formData.append("imagen", inputImagen.files[0]);
       }
 
-      try {
-        const response = await fetch("http://localhost:3000/productos", {
-          method: "POST",
-          body: formData,
-        });
+      servicios.addProduct(formData);
 
-        if (response.ok) {
-          alert("Producto guardado");
-          cargarProductos();
-          cerrarModalConAnimacion();
-        } else {
-          const res = await response.json();
-          alert("Error: " + res.message);
-        }
-      } catch (error) {
-        console.error("Error de red:", error);
-      }
+      alert("Producto guardado");
+      cargarProductos();
+      cerrarModalConAnimacion();
     });
   });
 });

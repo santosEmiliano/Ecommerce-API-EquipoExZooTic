@@ -10,6 +10,24 @@ const getProd = async () => {
     }
 };
 
+const addProduct = async (producto) => {
+    try {
+        const response = await fetch("http://localhost:3000/productos", {
+          method: "POST",
+          body: producto,
+        });
+
+        if (response.ok) {
+          
+        } else {
+          const res = await response.json();
+          alert("Error: " + res.message);
+        }
+      } catch (error) {
+        console.error("Error de red:", error);
+    }
+}
+
 const deleteProd = async (id) => {
     try {
         const response = await fetch(`http://localhost:3000/productos/${id}`, {
@@ -48,6 +66,7 @@ const updateProd = async (id, data) => {
 
 const servicios = {
   getProd,
+  addProduct,
   deleteProd,
   updateProd
 };
