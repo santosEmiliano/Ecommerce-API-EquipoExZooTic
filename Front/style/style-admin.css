@@ -487,3 +487,79 @@
   font-weight: bold;
   margin-right: 10px;
 }
+
+/* ==== SUBMENÚ FILTROS ==== */
+.sidebar-submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+    background-color: rgba(0, 0, 0, 0.1); /* Un poco más oscuro que el sidebar */
+    border-radius: 0 0 12px 12px;
+}
+
+/* Clase para abrir el menú (se agrega con JS) */
+.sidebar-submenu.open {
+    max-height: 300px; /* Altura suficiente para el contenido */
+    padding: 15px;
+}
+
+.filter-group {
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    color: var(--color--blanco-hueso);
+}
+
+.filter-group label {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.filter-input {
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    background: white;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Slider de Precio */
+.filter-range {
+    width: 100%;
+    cursor: pointer;
+}
+
+/* Checkbox */
+.filter-group-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color--blanco-hueso);
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.filter-group-checkbox input {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* Botón de Aplicar */
+.btn-filter-apply {
+    width: 100%;
+    padding: 8px;
+    background-color: var(--color--verde-lima);
+    color: var(--color-negro);
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-filter-apply:hover {
+    background-color: white;
+    transform: scale(1.02);
+}

@@ -1,68 +1,70 @@
-const getProd = async () => {
-    try {
-        const response = await fetch("http://localhost:3000/productos");
-        if(!response.ok) throw new Error("Error al obtener productos");
-        
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error(error);
-    }
+const getProd = async (filtros = {}) => {
+    const cleanFilters = Object.fromEntries(
+        Object.entries(filtros).filter(([_, v]) => v != null && v !== '')
+    );
+    const params = new URLSearchParams(cleanFilters).toString();
+   
+   try {
+       const response = await fetch(`http://localhost:3000/productos?${params}`);
+       if(!response.ok) throw new Error("Error al obtener productos");
+       const data = await response.json();
+       return data;
+   } catch (error) {
+       console.error(error);
+       return [];
+   }
 };
 
-const addProduct = async (producto) => {
+const addProduct = async (formData) => {
     try {
         const response = await fetch("http://localhost:3000/productos", {
           method: "POST",
-          body: producto,
+          body: formData,
         });
-
-        if (response.ok) {
-          
-        } else {
-          const res = await response.json();
-          alert("Error: " + res.message);
+        
+        if (!response.ok) {
+            const res = await response.json();
+            throw new Error(res.message || "Error al crear");
         }
-      } catch (error) {
-        console.error("Error de red:", error);
+        return await response.json();
+    } catch (error) {
+        console.error("Error en addProduct:", error);
+        throw error;
     }
-}
+};
 
 const deleteProd = async (id) => {
     try {
         const response = await fetch(`http://localhost:3000/productos/${id}`, {
             method: "DELETE"
         });
-
-        const result = await response.json();
-        
-        if (response.ok) {
-            console.log("Producto eliminado correctamente");
-        } else {
-            console.error("Error:", result.message);
+        if (!response.ok) {
+            const res = await response.json();
+            throw new Error(res.message || "Error al eliminar");
         }
+        return await response.json();
     } catch (error) {
-        console.error(error);
+        console.error("Error en deleteProd:", error);
+        throw error;
     }
-}
+};
 
-const updateProd = async (id, data) => {
+const updateProd = async (id, formData) => {
     try {
         const response = await fetch(`http://localhost:3000/productos/${id}`, {
             method: "PUT",
-            body: data 
+            body: formData 
         });
-
-        const result = await response.json();
-        if (response.ok) {
-            console.log("Producto actualizado");
-        } else {
-            console.error("Error:", result.message);
+        if (!response.ok) {
+            const res = await response.json();
+            throw new Error(res.message || "Error al actualizar");
         }
+        return await response.json();
     } catch (error) {
-        console.error(error);
+        console.error("Error en updateProd:", error);
+        throw error;
     }
-}
+};
 
 const servicios = {
   getProd,

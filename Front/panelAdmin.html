@@ -16,7 +16,6 @@
   </head>
   <body>
     <div id="info-modal" class="modal"></div>
-    <!-- header -->
     <nav class="header">
       <div class="header-izquierda">
         <a href="index.html" class="nav-logo">
@@ -56,28 +55,69 @@
 
     <main>
       <div class="admin-container">
-        <!-- Sidebar -->
         <aside class="admin-sidebar">
           <h2 class="sidebar-title">Panel Admin</h2>
           <ul class="sidebar-menu">
             <li>
               <button id="btnProd" class="sidebar-link">
-                <i class="fa-solid fa-box">Productos</i>
+                <i class="fa-solid fa-box"></i> Productos
+                <i
+                  class="fa-solid fa-chevron-down"
+                  style="margin-left: auto; font-size: 0.8em"
+                ></i>
               </button>
+
+              <div id="submenu-filtros" class="sidebar-submenu">
+                <div class="filter-group">
+                  <label>Categoría:</label>
+                  <select id="filtro-categoria" class="filter-input">
+                    <option value="">Todas</option>
+                    <option value="patrimoniales">Patrimoniales</option>
+                    <option value="megafaunas">Megafaunas</option>
+                    <option value="superdepredadores">Superdepredadores</option>
+                  </select>
+                </div>
+
+                <div class="filter-group">
+                  <label
+                    >Precio Máximo: $<span id="price-val">5000</span></label
+                  >
+                  <input
+                    type="range"
+                    id="filtro-precio"
+                    class="filter-range"
+                    min="0"
+                    max="10000"
+                    step="100"
+                    value="5000"
+                  />
+                </div>
+
+                <div class="filter-group-checkbox">
+                  <input type="checkbox" id="filtro-oferta" />
+                  <label for="filtro-oferta">Solo Ofertas</label>
+                </div>
+
+                <button id="btn-aplicar-filtros" class="btn-filter-apply">
+                  Aplicar Filtros
+                </button>
+              </div>
             </li>
+
             <li>
               <button id="btnStats" class="sidebar-link">
-                <i class="fa-solid fa-users">Estadísticas</i>
+                <i class="fa-solid fa-users"></i> Estadísticas
               </button>
             </li>
           </ul>
         </aside>
 
-        <!-- Contenido principal -->
         <section class="admin-content">
           <div class="header-admin-content">
             <h1>PRODUCTOS REGISTRADOS</h1>
-            <button id="btn-add-product"><i class="fa-regular fa-square-plus"></i>Añadir Producto</button>
+            <button id="btn-add-product">
+              <i class="fa-regular fa-square-plus"></i>Añadir Producto
+            </button>
           </div>
           <div class="products-grid" id="products-grid"></div>
         </section>
@@ -103,14 +143,6 @@
             placeholder="Contraseña"
             required
           />
-          <!-- MENSAJE PARA EDSON: Aquí debes implementar la generación del captcha -->
-
-          <!-- 
-Este input de abajo es para que el usuario escriba el captcha que se le muestra. -->
-          <!-- 
-En el registrar NO necesitas agregar el captcha
-abajo de esta sección está el menú de registrarse para que le añadas también la lógica de las verificaciones ahí
- -->
           <input
             type="text"
             id="captchaText"
@@ -124,7 +156,6 @@ abajo de esta sección está el menú de registrarse para que le añadas tambié
       </div>
     </div>
 
-    <!-- REGISTRO -->
     <div id="registerModal" class="modal">
       <div class="modal-content">
         <span id="closeModalRegister" class="close">&times;</span>
@@ -164,7 +195,6 @@ abajo de esta sección está el menú de registrarse para que le añadas tambié
       </div>
     </div>
 
-    <!-- footer -->
     <footer class="footer">
       <h4 class="footer-titulo">
         ¿Tienes alguna duda? Envíanos un correo!<br />
@@ -181,7 +211,10 @@ abajo de esta sección está el menú de registrarse para que le añadas tambié
       </p>
     </footer>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="./scripts/styles.js"></script>
     <script src="./scripts/app.js" type="module"></script>

@@ -11,13 +11,21 @@ const readProductos = async (req, res) => {
     const { categoria, precio_min, precio_max, en_oferta } = req.query;
     let products;
     try {
-        if (categoria) {
+        if (categoria && categoria !== "Todas") {
             products = await crudModel.getProdCat(categoria);
-        } else if (precio_min || precio_max) {
-            products = await crudModel.getProdPrice(parseFloat(precio_min), parseFloat(precio_max));
-        } else if (en_oferta) {
+        } 
+
+        else if (precio_max) {
+            const min = parseFloat(precio_min) || 0;
+            const max = parseFloat(precio_max);
+            products = await crudModel.getProdPrice(min, max);
+        } 
+
+        else if (en_oferta === "true") {
             products = await crudModel.getProdOferta();
-        } else {
+        } 
+
+        else {
             products = await crudModel.getProductos();
         }
         res.json(products);
