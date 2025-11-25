@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Mochila - ExZooTic</title>
+    
+    <link rel="stylesheet" href="./style/style-base.css">
+    <link rel="stylesheet" href="./style/style-store.css">
+    <link rel="stylesheet" href="./style/style-carrito.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    
+    <div class="store-wrapper bg-carrito"> <nav class="header">
+            <div class="header-izquierda">
+                <a href="index.html" class="nav-logo">
+                    <img class="logo-img" src="media/logo.png" alt="logo" />
+                </a>
+            </div>
+            <div class="header-derecha">
+                <a href="tienda.html" class="header-link">Tienda</a>
+                </div>
+        </nav>
+
+        <main class="cart-main">
+            <h1 class="cart-title">🎒 Tu Mochila de Expedición</h1>
+
+            <div class="cart-layout">
+                <section class="backpack-container" id="cart-items-container">
+                    <div class="loader-msg">Revisando provisiones...</div>
+                </section>
+
+                <aside class="summary-notebook">
+                    <div class="notebook-spiral"></div>
+                    <h2 class="notebook-title">Bitácora de Costos</h2>
+                    
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="summary-subtotal">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Impuestos (IVA):</span>
+                        <span id="summary-tax">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Envío:</span>
+                        <span id="summary-shipping">Calculando...</span>
+                    </div>
+                    
+                    <div class="coupon-section">
+                        <input type="text" placeholder="¿Tienes un cupón?" id="coupon-input">
+                        <button id="apply-coupon-btn"><i class="fa-solid fa-ticket"></i></button>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="summary-total">
+                        <span>Total:</span>
+                        <span id="summary-total">$0.00</span>
+                    </div>
+
+                    <button id="checkout-btn" class="checkout-btn">
+                        Proceder al Pago <i class="fa-solid fa-paw"></i>
+                    </button>
+                    
+                    <a href="tienda.html" class="continue-shopping">
+                        <i class="fa-solid fa-arrow-left"></i> Seguir explorando
+                    </a>
+                </aside>
+            </div>
+        </main>
+
+        <div id="ambient-layer" class="ambient-layer">
+            <div class="deco-element bottom-left"></div>
+            <div class="deco-element bottom-right"></div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="./scripts/servicios.js" type="module"></script>
+    <script src="./scripts/carrito.js" type="module"></script>
+</body>
+</html>
