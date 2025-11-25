@@ -1,228 +1,387 @@
+:root {
+  /*paleta básica*/
+  --color-rojo: #e8332f;
+  --color-celeste: #44c2dd;
+  --color-amarillo: #d9c93b;
+  --color-verde-agua: #1d8e7a;
+  --color-verde: #7ab24e;
 
-        /* --- Reset Básico y Estilos Globales --- */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+  --color-azul-suave: #56a4af;
+  --color-azul-oscuro: #403786;
+  --color-gris-claro: #dadada;
+  --color-verde-oscuro: #4c5f41;
+  --color-negro: #111110;
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: #f1f5f9; /* Color de fondo (como bg-slate-100) */
-            color: #111827; /* Color de texto principal */
-            line-height: 1.5;
-            min-height: 100vh; /* Ocupa al menos toda la altura de la pantalla */
-        }
+  /*verdes*/
+  --color--verde-claro: #9fdc7a;
+  --color--verde-medio: #6fae5c;
+  --color--verde-bosque: #2f5d34;
+  --color--verde-musgo: #597a4a;
+  --color--verde-menta: #90d8c2;
+  --color--verde-lima: #c7e86a;
 
-        /* --- Contenedor Principal --- */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 2rem 1rem; /* Padding para móviles, se centra en desktop */
-        }
+  /*azules*/
+  --color--azul-cielo: #7dd5ef;
+  --color--azul-profundo: #2b2f5b;
+  --color--azul-turquesa: #2fb8b0;
+  --color--azul-gris: #8aa9b1;
 
-        /* --- Tipografía Responsiva (uso de vw) --- */
-        h1 {
-            /* El texto será el 5% del ancho de la pantalla, pero nunca más pequeño que 2rem o más grande que 2.5rem */
-            font-size: clamp(2rem, 5vw, 2.5rem);
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
+  /*amarillos*/
+  --color--amarillo-suave: #f3e57c;
+  --color--amarillo-ocre: #d3a724;
+  --color--naranja-suave: #e8a16a;
 
-        h2 {
-            font-size: clamp(1.25rem, 4vw, 1.5rem);
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-        }
+  /*cafés*/
+  --color--cafe-madera: #6a4a2b;
+  --color--cafe-claro: #d7b89c;
+  --color--cafe-arena: #c9a27d;
+  --color--cafe-tierra: #8b5e34;
 
-        h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
+  /*grises*/
+  --color--gris-medio: #a0a0a0;
+  --color--gris-oscuro: #5a5a5a;
+  --color--blanco-hueso: #f4f4f1;
 
-        /* --- Diseño de Rejilla (Flexbox) --- */
-        .checkout-grid {
-            display: flex;
-            flex-wrap: wrap; /* Permite que se apilen en pantallas pequeñas */
-            gap: 2rem;
-        }
+  --color--verde-hoover: #4fe721;
+  --color--cafe-hoover: #4e342e;
+  --color--gris-borde: #c5c5c5;
+}
 
-        .form-column {
-            flex: 2; /* Ocupa 2/3 del espacio */
-            min-width: 300px; /* Ancho mínimo antes de apilarse */
-        }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-        .summary-column {
-            flex: 1; /* Ocupa 1/3 del espacio */
-            min-width: 300px;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
+body {
+  background-color: var(--color--blanco-hueso);
+  color: var(--color-negro);
+  line-height: 1.5;
+  min-height: 100vh;
+}
 
-        /* --- Estilo de Tarjetas (Cards) --- */
-        .card {
-            background-color: #ffffff;
-            border-radius: 8px;
-            padding: 1.5rem 2rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-        }
+.container {
+  max-width: 90vw;
+  margin: 0 auto;
+  padding: 4vh 2vw;
+}
 
-        /* --- Estilos de Formularios --- */
-        .form-group {
-            margin-bottom: 1.25rem;
-        }
+h1 {
+  font-size: clamp(3vh, 5vw, 5vh);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 4vh;
+  color: var(--color--verde-bosque);
+  text-transform: uppercase;
+  background-color: var(--color--blanco-hueso);
+  display: inline-block;
+  padding: 1vh 4vw;
+  border-radius: 1vh;
+  border: 0.3vh solid var(--color--cafe-madera);
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
-        .form-group label {
-            display: block;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: #374151;
-            margin-bottom: 0.25rem;
-        }
+h2 {
+  font-size: 3vh;
+  font-weight: 600;
+  margin-bottom: 3vh;
+  color: var(--color--cafe-madera);
+  border-bottom: 0.3vh dashed var(--color--cafe-claro);
+  padding-bottom: 1vh;
+}
 
-        .form-group input[type="text"],
-        .form-group input[type="email"],
-        .form-group input[type="tel"] {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #d1d5db; /* border-gray-300 */
-            border-radius: 6px;
-            font-size: 1rem;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
+h3 {
+  font-size: 2.5vh;
+  font-weight: 600;
+  margin-bottom: 2vh;
+  color: var(--color--cafe-tierra);
+}
 
-        .form-group input:focus {
-            outline: none;
-            border-color: #4f46e5; /* focus:border-indigo-500 */
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2); /* focus:ring-indigo-500 */
-        }
+.checkout-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4vh;
+}
 
-        /* Rejilla para Ciudad, Estado, CP -- CAMBIADO */
-        .address-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-        }
-        
-        /* --- Resumen del Pedido --- */
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            color: #4b5563;
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-        }
-        .summary-total {
-            display: flex;
-            justify-content: space-between;
-            font-weight: 700;
-            font-size: 1.15rem;
-            color: #111827;
-            border-top: 1px solid #e5e7eb;
-            padding-top: 1rem;
-            margin-top: 1rem;
-        }
+.form-column {
+  flex: 2;
+  min-width: 35vw;
+}
 
-        /* --- Opciones de Pago --- */
-        .payment-options {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
+.summary-column {
+  flex: 1;
+  min-width: 30vw;
+  display: flex;
+  flex-direction: column;
+  gap: 4vh;
+}
 
-        .payment-option {
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            padding: 1rem;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-        .payment-option:has(input:checked) {
-            border-color: #4f46e5;
-            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
-        }
+.card {
+  background-color: var(--color--blanco-hueso);
+  border-radius: 1.5vh;
+  padding: 3vh 2vw;
+  box-shadow: 0.5vh 0.5vh 1vh rgba(0, 0, 0, 0.15);
+  border: 0.3vh solid var(--color--cafe-tierra);
+  position: relative;
+}
 
-        .payment-option input[type="radio"] {
-            margin-right: 0.75rem;
-            accent-color: #4f46e5;
-        }
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1vh;
+  background-color: var(--color--verde-bosque);
+  border-radius: 1vh 1vh 0 0;
+}
 
-        .payment-option label {
-            font-weight: 500;
-            color: #111827;
-        }
+.form-group {
+  margin-bottom: 2.5vh;
+}
 
-        /* --- Detalles de Pago --- */
-        /* --- CLASE NUEVA --- */
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-        }
+.form-group label {
+  display: block;
+  font-size: 1.8vh;
+  font-weight: bold;
+  color: var(--color--verde-oscuro);
+  margin-bottom: 0.8vh;
+}
 
-        .payment-details .form-group-grid {
-            margin-bottom: 1.25rem;
-        }
-        
-        /* Simulación de Ocultar/Mostrar (SIN JS) */
-        /* Por defecto, solo se muestra el de tarjeta */
-        #spei-info,
-        #oxxo-info {
-            display: none; /* Oculto por defecto */
-            font-size: 0.9rem;
-            color: #4b5563;
-            background-color: #f9fafb; /* bg-slate-50 */
-            padding: 1rem;
-            border-radius: 6px;
-            line-height: 1.4;
-        }
-        
-        #card-form {
-            display: block; /* Mostrado por defecto */
-        }
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"] {
+  width: 100%;
+  padding: 1.5vh;
+  border: 0.2vh solid var(--color--cafe-claro);
+  border-radius: 1vh;
+  font-size: 1.8vh;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
 
-        /* --- Botón Principal --- */
-        .btn-primary {
-            display: block;
-            width: 100%;
-            background-color: #4f46e5; /* bg-indigo-600 */
-            color: white;
-            font-weight: 700;
-            font-size: 1rem;
-            padding: 0.85rem 1rem;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            text-align: center;
-            transition: background-color 0.2s;
-            margin-top: 2rem;
-            text-decoration: none;
-        }
+.form-group input:focus {
+  outline: none;
+  border-color: var(--color--verde-agua);
+  box-shadow: 0 0 0 0vh var(--color--verde-claro);
+  background-color: var(--color-gris-claro);
+}
 
-        .btn-primary:hover {
-            background-color: #4338ca; /* bg-indigo-700 */
-        }
+.address-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2vw;
+}
 
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5vh;
+  font-size: 2vh;
+  border-bottom: 1px solid var(--color--gris-borde);
+  padding-bottom: 1vh;
+}
 
-        /* --- Media Query para Responsividad --- */
-        @media (max-width: 768px) {
-            .checkout-grid {
-                flex-direction: column; /* Apila las columnas */
-            }
-        }
-        
-        @media (max-width: 500px) {
-            /* Aplicamos la regla solo a la rejilla de dirección -- CAMBIADO */
-            .address-grid {
-                grid-template-columns: 1fr; /* Apila ciudad, estado y cp */
-            }
-            .card {
-                padding: 1.5rem 1rem;
-            }
-        }
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 2.5vh;
+  color: var(--color--cafe-madera);
+  border-top: 0.3vh solid var(--color--verde-musgo);
+  padding-top: 2vh;
+  margin-top: 2vh;
+}
 
+.payment-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh;
+  margin-bottom: 3vh;
+}
+
+.payment-option {
+  border: 0.3vh solid var(--color--cafe-hoover);
+  border-radius: 1vh;
+  padding: 1.5vh;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: var(--color--blanco-hueso);
+  transition: all 0.2s;
+}
+
+.payment-option:hover {
+  background-color: var(--color--verde-claro);
+}
+
+.payment-option:has(input:checked) {
+  border-color: var(--color--verde-bosque);
+  background-color: var(--color--verde-lima);
+  color: var(--color--verde-bosque);
+  font-weight: bold;
+}
+
+.payment-option input[type="radio"] {
+  margin-right: 1vw;
+  accent-color: var(--color--verde-bosque);
+  transform: scale(1.2);
+}
+
+.payment-option label {
+  font-weight: 500;
+  color: inherit;
+  font-size: 1.8vh;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2vw;
+}
+
+.payment-details .form-group-grid {
+  margin-bottom: 2vh;
+}
+
+#spei-info,
+#oxxo-info {
+  display: none;
+  font-size: 1.8vh;
+  color: var(--color--gris-oscuro);
+  background-color: var(--color--blanco-hueso);
+  padding: 2vh;
+  border: 0.2vh dashed var(--color--cafe-claro);
+  border-radius: 1vh;
+  line-height: 1.4;
+  margin-bottom: 2vh;
+}
+
+#spei-info.active,
+#oxxo-info.active,
+#card-form.active {
+  display: block;
+}
+
+.payment-details {
+  display: none;
+  margin-top: 15px;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.payment-details.active {
+  display: block;
+}
+
+.bank-transfer-box {
+  background-color: var(--color-gris-claro);
+  border: 3px solid var(--color-negro);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.bank-transfer-box h4 {
+  margin-top: 0;
+  color: var(--color--azul-profundo);
+  border-bottom: 2px solid var(--color--blanco-hueso);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.bank-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  border-bottom: 1px dashed var(--color--blanco-hueso);
+  padding-bottom: 5px;
+}
+
+.bank-label {
+  font-weight: 600;
+  color: var(--color--gris-oscuro);
+}
+
+.bank-value {
+  font-size: 1.1hv;
+  color: var(--color--gris-oscuro);
+}
+
+.bank-value.highlight {
+  color: var(--color-negro);
+  font-weight: bold;
+}
+
+.spei-note {
+  margin-top: 15px;
+  color: var(--color--gris-oscuro);
+  font-style: italic;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#card-form {
+  display: none;
+}
+
+.btn-primary {
+  display: block;
+  width: 100%;
+  background-color: var(--color--verde-bosque);
+  color: var(--color--blanco-hueso);
+  font-weight: 700;
+  font-size: 2.2vh;
+  padding: 2vh;
+  border: none;
+  border-radius: 1.5vh;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.2s, background-color 0.2s;
+  margin-top: 3vh;
+  text-decoration: none;
+  box-shadow: 0 0.5vh 0 var(--color--verde-oscuro);
+  text-transform: uppercase;
+}
+
+.btn-primary:hover {
+  background-color: var(--color--verde-medio);
+  transform: translateY(-0.3vh);
+  box-shadow: 0 0.8vh 0 var(--color--verde-oscuro);
+}
+
+.btn-primary:active {
+  transform: translateY(0.2vh);
+  box-shadow: 0 0.2vh 0 var(--color--verde-oscuro);
+}
+
+@media (max-width: 768px) {
+  .checkout-grid {
+    flex-direction: column;
+  }
+
+  .form-column,
+  .summary-column {
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .address-grid {
+    grid-template-columns: 1fr;
+  }
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+  .card {
+    padding: 2vh 3vw;
+  }
+}
