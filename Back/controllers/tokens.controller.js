@@ -1,8 +1,13 @@
 const jwt = require('jsonwebtoken');
 
+
+
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const {buscarId}= require("../model/userModel");
+
+const redis = require("../redisCliente/redisCliente");
+
 
 //creacion de tokens 
 //solo guarda el //id mandar el id jaja
@@ -33,16 +38,9 @@ const datosToken =async(req,res)=>{
             return res.status(400).json({mensaje: "usuario no encontrado o no recibido!"});
             
         }
-        const datos={
-            nombre: user.nombre,
-            correo: user.correo,
-            pais: user.pais,
-            admin: user.admin,
-            suscripcion: user.suscripcion
-        }
 
         return res.status(200).json({
-            user:datos
+            user:user
         });
         
     }catch(error){
@@ -52,8 +50,23 @@ const datosToken =async(req,res)=>{
 }
 
 
+const revocador = async (token) => {
+  if (!token) {
+    console.log("revocador: token vacío, no se puede guardar");
+    return;
+  }
+  
+
+  try {
+    await redis.set(token, "revocado", { ex: 3600 });
+    console.log("Token revocado guardado en Redis");
+  } catch (err) {
+    console.error("Error guardando token en Redis:", err);
+  }
+};
 
 module.exports={
     generarToken,
-    datosToken
+    datosToken,
+    revocador
 }

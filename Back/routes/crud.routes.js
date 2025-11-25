@@ -218,7 +218,8 @@ async function crearUsuario() {
 
         const data = await response.json();
         console.log("Respuesta del servidor:", data);//quitar eszto si no lo kieres
-        
+        console.log(data.token);//guardar!!!
+        console.log(data.id);//guardar!!!
     } catch (error) {
         console.error("Error al crear usuario:", error);
     }

@@ -16,8 +16,8 @@ router.post("/login",usersFuncion.login);
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    correo: "alonso@correo.com",//cambialos!
-                    contrasena: "soyAlonso123"
+                    correo: "as",//cambialos!
+                    contrasena: "soyAdmin"
                 })
             });
 
@@ -26,13 +26,21 @@ router.post("/login",usersFuncion.login);
             }
 
             const data = await response.json();
-            console.log("Respuesta del servidor:", data);
-            console.log("Token:", data.token);//TOKEN!!!!!!
-
+            console.log("Token:", data.token);//TOKEN!!!!!! GUDARDALO
+            console.log(data);//todos los datos!!!
+            //console.log(data.datos);//datos de el usuario
+            console.log(data.datos.id);//TAMBIEN GUARDALO ES IMPORTANTE
+            console.log(data.datos.nombre);//nombre
+            console.log(data.datos.admin);//0 o 1 en  STRING
+            console.log(data.datos.correo);
+            console.log(data.datos.pais);
+            console.log(data.datos.suscripcion);// 0 o 1 en STRING
+            
         } catch (error) {
             console.error("Error al intentar logear:", error);
         }
 
+    }
 */
 
 router.post("/obtenerDatos",tokens.verifyToken,datosToken);
@@ -68,4 +76,11 @@ try {
     }
     }
 */
+
+//ruta log out
+router.post("/logOut",tokens.verifyToken,usersFuncion.logOut);
+
+
+
+
 module.exports = router;

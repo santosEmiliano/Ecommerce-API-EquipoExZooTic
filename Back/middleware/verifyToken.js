@@ -1,10 +1,13 @@
 const jwt = require('jsonwebtoken');
 const {buscarId}=require("../model/userModel");
+const redis = require("../redisCliente/redisCliente");
+
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-const verifyToken = (req, res, next) => {
+const verifyToken = async(req, res, next) => {
     try {
+
         const authHeader = req.headers.authorization;
     if (!authHeader) {
       return res.status(401).json({
@@ -22,9 +25,24 @@ const verifyToken = (req, res, next) => {
       });
     }
 
+    
     const decoded = jwt.verify(token, JWT_SECRET);
+    
+
+
+    //NUEVO! SI ESTA EN LA BLACKLIST
+    const estaRevocado = await redis.get(token);
+    
+     if (estaRevocado) {
+      return res.status(401).json({ mensaje: "Token revocado" });
+    }
+    
+    // if(revocado){
+    //   return res.status(401).json({mensaje: "Token revocado (sesion terminada)"});
+    // }
 
     req.userId = decoded.id;
+    req.token= token;
 
     next(); 
 
@@ -44,10 +62,13 @@ const verifyToken = (req, res, next) => {
       });
     }
 
+    console.log(error);
     return res.status(500).json({
       success: false,
-      message: 'Error al verificar el token.'
+      message: 'Error al verificar el token.',
+      
     });
+    
   }
 };
 
