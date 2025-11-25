@@ -6,14 +6,11 @@ window.dispatchEvent(new Event("scroll"));
 document.addEventListener("DOMContentLoaded", () => {
   let lastX = 0;
   let lastY = 0;
-  // Controla qué tan seguido aparecen las huellas (cada 50px de movimiento)
   const distanceThreshold = 100;
 
   document.addEventListener("mousemove", (e) => {
     const mouseX = e.clientX;
     const mouseY = e.clientY;
-
-    // Calcular la distancia recorrida desde la última huella
     const distance = Math.sqrt(
       Math.pow(mouseX - lastX, 2) + Math.pow(mouseY - lastY, 2)
     );
@@ -144,46 +141,29 @@ preguntas.forEach((p) => {
 
 //Sección Sobre Nosotros
 document.addEventListener("DOMContentLoaded", function () {
-  // --- 1. LÓGICA DE LA LÍNEA QUE SE LLENA (EL MAPA) ---
   const timelineSection = document.querySelector(".timeline-section");
   const timelineFill = document.querySelector(".timeline-fill");
 
   function updateTimelineFill() {
     if (!timelineSection || !timelineFill) return;
-
-    // Obtenemos posiciones
     const scrollTop = window.scrollY;
     const viewportHeight = window.innerHeight;
     const sectionTop = timelineSection.offsetTop;
     const sectionHeight = timelineSection.offsetHeight;
-
-    // Calculamos cuándo empieza a verse la sección en pantalla
-    // startPoint: cuando la parte superior de la sección llega a la mitad de la pantalla
     const startPoint = sectionTop - viewportHeight / 2;
-
-    // Cuánto hemos scrolleado dentro de la sección
     let pixelsScrolled = scrollTop - startPoint;
-
-    // Distancia total a recorrer (ajustamos un poco para que termine antes del final exacto)
     let totalScrollableDistance = sectionHeight - viewportHeight / 2;
-
-    // Convertimos a porcentaje (0 a 100)
     let percent = (pixelsScrolled / totalScrollableDistance) * 100;
-
-    // Limitamos entre 0% y 100%
     percent = Math.min(100, Math.max(0, percent));
 
-    // Aplicamos la altura
     timelineFill.style.height = percent + "%";
   }
-
-  // --- 2. LÓGICA PARA QUE LAS TARJETAS APAREZCAN (REVEAL) ---
   const items = document.querySelectorAll(".timeline-item");
 
   const observerOptions = {
-    root: null, // viewport
+    root: null,
     rootMargin: "0px",
-    threshold: 0.3, // Se activa cuando el 30% del elemento es visible
+    threshold: 0.3,
   };
 
   const observer = new IntersectionObserver((entries, observer) => {
@@ -191,8 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (entry.isIntersecting) {
         entry.target.classList.add("active");
       } else {
-        // Opcional: Si quieres que desaparezcan al subir, descomenta esto:
-        // entry.target.classList.remove('active');
+        entry.target.classList.remove("active");
       }
     });
   }, observerOptions);
@@ -200,12 +179,61 @@ document.addEventListener("DOMContentLoaded", function () {
   items.forEach((item) => {
     observer.observe(item);
   });
-
-  // Escuchar el evento scroll para la línea
   window.addEventListener("scroll", updateTimelineFill);
 
-  // Ejecutar una vez al inicio por si ya estamos a mitad de página
   updateTimelineFill();
+});
+
+//Lógica de finalizar compra
+document.addEventListener("DOMContentLoaded", () => {
+  const radioCard = document.getElementById("pay_card");
+  const radioSpei = document.getElementById("pay_spei");
+  const radioOxxo = document.getElementById("pay_oxxo");
+
+  const cardForm = document.getElementById("card-form");
+  const speiInfo = document.getElementById("spei-info");
+  const oxxoInfo = document.getElementById("oxxo-info");
+
+  // Elemento donde mostraremos la referencia dinámica
+  const speiRefDisplay = document.getElementById("speiRef");
+
+  // Función para generar una referencia aleatoria (ej: REF-83729)
+  function generateReference() {
+    const randomNum = Math.floor(100000 + Math.random() * 900000);
+    return `REF-${randomNum}`;
+  }
+
+  function updatePaymentMethod() {
+    // 1. Ocultar todo primero
+    cardForm.classList.remove("active");
+    speiInfo.classList.remove("active");
+    oxxoInfo.classList.remove("active");
+
+    // 2. Mostrar según selección
+    if (radioCard.checked) {
+      cardForm.classList.add("active");
+    } else if (radioSpei.checked) {
+      speiInfo.classList.add("active");
+
+      // LÓGICA EXTRA: Generar referencia solo si aún no existe o refrescarla
+      if (
+        speiRefDisplay.innerText === "GENERANDO..." ||
+        speiRefDisplay.innerText === ""
+      ) {
+        speiRefDisplay.innerText = generateReference();
+      }
+    } else if (radioOxxo.checked) {
+      oxxoInfo.classList.add("active");
+    }
+  }
+
+  const radios = document.getElementsByName("payment_method");
+  radios.forEach((radio) => {
+    radio.addEventListener("change", updatePaymentMethod);
+  });
+
+  // Ejecutar al inicio por si hay algo pre-seleccionado
+  updatePaymentMethod();
 });
 
 //Alert diseño

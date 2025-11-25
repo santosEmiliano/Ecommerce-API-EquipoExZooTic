@@ -1,182 +1,321 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/Front/style/style-pagar.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/Front/style/style-pagar.css" />
+    <link rel="stylesheet" href="/Front/style/style-base.css" />
     <title>Finalizar Compra</title>
-    
-   
-</head>
-<body>
+  </head>
+  <body>
+    <!-- header -->
+    <nav class="header">
+      <div class="header-izquierda">
+        <a href="index.html" class="nav-logo">
+          <img class="logo-img" src="media/logo.png" alt="logo" />
+        </a>
+      </div>
+      <div class="header-derecha">
+        <a href="index.html" class="header-link">Inicio</a>
+        <div class="submenu-container">
+          <a href="#" class="header-link submenu-btn">Nuestros Animales</a>
+          <ul class="header-submenu">
+            <li><a href="#" class="header-submenu-link">Categoría 1</a></li>
+            <li><a href="#" class="header-submenu-link">Categoría 2</a></li>
+            <li><a href="#" class="header-submenu-link">Categoría 3</a></li>
+          </ul>
+        </div>
+        <a href="contacto.html" class="header-link">Contacto</a>
+        <a href="preguntas.html" class="header-link">Preguntas</a>
+        <a href="nosotros.html" class="header-link">Nosotros</a>
+        <div class="nombreUsuario">
+          <i id="userIcon" class="fa-solid fa-user user-name"></i>
+          <span id="userName" class="user-name"></span>
+        </div>
+        <button id="logInbtn" title="Login">
+          <span class="loginStyle">Iniciar Sesión</span>
+        </button>
+
+        <button id="logOutbtn" title="LogOut">
+          <span class="loginStyle">Cerrar Sesión</span>
+        </button>
+
+        <button id="regbtn" title="Register">
+          <span class="loginStyle">Regístrate</span>
+        </button>
+      </div>
+    </nav>
 
     <div class="container">
-        
-        <h1>Finalizar Compra</h1>
+      <h1>Finalizar Compra</h1>
+      <div class="checkout-grid">
+        <div class="form-column">
+          <div class="card">
+            <h2>Información de Envío</h2>
 
-        <!-- Contenedor principal de dos columnas -->
-        <div class="checkout-grid">
+            <form action="#" method="POST">
+              <div class="form-group">
+                <label for="nombre">Nombre Completo</label>
+                <input
+                  type="text"
+                  id="nombre"
+                  name="nombre"
+                  placeholder="Juan Pérez Sánchez"
+                  required
+                />
+              </div>
 
-            <!-- Columna Izquierda: Formulario de Envío -->
-            <div class="form-column">
-                <div class="card">
-                    <h2>Información de Envío</h2>
+              <div class="form-group">
+                <label for="email">Correo Electrónico</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="juan.perez@correo.com"
+                  required
+                />
+              </div>
 
-                    <!-- Inicia el formulario -->
-                    <form action="#" method="POST">
-                        
-                        <!-- Nombre Completo -->
-                        <div class="form-group">
-                            <label for="nombre">Nombre Completo</label>
-                            <input type="text" id="nombre" name="nombre" placeholder="Juan Pérez Sánchez">
-                        </div>
+              <div class="form-group">
+                <label for="telefono">Teléfono</label>
+                <input
+                  type="tel"
+                  id="telefono"
+                  name="telefono"
+                  placeholder="+52 4815 1623"
+                  required
+                />
+              </div>
 
-                        <!-- Email -->
-                        <div class="form-group">
-                            <label for="email">Correo Electrónico</label>
-                            <input type="email" id="email" name="email" placeholder="juan.perez@correo.com">
-                        </div>
+              <div class="form-group">
+                <label for="direccion">Dirección (Calle y Número)</label>
+                <input
+                  type="text"
+                  id="direccion"
+                  name="direccion"
+                  placeholder="Av. Siempre Viva 123"
+                  required
+                />
+              </div>
 
-                        <!-- Teléfono -->
-                        <div class="form-group">
-                            <label for="telefono">Teléfono</label>
-                            <input type="tel" id="telefono" name="telefono" placeholder="55 1234 5678">
-                        </div>
+              <div class="form-group">
+                <label for="colonia">Colonia / N° Interior (Opcional)</label>
+                <input
+                  type="text"
+                  id="colonia"
+                  name="colonia"
+                  placeholder="Col. Centro / Depto 5"
+                />
+              </div>
 
-                        <!-- Dirección -->
-                        <div class="form-group">
-                            <label for="direccion">Dirección (Calle y Número)</label>
-                            <input type="text" id="direccion" name="direccion" placeholder="Av. Siempre Viva 123">
-                        </div>
-
-                        <!-- Colonia / Interior (Opcional) -->
-                        <div class="form-group">
-                            <label for="colonia">Colonia / N° Interior (Opcional)</label>
-                            <input type="text" id="colonia" name="colonia" placeholder="Col. Centro / Depto 5">
-                        </div>
-
-                        <!-- Fila para Ciudad, Estado y CP -- CAMBIADO -->
-                        <div class="form-group address-grid">
-                            <div>
-                                <label for="ciudad">Ciudad</label>
-                                <input type="text" id="ciudad" name="ciudad" placeholder="Ciudad de México">
-                            </div>
-                            <div>
-                                <label for="estado">Estado</label>
-                                <input type="text" id="estado" name="estado" placeholder="CDMX">
-                            </div>
-                            <div>
-                                <label for="cp">Código Postal</label>
-                                <input type="text" id="cp" name="cp" placeholder="06000">
-                            </div>
-                        </div>
-
-                    </form>
+              <div class="form-group address-grid">
+                <div>
+                  <label for="ciudad">Ciudad</label>
+                  <input
+                    type="text"
+                    id="ciudad"
+                    name="ciudad"
+                    placeholder="Ciudad de México"
+                    required
+                  />
                 </div>
+                <div>
+                  <label for="estado">Estado</label>
+                  <input
+                    type="text"
+                    id="estado"
+                    name="estado"
+                    placeholder="CDMX"
+                    required
+                  />
+                </div>
+                <div>
+                  <label for="cp">Código Postal</label>
+                  <input
+                    type="text"
+                    id="cp"
+                    name="cp"
+                    placeholder="06000"
+                    required
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="summary-column">
+          <div class="card">
+            <h3>Resumen del Pedido</h3>
+            <div class="summary-row">
+              <span class="productos">Producto:</span>
+              <span class="precio-productos"></span>
+            </div>
+            <div class="summary-row">
+              <span>Impuestos</span>
+              <span id="impuestos">%</span>
+            </div>
+            <div class="summary-row">
+              <span>Gastos de Envío:</span>
+              <span id="costoEnvio"></span>
+            </div>
+            <div class="summary-row">
+              <div class="form-group">
+                <label for="direccion">Código Descuento:</label>
+                <input
+                  type="text"
+                  id="descuento"
+                  name="descuento"
+                  placeholder="Ingresa tu código aquí"
+                />
+              </div>
+            </div>
+            <!-- Sin impuestos -->
+            <div class="summary-total">
+              <span>Subtotal:</span>
+              <span id="subtotal">$</span>
+            </div>
+            <!-- con impuestos -->
+            <div class="summary-total">
+              <span>Total:</span>
+              <span>$</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Método de Pago</h2>
+
+            <div class="payment-options">
+              <div class="payment-option">
+                <input
+                  id="pay_card"
+                  name="payment_method"
+                  type="radio"
+                  checked
+                />
+                <label for="pay_card">Tarjeta de Crédito/Débito</label>
+              </div>
+
+              <div class="payment-option">
+                <input id="pay_spei" name="payment_method" type="radio" />
+                <label for="pay_spei">Transferencia Bancaria (SPEI)</label>
+              </div>
+
+              <div class="payment-option">
+                <input id="pay_oxxo" name="payment_method" type="radio" />
+                <label for="pay_oxxo">Pago en Efectivo (OXXO)</label>
+              </div>
             </div>
 
-            <!-- Columna Derecha: Resumen y Pago -->
-            <div class="summary-column">
-                
-                <!-- Resumen del Pedido (Placeholder) -->
-                <div class="card">
-                    <h3>Resumen del Pedido</h3>
-                    <div class="summary-row">
-                        <span>Producto 1 (x2)</span>
-                        <span>$150.00</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>Producto 2 (x1)</span>
-                        <span>$50.00</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>Envío</span>
-                        <span>$40.00</span>
-                    </div>
-                    <div class="summary-total">
-                        <span>Total</span>
-                        <span>$240.00</span>
-                    </div>
+            <div id="card-form" class="payment-details">
+              <div class="form-group">
+                <label for="card_name">Nombre en la Tarjeta</label>
+                <input type="text" id="card_name" required />
+              </div>
+              <div class="form-group">
+                <label for="card_number">Número de Tarjeta</label>
+                <input
+                  type="text"
+                  id="card_number"
+                  placeholder="•••• •••• •••• ••••"
+                  required
+                />
+              </div>
+              <div class="form-group card-grid">
+                <div>
+                  <label for="card_exp_month">Mes</label>
+                  <input
+                    type="text"
+                    id="card_exp_month"
+                    placeholder="MM"
+                    required
+                  />
                 </div>
-
-                <!-- Métodos de Pago -->
-                <div class="card">
-                    <h2>Método de Pago</h2>
-
-                    <!-- Opciones de Pago (Radio Buttons) -->
-                    <div class="payment-options">
-                        
-                        <!-- Opción 1: Tarjeta -->
-                        <div class="payment-option">
-                            <input id="pay_card" name="payment_method" type="radio" checked>
-                            <label for="pay_card">Tarjeta de Crédito/Débito</label>
-                        </div>
-                        
-                        <!-- Opción 2: Transferencia -->
-                        <div class="payment-option">
-                            <input id="pay_spei" name="payment_method" type="radio">
-                            <label for="pay_spei">Transferencia Bancaria (SPEI)</label>
-                        </div>
-
-                        <!-- Opción 3: OXXO -->
-                        <div class="payment-option">
-                            <input id="pay_oxxo" name="payment_method" type="radio">
-                            <label for="pay_oxxo">Pago en Efectivo (OXXO)</label>
-                        </div>
-                    </div>
-
-                    <!-- SIMULACIÓN DE FORMULARIOS DE PAGO -->
-                    <!-- En un sitio real, JS ocultaría y mostraría estos bloques -->
-
-                    <!-- 1. Formulario de Tarjeta (Visible por defecto) -->
-                    <div id="card-form" class="payment-details">
-                        <div class="form-group">
-                            <label for="card_name">Nombre en la Tarjeta</label>
-                            <input type="text" id="card_name">
-                        </div>
-                        <div class="form-group">
-                            <label for="card_number">Número de Tarjeta</label>
-                            <input type="text" id="card_number" placeholder="•••• •••• •••• ••••">
-                        </div>
-                        <!-- CAMBIADO (clase y 'form-group' añadido) -->
-                        <div class="form-group card-grid"> 
-                            <div>
-                                <label for="card_exp_month">Mes</label>
-                                <input type="text" id="card_exp_month" placeholder="MM">
-                            </div>
-                            <div>
-                                <label for="card_exp_year">Año</label>
-                                <input type="text" id="card_exp_year" placeholder="AA">
-                            </div>
-                            <div>
-                                <label for="card_cvc">CVC</label>
-                                <input type="text" id="card_cvc" placeholder="123">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 2. Mensaje de Transferencia (Simulado) -->
-                    <div id="spei-info" class="payment-details">
-                        <p>Al confirmar tu pedido, te mostraremos los datos (CLABE, Banco, Beneficiario y Referencia) para completar tu pago vía SPEI.</p>
-                    </div>
-
-                    <!-- 3. Mensaje de OXXO (Simulado) -->
-                    <div id="oxxo-info" class="payment-details">
-                        <p>Al confirmar tu pedido, se generará un recibo con un código de barras. Podrás usarlo para pagar en cualquier tienda OXXO. El pago puede tardar hasta 48 horas en acreditarse.</p>
-                    </div>
-
-                    <!-- Botón de Pagar -->
-                    <button type="submit" class="btn-primary">
-                        Finalizar y Pagar
-                    </button>
-
+                <div>
+                  <label for="card_exp_year">Año</label>
+                  <input
+                    type="text"
+                    id="card_exp_year"
+                    placeholder="AA"
+                    required
+                  />
                 </div>
-
+                <div>
+                  <label for="card_cvc">CVC</label>
+                  <input type="text" id="card_cvc" placeholder="123" required />
+                </div>
+              </div>
             </div>
 
-        </div> <!-- Fin del .checkout-grid -->
+            <div id="spei-info" class="payment-details">
+              <div class="bank-transfer-box">
+                <h4>
+                  <i class="fa-solid fa-building-columns"></i> Datos para
+                  Transferencia
+                </h4>
+                <div class="bank-row">
+                  <span class="bank-label">Banco:</span>
+                  <span class="bank-value">BBVA Bancomer</span>
+                </div>
+                <div class="bank-row">
+                  <span class="bank-label">Beneficiario:</span>
+                  <span class="bank-value">Exotic Animals S.A. de C.V.</span>
+                </div>
+                <div class="bank-row">
+                  <span class="bank-label">CLABE:</span>
+                  <span class="bank-value copy-text"
+                    >012 180 01554433221 5</span
+                  >
+                </div>
+                <div class="bank-row">
+                  <span class="bank-label">Concepto/Ref:</span>
+                  <span class="bank-value highlight" id="speiRef"
+                    >GENERANDO...</span
+                  >
+                </div>
+                <p class="spei-note">
+                  <small
+                    >* Tu orden se procesará una vez confirmado el pago.</small
+                  >
+                </p>
+              </div>
+            </div>
 
-    </div> <!-- Fin del .container -->
+            <div id="oxxo-info" class="payment-details">
+              <p>
+                Al confirmar tu pedido, se generará un recibo con un código de
+                barras. Podrás usarlo para pagar en cualquier tienda OXXO. El
+                pago puede tardar hasta 48 horas en acreditarse.
+              </p>
+            </div>
 
-</body>
+            <button type="submit" class="btn-primary">Finalizar y Pagar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <h4 class="footer-titulo">
+        ¿Tienes alguna duda? Envíanos un correo!<br />
+      </h4>
+      <h4><button class="footer-contacto">Da click aquí!</button></h4>
+      <h4 class="footer-titulo">Siguenos en nuestras redes sociales</h4>
+      <div class="footer-redes">
+        <a href="#" target="_blank"
+          ><i class="fa-brands fa-instagram footer-icon"></i
+        ></a>
+      </div>
+      <p class="footer-copyright">
+        © 2025 Proyecto académico, no es una tienda real.
+      </p>
+    </footer>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="./scripts/styles.js"></script>
+    <script src="./scripts/app.js"></script>
+  </body>
 </html>
