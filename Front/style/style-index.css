@@ -135,7 +135,7 @@ html {
 }
 
 .datos-card {
-  background: white;
+  background: var(--color--blanco-hueso);
   padding: 4vh 2vw;
   border-radius: 15px;
   width: 250px;

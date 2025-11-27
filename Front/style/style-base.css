@@ -1,12 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Kablammo&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+
 * {
   margin: 0;
   padding: 0;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
 }
 
 h1,
@@ -86,7 +82,7 @@ main {
 body {
   display: flex;
   flex-direction: column;
-  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-family: "Segoe UI", system-ui, sans-serif;
   background-color: #f4f7f6;
 }
 
@@ -94,16 +90,15 @@ body {
   background-color: var(--color-verde);
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   text-decoration: none;
   box-shadow: 0vh 0vh 0vh var(--color-verde-oscuro);
 
-  font-family: "Kablammo", system-ui;
-  font-optical-sizing: auto;
+ font-family: "Knewave", system-ui;
   font-weight: 400;
   font-style: normal;
-  font-variation-settings: "MORF" 0;
 }
 
 .header-derecha {
@@ -178,6 +173,24 @@ body {
   background: var(--color--verde-lima);
   box-shadow: 0 0.4vh 1vh rgba(0, 0, 0, 0.2);
   transform: scale(1.05);
+}
+
+.cart-button {
+  background-color: var(--color--amarillo);
+  color: var(--color-negro);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.3s;
+}
+.cart-button:hover {
+  transform: scale(1.05);
+  background-color: var(--color--amarillo-ocre);
 }
 
 /*Login */

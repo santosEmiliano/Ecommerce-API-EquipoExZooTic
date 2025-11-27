@@ -29,7 +29,9 @@
           <div class="header-derecha">
             <a href="index.html" class="header-link">Inicio</a>
             <div class="submenu-container">
-              <a href="tienda.html" class="header-link submenu-btn">Nuestros Animales</a>
+              <a href="tienda.html" class="header-link submenu-btn"
+                >Nuestros Animales</a
+              >
               <ul class="header-submenu">
                 <li><a href="#" class="header-submenu-link">Categoría 1</a></li>
                 <li><a href="#" class="header-submenu-link">Categoría 2</a></li>
@@ -54,6 +56,11 @@
             <button id="regbtn" title="Register">
               <span class="loginStyle">Regístrate</span>
             </button>
+
+            <button id="cartBtn" class="cart-button" title="Ver Carrito">
+              <i class="fa-solid fa-basket-shopping"></i>
+              <span class="cart-count">0</span>
+            </button>
           </div>
         </nav>
 
@@ -71,7 +78,9 @@
                   necesitas con facilidad.
                 </p>
                 <div class="mainbtn">
-                  <button class="main-boton">Explorar Productos</button>
+                  <a href="tienda.html"
+                    ><button class="main-boton">Explorar Productos</button></a
+                  >
                 </div>
               </div>
             </section>
@@ -168,11 +177,13 @@
 
             <section class="section-destacado">
               <div class="destacado-contenido">
-                <h2 class="destacado-titulo">Conoce a Wingman!</h2>
+                <h2 class="destacado-titulo">Conoce a Carnalito!</h2>
                 <h3 class="destacado-subtitulo">Nuestro animal de la semana</h3>
-                <button class="boton-secundario">
-                  Da click aquí para ver más animales como este
-                </button>
+                <a href="tienda.html">
+                  <button class="boton-secundario">
+                    Da click aquí para ver más animales como este
+                  </button>
+                </a>
               </div>
               <div class="destacado-imagen-wrapper">
                 <img src="media/carnalito.png" class="destacado-img" />
@@ -357,5 +368,6 @@ abajo de esta sección está el menú de registrarse para que le añadas tambié
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="./scripts/styles.js"></script>
     <script src="./scripts/app.js"></script>
+    <script src="./scripts/index.js"></script>
   </body>
 </html>
