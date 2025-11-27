@@ -48,9 +48,8 @@
 }
 
 main {
-  width: 100vw;
-  margin-left: 2vw;
-  margin-right: 0;
+  width: 100%;
+  margin: 0;
   padding: 1.25vh;
   flex: 1;
 }
@@ -62,8 +61,12 @@ body {
   height: 100%;
 }
 
-html{
+html {
   height: 100%;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 .container-pregunta {

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/Front/style/style-producto.css" />
+    <link rel="stylesheet" href="/Front/style/style-base.css" />
+    <title>Finalizar Compra</title>
+  </head>
+  <body>
+    <!-- header -->
+    <nav class="header">
+      <div class="header-izquierda">
+        <a href="index.html" class="nav-logo">
+          <img class="logo-img" src="media/logo.png" alt="logo" />
+        </a>
+      </div>
+      <div class="header-derecha">
+        <a href="index.html" class="header-link">Inicio</a>
+        <div class="submenu-container">
+          <a href="#" class="header-link submenu-btn">Nuestros Animales</a>
+          <ul class="header-submenu">
+            <li><a href="#" class="header-submenu-link">Categoría 1</a></li>
+            <li><a href="#" class="header-submenu-link">Categoría 2</a></li>
+            <li><a href="#" class="header-submenu-link">Categoría 3</a></li>
+          </ul>
+        </div>
+        <a href="contacto.html" class="header-link">Contacto</a>
+        <a href="preguntas.html" class="header-link">Preguntas</a>
+        <a href="nosotros.html" class="header-link">Nosotros</a>
+        <div class="nombreUsuario">
+          <i id="userIcon" class="fa-solid fa-user user-name"></i>
+          <span id="userName" class="user-name"></span>
+        </div>
+        <button id="logInbtn" title="Login">
+          <span class="loginStyle">Iniciar Sesión</span>
+        </button>
+
+        <button id="logOutbtn" title="LogOut">
+          <span class="loginStyle">Cerrar Sesión</span>
+        </button>
+
+        <button id="regbtn" title="Register">
+          <span class="loginStyle">Regístrate</span>
+        </button>
+
+        <button id="cartBtn" class="cart-button" title="Ver Carrito">
+          <i class="fa-solid fa-basket-shopping"></i>
+          <span class="cart-count">0</span>
+        </button>
+      </div>
+    </nav>
+    <main>
+      <main class="contenedor-principal">
+        <div class="ruta-navegacion">
+          <a href="index.html">Inicio</a> &gt; <a href="#">Categoría</a>
+        </div>
+
+        <div class="ficha-producto">
+          <section class="galeria-producto">
+            <div class="imagen-principal-contenedor">
+              <img
+                src="media/imagen_prueba.jpg"
+                alt="imagen animal"
+                class="imagen-grande"
+                id="imgPrincipal"
+              />
+            </div>
+          </section>
+
+          <section class="detalles-compra">
+            <h1 class="titulo-producto">Animal</h1>
+            <div class="precio-contenedor">
+              <span class="precio-actual">$Precio</span>
+              <span class="disponible">Disponible para adopción</span>
+            </div>
+
+            <p class="descripción">
+              Descipción: Lorem ipsum dolor sit amet, consectetur adipisicing
+              elit. Aliquam, harum nam, provident dicta fuga magnam ratione
+              aliquid explicabo facere facilis cumque unde ducimus molestias ea
+              perspiciatis sapiente odio voluptate nostrum!
+            </p>
+            <br />
+
+            <ul class="lista-caracteristicas">
+              <li><strong>Edad:</strong>edad</li>
+              <li><strong>Sexo:</strong>sexo</li>
+              <li><strong>Alimentación:</strong>Alimentación</li>
+            </ul>
+
+            <div class="acciones-producto">
+              <div class="selector-cantidad">
+                <label for="cantidad">Cantidad:</label>
+                <input
+                  type="number"
+                  id="cantidad"
+                  name="cantidad"
+                  value="1"
+                  min="1"
+                  max="5"
+                />
+              </div>
+
+              <button class="boton-comprar" onclick="agregarAlCarrito()">
+                Comprar Ahora
+              </button>
+              <button class="boton-carrito">🛒</button>
+            </div>
+
+            <div class="garantia-legal">
+              <small
+                >Una vez aceptado al animal, queda completamente la
+                responsabilidad al clienta.</small
+              >
+            </div>
+          </section>
+        </div>
+
+        <section class="info-adicional">
+          <h3 class="titulo-seccion">Cuidados Básicos</h3>
+          <div class="grid-cuidados">
+            <div class="tarjeta-cuidado">
+              <h4>Temperatura</h4>
+              <p>Temperatura</p>
+            </div>
+            <div class="tarjeta-cuidado">
+              <h4>Cama</h4>
+              <p>cama</p>
+            </div>
+            <div class="tarjeta-cuidado">
+              <h4>Dieta</h4>
+              <p>dieta</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="seccion-explorar">
+          <h3 class="titulo-seccion">Explora otros animales!</h3>
+
+          <div class="grid-categorias">
+            <a href="#" class="card-categoria">
+              <div class="img-wrapper">
+                <img src="media/imagen_prueba.jpg" />
+              </div>
+              <div class="contenido-cat">
+                <h4>categoría 1</h4>
+                <span class="btn-ver">Ver más &rarr;</span>
+              </div>
+            </a>
+
+            <a href="#" class="card-categoria">
+              <div class="img-wrapper">
+                <img src="media/imagen_prueba.jpg" />
+              </div>
+              <div class="contenido-cat">
+                <h4>Categoría 2</h4>
+                <span class="btn-ver">Ver más &rarr;</span>
+              </div>
+            </a>
+
+            <a href="#" class="card-categoria">
+              <div class="img-wrapper">
+                <img src="media/imagen_prueba.jpg" />
+              </div>
+              <div class="contenido-cat">
+                <h4>Categoría 3</h4>
+                <span class="btn-ver">Ver más &rarr;</span>
+              </div>
+            </a>
+          </div>
+        </section>
+      </main>
+    </main>
+
+    <footer class="footer">
+      <h4 class="footer-titulo">
+        ¿Tienes alguna duda? Envíanos un correo!<br />
+      </h4>
+      <h4><button class="footer-contacto">Da click aquí!</button></h4>
+      <h4 class="footer-titulo">Siguenos en nuestras redes sociales</h4>
+      <div class="footer-redes">
+        <a href="#" target="_blank"
+          ><i class="fa-brands fa-instagram footer-icon"></i
+        ></a>
+      </div>
+      <p class="footer-copyright">
+        © 2025 Proyecto académico, no es una tienda real.
+      </p>
+    </footer>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="./scripts/producto.js"></script>
+    <script src="./scripts/app.js"></script>
+  </body>
+</html>

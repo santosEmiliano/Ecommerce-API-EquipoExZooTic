@@ -315,24 +315,6 @@
   border-radius: 15px;
 }
 
-.cart-button {
-  background-color: var(--color--amarillo);
-  color: var(--color-negro);
-  border: none;
-  padding: 10px 15px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: 0.3s;
-}
-.cart-button:hover {
-  transform: scale(1.05);
-  background-color: var(--color--amarillo-ocre);
-}
-
 .exotic-filters {
   display: flex;
   align-items: center;

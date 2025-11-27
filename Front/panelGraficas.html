@@ -1,129 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="./style/style-base.css" />
-  <link rel="stylesheet" href="./style/style-admin.css" />
-  <link rel="stylesheet" href="./style/style-GrafFinan.css" />
-  <title>Panel de Gráficas y Finanzas</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style/style-base.css" />
+    <link rel="stylesheet" href="./style/style-admin.css" />
+    <link rel="stylesheet" href="./style/style-GrafFinan.css" />
+    <title>Panel de Gráficas y Finanzas</title>
 
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
 
-<body>
-
-<!-- HEADER -->
-<nav class="header">
-  <div class="header-izquierda">
-    <a href="index.html" class="nav-logo">
-      <img class="logo-img" src="media/logo.png" alt="logo" />
-    </a>
-  </div>
-
-  <div class="header-derecha">
-    <a href="index.html" class="header-link">Inicio</a>
-
-    <div class="submenu-container">
-      <a href="#" class="header-link submenu-btn">Nuestros Animales</a>
-      <ul class="header-submenu">
-        <li><a href="#" class="header-submenu-link">Categoría 1</a></li>
-        <li><a href="#" class="header-submenu-link">Categoría 2</a></li>
-        <li><a href="#" class="header-submenu-link">Categoría 3</a></li>
-      </ul>
-    </div>
-
-    <a href="contacto.html" class="header-link">Contacto</a>
-    <a href="preguntas.html" class="header-link">Preguntas</a>
-    <a href="nosotros.html" class="header-link">Nosotros</a>
-
-    <div class="nombreUsuario">
-      <i id="userIcon" class="fa-solid fa-user user-name"></i>
-      <span id="userName" class="user-name"></span>
-    </div>
-
-    <button id="logInbtn" title="Login">
-      <span class="loginStyle">Iniciar Sesión</span>
-    </button>
-
-    <button id="logOutbtn" title="LogOut">
-      <span class="loginStyle">Cerrar Sesión</span>
-    </button>
-
-    <button id="regbtn" title="Register">
-      <span class="loginStyle">Regístrate</span>
-    </button>
-  </div>
-</nav>
-
-<main>
-  <div class="admin-container">
-
-    <!-- Sidebar -->
-    <aside class="admin-sidebar">
-      <h2 class="sidebar-title">Panel Admin</h2>
-      <ul class="sidebar-menu">
-        <li><a href="#" class="sidebar-link"><i class="fa-solid fa-box"></i> Productos</a></li>
-        <li><a href="/Front/panelGraficas.html" class="sidebar-link"><i class="fa-solid fa-chart-line"></i> Gráficas</a></li>
-      </ul>
-    </aside>
-
-    <!-- CONTENIDO -->
-    <section class="admin-content">
-      <h1>Gráfica de Ventas</h1>
-      <!-- SOLO LA GRÁFICA DE BARRAS -->
-      <div class="charts-grid">
-        <div class="chart-box">
-          <h3 class="chart-title">Ganancias por categoría</h3>
-          <canvas id="barChart"></canvas>
-        </div>
+  <body>
+    <!-- HEADER -->
+    <nav class="header">
+      <div class="header-izquierda">
+        <a href="index.html" class="nav-logo">
+          <img class="logo-img" src="media/logo.png" alt="logo" />
+        </a>
       </div>
-    </section>
 
-  </div>
-</main>
+      <div class="header-derecha">
+        <a href="index.html" class="header-link">Inicio</a>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <h4 class="footer-titulo">¿Tienes alguna duda? Envíanos un correo!<br /></h4>
-  <h4><button class="footer-contacto">Da click aquí!</button></h4>
+        <div class="submenu-container">
+          <a href="#" class="header-link submenu-btn">Nuestros Animales</a>
+          <ul class="header-submenu">
+            <li><a href="#" class="header-submenu-link">Categoría 1</a></li>
+            <li><a href="#" class="header-submenu-link">Categoría 2</a></li>
+            <li><a href="#" class="header-submenu-link">Categoría 3</a></li>
+          </ul>
+        </div>
 
-  <h4 class="footer-titulo">Síguenos en nuestras redes sociales</h4>
-  <div class="footer-redes">
-    <a href="#"><i class="fa-brands fa-instagram footer-icon"></i></a>
-  </div>
+        <a href="contacto.html" class="header-link">Contacto</a>
+        <a href="preguntas.html" class="header-link">Preguntas</a>
+        <a href="nosotros.html" class="header-link">Nosotros</a>
 
-  <p class="footer-copyright">
-    © 2025 Proyecto académico, no es una tienda real.
-  </p>
-</footer>
+        <div class="nombreUsuario">
+          <i id="userIcon" class="fa-solid fa-user user-name"></i>
+          <span id="userName" class="user-name"></span>
+        </div>
 
-<script>
-  new Chart(document.getElementById("barChart"), {
-    type: "bar",
-    data: {
-      labels: ["Croquetas", "Accesorios", "Juguetes", "Medicamentos"],
-      datasets: [{
-        label: "Ganancias (MXN)",
-        data: [18000, 9000, 6000, 3000],
-        backgroundColor: ["#4e79a7", "#f28e2b", "#e15759", "#76b7b2"]
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false
-    }
-  });
-</script>
+        <button id="logInbtn" title="Login">
+          <span class="loginStyle">Iniciar Sesión</span>
+        </button>
 
+        <button id="logOutbtn" title="LogOut">
+          <span class="loginStyle">Cerrar Sesión</span>
+        </button>
 
-</body>
+        <button id="regbtn" title="Register">
+          <span class="loginStyle">Regístrate</span>
+        </button>
+
+        <button id="cartBtn" class="cart-button" title="Ver Carrito">
+          <i class="fa-solid fa-basket-shopping"></i>
+          <span class="cart-count">0</span>
+        </button>
+      </div>
+    </nav>
+
+    <main>
+      <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+          <h2 class="sidebar-title">Panel Admin</h2>
+          <ul class="sidebar-menu">
+            <li>
+              <a href="#" class="sidebar-link"
+                ><i class="fa-solid fa-box"></i> Productos</a
+              >
+            </li>
+            <li>
+              <a href="/Front/panelGraficas.html" class="sidebar-link"
+                ><i class="fa-solid fa-chart-line"></i> Gráficas</a
+              >
+            </li>
+          </ul>
+        </aside>
+
+        <!-- CONTENIDO -->
+        <section class="admin-content">
+          <h1>Gráfica de Ventas</h1>
+          <!-- SOLO LA GRÁFICA DE BARRAS -->
+          <div class="charts-grid">
+            <div class="chart-box">
+              <h3 class="chart-title">Ganancias por categoría</h3>
+              <canvas id="barChart"></canvas>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <h4 class="footer-titulo">
+        ¿Tienes alguna duda? Envíanos un correo!<br />
+      </h4>
+      <h4><button class="footer-contacto">Da click aquí!</button></h4>
+
+      <h4 class="footer-titulo">Síguenos en nuestras redes sociales</h4>
+      <div class="footer-redes">
+        <a href="#"><i class="fa-brands fa-instagram footer-icon"></i></a>
+      </div>
+
+      <p class="footer-copyright">
+        © 2025 Proyecto académico, no es una tienda real.
+      </p>
+    </footer>
+
+    <script>
+      new Chart(document.getElementById("barChart"), {
+        type: "bar",
+        data: {
+          labels: ["Croquetas", "Accesorios", "Juguetes", "Medicamentos"],
+          datasets: [
+            {
+              label: "Ganancias (MXN)",
+              data: [18000, 9000, 6000, 3000],
+              backgroundColor: ["#4e79a7", "#f28e2b", "#e15759", "#76b7b2"],
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+        },
+      });
+    </script>
+  </body>
 </html>
