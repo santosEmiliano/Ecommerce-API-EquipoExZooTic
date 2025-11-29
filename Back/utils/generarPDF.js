@@ -1,46 +1,122 @@
 const puppeteer = require('puppeteer');
 
 async function generarNotaPDF(datosCompra) {
-  //Crear el HTML 
+  
+  // Funcion para que se vea bonito el dinero
+  const formatoMoneda = (valor) => {
+    return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(valor || 0);
+  };
+
+  // Crear el HTML 
   const htmlNota = `
     <html>
       <head>
         <style>
-          body { font-family: sans-serif; margin: 40px; }
-          h1 { color: #333; }
-          .logo { width: 100px; }
-          .tabla { width: 100%; border-collapse: collapse; margin-top: 20px; }
-          .tabla th, .tabla td { border: 1px solid #ddd; padding: 8px; }
-          .tabla th { background-color: #f2f2f2; }
-          .total { text-align: right; margin-top: 20px; font-size: 1.2em; }
+          body { font-family: 'Helvetica', Arial, sans-serif; margin: 40px; color: #333; }
+          
+          /* Encabezado */
+          .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #4C5F41; padding-bottom: 20px; }
+          .logo { width: 120px; margin-bottom: 10px; }
+          .empresa-nombre { font-size: 26px; font-weight: bold; color: #4C5F41; margin: 5px 0; }
+          .empresa-lema { font-style: italic; font-size: 14px; color: #666; margin-top: 0; }
+          
+          /* Información del Cliente y Pedido */
+          .info-box { display: flex; justify-content: space-between; margin-bottom: 20px; background: #f9f9f9; padding: 15px; border-radius: 8px; }
+          .info-col h3 { margin-top: 0; font-size: 16px; color: #4C5F41; }
+          .info-col p { margin: 3px 0; font-size: 14px; }
+
+          /* Tabla de Productos */
+          .tabla { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+          .tabla th { background-color: #4C5F41; color: white; padding: 10px; text-align: left; }
+          .tabla td { border-bottom: 1px solid #ddd; padding: 10px; }
+          .tabla tr:nth-child(even) { background-color: #f2f2f2; }
+          
+          /* Totales */
+          .total-container { width: 50%; float: right; margin-top: 20px; }
+          .fila-total { display: flex; justify-content: space-between; padding: 5px 0; font-size: 14px; }
+          .total-final { font-weight: bold; font-size: 18px; border-top: 2px solid #333; margin-top: 10px; padding-top: 10px; color: #4C5F41; }
+          
+          /* Pie de página */
+          .footer { clear: both; margin-top: 60px; text-align: center; font-size: 12px; color: #888; border-top: 1px solid #ddd; padding-top: 20px; }
         </style>
       </head>
       <body>
-        <img src="${datosCompra.logoUrl}" class="logo">
-        <h1>Nota de Compra #${datosCompra.id}</h1>
-        <p>Fecha: ${new Date().toLocaleDateString()}</p>
-        <p>Cliente: ${datosCompra.cliente.nombre}</p>
         
+        <div class="header">
+          <img src="${datosCompra.logoUrl}" class="logo">
+          <h1 class="empresa-nombre">ExZooTic</h1>
+          <p class="empresa-lema">"Donde lo extraordinario encuentra un hogar"</p>
+        </div>
+
+        <div class="info-box">
+          <div class="info-col">
+            <h3>Datos del Cliente</h3>
+            <p><strong>Nombre:</strong> ${datosCompra.cliente.nombre}</p>
+            <p><strong>Email:</strong> ${datosCompra.cliente.email}</p>
+            <p><strong>Dirección:</strong> ${datosCompra.cliente.direccion || 'N/A'}</p>
+          </div>
+          <div class="info-col" style="text-align: right;">
+            <h3>Detalles de la Orden</h3>
+            <p><strong>Orden #:</strong> ${datosCompra.id}</p>
+            <p><strong>Fecha:</strong> ${new Date().toLocaleDateString('es-MX')}</p>
+            <p><strong>Hora:</strong> ${new Date().toLocaleTimeString('es-MX')}</p>
+          </div>
+        </div>
+
         <table class="tabla">
           <thead>
-            <tr> <th>Producto</th> <th>Cantidad</th> <th>Precio Unitario</th> </tr>
+            <tr> 
+              <th>Producto</th> 
+              <th style="text-align: center;">Cant.</th> 
+              <th style="text-align: right;">Precio Unit.</th> 
+              <th style="text-align: right;">Importe</th> 
+            </tr>
           </thead>
           <tbody>
             ${datosCompra.productos.map(p => `
               <tr>
                 <td>${p.nombre}</td>
-                <td>${p.cantidad}</td>
-                <td>$${p.precio.toFixed(2)}</td>
+                <td style="text-align: center;">${p.cantidad}</td>
+                <td style="text-align: right;">${formatoMoneda(p.precio)}</td>
+                <td style="text-align: right;">${formatoMoneda(p.precio * p.cantidad)}</td>
               </tr>
             `).join('')}
           </tbody>
         </table>
 
-        <div class="total">
-          <p>Subtotal: $${datosCompra.subtotal.toFixed(2)}</p>
-          <p>Envío: $${datosCompra.envio.toFixed(2)}</p>
-          <p><strong>Total: $${datosCompra.totalGeneral.toFixed(2)}</strong></p>
+        <div class="total-container">
+          <div class="fila-total">
+            <span>Subtotal:</span>
+            <span>${formatoMoneda(datosCompra.subtotal)}</span>
+          </div>
+          
+          <div class="fila-total">
+            <span>Impuestos (IVA):</span>
+            <span>${formatoMoneda(datosCompra.impuestos)}</span>
+          </div>
+
+          <div class="fila-total">
+            <span>Gastos de Envío:</span>
+            <span>${formatoMoneda(datosCompra.envio)}</span>
+          </div>
+
+          ${datosCompra.descuento > 0 ? `
+            <div class="fila-total" style="color: green;">
+              <span>Cupón de Descuento:</span>
+              <span>- ${formatoMoneda(datosCompra.descuento)}</span>
+            </div>
+          ` : ''}
+
+          <div class="fila-total total-final">
+            <span>Total General:</span>
+            <span>${formatoMoneda(datosCompra.totalGeneral)}</span>
+          </div>
         </div>
+
+        <div class="footer">
+          <p>Gracias por tu compra. Si tienes dudas contacta a exzootic2@gmail.com</p>
+        </div>
+
       </body>
     </html>
   `;

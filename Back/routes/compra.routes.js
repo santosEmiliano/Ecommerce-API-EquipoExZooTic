@@ -59,7 +59,10 @@ router.post('/compra/:id', compraFunctions.confirmarCompra);
                 pais: document.getElementById('pais-select').value, 
                 
                 // Obtener cuál radio button está seleccionado
-                metodoPago: document.querySelector('input[name="metodo_pago"]:checked').value 
+                metodoPago: document.querySelector('input[name="metodo_pago"]:checked').value, 
+
+                //ESTE DE AQUI ES IMPORTANTE
+                email: document.querySelector('correo')
             };
 
             const usuarioId = 1; // Obtener esto de tu sesión o localStorage

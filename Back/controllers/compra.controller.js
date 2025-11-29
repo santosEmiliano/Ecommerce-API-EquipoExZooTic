@@ -9,6 +9,7 @@ const fs = require('fs');
 //Import de los model que se encargan de las funciones en base de datos
 const carritoModel = require('../model/carritoModel');
 const ventasModel = require('../model/ventasModel');
+const crudModel = require('../model/crudModel');
 
 // Importar el generador de PDF
 const { generarNotaPDF } = require('../utils/generarPDF');
@@ -16,7 +17,6 @@ const { generarNotaPDF } = require('../utils/generarPDF');
 //Import del JSON de tarifas
 const tarifasData = require('../data/tarifas.json');
 
-// ---------------- CORREO ----------------------
 // Transporter para los correos
 const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -31,16 +31,27 @@ const transporter = nodemailer.createTransport({
 const obtenerResumenCompra = async (req, res) => {
     const idUser = req.params.id;
     try {
-        //Obtenemos el carrito
-        const datosUsuario = await carritoModel.getCarritoUsuario(idUser);
 
-        // Validacion
-        if (!datosUsuario) {
-            return res.status(404).json({ message: "Usuario no encontrado" });
+        //Obtenemos las coincidencias con la id del usuario del carrito
+        const productosCarrito = await carritoModel.getCarritoUsuario(idUser);
+
+        //Si intentan comprar sin nada en el carrito no les va a salir nada obviamente.
+        if (!itemsCarritoBD || itemsCarritoBD.length === 0) {
+             return res.json({
+                status: "success",
+                carrito: [],
+                subtotal: 0,
+                tarifas: tarifasData
+            });
         }
 
-        // Ya sacamos el json con '[]' por si no hay nada
-        const carrito = JSON.parse(datosUsuario.carrito || '[]');
+        const carrito = await Promise.all(productosCarrito.map(async (item) => { //Sin el promise no jala el await y por ende no jala la peticion a la base de datos
+            const productoInfo = await crudModel.getProdID(item.producto);
+            return {
+                ...productoInfo, 
+                cantidad: item.cantidad 
+            };
+        }));
 
         //Sacamos la suma de todo el carrito
         let subtotal = 0;
@@ -79,16 +90,23 @@ const confirmarCompra = async (req, res) => {
             return res.status(400).json({ message: "Faltan los datos sobre el envío" });
         }
 
-        //Aqui volvemos a obtener todos los datos de pago
-        const datosUsuario = await carritoModel.getCarritoUsuario(idUser);
+        //Obtenemos las coincidencias con la id del usuario del carrito
+        const productosCarrito = await carritoModel.getCarritoUsuario(idUser);
 
-        // Validacion
-        if (!datosUsuario) {
-            return res.status(404).json({ message: "Usuario no encontrado" });
+        //Tristemente, si no tienen nada en el carrito, no les cobramos
+        if (!productosCarrito || productosCarrito.length === 0) {
+            return res.status(400).json({ message: "El carrito está vacío" });
         }
 
-        // Ya sacamos el json con '[]' por si no hay nada
-        const carrito = JSON.parse(datosUsuario.carrito || '[]');
+        const carrito = await Promise.all(productosCarrito.map(async (item) => { //Sin el promise no jala el await y por ende no jala la peticion a la base de datos
+            const productoInfo = await crudModel.getProdID(item.producto);
+            return {
+                ...productoInfo, 
+                cantidad: item.cantidad 
+            };
+        }));
+
+        console.log(carrito);
 
         //Por categorias
         const ventasPorCategoria = {}; 
@@ -111,13 +129,18 @@ const confirmarCompra = async (req, res) => {
 
         //PARTE 2: GUARDAR EN LAS CATEGORIAS LOS PAGOS
         await ventasModel.agregarPago(ventasPorCategoria);
+
+        //PARTE 3: LIMPIAR EL CARRITO DEL USUARIO
         await carritoModel.deleteCarrito(idUser);
         
         //Obtenemos todos los datos del front
         const infoPais = tarifasData[datosFormulario.pais] || tarifasData["DEFAULT"];
         const costoEnvio = infoPais.envio;
         const impuesto = subtotal * infoPais.tasa;
-        const totalFinal = subtotal + costoEnvio + impuesto;
+
+        //ACA VA EL MANEJO DEL CUPON QUE PARECE MUCHO ROLLO AHORITA
+        const descuento = 0;
+        const totalFinal = subtotal + costoEnvio + impuesto - descuento;
 
         //ACA ES DONDE IRIA TODO EL SHOW DE LO DEL CORREO Y ESO SUPONGO
         // ======= Correo =======
@@ -139,14 +162,14 @@ const confirmarCompra = async (req, res) => {
             id: Date.now(),
             cliente: { 
                 nombre: datosFormulario.nombre || "Cliente ExZooTic",
+                email: datosFormulario.email,
+                direccion: datosFormulario.direccion
             },
-            productos: carrito.map(item => ({
-                nombre: item.nombre,
-                cantidad: item.cantidad,
-                precio: parseFloat(item.precio)
-            })),
+            productos: carrito,
             subtotal: subtotal,
+            impuestos: impuesto,
             envio: costoEnvio,
+            descuento: descuento,
             totalGeneral: totalFinal,
             logoUrl: logoBase64
         };

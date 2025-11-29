@@ -6,7 +6,7 @@ const pool = require('../db/conexion');
 async function getCarritoUsuario(id) {
     try {
         const [rows] = await pool.query('SELECT * FROM carritos WHERE usuario = ?', [id]);
-        return rows[0];  
+        return rows;  
     } catch (error) {
         console.error("Error al obtener el carrito:", error);
         return null;
@@ -15,10 +15,10 @@ async function getCarritoUsuario(id) {
 
 async function deleteCarrito(id) {
     try {
-        const [result] = await pool.query('UPDATE carritos SET carrito = ? WHERE usuario = ?', ['[]', id]);
+        const [result] = await pool.query('DELETE FROM carritos WHERE usuario = ?', [id]);
         return result.affectedRows;
     } catch (error) {
-        console.error("Error al eliminar el producto:", error);
+        console.error("Error al eliminar los productos del carrito:", error);
         return null; 
     }
 }
