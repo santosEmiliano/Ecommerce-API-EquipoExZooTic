@@ -1,11 +1,32 @@
 //  CONTROLADOR DE LAS RUTAS DE COMPRA
+// Importamos la lubreria para mandar correos
+const nodemailer = require('nodemailer');
+const path = require('path');
+const fs = require('fs');
+
+
 
 //Import de los model que se encargan de las funciones en base de datos
 const carritoModel = require('../model/carritoModel');
 const ventasModel = require('../model/ventasModel');
 
+// Importar el generador de PDF
+const { generarNotaPDF } = require('../utils/generarPDF');
+
 //Import del JSON de tarifas
 const tarifasData = require('../data/tarifas.json');
+
+// ---------------- CORREO ----------------------
+// Transporter para los correos
+const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
+    },
+});
 
 const obtenerResumenCompra = async (req, res) => {
     const idUser = req.params.id;
@@ -99,7 +120,69 @@ const confirmarCompra = async (req, res) => {
         const totalFinal = subtotal + costoEnvio + impuesto;
 
         //ACA ES DONDE IRIA TODO EL SHOW DE LO DEL CORREO Y ESO SUPONGO
+        // ======= Correo =======
+        // Preparamos Logo 
+        const rutaLogo = path.join(__dirname, '../media/logo.png'); // Verifica que esta ruta sea correcta en tu proyecto
+        let logoBase64 = '';
+        
+        try {
+            if (fs.existsSync(rutaLogo)) {
+                const logoBuffer = fs.readFileSync(rutaLogo);
+                logoBase64 = `data:image/png;base64,${logoBuffer.toString('base64')}`;
+            }
+        } catch (e) {
+            console.log("No se pudo cargar el logo para el PDF, se enviará sin logo.");
+        }
 
+        // Preparamos los datos del PDF
+        const datosPDF = {
+            id: Date.now(),
+            cliente: { 
+                nombre: datosFormulario.nombre || "Cliente ExZooTic",
+            },
+            productos: carrito.map(item => ({
+                nombre: item.nombre,
+                cantidad: item.cantidad,
+                precio: parseFloat(item.precio)
+            })),
+            subtotal: subtotal,
+            envio: costoEnvio,
+            totalGeneral: totalFinal,
+            logoUrl: logoBase64
+        };
+
+        // Generamos PDF y enviamos el correo 
+        console.log(`Iniciando proceso de correo para: ${datosFormulario.email}`);
+        
+        generarNotaPDF(datosPDF).then(async (pdfBuffer) => {
+            
+            const mailOptions = {
+                from: `"ExZooTic Ventas" <${process.env.GMAIL_USER}>`,
+                to: datosFormulario.email, 
+                subject: `Confirmación de Compra - Pedido #${datosPDF.id}`,
+                html: `
+                    <h1>¡Gracias por tu compra, ${datosPDF.cliente.nombre}!</h1>
+                    <p>Tu pedido ha sido confirmado y tus animales están siendo preparados para el viaje.</p>
+                    <p>Adjunto encontrarás tu nota de compra detallada.</p>
+                    <hr>
+                    <p>Atte: El equipo de ExZooTic 🐾</p>
+                `,
+                attachments: [
+                    {
+                        filename: `NotaCompra-${datosPDF.id}.pdf`,
+                        content: pdfBuffer,
+                        contentType: 'application/pdf'
+                    }
+                ]
+            };
+
+            await transporter.sendMail(mailOptions);
+            console.log("Correo con PDF enviado correctamente.");
+
+        }).catch(error => {
+            console.error("Error al generar PDF o enviar correo:", error);
+        });
+        
         res.json({
             status: "success",
             message: "Compra realizada con éxito",
