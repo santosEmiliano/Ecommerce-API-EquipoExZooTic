@@ -47,101 +47,220 @@
   --color--gris-borde: #c5c5c5;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  background-image: url("/Front/media/mapa.png");
-  background-size: cover;
-  background-repeat: repeat;
-  background-attachment: fixed;
+  /* CAMBIO DE FONDO: Usamos una mesa de madera oscura en lugar del bambú.
+     Esto hace que la nota de papel resalte mucho mejor y tenga más sentido. */
+  background-image: url('../media/mapa.png');
+  background-size: contain;
+  background-position: center;
+  font-family: 'Nunito', sans-serif;
 }
 
 main {
-  max-width: 1200px;
-  margin: 4vh auto;
+  /* Ajustamos el margen superior para centrarlo mejor visualmente */
+  margin: 6vh auto;
   padding: 2vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-h1 {
+h1.main-title {
   text-align: center;
-  font-size: 4vh;
+  font-size: 5vh;
   margin-bottom: 1vh;
+  color: #fff;
+  /* Sombra más fuerte para que se lea bien sobre la madera oscura */
+  text-shadow: 0 4px 8px rgba(0,0,0,0.9);
+  font-family: 'DynaPuff', cursive;
 }
 
-h6 {
+h6.sub-title {
   text-align: center;
-  font-size: 2vh;
-  margin-bottom: 4vh;
+  font-size: 2.5vh;
+  margin-bottom: 5vh;
+  color: var(--color--amarillo-suave);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+  font-family: 'Nunito', sans-serif;
+  font-weight: bold;
 }
 
+/* --- LA POSTAL (Contenedor) --- */
 .formulario-container {
-  background: var(--color--verde-claro);
-  padding: 3vh;
-  padding-right: 6vw;
-  border-radius: 18px;
-  box-shadow: 0vh 0.4vh 1vh var(--color--gris-borde);
-  border-style: solid;
-  border-color: var(--color--cafe-tierra);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  margin: auto;
+  /* AJUSTE DE TAMAÑO: Mucho más compacto */
+  max-width: 450px; /* Reducido de 600px */
+  width: 90%; /* Para móviles */
+  
+  /* AJUSTE DE PADDING: Menos relleno interno */
+  padding: 35px 40px; /* Reducido de 50px 60px */
+
+  /* Color Papel Viejo ligeramente más cálido */
+  background-color: #fcf8e3;
+  background-image: url("https://www.transparenttextures.com/patterns/cream-paper.png");
+  
+  border-radius: 3px;
+  
+  /* Sombra mejorada para dar profundidad sobre la mesa */
+  box-shadow: 
+    0 2px 5px rgba(0,0,0,0.1), 
+    0 15px 30px rgba(0,0,0,0.25);
+    
+  position: relative;
+  transform: rotate(-2deg); /* Un poco más de inclinación */
+  transition: transform 0.3s ease;
 }
 
 .formulario-container:hover {
-  border-color: var(--color--cafe-madera);
-  transform: translateY(-0.4vh);
-  box-shadow: 0vh 0.8vh 1.6vh;
+  transform: rotate(0deg) scale(1.01);
+}
+
+/* DECORACIÓN: CINTA ADHESIVA (Tape) - Ajustada al nuevo tamaño */
+.tape-deco {
+  position: absolute;
+  top: -20px; /* Ajustado */
+  left: 50%;
+  transform: translateX(-50%) rotate(3deg);
+  width: 110px; /* Más pequeña */
+  height: 40px; /* Más pequeña */
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  backdrop-filter: blur(2px);
+  z-index: 10;
+  opacity: 0.8;
+  border-left: 2px dotted rgba(0,0,0,0.1);
+  border-right: 2px dotted rgba(0,0,0,0.1);
 }
 
 #formularioContacto {
   display: flex;
   flex-direction: column;
-  gap: 3vh;
+  gap: 20px; /* Menos espacio entre elementos */
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 #formularioContacto label {
-  font-size: 1.8vh;
-  font-weight: bold;
+  font-size: 1.6vh; /* Texto un poco más pequeño */
+  font-weight: 800;
+  color: var(--color--cafe-tierra);
+  font-family: 'Nunito', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
+/* INPUTS: Estilo Línea de Escritura */
 .textFrom {
   width: 100%;
-  padding: 1.2vh 1vw;
-  border-radius: 10px;
-  border: 2px solid var(--color--gris-borde);
-  font-size: 1.8vh;
-  background: var(--color--blanco-hueso);
-  transition: 0.3s ease;
-}
-
-.div4 input[type="submit"] {
-  width: 100%;
-  padding: 1.8vh;
-  background: var(--color-verde-oscuro);
-  color: var(--color--blanco-hueso);
+  padding: 8px 5px;
   border: none;
-  font-size: 2vh;
-  border-radius: 12px;
-  cursor: pointer;
+  border-bottom: 2px dashed var(--color--gris-medio);
+  background: transparent;
+  font-size: 1.8vh;
+  color: var(--color--negro);
+  font-family: 'Indie Flower', 'Comic Sans MS', cursive;
   transition: 0.3s ease;
-  font-weight: bold;
-  box-shadow: 0vh 0.4vh 0.9vh rgba(0, 0, 0, 0.2);
 }
 
-.div4 input[type="submit"]:hover {
-  background: var(--color--verde-bosque);
-  transform: translateY(-0.3vh);
-  box-shadow: 0vh 0.8vh 1.5vh rgba(0, 0, 0, 0.25);
+.textFrom:focus {
+  outline: none;
+  border-bottom: 2px solid var(--color--verde-bosque);
+  background-color: rgba(122, 178, 78, 0.05);
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(0.5vh);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Textarea específico */
+.area-mensaje {
+  resize: vertical;
+  background-image: linear-gradient(transparent, transparent 28px, #ccc 29px);
+  background-size: 100% 29px;
+  line-height: 29px;
+  height: 120px; /* Altura inicial definida */
+}
+
+/* ÁREA DE ACCIÓN (Botón + Sello) */
+.action-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+/* BOTÓN: Estilo Sello Postal */
+.btn-enviar {
+  background-color: var(--color--verde-bosque);
+  color: white;
+  border: none;
+  padding: 10px 25px; /* Botón más compacto */
+  font-size: 1.8vh;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'DynaPuff', cursive;
+  box-shadow: 2px 2px 0 var(--color-negro);
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-enviar:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--color-negro);
+  background-color: var(--color-verde);
+}
+
+.btn-enviar:active {
+  transform: translate(0, 0);
+  box-shadow: none;
+}
+
+/* DECORACIÓN: SELLO DE FAUNA */
+.stamp-deco {
+  width: 60px; /* Más pequeño */
+  height: 70px; /* Más pequeño */
+  border: 3px double var(--color-rojo);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-rojo);
+  font-size: 26px;
+  border-radius: 4px;
+  transform: rotate(-12deg);
+  opacity: 0.7;
+  /* Hacemos que parezca tinta real sobre el papel */
+  mix-blend-mode: multiply; 
+}
+
+/* Animación de entrada */
+@keyframes paperSlide {
+  from { opacity: 0; transform: translateY(30px) rotate(-5deg); }
+  to { opacity: 1; transform: translateY(0) rotate(-2deg); }
 }
 
 .formulario-container {
-  animation: fadeIn 0.4s ease;
+  animation: paperSlide 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  main { margin: 4vh auto; }
+  .formulario-container {
+    padding: 25px;
+  }
+  .stamp-deco {
+    display: none;
+  }
+  .btn-enviar {
+    width: 100%;
+    justify-content: center;
+  }
 }

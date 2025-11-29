@@ -19,7 +19,6 @@
       <div id="white-layer"></div>
 
       <div id="content-inner">
-        <!-- header -->
         <nav class="header">
           <div class="header-izquierda">
             <a href="index.html" class="nav-logo">
@@ -33,9 +32,9 @@
                 >Nuestros Animales</a
               >
               <ul class="header-submenu">
-                <li><a href="#" class="header-submenu-link">Categoría 1</a></li>
-                <li><a href="#" class="header-submenu-link">Categoría 2</a></li>
-                <li><a href="#" class="header-submenu-link">Categoría 3</a></li>
+                <li><a href="#" class="header-submenu-link">Patrimoniales</a></li>
+                <li><a href="#" class="header-submenu-link">Megafaunas</a></li>
+                <li><a href="#" class="header-submenu-link">Superpredadores</a></li>
               </ul>
             </div>
             <a href="contacto.html" class="header-link">Contacto</a>
@@ -64,9 +63,9 @@
           </div>
         </nav>
 
-        <!-- main -->
         <main>
           <section class="main-section">
+            
             <section class="imagen-principal">
               <div class="imagen-fondo">
                 <canvas id="rippleCanvas"></canvas>
@@ -89,69 +88,57 @@
               <h2 class="datos-titulo">Apuntes del Explorador 🧭</h2>
               <div class="datos-container">
                 <div class="field-note note-yellow">
-                  <div class="pin"></div>
-                  <h4>⚠️ Peligro</h4>
-                  <p>
-                    El Caracol Cono es 100 veces más tóxico que el cianuro. ¡No
-                    tocar!
-                  </p>
+                    <div class="pin"></div>
+                    <h4>⚠️ Peligro</h4>
+                    <p>El Caracol Cono es 100 veces más tóxico que el cianuro. ¡No tocar!</p>
                 </div>
                 <div class="field-note note-green">
-                  <div class="tape"></div>
-                  <h4>🎵 Dato Musical</h4>
-                  <p>
-                    El Tenrec rayado usa sus espinas como instrumento para
-                    "hablar".
-                  </p>
+                    <div class="tape"></div>
+                    <h4>🎵 Dato Musical</h4>
+                    <p>El Tenrec rayado usa sus espinas como instrumento para "hablar".</p>
                 </div>
                 <div class="field-note note-blue">
-                  <div class="pin"></div>
-                  <h4>💪 Fuerza Bruta</h4>
-                  <p>
-                    El Guacamayo Jacinto parte cocos con el pico como si fueran
-                    galletas.
-                  </p>
+                    <div class="pin"></div>
+                    <h4>💪 Fuerza Bruta</h4>
+                    <p>El Guacamayo Jacinto parte cocos con el pico como si fueran galletas.</p>
                 </div>
                 <div class="field-note note-yellow">
-                  <div class="pin"></div>
-                  <h4>💪 Fuerza Bruta</h4>
-                  <p>
-                    El Guacamayo Jacinto parte cocos con el pico como si fueran
-                    galletas.
-                  </p>
+                    <div class="pin"></div>
+                    <h4>💪 Fuerza Bruta</h4>
+                    <p>El Guacamayo Jacinto parte cocos con el pico como si fueran galletas.</p>
                 </div>
               </div>
             </section>
 
             <section class="main-card-categorias">
               <div class="polaroid">
-                <div class="photo">
-                  <img src="media/imagen_prueba.jpg" alt="Selva" />
-                </div>
-                <div class="caption">
-                  <h4>Patrimoniales</h4>
-                  <p>Tesoros de la selva virgen.</p>
-                </div>
+                  <div class="photo">
+                      <img src="media/imagen_prueba.jpg" alt="Selva" onerror="this.src='https://via.placeholder.com/300'">
+                  </div>
+                  <div class="caption">
+                      <h4>Patrimoniales</h4>
+                      <p>Tesoros de la selva virgen.</p>
+                  </div>
+              </div>
+              
+              <div class="polaroid">
+                  <div class="photo">
+                      <img src="media/imagen_prueba.jpg" alt="Océano" onerror="this.src='https://via.placeholder.com/300'">
+                  </div>
+                  <div class="caption">
+                      <h4>Megafauna</h4>
+                      <p>Gigantes del océano profundo.</p>
+                  </div>
               </div>
 
               <div class="polaroid">
-                <div class="photo">
-                  <img src="media/imagen_prueba.jpg" alt="Océano" />
-                </div>
-                <div class="caption">
-                  <h4>Megafauna</h4>
-                  <p>Gigantes del océano profundo.</p>
-                </div>
-              </div>
-
-              <div class="polaroid">
-                <div class="photo">
-                  <img src="media/imagen_prueba.jpg" alt="Océano" />
-                </div>
-                <div class="caption">
-                  <h4>SuperDepredadores</h4>
-                  <p>Gigantes del océano profundo.</p>
-                </div>
+                  <div class="photo">
+                      <img src="media/imagen_prueba.jpg" alt="Desierto" onerror="this.src='https://via.placeholder.com/300'">
+                  </div>
+                  <div class="caption">
+                      <h4>Superpredadores</h4>
+                      <p>Reyes de la cadena alimenticia.</p>
+                  </div>
               </div>
             </section>
 
@@ -161,12 +148,12 @@
                 <h3 class="destacado-subtitulo">Nuestro animal de la semana</h3>
                 <a href="tienda.html">
                   <button class="boton-secundario">
-                    Da click aquí para ver más animales como este
+                    Ver más animales como este
                   </button>
                 </a>
               </div>
               <div class="destacado-imagen-wrapper">
-                <img src="media/carnalito.png" class="destacado-img" />
+                <img src="media/carnalito.png" class="destacado-img" onerror="this.src='media/logo.png'" />
                 <div class="circulo-deco"></div>
               </div>
             </section>
@@ -177,32 +164,21 @@
                   <img src="media/cities.png" alt="certificacion1" />
                 </div>
                 <hr />
-                <p>
-                  <span
-                    >Certificación CITES (Convención sobre el Comercio
-                    Internacional de Especies Amenazadas)</span
-                  >
-                </p>
+                <p><span>Certificación CITES</span></p>
               </div>
-              <hr />
               <div class="card-certificacion">
                 <div class="certificacion-img">
                   <img src="media/uma.png" alt="certificacion1" />
                 </div>
                 <hr />
-                <p>
-                  <span
-                    >Permiso UMA (Unidad de Manejo para la Conservación de la
-                    Vida Silvestre) de SEMARNAT</span
-                  >
-                </p>
+                <p><span>Permiso UMA SEMARNAT</span></p>
               </div>
             </section>
 
             <section class="suscripcion-section">
               <div class="suscripcion-content">
                 <h2>Suscribete a nuestra página!</h2>
-                <p>Recibe información de futuros animales en ExZooTik</p>
+                <p>Recibe información de futuros animales en ExZooTic</p>
                 <form class="suscripcion-form">
                   <input
                     type="email"
@@ -242,110 +218,45 @@
             </section>
           </section>
         </main>
-        <!-- login -->
+        
         <div id="loginModal" class="modal">
           <div class="modal-content">
             <span id="closeModalLogin" class="close">&times;</span>
             <h2>Iniciar Sesión</h2>
             <form id="formLogin">
-              <input
-                type="text"
-                id="login"
-                class="inputLogin"
-                placeholder="Usuario"
-                required
-              />
-              <input
-                type="password"
-                id="password"
-                class="inputPassword"
-                placeholder="Contraseña"
-                required
-              />
-              <!-- MENSAJE PARA EDSON: Aquí debes implementar la generación del captcha -->
-
-              <!-- 
-Este input de abajo es para que el usuario escriba el captcha que se le muestra. -->
-              <!-- 
-En el registrar NO necesitas agregar el captcha
-abajo de esta sección está el menú de registrarse para que le añadas también la lógica de las verificaciones ahí
- -->
-              <input
-                type="text"
-                id="captchaText"
-                class="inputCaptcha"
-                placeholder="Escribe el captcha"
-                required
-              />
-
+              <input type="text" id="login" class="inputLogin" placeholder="Usuario" required />
+              <input type="password" id="password" class="inputPassword" placeholder="Contraseña" required />
+              <input type="text" id="captchaText" class="inputCaptcha" placeholder="Escribe el captcha" required />
               <button type="submit">Enviar</button>
             </form>
           </div>
         </div>
 
-        <!-- REGISTRO -->
         <div id="registerModal" class="modal">
           <div class="modal-content">
             <span id="closeModalRegister" class="close">&times;</span>
             <h2>Regístrate</h2>
-
             <form id="formRegister">
-              <input
-                type="text"
-                id="regUser"
-                class="inputRegUser"
-                placeholder="Usuario"
-                required
-              />
-              <input
-                type="email"
-                id="regEmail"
-                class="inputRegEmail"
-                placeholder="Correo electrónico"
-                required
-              />
-              <input
-                type="password"
-                id="regPass1"
-                class="inputRegPass"
-                placeholder="Contraseña"
-                required
-              />
-              <input
-                type="password"
-                id="regPass2"
-                class="inputRegPass"
-                placeholder="Repetir contraseña"
-                required
-              />
+              <input type="text" id="regUser" class="inputRegUser" placeholder="Usuario" required />
+              <input type="email" id="regEmail" class="inputRegEmail" placeholder="Correo electrónico" required />
+              <input type="password" id="regPass1" class="inputRegPass" placeholder="Contraseña" required />
+              <input type="password" id="regPass2" class="inputRegPass" placeholder="Repetir contraseña" required />
               <button type="submit">Crear cuenta</button>
             </form>
           </div>
         </div>
 
-        <!-- footer -->
         <footer class="footer">
-          <h4 class="footer-titulo">
-            ¿Tienes alguna duda? Envíanos un correo!<br />
-          </h4>
+          <h4 class="footer-titulo">¿Tienes alguna duda? Envíanos un correo!</h4>
           <h4><button class="footer-contacto">Da click aquí!</button></h4>
           <h4 class="footer-titulo">Siguenos en nuestras redes sociales</h4>
           <div class="footer-redes">
-            <a href="#" target="_blank"
-              ><i class="fa-brands fa-instagram footer-icon"></i
-            ></a>
+            <a href="#" target="_blank"><i class="fa-brands fa-instagram footer-icon"></i></a>
           </div>
-          <p class="footer-copyright">
-            © 2025 Proyecto académico, no es una tienda real.
-          </p>
+          <p class="footer-copyright">© 2025 Proyecto académico, no es una tienda real.</p>
         </footer>
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
-        />
-      </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+      </div> </div> <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="./scripts/styles.js"></script>
     <script src="./scripts/app.js"></script>
     <script src="./scripts/index.js"></script>

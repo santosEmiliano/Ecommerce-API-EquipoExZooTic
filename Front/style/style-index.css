@@ -64,101 +64,38 @@ html {
   background-attachment: fixed;
 }
 
-.hero-parallax {
-  position: relative;
-  height: 85vh;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #87CEEB;
-}
-
-.parallax-layer {
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
+/* 1. HERO ORIGINAL (RECUPERADO) */
+.imagen-fondo {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)),
+    url("../media/banner.jpg");
   background-size: cover;
-  background-position: center bottom;
-  pointer-events: none;
-  transition: transform 0.1s linear;
-}
-
-.layer-bg {
-  background-image: url('https://images.unsplash.com/photo-1534234828563-02511c9716eb?q=80&w=2000&auto=format&fit=crop');
-  z-index: 1;
-  transform: scale(1.1);
-}
-
-.layer-mid {
-  background-image: url('https://png.pngtree.com/png-clipart/20230928/ourmid/pngtree-forest-jungle-plants-png-image_10149302.png');
-  z-index: 2;
-}
-
-.layer-front {
-  background-image: url('../media/decoraciones/ramasArribaIzquierda.png'); 
+  background-position: center;
   background-repeat: no-repeat;
-  background-position: top left;
-  z-index: 3;
-  filter: blur(2px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  min-height: 70vh;
+  font-size: 6vh;
+  padding: 3vh 6vw;
+  color: var(--color-gris-claro);
+  position: relative;
+  overflow: hidden;
+  animation: moverFondo 25s ease-in-out infinite alternate;
 }
 
-.hero-content {
-  z-index: 4;
-  text-align: center;
-  color: white;
-  text-shadow: 0 4px 15px rgba(0,0,0,0.6);
-  padding: 30px;
-  background: rgba(0,0,0,0.25);
-  border-radius: 20px;
-  backdrop-filter: blur(5px);
-  max-width: 800px;
-  border: 1px solid rgba(255,255,255,0.2);
+@keyframes moverFondo {
+  0% {
+    background-position: 50% 50%;
+  }
+  50% {
+    background-position: 75% 25%;
+  }
+  100% {
+    background-position: 25% 75%;
+  }
 }
-
-.main-titulo {
-  font-size: 7vh;
-  margin-bottom: 10px;
-  line-height: 1.1;
-  color: white;
-}
-
-.resaltado {
-  color: var(--color-amarillo);
-  font-family: 'DynaPuff', cursive;
-}
-
-.main-descripcion {
-  font-size: 2.5vh;
-  margin-bottom: 30px;
-  color: #f0f0f0;
-}
-
-.boton-explorar {
-  display: inline-block;
-  padding: 15px 40px;
-  background: var(--color-amarillo);
-  color: var(--color-negro);
-  font-family: 'DynaPuff', cursive;
-  font-size: 1.5rem;
-  text-decoration: none;
-  border-radius: 50px;
-  box-shadow: 0 8px 0 var(--color--amarillo-ocre);
-  transition: all 0.2s;
-  border: 2px solid var(--color-negro);
-  cursor: pointer;
-}
-
-.boton-explorar:hover {
-  transform: translateY(4px);
-  box-shadow: 0 4px 0 var(--color--amarillo-ocre);
-  background-color: #fff;
-}
-
-.boton-explorar:active {
-  transform: translateY(8px);
-  box-shadow: none;
-}
-
 .main-boton {
   margin-top: 5vh;
   height: 8vh;
@@ -172,27 +109,43 @@ html {
   transition: 0.4s ease-in;
   color: var(--color--blanco-hueso);
   border-radius: 20px;
+  border: 2px solid white;
 }
 
 .main-boton:hover {
   transform: translateX(2vw);
-  color: var(--color--gris-borde);
+  color: var(--color--verde-lima);
+  border-color: var(--color--verde-lima);
 }
 
+.main-titulo {
+    color: white;
+    text-shadow: 2px 2px 4px black;
+}
+
+.main-descripcion {
+    color: var(--color--blanco-hueso);
+}
+
+/* 2. DATOS CURIOSOS (Estilo Notas) */
 .datos-seccion {
-  background-image: url('https://static.vecteezy.com/system/resources/thumbnails/002/173/386/small/wood-texture-background-free-vector.jpg'); 
-  background-color: #6d4c41; 
-  padding: 8vh 5vw;
-  box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    /* Fondo de Corcho */
+    background-image: url('https://static.vecteezy.com/system/resources/thumbnails/002/173/386/small/wood-texture-background-free-vector.jpg');
+    background-color: #7b5e43; 
+    padding: 8vh 5vw;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 10px solid #5d4037;
+    border-bottom: 10px solid #5d4037;
 }
 
 .datos-titulo {
   color: var(--color--verde-lima);
   margin-bottom: 5vh;
   font-size: 4vh;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
 }
 
 .datos-container {
@@ -206,7 +159,7 @@ html {
 .field-note {
   width: 280px;
   padding: 25px;
-  font-family: 'Indie Flower', 'Comic Sans MS', cursive; 
+  font-family: 'Comic Sans MS', cursive; 
   color: #333;
   box-shadow: 5px 10px 15px rgba(0,0,0,0.3);
   position: relative;
@@ -252,22 +205,23 @@ html {
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
+/* 3. CATEGORÍAS (Estilo Polaroids sobre Mesa) */
 .main-card-categorias {
-  padding: 60px 20px;
+  padding: 80px 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 50px;
-  background: transparent; 
-  margin-bottom: 8vh;
-  margin: 5vh;
+  /* Fondo Madera */
+  margin: 0; 
+  border-bottom: 10px solid #3e2723;
   transition: 0.2s ease-in;
 }
 
 .polaroid {
   background: white;
   padding: 15px 15px 50px 15px; 
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
   transform: rotate(var(--rotation));
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   width: 300px;
@@ -283,7 +237,7 @@ html {
 .polaroid:hover {
   transform: rotate(0deg) scale(1.1) translateY(-10px);
   z-index: 10;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.5);
 }
 
 .polaroid .photo {
@@ -297,7 +251,7 @@ html {
 .polaroid img {
   width: 100%; height: 100%; object-fit: cover;
   transition: transform 0.5s;
-  filter: sepia(30%) contrast(1.1); 
+  filter: sepia(20%); 
 }
 
 .polaroid:hover img {
@@ -318,6 +272,7 @@ html {
   color: #222;
 }
 
+/* 4. DESTACADO (Estilo 3D) */
 .section-destacado {
   display: flex;
   align-items: center;
@@ -417,6 +372,7 @@ html {
   transform: translateY(-3px);
 }
 
+/* 5. CERTIFICACIONES (Estilo Pasaporte) */
 .section-certificacion {
   display: flex;
   justify-content: center;
@@ -490,6 +446,7 @@ html {
   font-size: 1.5vw;
 }
 
+/* OTROS (Suscripción y Comentarios - Recuperados) */
 .suscripcion-section {
   background: linear-gradient(
     135deg,
@@ -617,9 +574,7 @@ html {
   flex-grow: 1;
 }
 
-/*Animación*/
-
-/* 2. EL ESCENARIO FIJO */
+/* Animación de la MÁSCARA (Recuperada de tu código original) */
 #fixed-stage {
   position: fixed;
   top: 0;
@@ -642,7 +597,6 @@ html {
   mask-image: url("../media/maskImg.png");
 }
 
-/* 3. NUEVA CAPA: EL FONDO BLANCO SÓLIDO */
 #white-layer {
   position: absolute;
   top: 0;
@@ -653,7 +607,6 @@ html {
   z-index: 0; 
 }
 
-/* 4. CONTENIDO INTERNO (EL RELLENO) */
 #content-inner {
   position: relative;
   width: 100%;
@@ -663,8 +616,6 @@ html {
 
 /*Responsive*/
 @media (max-width: 900px) {
-  .hero-parallax { height: 70vh; }
-  
   .section-destacado {
     flex-direction: column;
     text-align: center;

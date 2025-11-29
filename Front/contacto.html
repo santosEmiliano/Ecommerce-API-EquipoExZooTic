@@ -60,49 +60,56 @@
 
     <body>
       <main>
-        <section>
-          <h1>¿Tienes alguna duda?</h1>
-          <h6>Contactate con nosotros!</h6>
-        </section>
-        <section>
-          <div class="formulario-container">
-            <form id="formularioContacto">
-              <div class="div1">
-                <label for="">Ingresa tu Nombre:</label>
-                <input
-                  id="nombre"
-                  class="textFrom"
-                  type="text"
-                  placeholder="ejemplo: Ruth Emmanuel Dueñas"
-                  required
-                />
+        <h1 class="main-title">¿Tienes algo que comentarnos? 🦜</h1>
+        <h6 class="sub-title">¡Envíanos tus coordenadas y cuéntanos todo!</h6>
+
+        <div class="formulario-container">
+          <div class="tape-deco"></div>
+
+          <form id="formularioContacto">
+            <div class="input-group">
+              <label for="nombre">Nombre del Explorador:</label>
+              <input
+                type="text"
+                id="nombre"
+                class="textFrom"
+                placeholder="Ej: Indiana Jones"
+                required
+              />
+            </div>
+
+            <div class="input-group">
+              <label for="email">Frecuencia de Radio (Correo):</label>
+              <input
+                type="email"
+                id="email"
+                class="textFrom"
+                placeholder="ejemplo@exzootic.com"
+                required
+              />
+            </div>
+
+            <div class="input-group">
+              <label for="comentario">Reporte de Campo:</label>
+              <textarea
+                id="comentario"
+                class="textFrom area-mensaje"
+                placeholder="Escribe tu mensaje aquí..."
+                rows="4"
+                required
+              ></textarea>
+            </div>
+
+            <div class="div4 action-area">
+              <button type="submit" class="btn-enviar">
+                <i class="fa-regular fa-paper-plane"></i> Enviar Mensaje
+              </button>
+              <div class="stamp-deco">
+                <i class="fa-solid fa-paw"></i>
               </div>
-              <div class="div2">
-                <label for="">Ingresa tu correo electrónico:</label>
-                <input
-                  id="correo"
-                  class="textFrom"
-                  type="text"
-                  placeholder="ejemplo: JoséAlosnoLeonardoSantos@gmail.com"
-                  required
-                />
-              </div>
-              <div class="div3">
-                <label for="">Ingresa tu comentario</label>
-                <textarea
-                  id="comentario"
-                  class="textFrom"
-                  placeholder="Escribe tu comentario aquí"
-                  rows="6"
-                  required
-                ></textarea>
-              </div>
-              <div class="div4">
-                <input type="submit" value="Envíar respuesta" />
-              </div>
-            </form>
-          </div>
-        </section>
+            </div>
+          </form>
+        </div>
       </main>
     </body>
     <!-- footer -->
