@@ -6,7 +6,9 @@ const path = require("path");
 
 //Importaciones de las rutas
 const crudRoutes = require('./routes/crud.routes'); //Rutas del CRUD
-const compraRoutes = require('./routes/compra.routes');
+const compraRoutes = require('./routes/compra.routes'); //Rutas de compra
+const carritoRoutes = require('./routes/carrito.routes'); //Rutas del carrito
+
 //Importacion de la conexion a la base de datos
 const pool = require('./db/conexion'); 
 
@@ -22,6 +24,7 @@ app.use(express.urlencoded({ extended: true })); // Para que entienda formulario
 //Para que el CRUD utilice /productos
 app.use('/', crudRoutes);
 app.use('/', compraRoutes);
+app.use('/', carritoRoutes);
 
 // Funcion que hace una consulta de prueba mínima que
 // confirma que todo el circuito conexión → consulta → respuesta está funcionando
