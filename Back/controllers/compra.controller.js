@@ -1,5 +1,5 @@
 //  CONTROLADOR DE LAS RUTAS DE COMPRA
-// Importamos la lubreria para mandar correos
+// Importamos la libreria para mandar correos
 const nodemailer = require('nodemailer');
 const path = require('path');
 const fs = require('fs');
@@ -116,7 +116,18 @@ const confirmarCompra = async (req, res) => {
         //Subtotal
         let subtotal = 0; 
 
-        carrito.forEach(producto => {
+        for (const producto of carrito) {
+
+            if (producto.existencias < producto.cantidad) {
+                await carritoModel.deleteProducto(idUser, producto.id);
+                return res.status(400).json({ 
+                    status: "error", 
+                    message: `El producto '${producto.nombre}' no tiene suficientes existencias. Se ha eliminado de tu carrito.` 
+                });
+            }
+        }
+
+        for (const producto of carrito) {
             const nombreCategoria = producto.categoria; // Sacamos la categoria
             const totalProducto = producto.precio * producto.cantidad; //Sacamos el total del producto
 
@@ -127,7 +138,9 @@ const confirmarCompra = async (req, res) => {
             } else { // Si es la primera vez que sale esta categoría, la inicializamos
                 ventasPorCategoria[nombreCategoria] = totalProducto;
             }
-        });
+
+            await crudModel.updateStock(producto.id, producto.existencias - producto.cantidad);
+        };
         //Obtenemos todos los datos del front
         const infoPais = tarifasData[datosFormulario.pais] || tarifasData["DEFAULT"];
         const costoEnvio = infoPais.envio;
@@ -150,9 +163,9 @@ const confirmarCompra = async (req, res) => {
 
         //PARTE 4: LIMPIAR EL CARRITO DEL USUARIO
         await carritoModel.deleteCarrito(idUser);
-        
-        //ACA ES DONDE IRIA TODO EL SHOW DE LO DEL CORREO Y ESO SUPONGO
+
         // ======= Correo =======
+
         // Preparamos Logo 
         const rutaLogo = path.join(__dirname, '../media/logo.png'); // Verifica que esta ruta sea correcta en tu proyecto
         let logoBase64 = '';

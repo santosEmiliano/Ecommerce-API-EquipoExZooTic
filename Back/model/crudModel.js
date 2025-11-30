@@ -88,6 +88,17 @@ async function updateProducto(id, nombre, categoria, descripcion, precio, existe
         console.error("Error al modificar el producto:", error);
         return null; 
     }
+    
+}
+
+async function updateStock(id, stock) {
+    try {
+        const [result] = await pool.query('UPDATE productos SET existencias = ? WHERE id = ?', [stock, id]);
+        return result.affectedRows;
+    } catch (error) {
+        console.error("Error al modificar el producto:", error);
+        return null; 
+    }
 }
 
 // Funcion para eliminar un producto
@@ -109,5 +120,6 @@ module.exports = {
     getProdOferta,
     addProduct,
     updateProducto,
+    updateStock,
     deleteProducto
 };

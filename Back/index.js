@@ -27,6 +27,7 @@ app.use('/', compraRoutes);
 // confirma que todo el circuito conexión → consulta → respuesta está funcionando
 
 app.use('/images', express.static(path.join(__dirname, 'media/images')));//hacer la carpeta imagenes publica
+app.use('/cupones', express.static(path.join(__dirname, 'media/cupones')));
 //dara problemas con el CORBS no CORS 
 
 async function testConnection() {

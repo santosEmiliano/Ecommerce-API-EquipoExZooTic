@@ -23,7 +23,18 @@ async function deleteCarrito(id) {
     }
 }
 
+async function deleteProducto(userId,prodId) {
+    try {
+        const [result] = await pool.query('DELETE FROM carritos WHERE usuario = ? AND producto = ?', [userId, prodId]);
+        return result.affectedRows;
+    } catch (error) {
+        console.error("Error al eliminar producto del carrito:", error);
+        return null; 
+    }
+}
+
 module.exports = {
     getCarritoUsuario,
-    deleteCarrito
+    deleteCarrito,
+    deleteProducto
 }
