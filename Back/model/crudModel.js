@@ -27,36 +27,35 @@ async function getProdID(id) {
 //NOTA: Estos no estan en la parte del CRUD tecnicamente porque son para los filtros de la tienda
 //pero queria ir haciendo las funciones, si hay cualquier problema las modificare o eliminare segun se requiera.
 
-//Funcion para obtener el producto por su categoria
-async function getProdCat(categoria) {
+async function getProductosFiltrados(categoria, min, max, enOferta) {
     try {
-        const [rows] = await pool.query('SELECT * FROM productos WHERE categoria = ?', [categoria]);
-        return rows; 
-    } catch (error) {
-        console.error("Error al buscar el producto:", error);
-        return null;
-    }  
-}
+        let sql = "SELECT * FROM productos WHERE 1=1";
+        const params = [];
 
-//Funcion para obtener el producto por su rango de precio
-async function getProdPrice(min, max) {
-    try {
-        const [rows] = await pool.query('SELECT * FROM productos WHERE precio BETWEEN ? AND ?', [min, max]);
-        return rows;
-    } catch (error) {
-        console.error("Error al buscar el producto:", error);
-        return null;
-    }  
-}
+        // Filtro Categoría
+        if (categoria && categoria !== "Todas") {
+            sql += " AND categoria = ?";
+            params.push(categoria);
+        }
 
-//Funcion para obtener el producto segun si tiene oferta o no
-async function getProdOferta() {
-    try {
-        const [rows] = await pool.query('SELECT * FROM productos WHERE descuento > 0');
+        // Filtro Precio (Solo si mandaron un maximo, el minimo es opcional)
+        if (max) {
+            sql += " AND precio BETWEEN ? AND ?";
+            params.push(min, max);
+        }
+
+        // Filtro Oferta
+        if (enOferta === "true") {
+            sql += " AND descuento > 0";
+        }
+
+        // Se ejecuta todo combinado
+        const [rows] = await pool.query(sql, params);
         return rows;
+
     } catch (error) {
-        console.error("Error al buscar el producto:", error);
-        return null;
+        console.error("Error en filtros avanzados:", error);
+        return [];
     }
 }
 
@@ -115,9 +114,7 @@ async function deleteProducto(id) {
 module.exports = {
     getProductos,
     getProdID,
-    getProdCat,
-    getProdPrice,
-    getProdOferta,
+    getProductosFiltrados,
     addProduct,
     updateProducto,
     updateStock,

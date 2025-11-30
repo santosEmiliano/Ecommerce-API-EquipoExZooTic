@@ -9,25 +9,17 @@ const crudModel = require('../model/crudModel');
 
 const readProductos = async (req, res) => {
     const { categoria, precio_min, precio_max, en_oferta } = req.query;
-    let products;
     try {
-        if (categoria && categoria !== "Todas") {
-            products = await crudModel.getProdCat(categoria);
-        } 
+        const min = parseFloat(precio_min) || 0;
+        const max = parseFloat(precio_max) || null;
 
-        else if (precio_max) {
-            const min = parseFloat(precio_min) || 0;
-            const max = parseFloat(precio_max);
-            products = await crudModel.getProdPrice(min, max);
-        } 
+        const products = await crudModel.getProductosFiltrados(
+            categoria, 
+            min, 
+            max, 
+            en_oferta
+        );
 
-        else if (en_oferta === "true") {
-            products = await crudModel.getProdOferta();
-        } 
-
-        else {
-            products = await crudModel.getProductos();
-        }
         res.json(products);
     } catch (error) {
         console.error('Error al obtener los productos:', error);
