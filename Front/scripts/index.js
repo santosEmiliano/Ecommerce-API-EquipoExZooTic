@@ -15,7 +15,7 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 document
-  .querySelectorAll(".main-card, .card-certificacion, .comentarios-card")
+  .querySelectorAll(".main-card, .card-certificacion, .comentarios-card, .suscripcion-section")
   .forEach((el) => {
     el.classList.add("hidden", "fade-up");
     observer.observe(el);

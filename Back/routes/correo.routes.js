@@ -50,7 +50,7 @@ router.post('/suscripcion', correoContoller.enviarCorreoSub);
 
         // AQUI PONGAN LOS ID´S QUE MANEJEN
         const btnSuscripcion = document.getElementById("btn-suscripcion"); // Boton de suscribirse
-        const inputEmail = document.getElementById("inpum-email-suscripcion") // Input del correo 
+        const inputEmail = document.getElementById("input-email-suscripcion") // Input del correo 
 
         if (btnSuscripcion) {
             btnSuscripcion.addEventListener("click", async (e) => {
