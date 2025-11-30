@@ -1,0 +1,72 @@
+{
+  "UY": {
+    "nombre": "Uruguay",
+    "tasa": 0.22,
+    "envio": 550
+  },
+  "PY": {
+    "nombre": "Paraguay",
+    "tasa": 0.10,
+    "envio": 500
+  },
+  "EC": {
+    "nombre": "Ecuador",
+    "tasa": 0.15,
+    "envio": 450
+  },
+  "MX": {
+    "nombre": "México",
+    "tasa": 0.16,
+    "envio": 150
+  },
+  "AR": {
+    "nombre": "Argentina",
+    "tasa": 0.75,
+    "envio": 600
+  },
+  "HU": {
+    "nombre": "Hungría",
+    "tasa": 0.27,
+    "envio": 1200
+  },
+  "DE": {
+    "nombre": "Alemania",
+    "tasa": 0.19,
+    "envio": 1100
+  },
+  "ZA": {
+    "nombre": "Sudáfrica",
+    "tasa": 0.15,
+    "envio": 1600
+  },
+  "EG": {
+    "nombre": "Egipto",
+    "tasa": 0.14,
+    "envio": 1500
+  },
+  "SG": {
+    "nombre": "Singapur",
+    "tasa": 0.09,
+    "envio": 1900
+  },
+  "ID": {
+    "nombre": "Indonesia",
+    "tasa": 0.11,
+    "envio": 2100
+  },
+  "AU": {
+    "nombre": "Australia",
+    "tasa": 0.10,
+    "envio": 2500
+  },
+  "FJ": {
+    "nombre": "Fiji",
+    "tasa": 0.15,
+    "envio": 3200
+  },
+  "DEFAULT": {
+    "nombre": "Resto del Mundo",
+    "tasa": 0.15,
+    "envio": 2000
+  }
+}
