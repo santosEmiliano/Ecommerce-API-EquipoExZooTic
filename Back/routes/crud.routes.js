@@ -1,18 +1,19 @@
 //      RUTAS PARA LAS FUNCIONES CRUD (Create, Read, Update y Delete)
 
 //          IMPORTS PROVENIENTES DEL MIDDLEWARE
-const subirImagen = require('../middleware/subirImagen');
-
+const subirImagen = require("../middleware/subirImagen");
+const tokens = require("../middleware/verifyToken");
 
 //          IMPORTS QUE PROVIENEN DEL CONTROLLER
-const crudFunctions = require('../controllers/crud.controller');
+const crudFunctions = require("../controllers/crud.controller");
+const usersFuncion = require("../controllers/user.controller");
 
 //Imports de express
 const express = require("express");
 const router = express.Router();
 
 //  Ruta para obtener todos los productos (Y sus derivadas de Query Params) -----------------------------------------------------------------------------------------------------------------------
-router.get('/productos', crudFunctions.readProductos);
+router.get("/productos", crudFunctions.readProductos);
 
 //Descripcion del funcionamiento y llamada
 /*
@@ -33,7 +34,7 @@ router.get('/productos', crudFunctions.readProductos);
 */
 
 //  Ruta para obtener un solo producto por su ID -----------------------------------------------------------------------------------------------------------------------
-router.get('/productos/:id', crudFunctions.readProdId);
+router.get("/productos/:id", crudFunctions.readProdId);
 
 //Descripcion del funcionamiento y llamada
 /*
@@ -55,7 +56,13 @@ router.get('/productos/:id', crudFunctions.readProdId);
 */
 
 //  Ruta para agregar un producto -----------------------------------------------------------------------------------------------------------------------
-router.post('/productos', subirImagen.single('imagen'), crudFunctions.createProduct); 
+router.post(
+  "/productos",
+  tokens.verifyToken,
+  tokens.verifyAdmin,
+  subirImagen.single("imagen"),
+  crudFunctions.createProduct
+);
 
 //Descripcion del funcionamiento y llamada
 /*
@@ -99,7 +106,13 @@ router.post('/productos', subirImagen.single('imagen'), crudFunctions.createProd
 */
 
 //  Ruta para modificar un producto -----------------------------------------------------------------------------------------------------------------------
-router.put('/productos/:id', subirImagen.single('imagen'), crudFunctions.updateProduct)
+router.put(
+  "/productos/:id",
+  tokens.verifyToken,
+  tokens.verifyAdmin,
+  subirImagen.single("imagen"),
+  crudFunctions.updateProduct
+);
 
 //Descripcion del funcionamiento y llamada
 /*
@@ -143,7 +156,12 @@ router.put('/productos/:id', subirImagen.single('imagen'), crudFunctions.updateP
 
 //  Ruta para eliminar un producto -----------------------------------------------------------------------------------------------------------------------
 
-router.delete('/productos/:id', crudFunctions.deleteProduct );
+router.delete(
+  "/productos/:id",
+  tokens.verifyToken,
+  tokens.verifyAdmin,
+  crudFunctions.deleteProduct
+);
 
 //Descripcion del funcionamiento y llamada
 /*
@@ -170,6 +188,41 @@ router.delete('/productos/:id', crudFunctions.deleteProduct );
     }
 */
 
+//crear usuario
+router.post("/usuario", usersFuncion.createUser);
+
+/*
+async function crearUsuario() {
+    try {
+        const response = await fetch("http://localhost:3000/usuario", {//fetchito
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nombre: "Daniel",
+                correo: "daniel@example.com",
+                contrasena: "123456",
+                pais: "México"
+            })
+        });
+        if (!response.ok) {
+            throw new Error("Error en la petición: " + response.status);
+        }
+        const data = await response.json();
+        console.log("Respuesta del servidor:", data);//quitar eszto si no lo kieres
+        console.log(data.token);//guardar!!!
+        console.log(data.id);//guardar!!!
+    } catch (error) {
+        console.error("Error al crear usuario:", error);
+    }
+}
+    */
+
+//colocar esto para proteger las rutas  tokens.verifyToken,tokens.verifyAdmin,
+//headers: {
+//                "Authorization": `Bearer ${token}` // <- aquí va tu token
+//            }
 module.exports = router;
 
 //      --------------------------------------------------------------------- N O T A S -----------------------------------------------------------------

@@ -1,3 +1,6 @@
 # Ignorar todos los módulos de NodeJs
 /Back/node_modules
+# Ignorar imagenes
 /Back/media/images
+# Ignorar datos privados
+/Back/.env
