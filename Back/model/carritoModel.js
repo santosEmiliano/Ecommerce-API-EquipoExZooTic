@@ -31,8 +31,7 @@ async function addProducto(userId, prodId, cantidad) {
             cantidadTotal += existente[0].cantidad;
         }
 
-        // --- VALIDACIÓN DE STOCK REAL ---
-        // Comparamos el TOTAL FINAL contra el STOCK
+        //COMPARAMOS FINALMENTE CON EL STOCK
         if (stock < cantidadTotal) {
             console.log(`Intento de exceder stock. Stock: ${stock}, Solicitado Total: ${cantidadTotal}`);
             return -1; // Retorna error si la suma total supera el stock
@@ -54,9 +53,11 @@ async function addProducto(userId, prodId, cantidad) {
 
 async function updateProducto(userId, prodId, nuevaCantidad) {
     try {
+        const [existente] = await pool.query('SELECT * FROM carritos WHERE usuario = ? AND producto = ?', [userId, prodId]); //Para checar si ya esta en el carrito
+
         const [productoInfo] = await pool.query('SELECT existencias FROM productos WHERE id = ?', [prodId]); //Sacamos las existencias
 
-        if (productoInfo.length === 0) {
+        if (productoInfo.length === 0 || existente.length === 0) {
             return null;
         }
 

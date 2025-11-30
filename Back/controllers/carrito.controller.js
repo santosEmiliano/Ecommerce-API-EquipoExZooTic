@@ -64,6 +64,12 @@ const modificarProducto = async (req, res) => {
     }
     
     try {
+
+        //Si me intentan poner un 0 aca, les voy a borrar su producto en el carrito, avisados
+        if (cantidad === 0) {
+            eliminarProducto(req, res);
+        }
+
         const resultado = await carritoModel.updateProducto(idUsuario, idProducto, cantidad);
 
         if (resultado === -1) {
