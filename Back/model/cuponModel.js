@@ -16,7 +16,7 @@ async function getCupon(codigo) {
 async function verificarUso(userId, cuponId) {
     try {
         const [rows] = await pool.query('SELECT * FROM cupones_uso WHERE id_usuario = ? AND id_cupon = ?', [userId, cuponId]);
-        if (rows>0) {
+        if (rows.length>0) {
             return false;
         } else {
             const [result] = await pool.query('INSERT INTO cupones_uso (id_usuario, id_cupon) VALUES (?, ?)', [userId, cuponId]);
