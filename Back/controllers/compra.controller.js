@@ -88,8 +88,12 @@ const confirmarCompra = async (req, res) => {
     try {
         //PARTE 1: ESTRUCTURAR LA INFORMACION, EL TOTAL Y EL PAGO POR CATEGORIA
 
-        if (!datosFormulario.pais || !datosFormulario.direccion || !datosFormulario.cupon) {
+        if (!datosFormulario.pais || !datosFormulario.direccion) {
             return res.status(400).json({ message: "Faltan los datos sobre el envío" });
+        }
+
+        if (datosFormulario.cantidad<0) {
+            return res.status(400).json({ message: "Envio de datos incorrecto" });
         }
 
         //Obtenemos las coincidencias con la id del usuario del carrito
@@ -145,13 +149,16 @@ const confirmarCompra = async (req, res) => {
         const infoPais = tarifasData[datosFormulario.pais] || tarifasData["DEFAULT"];
         const costoEnvio = infoPais.envio;
         const impuesto = subtotal * infoPais.tasa;
-
-        const codigoCupon = datosFormulario.cupon.trim().toUpperCase();
-        const cupon = await cuponModel.getCupon(codigoCupon);
-        console.log(cupon);
+        
         let descuento = 0;
-        if (cupon) {
-            if (await cuponModel.verificarUso(idUser, cupon.id)) { descuento = subtotal*(cupon.descuento); }
+
+        if(datosFormulario.cupon) {
+            const codigoCupon = datosFormulario.cupon.trim().toUpperCase();
+            const cupon = await cuponModel.getCupon(codigoCupon);
+            console.log(cupon);
+            if (cupon) {
+                if (await cuponModel.verificarUso(idUser, cupon.id)) { descuento = subtotal*(cupon.descuento); }
+            }
         }
 
         console.log(subtotal, impuesto, costoEnvio, descuento);
