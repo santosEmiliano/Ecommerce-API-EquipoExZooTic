@@ -54,8 +54,6 @@
 }
 
 body {
-  /* CAMBIO DE FONDO: Usamos una mesa de madera oscura en lugar del bambú.
-     Esto hace que la nota de papel resalte mucho mejor y tenga más sentido. */
   background-image: url('../media/mapa.png');
   background-size: contain;
   background-position: center;
@@ -63,7 +61,6 @@ body {
 }
 
 main {
-  /* Ajustamos el margen superior para centrarlo mejor visualmente */
   margin: 6vh auto;
   padding: 2vh;
   position: relative;
@@ -77,7 +74,6 @@ h1.main-title {
   font-size: 5vh;
   margin-bottom: 1vh;
   color: #fff;
-  /* Sombra más fuerte para que se lea bien sobre la madera oscura */
   text-shadow: 0 4px 8px rgba(0,0,0,0.9);
   font-family: 'DynaPuff', cursive;
 }
@@ -92,28 +88,19 @@ h6.sub-title {
   font-weight: bold;
 }
 
-/* --- LA POSTAL (Contenedor) --- */
 .formulario-container {
-  /* AJUSTE DE TAMAÑO: Mucho más compacto */
-  max-width: 450px; /* Reducido de 600px */
-  width: 90%; /* Para móviles */
-  
-  /* AJUSTE DE PADDING: Menos relleno interno */
-  padding: 35px 40px; /* Reducido de 50px 60px */
-
-  /* Color Papel Viejo ligeramente más cálido */
+  max-width: 450px;
+  width: 90%;
+  padding: 35px 40px;
   background-color: #fcf8e3;
   background-image: url("https://www.transparenttextures.com/patterns/cream-paper.png");
-  
   border-radius: 3px;
-  
-  /* Sombra mejorada para dar profundidad sobre la mesa */
   box-shadow: 
     0 2px 5px rgba(0,0,0,0.1), 
     0 15px 30px rgba(0,0,0,0.25);
     
   position: relative;
-  transform: rotate(-2deg); /* Un poco más de inclinación */
+  transform: rotate(-2deg);
   transition: transform 0.3s ease;
 }
 
@@ -121,14 +108,13 @@ h6.sub-title {
   transform: rotate(0deg) scale(1.01);
 }
 
-/* DECORACIÓN: CINTA ADHESIVA (Tape) - Ajustada al nuevo tamaño */
 .tape-deco {
   position: absolute;
-  top: -20px; /* Ajustado */
+  top: -20px;
   left: 50%;
   transform: translateX(-50%) rotate(3deg);
-  width: 110px; /* Más pequeña */
-  height: 40px; /* Más pequeña */
+  width: 110px;
+  height: 40px;
   background-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   backdrop-filter: blur(2px);
@@ -141,7 +127,7 @@ h6.sub-title {
 #formularioContacto {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Menos espacio entre elementos */
+  gap: 20px;
 }
 
 .input-group {
@@ -151,7 +137,7 @@ h6.sub-title {
 }
 
 #formularioContacto label {
-  font-size: 1.6vh; /* Texto un poco más pequeño */
+  font-size: 1.6vh;
   font-weight: 800;
   color: var(--color--cafe-tierra);
   font-family: 'Nunito', sans-serif;
@@ -159,7 +145,6 @@ h6.sub-title {
   letter-spacing: 1px;
 }
 
-/* INPUTS: Estilo Línea de Escritura */
 .textFrom {
   width: 100%;
   padding: 8px 5px;
@@ -178,16 +163,14 @@ h6.sub-title {
   background-color: rgba(122, 178, 78, 0.05);
 }
 
-/* Textarea específico */
 .area-mensaje {
   resize: vertical;
   background-image: linear-gradient(transparent, transparent 28px, #ccc 29px);
   background-size: 100% 29px;
   line-height: 29px;
-  height: 120px; /* Altura inicial definida */
+  height: 120px;
 }
 
-/* ÁREA DE ACCIÓN (Botón + Sello) */
 .action-area {
   display: flex;
   justify-content: space-between;
@@ -195,12 +178,11 @@ h6.sub-title {
   margin-top: 15px;
 }
 
-/* BOTÓN: Estilo Sello Postal */
 .btn-enviar {
   background-color: var(--color--verde-bosque);
   color: white;
   border: none;
-  padding: 10px 25px; /* Botón más compacto */
+  padding: 10px 25px;
   font-size: 1.8vh;
   border-radius: 4px;
   cursor: pointer;
@@ -223,10 +205,9 @@ h6.sub-title {
   box-shadow: none;
 }
 
-/* DECORACIÓN: SELLO DE FAUNA */
 .stamp-deco {
-  width: 60px; /* Más pequeño */
-  height: 70px; /* Más pequeño */
+  width: 60px;
+  height: 70px; 
   border: 3px double var(--color-rojo);
   display: flex;
   justify-content: center;
@@ -236,11 +217,9 @@ h6.sub-title {
   border-radius: 4px;
   transform: rotate(-12deg);
   opacity: 0.7;
-  /* Hacemos que parezca tinta real sobre el papel */
   mix-blend-mode: multiply; 
 }
 
-/* Animación de entrada */
 @keyframes paperSlide {
   from { opacity: 0; transform: translateY(30px) rotate(-5deg); }
   to { opacity: 1; transform: translateY(0) rotate(-2deg); }
@@ -250,7 +229,6 @@ h6.sub-title {
   animation: paperSlide 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Responsive */
 @media (max-width: 600px) {
   main { margin: 4vh auto; }
   .formulario-container {
