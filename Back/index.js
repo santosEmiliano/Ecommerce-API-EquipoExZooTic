@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: true })); // Para que entienda formulario
 app.use('/api/crud', crudRoutes);
 app.use('/api', compraRoutes);
 app.use('/api', carritoRoutes);
-app.use('/api', compraRoutes);
+app.use('/api', correoRoutes);
 
 // Funcion que hace una consulta de prueba mínima que
 // confirma que todo el circuito conexión → consulta → respuesta está funcionando
