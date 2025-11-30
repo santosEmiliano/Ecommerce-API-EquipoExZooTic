@@ -2,6 +2,18 @@ const pool = require('../db/conexion');
 
 //  CONJUNTO DE FUNCIONES PARA MANEJAR LOS CUPONES
 
+// Funcion para obtener el cupo de manera random
+async function getCuponRandom() {
+    try{
+        const [rows] = await pool.query('SELECT * FROM cupones ORDER BY RAND() LIMIT 1');
+        return rows [0];
+    } catch (error){
+        console.log("Error al obtener el cupon random:", error)
+        return null;
+    }
+    
+}
+
 //Funcion para obtener un cupon
 async function getCupon(codigo) {
     try {
@@ -13,6 +25,7 @@ async function getCupon(codigo) {
     }
 }
 
+// Funcion para verificar el uso del cupon
 async function verificarUso(userId, cuponId) {
     try {
         const [rows] = await pool.query('SELECT * FROM cupones_uso WHERE id_usuario = ? AND id_cupon = ?', [userId, cuponId]);
@@ -28,9 +41,8 @@ async function verificarUso(userId, cuponId) {
     } 
 }
 
-
-
 module.exports = {
     getCupon,
+    getCuponRandom,
     verificarUso
 }

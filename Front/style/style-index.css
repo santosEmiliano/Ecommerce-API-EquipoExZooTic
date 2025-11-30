@@ -439,60 +439,101 @@ html {
   font-size: 1.5vw;
 }
 
+/*---------- ESTILOS DE SUSCRIPCION AQUI INTENTE RESPETAR LOS DE JULIAN)--------*/
 .suscripcion-section {
   background: linear-gradient(
-    135deg,
-    var(--color-verde-oscuro),
-    var(--color--verde-bosque)
-  );
-  padding: 8vh 2vw;
+      rgba(47, 93, 52, 0.9), 
+      rgba(30, 60, 30, 0.95)
+    ),
+    url("https://www.transparenttextures.com/patterns/wood-pattern.png");
+  
+  background-color: var(--color--verde-bosque);
+  
+  margin: 10vh 5vw;
+  padding: 8vh 4vw;
+  border-radius: 20px;
+  
+  border: 3px dashed var(--color--verde-lima);
+  outline: 8px solid var(--color--verde-bosque);
+  
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+  
   text-align: center;
   color: white;
-  margin-top: 5vh;
+  position: relative;
+  overflow: hidden;
+
+  transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .suscripcion-content h2 {
-  font-size: 4vh;
+  font-family: "DynaPuff", system-ui, cursive;
+  font-size: 5vh;
+  color: var(--color--verde-lima);
   margin-bottom: 2vh;
+  text-shadow: 2px 2px 0 var(--color-negro);
 }
 
 .suscripcion-content p {
+  font-family: "Nunito", sans-serif;
   font-size: 2.2vh;
-  margin-bottom: 3vh;
+  margin-bottom: 4vh;
+  color: var(--color--blanco-hueso);
+  letter-spacing: 0.5px;
 }
 
 .suscripcion-form {
   display: flex;
   justify-content: center;
-  gap: 1vw;
+  gap: 15px;
   margin-top: 3vh;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .suscripcion-form input {
   padding: 1.5vh 2vw;
-  border-radius: 30px;
-  border: none;
-  width: 300px;
+  border-radius: 12px;
+  border: 3px solid var(--color--cafe-tierra);
+  background-color: var(--color--blanco-hueso);
+  width: 350px;
   font-size: 2vh;
+  font-family: "Nunito", sans-serif;
   outline: none;
+  transition: all 0.3s ease;
+  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+.suscripcion-form input:focus {
+  border-color: var(--color--verde-lima);
+  transform: scale(1.02);
+  box-shadow: 0 0 15px var(--color--verde-lima);
 }
 
 .suscripcion-form button {
   padding: 1.5vh 3vw;
-  border-radius: 30px;
+  border-radius: 12px;
   border: none;
   background-color: var(--color-amarillo);
-  color: var(--color-negro);
-  font-weight: bold;
+  color: var(--color--cafe-hoover);
+  font-weight: 800;
   cursor: pointer;
   font-size: 2vh;
-  transition: 0.3s;
+  font-family: "DynaPuff", system-ui; 
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 5px 0 var(--color--amarillo-ocre);
+  text-transform: uppercase;
 }
 
 .suscripcion-form button:hover {
-  background-color: var(--color--naranja-suave);
-  transform: scale(1.05);
+  background-color: var(--color--amarillo-suave);
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 var(--color--amarillo-ocre);
+}
+
+.suscripcion-form button:active {
+  transform: translateY(4px); 
+  box-shadow: 0 0 0 var(--color--amarillo-ocre);
 }
 
 .comentarios {

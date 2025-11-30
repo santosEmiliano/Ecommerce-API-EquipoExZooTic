@@ -209,7 +209,7 @@ const confirmarCompra = async (req, res) => {
         generarNotaPDF(datosPDF).then(async (pdfBuffer) => {
             
             const mailOptions = {
-                from: `"ExZooTic Ventas" <${process.env.GMAIL_USER}>`,
+                from: `"ExZooTic - Ventas" <${process.env.GMAIL_USER}>`,
                 to: datosFormulario.email, 
                 subject: `Confirmación de Compra - Pedido #${datosPDF.id}`,
                 html: `
