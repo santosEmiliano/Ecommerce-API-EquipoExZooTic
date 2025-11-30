@@ -21,10 +21,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // Para que entienda formularios
 
-//Para que el CRUD utilice /productos
-app.use('/', crudRoutes);
-app.use('/', compraRoutes);
-app.use('/', carritoRoutes);
+//Use de las rutas para que el index sepa manejarlas
+app.use('/api/crud', crudRoutes);
+app.use('/api', compraRoutes);
+app.use('/api', carritoRoutes);
 
 // Funcion que hace una consulta de prueba mínima que
 // confirma que todo el circuito conexión → consulta → respuesta está funcionando

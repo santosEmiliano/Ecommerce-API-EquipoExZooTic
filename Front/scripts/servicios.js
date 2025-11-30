@@ -5,7 +5,7 @@ const getProd = async (filtros = {}) => {
     const params = new URLSearchParams(cleanFilters).toString();
    
    try {
-       const response = await fetch(`http://localhost:3000/productos?${params}`);
+       const response = await fetch(`http://localhost:3000/api/crud/productos?${params}`);
        if(!response.ok) throw new Error("Error al obtener productos");
        const data = await response.json();
        return data;
@@ -17,7 +17,7 @@ const getProd = async (filtros = {}) => {
 
 const addProduct = async (formData) => {
     try {
-        const response = await fetch("http://localhost:3000/productos", {
+        const response = await fetch("http://localhost:3000/api/crud/productos", {
           method: "POST",
           body: formData,
         });
@@ -35,7 +35,7 @@ const addProduct = async (formData) => {
 
 const deleteProd = async (id) => {
     try {
-        const response = await fetch(`http://localhost:3000/productos/${id}`, {
+        const response = await fetch(`http://localhost:3000/api/crud/productos/${id}`, {
             method: "DELETE"
         });
         if (!response.ok) {
@@ -51,7 +51,7 @@ const deleteProd = async (id) => {
 
 const updateProd = async (id, formData) => {
     try {
-        const response = await fetch(`http://localhost:3000/productos/${id}`, {
+        const response = await fetch(`http://localhost:3000/api/crud/productos/${id}`, {
             method: "PUT",
             body: formData 
         });
