@@ -47,7 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function cargarProductos(filtros = {}) {
     try {
-      productosGrid.innerHTML = '<p style="text-align:center; width:100%; margin-top: 20px;">Cargando...</p>';
+      productosGrid.innerHTML = 
+      '<div style="position:absolute; left:55vw; top: 50vh; display:flex; flex-direction:column; gap:1vw; justify-content:center; align-items:center;><p style="text-align:center; width:100%; margin-top: 20px;">Cargando...</p> <img src="./media/carnalito.gif" alt=""></div>';
       productos = await servicios.getProd(filtros);
       
       let html = "";
