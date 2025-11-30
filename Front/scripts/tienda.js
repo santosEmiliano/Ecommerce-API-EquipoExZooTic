@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function aplicarFiltros() {
     productsContainer.innerHTML = 
-      '<div style="position:absolute; left:44vw; top: 18vh; display:flex; flex-direction:column; gap:1vw; justify-content:center; align-items:center;><p style="text-align:center; width:100%; margin-top: 20px;">Cargando...</p> <img src="./media/carnalito.gif" alt=""></div>';
+      '<div style="position:absolute; left:46%; top: 18vh; display:flex; flex-direction:column; gap:1vw; justify-content:center; align-items:center;><p style="text-align:center; width:100%; margin-top: 20px;">Cargando...</p> <img src="./media/carnalito.gif" alt=""></div>';
 
     actualizarInterfaz();
 
