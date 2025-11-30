@@ -108,126 +108,203 @@ html {
   transition: 0.4s ease-in;
   color: var(--color--blanco-hueso);
   border-radius: 20px;
+  border: 2px solid white;
 }
 
 .main-boton:hover {
   transform: translateX(2vw);
-  color: var(--color--gris-borde);
+  color: var(--color--verde-lima);
+  border-color: var(--color--verde-lima);
+}
+
+.main-titulo {
+    color: white;
+    text-shadow: 2px 2px 4px black;
+}
+
+.main-descripcion {
+    color: var(--color--blanco-hueso);
 }
 
 .datos-seccion {
-  padding: 5vh 5vw;
-  text-align: center;
-  background-color: var(--color--verde-bosque);
+    background-image: url('https://static.vecteezy.com/system/resources/thumbnails/002/173/386/small/wood-texture-background-free-vector.jpg');
+    background-color: #7b5e43; 
+    padding: 8vh 5vw;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 10px solid #5d4037;
+    border-bottom: 10px solid #5d4037;
 }
 
 .datos-titulo {
   color: var(--color--verde-lima);
   margin-bottom: 5vh;
   font-size: 4vh;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
 }
 
 .datos-container {
   display: flex;
   justify-content: center;
-  gap: 3vw;
+  gap: 4vw;
   flex-wrap: wrap;
+  margin-top: 30px;
 }
 
-.datos-card {
-  background: var(--color--blanco-hueso);
-  padding: 4vh 2vw;
-  border-radius: 15px;
-  width: 250px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, background-color 0.3s;
-  border-bottom: 5px solid var(--color--verde-medio);
+.field-note {
+  width: 280px;
+  padding: 25px;
+  font-family: 'Comic Sans MS', cursive; 
+  color: #333;
+  box-shadow: 5px 10px 15px rgba(0,0,0,0.3);
+  position: relative;
+  transition: transform 0.3s;
+  font-size: 1.1rem;
+  line-height: 1.4;
 }
 
-.datos-card:hover {
-  transform: translateY(-10px);
-  background-color: var(--color--blanco-hueso);
+.field-note:hover {
+  transform: scale(1.1) rotate(0deg) !important;
+  z-index: 10;
 }
 
-.datos-card h4 {
+.field-note h4 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  border-bottom: 2px dashed #999;
+  padding-bottom: 5px;
+  font-family: inherit;
   color: var(--color--cafe-tierra);
-  margin-bottom: 1vh;
+}
+
+.note-yellow { background: #fff9c4; transform: rotate(-3deg); }
+.note-green { background: #dcedc8; transform: rotate(2deg); margin-top: 20px; }
+.note-blue { background: #b3e5fc; transform: rotate(-2deg); }
+
+.pin {
+  width: 15px; height: 15px;
+  background: radial-gradient(circle at 5px 5px, red, darkred);
+  border-radius: 50%;
+  position: absolute;
+  top: 10px; left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+.tape {
+  width: 80px; height: 25px;
+  background: rgba(255,255,255,0.4);
+  position: absolute;
+  top: -12px; left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .main-card-categorias {
+  padding: 80px 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  text-align: justify;
-  gap: 3vh;
-  margin-bottom: 8vh;
-  margin: 5vh;
+  gap: 50px;
+  margin: 0; 
+  border-bottom: 10px solid #3e2723;
   transition: 0.2s ease-in;
 }
 
-.main-card {
-  background-color: var(--color--verde-claro);
-  max-width: 25vw;
-  padding: 3vh;
-  border-style: solid;
-  border-width: 0.5vh;
-  border-color: var(--color--cafe-tierra);
-  border-radius: 1vh;
-  flex: 1 1 30vw;
+.polaroid {
+  background: white;
+  padding: 15px 15px 50px 15px; 
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  transform: rotate(var(--rotation));
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  width: 300px;
+  cursor: pointer;
+  position: relative;
   max-width: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
-.main-card h4 {
+.polaroid:nth-child(1) { --rotation: -3deg; }
+.polaroid:nth-child(2) { --rotation: 2deg; }
+.polaroid:nth-child(3) { --rotation: 4deg; }
+
+.polaroid:hover {
+  transform: rotate(0deg) scale(1.1) translateY(-10px);
+  z-index: 10;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+}
+
+.polaroid .photo {
+  width: 100%;
+  height: 250px;
+  background: #222;
+  overflow: hidden;
+  border: 1px solid #eee;
+}
+
+.polaroid img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.5s;
+  filter: sepia(20%); 
+}
+
+.polaroid:hover img {
+  transform: scale(1.15);
+  filter: sepia(0%);
+}
+
+.polaroid .caption {
   text-align: center;
-  font-size: 2.5vh;
-  padding-bottom: 3vh;
+  margin-top: 20px;
+  font-family: 'Comic Sans MS', cursive;
+  color: #444;
 }
 
-.main-card:hover,
-.section-certificacion:hover {
-  border-color: var(--color--cafe-hoover);
-  background-color: var(--color--verde-medio);
-  transform: translateY(-1vh);
-  box-shadow: 0 1vh 2vh var(--color--gris-oscuro);
-}
-
-.main-card p {
-  flex-grow: 1;
+.polaroid .caption h4 {
+  font-size: 1.6rem;
+  margin-bottom: 5px;
+  color: #222;
 }
 
 .section-destacado {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--color--blanco-hueso);
-  padding: 8vh 10vw;
-  margin: 5vh 0;
-  gap: 5vw;
-  overflow: hidden;
+  background: linear-gradient(135deg, var(--color--blanco-hueso) 0%, #e0e0e0 100%); 
+  padding: 10vh 10vw;
+  margin: 10vh 5vw;
+  border-radius: 30px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  position: relative;
+  overflow: visible; 
+  border-bottom: 5px solid var(--color--verde-medio);
 }
 
 .destacado-contenido {
   flex: 1;
   z-index: 2;
+  padding-right: 20px;
 }
 
 .destacado-titulo {
-  font-size: 5vh;
+  font-size: 6vh;
   color: var(--color--verde-bosque);
   margin-bottom: 1vh;
-}
-
-.resaltado {
-  color: var(--color-rojo);
-  font-family: "Brush Script MT", cursive;
+  line-height: 1;
+  font-family: "DynaPuff", system-ui; 
 }
 
 .destacado-subtitulo {
   color: var(--color--cafe-tierra);
-  margin-bottom: 3vh;
+  margin-bottom: 4vh;
   font-size: 3vh;
+  font-family: "DynaPuff", system-ui; 
+  background: var(--color--amarillo-suave);
+  display: inline-block;
+  padding: 5px 15px;
+  transform: rotate(-2deg);
+  border-radius: 10px;
 }
 
 .destacado-imagen-wrapper {
@@ -235,29 +312,38 @@ html {
   position: relative;
   display: flex;
   justify-content: center;
-}
-
-.destacado-img {
-  width: 100%;
-  max-width: 400px;
-  z-index: 2;
-  transition: transform 0.5s ease;
-}
-
-.destacado-img:hover {
-  transform: scale(1.05) rotate(3deg);
+  align-items: center;
 }
 
 .circulo-deco {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 35vw;
   height: 35vw;
-  background-color: var(--color--amarillo-suave);
+  max-width: 400px; max-height: 400px;
+  background-color: var(--color--verde-menta);
   border-radius: 50%;
   z-index: 1;
+  opacity: 0.6;
+  transition: transform 0.5s ease;
+}
+
+.destacado-img {
+  width: 130%;
+  max-width: 550px;
+  z-index: 2;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  filter: drop-shadow(0 20px 20px rgba(0,0,0,0.3));
+  margin-top: -60px; 
+  margin-bottom: -40px;
+  margin-right: -40px;
+}
+
+.section-destacado:hover .destacado-img {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.section-destacado:hover .circulo-deco {
+  transform: scale(1.1);
 }
 
 .boton-secundario {
@@ -270,55 +356,87 @@ html {
   cursor: pointer;
   margin-top: 2vh;
   transition: 0.3s;
+  font-family: "Nunito", sans-serif; 
+  font-weight: bold;
 }
 
 .boton-secundario:hover {
   background-color: var(--color-verde);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
 }
 
 .section-certificacion {
   display: flex;
-  gap: 4vw;
-  margin: 5vh;
-  padding: 4vh;
-  border: 0.6vh solid var(--color--cafe-tierra);
-  border-radius: 2vh;
-  background-color: var(--color--verde-medio);
-  transition: 0.4s ease-in;
+  justify-content: center;
+  gap: 6vw;
+  margin: 8vh 5vw;
+  padding: 6vh;
+  background-color: var(--color--blanco-hueso);
+  border: 3px dashed var(--color--cafe-claro); 
+  border-radius: 20px;
+  position: relative;
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.05);
+}
+
+.section-certificacion::before {
+  content: "DOCUMENTACIÓN LEGAL";
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color--cafe-tierra);
+  color: white;
+  padding: 5px 20px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  font-family: "Nunito", sans-serif;
 }
 
 .card-certificacion {
   flex: 1;
+  max-width: 300px;
   display: flex;
   flex-direction: column;
-  gap: 2vh;
-  padding: 3vh 2vw;
-  border-radius: 2vh;
-  background-color: var(--color--verde-claro);
+  align-items: center;
+  gap: 15px;
   text-align: center;
-  transition: 0.4s ease-in;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  transition: all 0.3s;
+  opacity: 0.85; 
 }
 
 .card-certificacion:hover {
-  border-color: var(--color--cafe-hoover);
-  transform: translateX(-0.8vw);
-  box-shadow: 0 1vh 2vh var(--color--gris-oscuro);
+  transform: scale(1.05) rotate(2deg);
+  opacity: 1;
 }
 
 .certificacion-img img {
-  width: 20vw;
-  height: 22vh;
-  object-fit: cover;
-  border-radius: 1.5vh;
-  border: 0.5vh solid var(--color-verde);
-  text-align: center;
-  background: var(--color--verde-lima);
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  filter: sepia(100%) hue-rotate(-50deg) saturate(300%) contrast(0.8); 
+  mix-blend-mode: multiply; 
+  border: 4px solid rgba(40, 50, 80, 0.3); 
+  border-radius: 50%;
+  padding: 15px;
+  transform: rotate(-10deg);
+}
+
+.card-certificacion hr {
+  display: none;
 }
 
 .card-certificacion p {
-  font-size: 2.2vh;
-  line-height: 3vh;
+  font-family: 'Courier New', Courier, monospace; 
+  font-weight: bold;
+  color: var(--color--gris-oscuro);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1.5vw;
 }
 
 .suscripcion-section {
@@ -448,9 +566,6 @@ html {
   flex-grow: 1;
 }
 
-/*Animación*/
-
-/* 2. EL ESCENARIO FIJO */
 #fixed-stage {
   position: fixed;
   top: 0;
@@ -458,20 +573,13 @@ html {
   width: 100%;
   height: 100vh;
   overflow: hidden;
-
-  /* Esto asegura que si algo falla, el fondo sea blanco */
   background-color: white;
-
-  /* --- MÁSCARA --- */
   -webkit-mask-position: center;
   mask-position: center;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-
-  /* Tamaño inicial */
   -webkit-mask-size: 600px;
   mask-size: 600px;
-
   will-change: mask-size, transform;
 }
 
@@ -480,8 +588,6 @@ html {
   mask-image: url("../media/maskImg.png");
 }
 
-/* 3. NUEVA CAPA: EL FONDO BLANCO SÓLIDO */
-/* Esta capa sirve para que las letras se vean blancas cuando el contenido es transparente */
 #white-layer {
   position: absolute;
   top: 0;
@@ -489,14 +595,31 @@ html {
   width: 100%;
   height: 100%;
   background-color: white;
-  z-index: 0; /* Detrás del contenido */
+  z-index: 0; 
 }
 
-/* 4. CONTENIDO INTERNO (EL RELLENO) */
 #content-inner {
   position: relative;
   width: 100%;
-  z-index: 1; /* Encima del fondo blanco */
-  /* Inicialmente opacidad 0, JS la controlará */
+  z-index: 1; 
   opacity: 0;
+}
+
+@media (max-width: 900px) {
+  .section-destacado {
+    flex-direction: column;
+    text-align: center;
+    padding: 5vh 5vw;
+  }
+  
+  .destacado-img {
+    margin: 0;
+    width: 100%;
+  }
+  
+  .section-certificacion {
+    flex-direction: column;
+    align-items: center;
+    gap: 3vh;
+  }
 }
