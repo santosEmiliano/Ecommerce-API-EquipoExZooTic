@@ -83,3 +83,7 @@ const enviarCorreoSub = async (req, res) => {
         res.status(500).json({ status: "error", message: "Error al enviar correo" });
     }  
 };
+
+module.exports = {
+    enviarCorreoSub
+};
