@@ -10,12 +10,14 @@ const fs = require('fs');
 const carritoModel = require('../model/carritoModel');
 const ventasModel = require('../model/ventasModel');
 const crudModel = require('../model/crudModel');
+const cuponModel = require('../model/cuponModel');
 
 // Importar el generador de PDF
 const { generarNotaPDF } = require('../utils/generarPDF');
 
 //Import del JSON de tarifas
 const tarifasData = require('../data/tarifas.json');
+const { totalmem } = require('os');
 
 // Transporter para los correos
 const transporter = nodemailer.createTransport({
@@ -86,7 +88,7 @@ const confirmarCompra = async (req, res) => {
     try {
         //PARTE 1: ESTRUCTURAR LA INFORMACION, EL TOTAL Y EL PAGO POR CATEGORIA
 
-        if (!datosFormulario.pais || !datosFormulario.direccion) {
+        if (!datosFormulario.pais || !datosFormulario.direccion || !datosFormulario.cupon) {
             return res.status(400).json({ message: "Faltan los datos sobre el envío" });
         }
 
@@ -126,22 +128,29 @@ const confirmarCompra = async (req, res) => {
                 ventasPorCategoria[nombreCategoria] = totalProducto;
             }
         });
-
-        //PARTE 2: GUARDAR EN LAS CATEGORIAS LOS PAGOS
-        await ventasModel.agregarPago(ventasPorCategoria);
-
-        //PARTE 3: LIMPIAR EL CARRITO DEL USUARIO
-        await carritoModel.deleteCarrito(idUser);
-        
         //Obtenemos todos los datos del front
         const infoPais = tarifasData[datosFormulario.pais] || tarifasData["DEFAULT"];
         const costoEnvio = infoPais.envio;
         const impuesto = subtotal * infoPais.tasa;
 
-        //ACA VA EL MANEJO DEL CUPON QUE PARECE MUCHO ROLLO AHORITA
-        const descuento = 0;
-        const totalFinal = subtotal + costoEnvio + impuesto - descuento;
+        const codigoCupon = datosFormulario.cupon.trim().toUpperCase();
+        const cupon = await cuponModel.getCupon(codigoCupon);
+        console.log(cupon);
+        let descuento = 0;
+        if (cupon) {
+            if (await cuponModel.verificarUso(idUser, cupon.id)) { descuento = subtotal*(cupon.descuento); }
+        }
 
+        console.log(subtotal, impuesto, costoEnvio, descuento);
+        const totalFinal = subtotal + impuesto + costoEnvio - descuento;
+        console.log(totalFinal);
+
+        //PARTE 3: GUARDAR EN LAS CATEGORIAS LOS PAGOS
+        await ventasModel.agregarPago(ventasPorCategoria);
+
+        //PARTE 4: LIMPIAR EL CARRITO DEL USUARIO
+        await carritoModel.deleteCarrito(idUser);
+        
         //ACA ES DONDE IRIA TODO EL SHOW DE LO DEL CORREO Y ESO SUPONGO
         // ======= Correo =======
         // Preparamos Logo 
