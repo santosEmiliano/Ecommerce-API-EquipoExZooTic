@@ -33,20 +33,34 @@ const enviarCorreoSub = async (req, res) => {
         }
 
         // Ruta para las imagenes 
-        const rutaImagen = path.join(__dirname, '../media', cupon.imagen);
+        const rutaLogo = path.join(__dirname, '../media/logo.png'); // Logo
+        const rutaCupon = path.join(__dirname, '../media', cupon.imagen); // Cupon
 
         // Verificamos que exista la imagen en el back
         let archivos = []; 
-        let htmlImagen = '';
+        let htmlLogo = ''
+        let htmlCupon = '';
 
-        if (fs.existsSync(rutaImagen)) {
-            archivo = [{
+        // Procesamos el logo
+        if (fs.existsSync(rutaLogo)) {
+            archivos = [{
+                filename: 'Logo-ExZooTic.jpg',
+                path: rutaLogo,
+                cid: 'logo_ExZooTic_img' // Id para el html del logo
+            }]
+
+            htmlLogo = `<img src="cid:logo_empresa" alt="ExZooTic" style="width: 100px; margin-bottom: 10px;"/>`;
+        }
+
+        // Procesamos el cupon
+        if (fs.existsSync(rutaCupon)) {
+            archivos = [{
                 filename: 'Cupon-ExZooTic.jpg',
                 path: rutaImagen,
-                cid: 'cupon_img_random' // id para el html
+                cid: 'cupon_img_random' // id para el html del cupon
             }];
 
-            htmlImagen = `<img src="cid:cupon_img_random" alt="Cupon de descuento" style="width: 100%; max-width: 600px; border-radius: 8px;"/>`;
+            htmlCupon = `<img src="cid:cupon_img_random" alt="Cupon de descuento" style="width: 100%; max-width: 600px; border-radius: 8px;"/>`;
         } else {
             console.log("Error: No se encontro la imagen en la ruta:", rutaImagen);
         }
@@ -57,19 +71,28 @@ const enviarCorreoSub = async (req, res) => {
             to: email,
             subject:  "¡Bienvenido! Aquí tienes tu cupon de regalo 😋🎁",
             html: `
-                <div style="font-family: A'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; max-width: 600px; margin: auto; text-align: center;">
-                    <h1 style="color: #4C5F41;">¡Gracias por unirte a la manada!</h1>
-                    <p>Estamos felices de tenerte aquí. Como bienvenida, te regalamos este cupón especial.</p>
-                    
+                <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; max-width: 600px; margin: auto; text-align: center; border: 1px solid #ddd; padding: 20px; border-radius: 10px;">
+                    ${htmlLogo}
+                    <h1 style="color: #4C5F41; font-family: 'Trebuchet MS', sans-serif; margin: 5px 0;">ExZooTic</h1>
+                    <p style="font-style: italic; color: #777; font-size: 14px; margin-top: 0;">"Donde lo extraordinario encuentra un hogar"</p>
+
+                    <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+
+                    <h2 style="color: #333;">¡Gracias por unirte a la manada!</h2>
+                    <p style="font-size: 16px; line-height: 1.5;">
+                        Estamos muy felices de que seas parte de nuestra comunidad de amantes de los animales exóticos. 
+                        Como agradecimiento por tu confianza, hemos preparado un regalo especial para tu primera compra.
+                    </p>
                     <div style="margin: 20px 0;">
-                        ${htmlImagen}
+                        ${htmlCupon}
                     </div>
 
-                    <p>Usa el código: <strong style="font-size: 20px; color: #E67E22;">${cupon.codigo}</strong></p>
-                    <p>Obtendrás un <strong>${cupon.descuento * 100}%</strong> de descuento.</p>
+                    <p style="background-color: #f4f9f4; padding: 10px; display: inline-block; border-radius: 5px; border: 1px dashed #4C5F41;">
+                        Código para canjear: <strong style="font-size: 18px; color: #E67E22;">${cupon.codigo}</strong>
+                    </p>
                     
-                    <hr>
-                    <small>Atte: El equipo de ExZooTic</small>
+                    <br><br>
+                    <small style="color: #999;">Este correo fue enviado el ${new Date().toLocaleDateString('es-MX')} a las ${new Date().toLocaleTimeString('es-MX')}</small>
                 </div>
             `,
             attachments: archivos
