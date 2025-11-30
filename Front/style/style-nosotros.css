@@ -251,7 +251,7 @@ main {
 
 .timeline-title {
     text-align: center;
-    color: white;
+    color: rgb(85, 85, 85);
     font-size: 5vh;
     margin-bottom: 8vh;
     text-shadow: 3px 3px 0 var(--color-verde-bosque);
