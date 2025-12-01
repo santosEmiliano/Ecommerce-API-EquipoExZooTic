@@ -183,7 +183,7 @@
             <!-- con impuestos -->
             <div class="summary-total">
               <span>Total:</span>
-              <span>$</span>
+              <span id="total">$</span>
             </div>
           </div>
 
@@ -294,7 +294,7 @@
               </p>
             </div>
 
-            <button type="submit" class="btn-primary">Finalizar y Pagar</button>
+            <button type="button" id="botonComprar" class="btn-primary">Finalizar y Pagar</button>
           </div>
         </div>
       </div>
@@ -321,7 +321,7 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="./scripts/styles.js"></script>
-    <script src="./scripts/app.js"></script>
-    <script src="./scripts/pagar.js"></script>
+    <script src="./scripts/app.js" type="module"></script>
+    <script src="./scripts/pagar.js" type="module"></script>
   </body>
 </html>

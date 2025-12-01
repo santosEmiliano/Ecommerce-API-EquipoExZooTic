@@ -1,5 +1,7 @@
+import servicios from "./servicios.js";
 //Lógica de finalizar compra
 document.addEventListener("DOMContentLoaded", () => {
+  servicios.obtenerResumenCompra();
   const radioCard = document.getElementById("pay_card");
   const radioSpei = document.getElementById("pay_spei");
   const radioOxxo = document.getElementById("pay_oxxo");
@@ -42,4 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   updatePaymentMethod();
+
+  document.getElementById("botonComprar").onclick=()=>{
+    servicios.pagar()
+    }
+  
 });
