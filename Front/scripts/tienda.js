@@ -9,35 +9,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const priceRange = document.getElementById("price-range");
   const priceDisplay = document.getElementById("price-val");
   const offerCheck = document.getElementById("offer-check");
-  const ambientLayer = document.getElementById("ambient-layer");
-
-  if (ambientLayer) {
-    document.addEventListener("mousemove", (e) => {
-      const x = e.clientX / window.innerWidth;
-      const y = e.clientY / window.innerHeight;
-
-      const moveX = (x - 0.5) * 20;
-      const moveY = (y - 0.5) * 20;
-
-      const topLeft = ambientLayer.querySelector(".top-left");
-      const topRight = ambientLayer.querySelector(".top-right");
-      const bottomLeft = ambientLayer.querySelector(".bottom-left");
-      const bottomRight = ambientLayer.querySelector(".bottom-right");
-
-      if (topLeft)
-        topLeft.style.transform = `translate(${-moveX}px, ${-moveY}px)`;
-      if (topRight)
-        topRight.style.transform = `scaleX(-1) translate(${moveX}px, ${-moveY}px)`;
-      if (bottomLeft)
-        bottomLeft.style.transform = `translate(${-moveX}px, ${moveY}px)`;
-      if (bottomRight)
-        bottomRight.style.transform = `scaleX(-1) translate(${moveX}px, ${moveY}px)`;
-    });
-  }
 
   let filtrosActuales = {
-    categoria: "patrimoniales",
-    precio_max: 5000,
+    categoria: "",
+    precio_max: 10000,
     en_oferta: false,
     search: "",
   };
