@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const usuarioGuardado = localStorage.getItem("nombre");
   if (usuarioGuardado) {
-    actualizarInterfazLogueado(usuarioGuardado);
+    servicios.actualizarSesionLogIn(localStorage.getItem("nombre"));
   }
 
   // --- ABRIR MODAL ---
@@ -117,15 +117,6 @@ document.addEventListener("DOMContentLoaded", () => {
   logOutBtn.addEventListener("click", () => {
     servicios.logout();
   });
-
-  function actualizarInterfazLogueado(nombre) {
-    userName.textContent = nombre;
-    userName.style.display = "inline";
-    userIcon.style.display = "inline";
-    logOutBtn.style.display = "inline";
-    logInBtn.style.display = "none";
-    regBtn.style.display = "none";
-  }
 
   // Definición de Toast si no existe
   if (typeof toast !== "function") {

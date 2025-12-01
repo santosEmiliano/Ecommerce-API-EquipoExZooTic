@@ -228,6 +228,7 @@ const updateProd = async (id, formData) => {
 
 const servicios = {
   login,
+  actualizarSesionLogIn,
   logout,
   signIn,
   getProd,
