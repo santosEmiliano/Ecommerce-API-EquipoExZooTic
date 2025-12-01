@@ -53,6 +53,7 @@ function actualizarSesionLogIn(nombre) {
   document.getElementById("userName").style.display = "inline-block";
   document.getElementById("userName").innerHTML = `${nombre}`;
   document.getElementById("userIcon").style.display = "inline-block";
+  document.getElementById("cartBtn").style.display = "inline-block";
   document.getElementById("logInbtn").style.display = "none";
   document.getElementById("regbtn").style.display = "none";
   document.getElementById("logOutbtn").style.display = "inline-block";
@@ -100,6 +101,7 @@ const logout = async () => {
 function actualizarSesionLogOut() {
   document.getElementById("userName").style.display = "none";
   document.getElementById("userIcon").style.display = "none";
+  document.getElementById("cartBtn").style.display = "none";
   document.getElementById("logInbtn").style.display = "inline-block";
   document.getElementById("regbtn").style.display = "inline-block";
   document.getElementById("logOutbtn").style.display = "none";
