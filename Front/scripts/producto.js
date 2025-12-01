@@ -45,7 +45,6 @@ function cargarInformacionDOM(producto) {
   // Referencias a elementos
   const titulo = document.querySelector(".titulo-producto");
   const precio = document.querySelector(".precio-actual");
-  // OJO: En tu HTML la clase tiene tilde: descripción
   const descripcion = document.querySelector(".descripción");
   const imagen = document.getElementById("imgPrincipal");
   const stockBadge = document.querySelector(".disponible");
@@ -57,17 +56,15 @@ function cargarInformacionDOM(producto) {
   if (descripcion) descripcion.textContent = producto.descripcion;
 
   if (imagen) {
-    // Si la imagen viene del servidor, aseguramos la ruta completa
     const rutaImagen = producto.imagen
       ? `http://localhost:3000${producto.imagen}`
       : "media/imagen_prueba.jpg";
     imagen.src = rutaImagen;
     imagen.onerror = () => {
-      imagen.src = "media/logo.png"; // Fallback si falla la imagen
+      imagen.src = "media/logo.png";
     };
   }
 
-  // Manejo de stock
   if (stockBadge) {
     if (producto.existencias > 0) {
       stockBadge.textContent = "Disponible para adopción";
@@ -88,10 +85,7 @@ function cargarInformacionDOM(producto) {
 }
 
 // Lógica para finalizar compra o agregar al carrito (sin animación de vuelo)
-window.agregarAlCarrito = () => {
-    // Aquí puedes implementar la lógica real del carrito si lo deseas.
-    // Por ahora, solo simula el éxito.
-    
+window.agregarAlCarrito = () => {    
     if (typeof Toastify === "function") {
         Toastify({
             text: "¡Añadido al formulario de adopción!",
@@ -103,12 +97,7 @@ window.agregarAlCarrito = () => {
             },
         }).showToast();
     }
-
-    // Opcional: Redirigir a carrito o checkout real
-    // window.location.href = "carrito.html";
 };
-
-/* --- UTILIDADES VISUALES (Mantenidas para rellenar datos faltantes en BD) --- */
 
 function initRandomizers() {
   const opcionesEdad = [
