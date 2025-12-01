@@ -1,3 +1,67 @@
+const login = async (correo, contrasena) => {
+  try {
+    const respuesta = await fetch("http://localhost:3000/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        correo: correo,
+        contrasena: contrasena,
+      }),
+    });
+
+    let data;
+
+    try {
+      data = await respuesta.json();
+
+      if (respuesta.ok) {
+
+        actualizarSesionLogIn(data.datos.nombre);
+
+        Swal.fire({
+          title: "Sesión Iniciada Con Éxito!!",
+          icon: "success",
+          confirmButtonText: "Ok",
+        })
+
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("nombre", data.datos.nombre);
+        localStorage.setItem("correo", data.datos.correo);
+
+      } else {
+        Swal.fire({
+          title: "Credenciales incorrectas! 👹",
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
+        return;
+      }
+    } catch (parseErr) {
+      console.warn("Respuesta no  es JSON del servidor", parseErr);
+      data = {};
+    }
+  } catch (error) {
+    console.error("Error al llamar a la API:", error);
+    Swal.fire({
+      title: "Error al llamar al servidor°",
+      icon: "error",
+      confirmButtonText: "Ok",
+    });
+  }
+};
+
+function actualizarSesionLogIn(nombre) {
+  document.getElementById("authModal").style.display = "none";
+  document.getElementById("userName").style.display = "inline-block";
+  document.getElementById("userName").innerHTML = `${nombre}`;
+  document.getElementById("userIcon").style.display = "inline-block";
+  document.getElementById("logInbtn").style.display = "none";
+  document.getElementById("regbtn").style.display = "none";
+  document.getElementById("logOutbtn").style.display = "inline-block";
+}
+
 const getProd = async (filtros = {}) => {
   const cleanFilters = Object.fromEntries(
     Object.entries(filtros).filter(([_, v]) => v != null && v !== "")
@@ -22,7 +86,7 @@ const addProduct = async (formData) => {
     const response = await fetch("http://localhost:3000/api/crud/productos", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: formData,
     });
@@ -45,7 +109,7 @@ const deleteProd = async (id) => {
       {
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       }
     );
@@ -67,7 +131,7 @@ const updateProd = async (id, formData) => {
       {
         method: "PUT",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: formData,
       }
@@ -84,6 +148,7 @@ const updateProd = async (id, formData) => {
 };
 
 const servicios = {
+  login,
   getProd,
   addProduct,
   deleteProd,

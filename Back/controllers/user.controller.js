@@ -1,5 +1,5 @@
 const userModel = require("../model/userModel");
-const cosasTokens = require("./tokens.controller");
+const cosasTokens = require("./token.controller");
 
 const bcrypt = require("bcryptjs"); //dependencia de hash
 
