@@ -30,8 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   async function aplicarFiltros() {
-    productsContainer.innerHTML = 
-      '<div style="position:absolute; left:46%; top: 18vh; display:flex; flex-direction:column; gap:1vw; justify-content:center; align-items:center;><p style="text-align:center; width:100%; margin-top: 20px;">Cargando...</p> <img src="./media/carnalito.gif" alt=""></div>';
+    productsContainer.innerHTML =
+      '<div style="position:absolute; left:46%; top: 18vh; display:flex; flex-direction:column; gap:1vw; justify-content:center; align-items:center;"><p style="text-align:center; width:100%; margin-top: 20px;">Cargando...</p> <img src="./media/carnalito.gif" alt=""></div>';
 
     actualizarInterfaz();
 
@@ -60,6 +60,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   biomeBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
+      // Si el botón ya estaba activo, podríamos querer desactivarlo (opcional),
+      // pero aquí asumimos comportamiento de radio button (uno a la vez).
       biomeBtns.forEach((b) => b.classList.remove("active"));
       btn.classList.add("active");
 
@@ -106,6 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
         search: "",
       };
 
+      // Quitamos la clase active de todos los botones visualmente
       biomeBtns.forEach((b) => b.classList.remove("active"));
 
       if (priceRange) {
@@ -115,6 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (offerCheck) offerCheck.checked = false;
       if (searchInput) searchInput.value = "";
 
+      // Regresamos el fondo a selva por defecto, pero sin seleccionar el botón
       storeWrapper.className = "store-wrapper bg-selva";
 
       aplicarFiltros();
@@ -140,13 +144,13 @@ document.addEventListener("DOMContentLoaded", () => {
         : "media/logo.png";
 
       const delay = index < 10 ? index * 0.1 : 0;
-
       const randomRotate = Math.floor(Math.random() * 6) - 3;
 
+      // Nota: onclick en el div principal también llama a addToCart
       const cardHTML = `
                 <div class="product-card ${config.css}" 
                      style="--texture-rotate: ${randomRotate}deg; animation-delay: ${delay}s;" 
-                     onclick="addToCart(${product.id})">
+                     onclick="addToCart(${product.id}, event)">
                     
                     <div class="card-tape"></div>
                     
@@ -191,59 +195,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // --- REFACTORIZACIÓN SOLICITADA ---
   window.addToCart = (id, event) => {
-    const btn = event.target.closest("button");
-    const card = btn.closest(".product-card");
-    const imgOriginal = card.querySelector("img");
-    const cartIcon = document.querySelector(".cart-button");
-
-    if (imgOriginal && cartIcon) {
-      const flyImg = imgOriginal.cloneNode();
-      flyImg.classList.add("flying-img");
-
-      const rectOriginal = imgOriginal.getBoundingClientRect();
-      flyImg.style.left = `${rectOriginal.left}px`;
-      flyImg.style.top = `${rectOriginal.top}px`;
-      flyImg.style.width = `${rectOriginal.width}px`;
-      flyImg.style.height = `${rectOriginal.height}px`;
-
-      document.body.appendChild(flyImg);
-
-      const rectCart = cartIcon.getBoundingClientRect();
-
-      setTimeout(() => {
-        flyImg.style.left = `${rectCart.left + 10}px`;
-        flyImg.style.top = `${rectCart.top + 5}px`;
-        flyImg.style.width = "30px";
-        flyImg.style.height = "30px";
-        flyImg.style.opacity = "0.5";
-      }, 10);
-
-      setTimeout(() => {
-        flyImg.remove();
-
-        cartIcon.classList.add("jelly-pop");
-        setTimeout(() => cartIcon.classList.remove("jelly-pop"), 600);
-
-        if (typeof Toastify === "function") {
-          Toastify({
-            text: "¡Capturado en la canasta!",
-            duration: 2000,
-            gravity: "bottom",
-            position: "right",
-            style: { background: "#4BBEE3" },
-          }).showToast();
-        }
-      }, 800);
+    // Detener la propagación para evitar doble evento si se hace click en el botón dentro de la card
+    if (event) {
+      event.stopPropagation();
     }
+
+    // 1. Guardar ID en localStorage
+    localStorage.setItem("productoSeleccionado", id);
+
+    // 2. Redirigir a producto.html
+    window.location.href = "producto.html";
   };
 
+  // Efecto visual simple para botones generales (opcional, mantenido del original)
   document.addEventListener("click", (e) => {
     const targetBtn = e.target.closest("button");
-
-    if (targetBtn && !targetBtn.classList.contains("jelly-pop")) {
+    // Excluimos los botones de adoptar porque esos ahora redirigen
+    if (
+      targetBtn &&
+      !targetBtn.classList.contains("jelly-pop") &&
+      !targetBtn.classList.contains("btn-feed")
+    ) {
       targetBtn.classList.add("jelly-pop");
-
       setTimeout(() => {
         targetBtn.classList.remove("jelly-pop");
       }, 600);
