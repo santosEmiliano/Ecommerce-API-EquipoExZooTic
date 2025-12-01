@@ -75,23 +75,30 @@
   background: rgba(0, 0, 0, 0.05);
 }
 
-.bg-selva .biome-btn[data-biome="selva"],
-.bg-oceano .biome-btn[data-biome="oceano"],
-.bg-desierto .biome-btn[data-biome="desierto"] {
+/* REFACTORIZACIÓN: Se agregó la clase .active a estos selectores.
+   Antes: .bg-selva .biome-btn[data-biome="selva"]
+   Ahora: .bg-selva .biome-btn.active[data-biome="selva"]
+   
+   Esto asegura que el botón solo se pinte cuando se le ha dado click (tiene clase active),
+   aunque el fondo de la página coincida con el bioma.
+*/
+.bg-selva .biome-btn.active[data-biome="selva"],
+.bg-oceano .biome-btn.active[data-biome="oceano"],
+.bg-desierto .biome-btn.active[data-biome="desierto"] {
   background: white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transform: scale(1.05);
 }
 
-.bg-selva .biome-btn[data-biome="selva"] {
+.bg-selva .biome-btn.active[data-biome="selva"] {
   border-color: #66bb6a;
   color: #2e7d32;
 }
-.bg-oceano .biome-btn[data-biome="oceano"] {
+.bg-oceano .biome-btn.active[data-biome="oceano"] {
   border-color: #4fc3f7;
   color: #0277bd;
 }
-.bg-desierto .biome-btn[data-biome="desierto"] {
+.bg-desierto .biome-btn.active[data-biome="desierto"] {
   border-color: #ffb74d;
   color: #ef6c00;
 }
@@ -478,13 +485,4 @@
 .biome-btn:hover,
 .cart-button:hover {
   transform: translateY(-3px);
-}
-
-.flying-img {
-  position: fixed;
-  z-index: 9999;
-  border-radius: 50%;
-  pointer-events: none;
-  transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
