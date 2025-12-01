@@ -17,9 +17,7 @@ const login = async (correo, contrasena) => {
       data = await respuesta.json();
 
       if (respuesta.ok) {
-
         actualizarSesionLogIn(data.datos.nombre);
-
         Swal.fire({
           title: "Sesión Iniciada Con Éxito!!",
           icon: "success",
@@ -36,12 +34,12 @@ const login = async (correo, contrasena) => {
           icon: "error",
           confirmButtonText: "Ok",
         });
-        return;
       }
     } catch (parseErr) {
       console.warn("Respuesta no  es JSON del servidor", parseErr);
       data = {};
     }
+
   } catch (error) {
     console.error("Error al llamar a la API:", error);
     Swal.fire({
