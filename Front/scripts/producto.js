@@ -1,7 +1,7 @@
 import servicios from "./servicios.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-  // 1. Verificar si hay un ID guardado en localStorage
+  // 1. Verificar si hay un ID guardado
   const idProducto = localStorage.getItem("productoSeleccionado");
 
   if (!idProducto) {
@@ -16,16 +16,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // 2. Cargar datos del producto principal desde la BD
+  // 2. Cargar datos del servidor
   try {
     const producto = await servicios.getProdById(idProducto);
 
     if (producto) {
       cargarInformacionDOM(producto);
-      
-      // 3. Cargar recomendaciones (pasamos el ID actual para excluirlo)
-      cargarRecomendaciones(producto.id);
-
     } else {
       throw new Error("Producto no encontrado");
     }
@@ -40,25 +36,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  // Inicializar lógica visual extra (relleno de datos no existentes en BD y efectos)
+  // Inicializar lógica visual extra (randomizers)
   initRandomizers();
   initVisualEffects();
 });
 
 function cargarInformacionDOM(producto) {
+  // Referencias a elementos
   const titulo = document.querySelector(".titulo-producto");
   const precio = document.querySelector(".precio-actual");
-  const descripcion = document.querySelector(".descripción"); // Nota: clase con tilde en tu HTML
+  const descripcion = document.querySelector(".descripción");
   const imagen = document.getElementById("imgPrincipal");
   const stockBadge = document.querySelector(".disponible");
   const botonComprar = document.querySelector(".boton-comprar");
 
-  // Inyectar textos
+  // Inyectar datos
   if (titulo) titulo.textContent = producto.nombre;
   if (precio) precio.textContent = `$${producto.precio}`;
   if (descripcion) descripcion.textContent = producto.descripcion;
 
-  // Inyectar imagen principal
   if (imagen) {
     const rutaImagen = producto.imagen
       ? `http://localhost:3000${producto.imagen}`
@@ -69,7 +65,6 @@ function cargarInformacionDOM(producto) {
     };
   }
 
-  // Lógica de disponibilidad (Stock)
   if (stockBadge) {
     if (producto.existencias > 0) {
       stockBadge.textContent = "Disponible para adopción";
@@ -89,76 +84,8 @@ function cargarInformacionDOM(producto) {
   }
 }
 
-// --- FUNCIÓN DE RECOMENDACIONES (Con el nuevo diseño de botón) ---
-async function cargarRecomendaciones(idActual) {
-  const contenedorRecomendaciones = document.querySelector(".grid-categorias");
-  if (!contenedorRecomendaciones) return;
-
-  try {
-    // 1. Traer todos los productos
-    const todosLosProductos = await servicios.getProd({});
-
-    // 2. Filtrar para no mostrar el actual
-    const disponibles = todosLosProductos.filter(p => p.id !== Number(idActual));
-
-    // 3. Mezclar aleatoriamente
-    const aleatorios = disponibles.sort(() => 0.5 - Math.random());
-
-    // 4. Tomar los primeros 3
-    const seleccionados = aleatorios.slice(0, 3);
-
-    // 5. Renderizar
-    contenedorRecomendaciones.innerHTML = ""; 
-
-    if (seleccionados.length === 0) {
-      contenedorRecomendaciones.innerHTML = "<p>No hay más especies por explorar.</p>";
-      return;
-    }
-
-    seleccionados.forEach(prod => {
-      const rutaImg = prod.imagen 
-        ? `http://localhost:3000${prod.imagen}` 
-        : "media/logo.png";
-
-      const card = document.createElement("div");
-      card.className = "card-categoria";
-      card.style.cursor = "pointer";
-      
-      // HTML con el nuevo botón
-      card.innerHTML = `
-        <div class="img-wrapper">
-          <img src="${rutaImg}" alt="${prod.nombre}" onerror="this.src='media/logo.png'">
-        </div>
-        <div class="contenido-cat">
-          <h4>${prod.nombre}</h4>
-          <button class="btn-mini-adoptar">
-            🍎 Adoptar
-          </button>
-        </div>
-      `;
-
-      // Evento Click: Guardar ID y recargar página
-      card.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        
-        localStorage.setItem("productoSeleccionado", prod.id);
-
-        setTimeout(() => {
-            window.location.reload();
-        }, 100);
-      });
-
-      contenedorRecomendaciones.appendChild(card);
-    });
-
-  } catch (error) {
-    console.error("Error cargando recomendaciones:", error);
-    contenedorRecomendaciones.innerHTML = "<p>Error cargando sugerencias.</p>";
-  }
-}
-
-// Lógica del botón principal de comprar/adoptar (Visual)
-window.agregarAlCarrito = () => {
+// Lógica para finalizar compra o agregar al carrito (sin animación de vuelo)
+window.agregarAlCarrito = () => {    
     if (typeof Toastify === "function") {
         Toastify({
             text: "¡Añadido al formulario de adopción!",
@@ -171,8 +98,6 @@ window.agregarAlCarrito = () => {
         }).showToast();
     }
 };
-
-/* --- UTILIDADES VISUALES (Relleno de datos faltantes en BD y animaciones) --- */
 
 function initRandomizers() {
   const opcionesEdad = [
@@ -233,7 +158,7 @@ function initRandomizers() {
 }
 
 function initVisualEffects() {
-  // Efecto 3D en la imagen principal
+  // Efecto 3D en la imagen
   const contenedorImg = document.querySelector(".imagen-principal-contenedor");
   
   if (contenedorImg) {
@@ -250,27 +175,21 @@ function initVisualEffects() {
     });
   }
 
-  // Scroll Reveal (Animación al bajar)
+  // Scroll Reveal
   const elementosAnimables = document.querySelectorAll(".tarjeta-cuidado, .card-categoria");
-  
-  // Pequeño delay para asegurar que el DOM dinámico ya existe
-  setTimeout(() => {
-      const observador = new IntersectionObserver(
-        (entradas) => {
-          entradas.forEach((entrada) => {
-            if (entrada.isIntersecting) {
-              entrada.target.classList.add("scroll-show");
-              observador.unobserve(entrada.target);
-            }
-          });
-        },
-        { threshold: 0.1 }
-      );
-    
-      const nuevasCards = document.querySelectorAll(".tarjeta-cuidado, .card-categoria");
-      nuevasCards.forEach((el) => {
-          el.classList.add("scroll-hidden");
-          observador.observe(el);
+  elementosAnimables.forEach((el) => el.classList.add("scroll-hidden"));
+
+  const observador = new IntersectionObserver(
+    (entradas) => {
+      entradas.forEach((entrada) => {
+        if (entrada.isIntersecting) {
+          entrada.target.classList.add("scroll-show");
+          observador.unobserve(entrada.target);
+        }
       });
-  }, 500); 
+    },
+    { threshold: 0.1 }
+  );
+
+  elementosAnimables.forEach((el) => observador.observe(el));
 }
