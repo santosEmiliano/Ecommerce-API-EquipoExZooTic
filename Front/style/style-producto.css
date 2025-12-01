@@ -313,3 +313,70 @@ body {
   pointer-events: none; /* Para que no interfiera con clicks */
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
+
+/* --- Actualización para las tarjetas de recomendación --- */
+
+.card-categoria {
+  /* Aseguramos que el contenido se posicione bien */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Empuja el contenido abajo */
+}
+
+.contenido-cat {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 10px;
+  box-sizing: border-box;
+  
+  /* Gradiente más oscuro abajo para que las letras blancas resalten */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.card-categoria h4 {
+  margin: 0;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  font-family: "Segoe UI", sans-serif;
+  letter-spacing: 0.5px;
+}
+
+/* Estilo del nuevo botón "Adoptar" en recomendados */
+.btn-mini-adoptar {
+  background: #ff6b6b; /* Color acento de tu tienda (rojo suave) */
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+/* Efecto Hover en la tarjeta completa */
+.card-categoria:hover .btn-mini-adoptar {
+  transform: scale(1.1);
+  background: #ff5252; /* Rojo más vivo al pasar el mouse */
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+.card-categoria:hover .img-wrapper img {
+  transform: scale(1.1); /* Zoom suave a la imagen */
+  opacity: 1; /* Mantenemos la imagen brillante */
+}
