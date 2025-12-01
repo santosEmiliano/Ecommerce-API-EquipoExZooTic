@@ -13,6 +13,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let productos = [];
 
+  if(localStorage.getItem("nombre")){
+    document.getElementById("userName").innerHTML = localStorage.getItem("nombre");
+  } else{
+    document.getElementById("userName").style.display = "none";
+    document.getElementById("userIcon").style.display = "none";
+  }
+
   cargarProductos();
 
   if (btnProd) {
