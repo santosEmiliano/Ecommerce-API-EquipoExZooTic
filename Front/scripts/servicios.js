@@ -93,6 +93,8 @@ const logout = async () => {
     localStorage.removeItem("token");
     localStorage.removeItem("correo");
     localStorage.removeItem("nombre");
+    localStorage.removeItem("id");
+    localStorage.removeItem("pais");
 
     actualizarSesionLogOut();
   }
