@@ -35,7 +35,7 @@ const login = async (correo, contrasena) => {
         });
       }
     } catch (parseErr) {
-      console.warn("Respuesta no  es JSON del servidor", parseErr);
+      console.warn("Respuesta no es JSON del servidor", parseErr);
       data = {};
     }
   } catch (error) {
@@ -49,14 +49,29 @@ const login = async (correo, contrasena) => {
 };
 
 function actualizarSesionLogIn(nombre) {
-  document.getElementById("authModal").style.display = "none";
-  document.getElementById("userName").style.display = "inline-block";
-  document.getElementById("userName").innerHTML = `${nombre}`;
-  document.getElementById("userIcon").style.display = "inline-block";
-  document.getElementById("cartBtn").style.display = "inline-block";
-  document.getElementById("logInbtn").style.display = "none";
-  document.getElementById("regbtn").style.display = "none";
-  document.getElementById("logOutbtn").style.display = "inline-block";
+  const modal = document.getElementById("authModal");
+  if(modal) modal.style.display = "none";
+  
+  const userDisplay = document.getElementById("userName");
+  if(userDisplay) {
+      userDisplay.style.display = "inline-block";
+      userDisplay.innerHTML = `${nombre}`;
+  }
+
+  const userIcon = document.getElementById("userIcon");
+  if(userIcon) userIcon.style.display = "inline-block";
+
+  const cartBtn = document.getElementById("cartBtn");
+  if(cartBtn) cartBtn.style.display = "inline-block";
+
+  const loginBtn = document.getElementById("logInbtn");
+  if(loginBtn) loginBtn.style.display = "none";
+
+  const regBtn = document.getElementById("regbtn");
+  if(regBtn) regBtn.style.display = "none";
+
+  const logoutBtn = document.getElementById("logOutbtn");
+  if(logoutBtn) logoutBtn.style.display = "inline-block";
 }
 
 const logout = async () => {
@@ -101,12 +116,23 @@ const logout = async () => {
 };
 
 function actualizarSesionLogOut() {
-  document.getElementById("userName").style.display = "none";
-  document.getElementById("userIcon").style.display = "none";
-  document.getElementById("cartBtn").style.display = "none";
-  document.getElementById("logInbtn").style.display = "inline-block";
-  document.getElementById("regbtn").style.display = "inline-block";
-  document.getElementById("logOutbtn").style.display = "none";
+  const userDisplay = document.getElementById("userName");
+  if(userDisplay) userDisplay.style.display = "none";
+
+  const userIcon = document.getElementById("userIcon");
+  if(userIcon) userIcon.style.display = "none";
+
+  const cartBtn = document.getElementById("cartBtn");
+  if(cartBtn) cartBtn.style.display = "none";
+
+  const loginBtn = document.getElementById("logInbtn");
+  if(loginBtn) loginBtn.style.display = "inline-block";
+
+  const regBtn = document.getElementById("regbtn");
+  if(regBtn) regBtn.style.display = "inline-block";
+
+  const logoutBtn = document.getElementById("logOutbtn");
+  if(logoutBtn) logoutBtn.style.display = "none";
 }
 
 const signIn = async (_nombre, _correo, _pais, _contrasena) => {
@@ -128,10 +154,6 @@ const signIn = async (_nombre, _correo, _pais, _contrasena) => {
       throw new Error("Error en la petición: " + response.status);
     } else {
       const data = await response.json();
-
-      console.log(data.token); //guardar!!!
-      console.log(data.id); //guardar!!!
-
       Swal.fire({
         title: "Cuenta registrada exitosamente!!",
         icon: "success",
@@ -160,6 +182,18 @@ const getProd = async (filtros = {}) => {
     console.error(error);
     return [];
   }
+};
+
+// --- NUEVA FUNCIÓN AGREGADA ---
+const getProdById = async (id) => {
+    try {
+        const response = await fetch(`http://localhost:3000/api/crud/productos/${id}`);
+        if (!response.ok) throw new Error("Producto no encontrado");
+        return await response.json();
+    } catch (error) {
+        console.error("Error obteniendo producto individual:", error);
+        return null;
+    }
 };
 
 const addProduct = async (formData) => {
@@ -234,6 +268,7 @@ const servicios = {
   logout,
   signIn,
   getProd,
+  getProdById, // Exportamos la nueva función
   addProduct,
   deleteProd,
   updateProd,

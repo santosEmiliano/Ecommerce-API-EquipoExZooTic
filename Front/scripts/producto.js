@@ -1,20 +1,116 @@
-// Script simple para galería de productos
-const mainImg = document.getElementById("imgPrincipal");
-const thumbs = document.querySelectorAll(".img-miniatura");
+import servicios from "./servicios.js";
 
-thumbs.forEach((thumb) => {
-  thumb.addEventListener("click", function () {
-    // Cambiar la imagen principal
-    mainImg.src = this.src;
+document.addEventListener("DOMContentLoaded", async () => {
+  // 1. Verificar si hay un ID guardado
+  const idProducto = localStorage.getItem("productoSeleccionado");
 
-    // Quitar clase activa a todas y ponerla a la actual
-    thumbs.forEach((t) => t.classList.remove("activa"));
-    this.classList.add("activa");
-  });
+  if (!idProducto) {
+    Swal.fire({
+      title: "¡Ups!",
+      text: "No has seleccionado ningún animal.",
+      icon: "warning",
+      confirmButtonText: "Ir a la tienda",
+    }).then(() => {
+      window.location.href = "tienda.html";
+    });
+    return;
+  }
+
+  // 2. Cargar datos del servidor
+  try {
+    const producto = await servicios.getProdById(idProducto);
+
+    if (producto) {
+      cargarInformacionDOM(producto);
+    } else {
+      throw new Error("Producto no encontrado");
+    }
+  } catch (error) {
+    console.error(error);
+    Swal.fire({
+      title: "Error",
+      text: "No pudimos encontrar al animal solicitado.",
+      icon: "error",
+    }).then(() => {
+      window.location.href = "tienda.html";
+    });
+  }
+
+  // Inicializar lógica visual extra (randomizers)
+  initRandomizers();
+  initVisualEffects();
 });
 
-/* Para randomizar los datos en la vista*/
-document.addEventListener("DOMContentLoaded", () => {
+function cargarInformacionDOM(producto) {
+  // Referencias a elementos
+  const titulo = document.querySelector(".titulo-producto");
+  const precio = document.querySelector(".precio-actual");
+  // OJO: En tu HTML la clase tiene tilde: descripción
+  const descripcion = document.querySelector(".descripción");
+  const imagen = document.getElementById("imgPrincipal");
+  const stockBadge = document.querySelector(".disponible");
+  const botonComprar = document.querySelector(".boton-comprar");
+
+  // Inyectar datos
+  if (titulo) titulo.textContent = producto.nombre;
+  if (precio) precio.textContent = `$${producto.precio}`;
+  if (descripcion) descripcion.textContent = producto.descripcion;
+
+  if (imagen) {
+    // Si la imagen viene del servidor, aseguramos la ruta completa
+    const rutaImagen = producto.imagen
+      ? `http://localhost:3000${producto.imagen}`
+      : "media/imagen_prueba.jpg";
+    imagen.src = rutaImagen;
+    imagen.onerror = () => {
+      imagen.src = "media/logo.png"; // Fallback si falla la imagen
+    };
+  }
+
+  // Manejo de stock
+  if (stockBadge) {
+    if (producto.existencias > 0) {
+      stockBadge.textContent = "Disponible para adopción";
+      stockBadge.style.background = "var(--color--verde-claro)";
+      stockBadge.style.color = "var(--color--verde-bosque)";
+    } else {
+      stockBadge.textContent = "Ya ha sido adoptado";
+      stockBadge.style.background = "#ffcccb";
+      stockBadge.style.color = "#d32f2f";
+      if (botonComprar) {
+        botonComprar.disabled = true;
+        botonComprar.textContent = "No disponible";
+        botonComprar.style.opacity = "0.5";
+        botonComprar.style.cursor = "not-allowed";
+      }
+    }
+  }
+}
+
+// Lógica para finalizar compra o agregar al carrito (sin animación de vuelo)
+window.agregarAlCarrito = () => {
+    // Aquí puedes implementar la lógica real del carrito si lo deseas.
+    // Por ahora, solo simula el éxito.
+    
+    if (typeof Toastify === "function") {
+        Toastify({
+            text: "¡Añadido al formulario de adopción!",
+            duration: 3000,
+            gravity: "bottom",
+            position: "right",
+            style: {
+                background: "linear-gradient(to right, #7ab24e, #597a4a)",
+            },
+        }).showToast();
+    }
+
+    // Opcional: Redirigir a carrito o checkout real
+    // window.location.href = "carrito.html";
+};
+
+/* --- UTILIDADES VISUALES (Mantenidas para rellenar datos faltantes en BD) --- */
+
+function initRandomizers() {
   const opcionesEdad = [
     "Cría (3 meses)",
     "Juvenil (6 meses)",
@@ -23,9 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Adulto Reproductor",
     "Senior (+5 años)",
   ];
-
-  const opcionesSexo = ["Macho", "Hembra", "Sin sexar (Indefinido"];
-
+  const opcionesSexo = ["Macho", "Hembra", "Sin sexar (Indefinido)"];
   const opcionesAlimentacion = [
     "Insectívoro",
     "Carnívoro",
@@ -34,63 +128,66 @@ document.addEventListener("DOMContentLoaded", () => {
     "Frugívoro",
   ];
 
-  const obtenerAleatorio = (lista) => {
-    const indice = Math.floor(Math.random() * lista.length);
-    return lista[indice];
-  };
+  const obtenerAleatorio = (lista) => lista[Math.floor(Math.random() * lista.length)];
 
   const itemsLista = document.querySelectorAll(".lista-caracteristicas li");
-
   if (itemsLista.length >= 3) {
-    itemsLista[0].innerHTML = `<strong>Edad:</strong> ${obtenerAleatorio(
-      opcionesEdad
-    )}`;
-    itemsLista[1].innerHTML = `<strong>Sexo:</strong> ${obtenerAleatorio(
-      opcionesSexo
-    )}`;
-    itemsLista[2].innerHTML = `<strong>Alimentación:</strong> ${obtenerAleatorio(
-      opcionesAlimentacion
-    )}`;
+    itemsLista[0].innerHTML = `<strong>Edad:</strong> ${obtenerAleatorio(opcionesEdad)}`;
+    itemsLista[1].innerHTML = `<strong>Sexo:</strong> ${obtenerAleatorio(opcionesSexo)}`;
+    itemsLista[2].innerHTML = `<strong>Alimentación:</strong> ${obtenerAleatorio(opcionesAlimentacion)}`;
   }
-});
 
-document.addEventListener("DOMContentLoaded", () => {
+  // Cuidados aleatorios
   const textosTemperatura = [
-    "Zona caliente (30-32°C) y zona fría (24-26°C) con termostato.",
-    "Temperatura ambiente constante (22-25°C). Evitar corrientes de aire.",
-    "Requiere foco de calor (basking spot) a 35°C y UVB 5.0.",
-    "Humedad alta (80%) y temperatura tropical (26-28°C).",
-    "Agua climatizada a 24-26°C con calentador sumergible.",
+    "Zona caliente (30-32°C) y zona fría (24-26°C).",
+    "Temperatura ambiente constante (22-25°C).",
+    "Requiere foco de calor a 35°C y UVB.",
+    "Humedad alta (80%) y temperatura (26-28°C).",
+    "Agua climatizada a 24-26°C.",
   ];
-
   const textosHabitat = [
-    "Mínimo 60x45x30 cm. Sustrato de papel o fibra de coco.",
-    "Terrario vertical de malla (40x40x60) con muchas ramas.",
-    "Acuario de 80 litros con zona seca y filtro potente.",
-    "Jaula espaciosa con base sólida y viruta de álamo.",
-    "Tupper o rack con ventilación lateral y papel periódico.",
+    "Mínimo 60x45x30 cm. Sustrato de fibra de coco.",
+    "Terrario vertical de malla con ramas.",
+    "Acuario de 80 litros con zona seca.",
+    "Jaula espaciosa con base sólida.",
+    "Tupper o rack con buena ventilación.",
+  ];
+  const textosDieta = [
+    "Grillos, tenebrios y calcio.",
+    "Vegetales de hoja verde y fruta.",
+    "Ratones descongelados semanalmente.",
+    "Pienso especializado y heno.",
+    "Pescado de río y pellets.",
   ];
 
-  const textosDietaDetallada = [
-    "Grillos, tenebrios y suplemento de calcio con D3 (3 veces/sem).",
-    "Vegetales de hoja verde (rúcula, canónigos) y fruta ocasional.",
-    "Ratones descongelados (pinkies) cada 5-7 días.",
-    "Pienso especializado, heno de timothy ilimitado y agua fresca.",
-    "Pescado de río, camarones secos y pellets flotantes.",
-  ];
   const tarjetasCuidado = document.querySelectorAll(".tarjeta-cuidado p");
   if (tarjetasCuidado.length >= 3) {
-    const getRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
-    tarjetasCuidado[0].innerText = getRandom(textosTemperatura);
-    tarjetasCuidado[1].innerText = getRandom(textosHabitat);
-    tarjetasCuidado[2].innerText = getRandom(textosDietaDetallada);
+    tarjetasCuidado[0].innerText = obtenerAleatorio(textosTemperatura);
+    tarjetasCuidado[1].innerText = obtenerAleatorio(textosHabitat);
+    tarjetasCuidado[2].innerText = obtenerAleatorio(textosDieta);
   }
-});
+}
 
-document.addEventListener("DOMContentLoaded", () => {
-  const elementosAnimables = document.querySelectorAll(
-    ".tarjeta-cuidado, .card-categoria"
-  );
+function initVisualEffects() {
+  // Efecto 3D en la imagen
+  const contenedorImg = document.querySelector(".imagen-principal-contenedor");
+  
+  if (contenedorImg) {
+    contenedorImg.addEventListener("mousemove", (e) => {
+      const { offsetWidth: width, offsetHeight: height } = contenedorImg;
+      const { offsetX: x, offsetY: y } = e;
+      const moveX = (x / width - 0.5) * 20;
+      const moveY = (y / height - 0.5) * 20;
+      contenedorImg.style.transform = `perspective(1000px) rotateY(${moveX}deg) rotateX(${-moveY}deg) scale(1.02)`;
+    });
+
+    contenedorImg.addEventListener("mouseleave", () => {
+      contenedorImg.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)`;
+    });
+  }
+
+  // Scroll Reveal
+  const elementosAnimables = document.querySelectorAll(".tarjeta-cuidado, .card-categoria");
   elementosAnimables.forEach((el) => el.classList.add("scroll-hidden"));
 
   const observador = new IntersectionObserver(
@@ -102,86 +199,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     },
-    {
-      threshold: 0.1,
-    }
+    { threshold: 0.1 }
   );
 
   elementosAnimables.forEach((el) => observador.observe(el));
-
-  const contenedorImg = document.querySelector(".imagen-principal-contenedor");
-  const imagen = document.querySelector(".imagen-grande");
-
-  if (contenedorImg && imagen) {
-    contenedorImg.addEventListener("mousemove", (e) => {
-      const { offsetWidth: width, offsetHeight: height } = contenedorImg;
-      const { offsetX: x, offsetY: y } = e;
-
-      const moveX = (x / width - 0.5) * 20;
-      const moveY = (y / height - 0.5) * 20;
-
-      contenedorImg.style.transform = `perspective(1000px) rotateY(${moveX}deg) rotateX(${-moveY}deg) scale(1.02)`;
-    });
-
-    contenedorImg.addEventListener("mouseleave", () => {
-      contenedorImg.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)`;
-    });
-  }
-
-  const btnComprar = document.querySelector(".boton-comprar");
-  const iconoCarrito = document.querySelector(".boton-carrito");
-
-  if (btnComprar && iconoCarrito) {
-    btnComprar.addEventListener("click", (e) => {
-      e.preventDefault();
-
-      const imgOriginal = document.getElementById("imgPrincipal");
-      if (!imgOriginal) return;
-
-      const imgClone = imgOriginal.cloneNode(true);
-
-      const rectImg = imgOriginal.getBoundingClientRect();
-      const rectCart = iconoCarrito.getBoundingClientRect();
-
-      imgClone.classList.add("fly-item");
-      imgClone.style.top = `${rectImg.top}px`;
-      imgClone.style.left = `${rectImg.left}px`;
-      imgClone.style.width = `${rectImg.width}px`;
-      imgClone.style.height = `${rectImg.height}px`;
-
-      document.body.appendChild(imgClone);
-
-      void imgClone.offsetWidth;
-
-      imgClone.style.top = `${rectCart.top + 10}px`;
-      imgClone.style.left = `${rectCart.left + 10}px`;
-      imgClone.style.width = "30px";
-      imgClone.style.height = "30px";
-      imgClone.style.opacity = "0.5";
-
-      setTimeout(() => {
-        imgClone.remove();
-
-        iconoCarrito.style.transform = "scale(1.4)";
-        setTimeout(() => {
-          iconoCarrito.style.transform = "scale(1)";
-        }, 200);
-
-        // Aquí podrías llamar a tu función real de agregar al carrito
-        // agregarAlCarrito
-        //PARA QUE JALE EL CARRITO ES AQUÍ
-        if (typeof Toastify === "function") {
-          Toastify({
-            text: "¡Agregado al carrito!",
-            duration: 3000,
-            gravity: "bottom",
-            position: "right",
-            style: {
-              background: "linear-gradient(to right, #7ab24e, #597a4a)",
-            },
-          }).showToast();
-        }
-      }, 800);
-    });
-  }
-});
+}
