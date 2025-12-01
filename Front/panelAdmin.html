@@ -36,25 +36,9 @@
         <a href="preguntas.html" class="header-link">Preguntas</a>
         <a href="nosotros.html" class="header-link">Nosotros</a>
         <div class="nombreUsuario">
-          <i id="userIcon" class="fa-solid fa-user user-name"></i>
+          <i id="userIcon" class="fa-solid fa-user-tie"></i>
           <span id="userName" class="user-name"></span>
         </div>
-        <button id="logInbtn" title="Login">
-          <span class="loginStyle">Iniciar Sesión</span>
-        </button>
-
-        <button id="logOutbtn" title="LogOut">
-          <span class="loginStyle">Cerrar Sesión</span>
-        </button>
-
-        <button id="regbtn" title="Register">
-          <span class="loginStyle">Regístrate</span>
-        </button>
-
-        <button id="cartBtn" class="cart-button" title="Ver Carrito">
-          <i class="fa-solid fa-basket-shopping"></i>
-          <span class="cart-count">0</span>
-        </button>
       </div>
     </nav>
 
@@ -129,77 +113,6 @@
       </div>
     </main>
 
-    <div id="loginModal" class="modal">
-      <div class="modal-content">
-        <span id="closeModalLogin" class="close">&times;</span>
-        <h2>Iniciar Sesión</h2>
-        <form id="formLogin">
-          <input
-            type="text"
-            id="login"
-            class="inputLogin"
-            placeholder="Usuario"
-            required
-          />
-          <input
-            type="password"
-            id="password"
-            class="inputPassword"
-            placeholder="Contraseña"
-            required
-          />
-          <input
-            type="text"
-            id="captchaText"
-            class="inputCaptcha"
-            placeholder="Escribe el captcha"
-            required
-          />
-
-          <button type="submit">Enviar</button>
-        </form>
-      </div>
-    </div>
-
-    <div id="registerModal" class="modal">
-      <div class="modal-content">
-        <span id="closeModalRegister" class="close">&times;</span>
-        <h2>Regístrate</h2>
-
-        <form id="formRegister">
-          <input
-            type="text"
-            id="regUser"
-            class="inputRegUser"
-            placeholder="Usuario"
-            required
-          />
-          <input
-            type="email"
-            id="regEmail"
-            class="inputRegEmail"
-            placeholder="Correo electrónico"
-            required
-          />
-          <input
-            type="password"
-            id="regPass1"
-            class="inputRegPass"
-            placeholder="Contraseña"
-            required
-          />
-          <input
-            type="password"
-            id="regPass2"
-            class="inputRegPass"
-            placeholder="Repetir contraseña"
-            required
-          />
-          <button type="submit">Crear cuenta</button>
-        </form>
-      </div>
-    </div>
-
     <footer class="footer">
       <h4 class="footer-titulo">
         ¿Tienes alguna duda? Envíanos un correo!<br />
@@ -222,7 +135,6 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="./scripts/styles.js"></script>
-    <script src="./scripts/app.js" type="module"></script>
     <script src="./scripts/admin.js" type="module"></script>
   </body>
 </html>
