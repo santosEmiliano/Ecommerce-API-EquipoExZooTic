@@ -38,6 +38,7 @@
             </ul>
           </div>
           <a href="contacto.html" class="header-link">Contacto</a>
+          <a href="preguntas.html" class="header-link">Preguntas</a>
           <a href="nosotros.html" class="header-link">Nosotros</a>
 
           <div class="nombreUsuario">
@@ -54,7 +55,12 @@
             <span class="loginStyle">Regístrate</span>
           </button>
 
-          <button id="cartBtn" class="cart-button" title="Ver Carrito">
+          <button
+            style="display: none"
+            id="cartBtn"
+            class="cart-button"
+            title="Ver Carrito"
+          >
             <i class="fa-solid fa-basket-shopping"></i>
             <span class="cart-count">0</span>
           </button>
@@ -155,81 +161,76 @@
       </footer>
     </div>
 
-    <div id="loginModal" class="modal" style="display: none">
-      <div class="modal-content">
-        <span id="closeModalLogin" class="close">&times;</span>
-        <h2>Iniciar Sesión</h2>
-        <form id="formLogin">
-          <input
-            type="text"
-            id="login"
-            class="inputLogin"
-            placeholder="Usuario"
-            required
-          />
-          <input
-            type="password"
-            id="password"
-            class="inputPassword"
-            placeholder="Contraseña"
-            required
-          />
-          <input
-            type="text"
-            id="captchaText"
-            class="inputCaptcha"
-            placeholder="Captcha"
-          />
-          <button type="submit">Enviar</button>
-        </form>
+    <div id="authModal" class="modal-overlay">
+      <div class="container-slid" id="container-slid">
+        <span class="icon-close"><i class="fa-solid fa-xmark"></i></span>
+
+        <div class="form-container sign-up-container">
+          <form id="formRegister">
+            <h1>Crear Cuenta</h1>
+            <input type="text" id="regUser" placeholder="Usuario" required />
+            <input type="email" id="regEmail" placeholder="Correo" required />
+            <input
+              type="password"
+              id="regPass1"
+              placeholder="Contraseña"
+              required
+            />
+            <input
+              type="password"
+              id="regPass2"
+              placeholder="Repetir Contraseña"
+              required
+            />
+            <button type="submit">Registrarse</button>
+          </form>
+        </div>
+
+        <div class="form-container sign-in-container">
+          <form id="formLogin">
+            <h1>Iniciar Sesión</h1>
+            <input type="text" id="login" placeholder="Correo" required />
+            <input
+              type="password"
+              id="password"
+              placeholder="Contraseña"
+              required
+            />
+            <a href="#">¿Olvidaste tu contraseña?</a>
+            <button type="button" id="btnAcceder">Acceder</button>
+          </form>
+        </div>
+
+        <div class="overlay-container">
+          <div class="overlay">
+            <div class="overlay-panel overlay-left">
+              <h1>¡Hola, Explorador!</h1>
+              <p>
+                Ingresa tus datos personales para comenzar tu aventura en la
+                selva.
+              </p>
+              <button class="ghost" id="signIn">Iniciar Sesión</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+              <h1>¡Bienvenido de nuevo!</h1>
+              <p>
+                Para mantenerte conectado con nosotros, por favor inicia sesión.
+              </p>
+              <button class="ghost" id="signUp">Registrarse</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div id="registerModal" class="modal" style="display: none">
-      <div class="modal-content">
-        <span id="closeModalRegister" class="close">&times;</span>
-        <h2>Regístrate</h2>
-        <form id="formRegister">
-          <input
-            type="text"
-            id="regUser"
-            class="inputRegUser"
-            placeholder="Usuario"
-            required
-          />
-          <input
-            type="email"
-            id="regEmail"
-            class="inputRegEmail"
-            placeholder="Correo"
-            required
-          />
-          <input
-            type="password"
-            id="regPass1"
-            class="inputRegPass"
-            placeholder="Contraseña"
-            required
-          />
-          <input
-            type="password"
-            id="regPass2"
-            class="inputRegPass"
-            placeholder="Repetir"
-            required
-          />
-          <button type="submit">Crear cuenta</button>
-        </form>
-      </div>
-    </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
     />
     <script src="./scripts/styles.js"></script>
-    <script src="./scripts/app.js"></script>
+    <script src="./scripts/app.js" type="module"></script>
 
     <script src="./scripts/tienda.js" type="module"></script>
   </body>

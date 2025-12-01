@@ -572,3 +572,284 @@ body {
 .comentarios-card:nth-child(3) {
   transition-delay: 0.4s;
 }
+
+/* ==========================================================================
+   ESTILOS NUEVOS PARA EL MODAL SLIDING (VERSIÓN DEFINITIVA 🌿)
+   ========================================================================== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  /*z-index: 10000;*/
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.container-slid {
+  background-color: var(--color--blanco-hueso);
+  border-radius: 30px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  position: relative;
+  overflow: hidden;
+  width: 850px;
+  max-width: 100%;
+  min-height: 550px;
+}
+.form-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+  display: flex;
+  align-items: center;
+}
+.form-container form {
+  background-color: var(--color--blanco-hueso);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+.form-container h1 {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: var(--color--verde-bosque);
+  font-family: "DynaPuff", system-ui;
+  font-size: 2.2em;
+}
+.social-container {
+  margin: 15px 0;
+}
+.social-container a {
+  border: 2px solid var(--color--verde-claro);
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 8px;
+  height: 45px;
+  width: 45px;
+  color: var(--color--verde-bosque);
+  text-decoration: none;
+  transition: 0.3s;
+  font-size: 1.2em;
+}
+.social-container a:hover {
+  background: var(--color--verde-lima);
+  color: var(--color-negro);
+  border-color: var(--color--verde-lima);
+  transform: scale(1.1);
+}
+.form-container span {
+  font-size: 13px;
+  margin-bottom: 15px;
+  color: var(--color--gris-oscuro);
+  font-weight: 600;
+}
+.form-container input {
+  background-color: #eee;
+  border: 2px solid transparent;
+  padding: 12px 15px;
+  margin: 6px 0;
+  width: 100%;
+  border-radius: 10px;
+  outline: none;
+  transition: 0.3s;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+}
+.form-container input:focus {
+  border-color: var(--color--verde-medio);
+  background-color: #fff;
+}
+.form-container button {
+  border-radius: 25px;
+  border: none;
+  background-color: var(--color--verde-bosque);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 15px 50px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-top: 20px;
+  font-family: "DynaPuff", system-ui;
+  box-shadow: 0 5px 15px rgba(47, 93, 52, 0.3);
+}
+.form-container button:hover {
+  background-color: var(--color--verde-lima);
+  color: var(--color-negro);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(199, 232, 106, 0.4);
+}
+.form-container button:active {
+  transform: scale(0.95);
+}
+
+/* Animaciones Slider */
+.sign-in-container {
+  left: 0;
+  width: 50%;
+  z-index: 2;
+}
+.container-slid.right-panel-active .sign-in-container {
+  transform: translateX(100%);
+}
+.sign-up-container {
+  left: 0;
+  width: 50%;
+  opacity: 0;
+  z-index: 1;
+}
+.container-slid.right-panel-active .sign-up-container {
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 5;
+  animation: show 0.6s;
+}
+@keyframes show {
+  0%,
+  49.99% {
+    opacity: 0;
+    z-index: 1;
+  }
+  50%,
+  100% {
+    opacity: 1;
+    z-index: 5;
+  }
+}
+
+/* --- OVERLAY VERDE (EL QUE NO SE VEÍA) --- */
+.overlay-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.6s ease-in-out;
+  z-index: 100;
+  border-top-left-radius: 150px;
+  border-bottom-left-radius: 100px;
+}
+.container-slid.right-panel-active .overlay-container {
+  transform: translateX(-100%);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 150px;
+  border-bottom-right-radius: 100px;
+}
+.overlay {
+  /* MÉTODO A PRUEBA DE FALLOS */
+  background-color: #2f5d34 !important; /* Verde bosque forzado */
+
+  /* Degradado directo con códigos HEX (sin variables para evitar errores) */
+  background: linear-gradient(to right, #4c5f41, #2f5d34);
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0 0;
+  color: #ffffff;
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+  transform: translateX(0);
+  transition: all 0.6s ease-in-out;
+}
+.container-slid.right-panel-active .overlay {
+  transform: translateX(50%);
+}
+.overlay-panel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  text-align: center;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+.overlay-panel h1 {
+  font-family: "DynaPuff", system-ui;
+  font-size: 2.5em;
+  margin-bottom: 15px;
+  color: #ffffff; /* Texto blanco */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.overlay-panel p {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  margin: 20px 0 35px;
+  color: var(--color--blanco-hueso);
+}
+.overlay-panel button.ghost {
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  border-radius: 25px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-family: "DynaPuff", system-ui;
+}
+.overlay-panel button.ghost:hover {
+  background-color: #ffffff;
+  color: var(--color--verde-bosque);
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+.overlay-left {
+  transform: translateX(-20%);
+}
+.container-slid.right-panel-active .overlay-left {
+  transform: translateX(0);
+}
+.overlay-right {
+  right: 0;
+  transform: translateX(0);
+}
+.container-slid.right-panel-active .overlay-right {
+  transform: translateX(20%);
+}
+
+.icon-close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 28px;
+  color: var(--color--gris-oscuro);
+  z-index: 200;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.icon-close:hover {
+  color: var(--color-rojo);
+  transform: rotate(90deg);
+}
+.container-slid.right-panel-active .icon-close {
+  left: 25px;
+  right: auto;
+  color: var(--color--gris-oscuro);
+}

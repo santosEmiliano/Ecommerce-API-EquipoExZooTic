@@ -4,6 +4,10 @@ const observerOptions = {
   rootMargin: "0px 0px -50px 0px",
 };
 
+if (localStorage.getItem("correo")) {
+  document.getElementById("input-email-suscripcion").value = localStorage.getItem("correo");
+}
+
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
@@ -15,7 +19,9 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 document
-  .querySelectorAll(".main-card, .card-certificacion, .comentarios-card, .suscripcion-section")
+  .querySelectorAll(
+    ".main-card, .card-certificacion, .comentarios-card, .suscripcion-section"
+  )
   .forEach((el) => {
     el.classList.add("hidden", "fade-up");
     observer.observe(el);
