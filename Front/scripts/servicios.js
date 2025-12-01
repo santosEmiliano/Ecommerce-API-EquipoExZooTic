@@ -22,12 +22,11 @@ const login = async (correo, contrasena) => {
           title: "Sesión Iniciada Con Éxito!!",
           icon: "success",
           confirmButtonText: "Ok",
-        })
+        });
 
         localStorage.setItem("token", data.token);
         localStorage.setItem("nombre", data.datos.nombre);
         localStorage.setItem("correo", data.datos.correo);
-
       } else {
         Swal.fire({
           title: "Credenciales incorrectas! 👹",
@@ -39,7 +38,6 @@ const login = async (correo, contrasena) => {
       console.warn("Respuesta no  es JSON del servidor", parseErr);
       data = {};
     }
-
   } catch (error) {
     console.error("Error al llamar a la API:", error);
     Swal.fire({
@@ -74,8 +72,7 @@ const logout = async () => {
         title: "Sesión Cerrada Con Éxito!!",
         icon: "success",
         confirmButtonText: "Ok",
-      })
-
+      });
     } else {
       const data = await res.json();
       Swal.fire({
@@ -92,7 +89,6 @@ const logout = async () => {
       confirmButtonText: "Ok",
     });
   } finally {
-
     localStorage.removeItem("token");
     localStorage.removeItem("correo");
     localStorage.removeItem("nombre");
@@ -102,12 +98,46 @@ const logout = async () => {
 };
 
 function actualizarSesionLogOut() {
-    document.getElementById("userName").style.display = "none";
-    document.getElementById("userIcon").style.display = "none";
-    document.getElementById("logInbtn").style.display = "inline-block";
-    document.getElementById("regbtn").style.display = "inline-block";
-    document.getElementById("logOutbtn").style.display = "none";
+  document.getElementById("userName").style.display = "none";
+  document.getElementById("userIcon").style.display = "none";
+  document.getElementById("logInbtn").style.display = "inline-block";
+  document.getElementById("regbtn").style.display = "inline-block";
+  document.getElementById("logOutbtn").style.display = "none";
+}
+
+const signIn = async (_nombre, _correo, _pais, _contrasena) => {
+  try {
+    const response = await fetch("http://localhost:3000/api/crud/usuario", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nombre: _nombre,
+        correo: _correo,
+        contrasena: _contrasena,
+        pais: _pais,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Error en la petición: " + response.status);
+    } else {
+      const data = await response.json();
+
+      console.log(data.token); //guardar!!!
+      console.log(data.id); //guardar!!!
+
+      Swal.fire({
+        title: "Cuenta registrada exitosamente!!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      });
+    }
+  } catch (error) {
+    console.error("Error al crear usuario:", error);
   }
+};
 
 const getProd = async (filtros = {}) => {
   const cleanFilters = Object.fromEntries(
@@ -197,6 +227,7 @@ const updateProd = async (id, formData) => {
 const servicios = {
   login,
   logout,
+  signIn,
   getProd,
   addProduct,
   deleteProd,

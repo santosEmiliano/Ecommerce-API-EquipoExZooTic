@@ -74,11 +74,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const contrasena = document.getElementById("password").value.trim();
 
       if (!correo || !contrasena) {
-        toast("Por favor ingresa correo y contraseña", "#ff4444");
+        Swal.fire({
+          title: "Ingresa correo y contraseña",
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
         return;
       }
-
-      console.log("Enviando login...");
 
       await servicios.login(correo, contrasena);
 
@@ -89,34 +91,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- REGISTRO ---
 
-  formRegister.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const user = document.getElementById("regUser").value.trim();
-    const email = document.getElementById("regEmail").value.trim();
-    const pass1 = document.getElementById("regPass1").value.trim();
-    const pass2 = document.getElementById("regPass2").value.trim();
-    /*
-    if (!user || !email || !pass1 || !pass2) {
-      toast("Completa todos los campos", "#ff4444");
-      return;
-    }
-    if (fakeUsers.includes(user.toLowerCase())) {
-      toast("Usuario ya existente", "#ff4444");
-      return;
-    }
-    if (pass1 !== pass2) {
-      toast("Las contraseñas no coinciden", "#ff4444");
-      return;
-    }
-*/
-    toast("Cuenta creada con éxito", "#00c851");
-    container.classList.remove("right-panel-active");
+  const btnRegistrarse = document.getElementById("btnRegistrarse");
 
-    document.getElementById("regUser").value = "";
-    document.getElementById("regEmail").value = "";
-    document.getElementById("regPass1").value = "";
-    document.getElementById("regPass2").value = "";
-  });
+  if (btnRegistrarse) {
+    btnRegistrarse.addEventListener("click", async (e) => {
+      e.preventDefault();
+
+      const nombre = document.getElementById("regName").value;
+      const pais = document.getElementById("regCountry").value;
+      const correo = document.getElementById("regEmail").value;
+      const contrasena = document.getElementById("regPass").value;
+
+      servicios.signIn(nombre, correo, pais, contrasena);
+
+      document.getElementById("regName").value = "";
+      document.getElementById("regCountry").value = "";
+      document.getElementById("regEmail").value = "";
+      document.getElementById("regPass").value = "";
+
+      container.classList.remove("right-panel-active");
+    });
+  }
 
   // --- LOGOUT ---
   logOutBtn.addEventListener("click", () => {

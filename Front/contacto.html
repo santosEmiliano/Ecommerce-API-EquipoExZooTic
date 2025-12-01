@@ -125,21 +125,34 @@
         <div class="form-container sign-up-container">
           <form id="formRegister">
             <h1>Crear Cuenta</h1>
-            <input type="text" id="regUser" placeholder="Usuario" required />
+            <input type="text" id="regName" placeholder="Nombre" required />
+
+            <select id="regCountry" name="pais">
+              <option value="" disabled selected>Selecciona un país</option>
+              <option value="uruguay">Uruguay</option>
+              <option value="paraguay">Paraguay</option>
+              <option value="ecuador">Ecuador</option>
+              <option value="méxico">México</option>
+              <option value="argentina">Argentina</option>
+              <option value="hungría">Hungría</option>
+              <option value="alemania">Alemania</option>
+              <option value="sudáfrica">Sudáfrica</option>
+              <option value="egipto">Egipto</option>
+              <option value="singapur">Singapur</option>
+              <option value="indonesia">Indonesia</option>
+              <option value="australia">Australia</option>
+              <option value="fiji">Fiji</option>
+              <option value="resto del Mundo">Resto del Mundo</option>
+            </select>
+
             <input type="email" id="regEmail" placeholder="Correo" required />
             <input
               type="password"
-              id="regPass1"
+              id="regPass"
               placeholder="Contraseña"
               required
             />
-            <input
-              type="password"
-              id="regPass2"
-              placeholder="Repetir Contraseña"
-              required
-            />
-            <button type="submit">Registrarse</button>
+            <button type="button" id="btnRegistrarse">Registrarse</button>
           </form>
         </div>
 
