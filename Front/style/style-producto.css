@@ -246,13 +246,20 @@ body {
 }
 .card-categoria {
   position: relative;
-  height: 20vh;
+  /* height: 20vh;  <-- BORRA O COMENTA ESTA LÍNEA */
+  height: 28vh; /* <-- AGREGA ESTA NUEVA ALTURA. 
+                   Aumentamos el alto para que la imagen se vea más completa. */
   border-radius: 1.5vw;
   overflow: hidden;
   text-decoration: none;
   box-shadow: 0 0.4vw 1.5vw rgba(0, 0, 0, 0.1);
   transition: 0.4s;
   background: var(--color--gris-borde);
+  
+  /* Aseguramos que el contenido se posicione bien (esto ya lo tenías del paso anterior) */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; 
 }
 .card-categoria:hover {
   transform: translateY(-0.8vh) scale(1.02);
