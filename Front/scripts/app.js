@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
   userIcon.style.display = "none";
   userName.style.display = "none";
 
-  const usuarioGuardado = localStorage.getItem("usuario");
+  const usuarioGuardado = localStorage.getItem("nombre");
   if (usuarioGuardado) {
     actualizarInterfazLogueado(usuarioGuardado);
   }
@@ -120,16 +120,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- LOGOUT ---
   logOutBtn.addEventListener("click", () => {
-    actualizarSesionLogOut();
+    servicios.logout();
   });
-
-  function actualizarSesionLogOut() {
-    document.getElementById("userName").style.display = "none";
-    document.getElementById("userIcon").style.display = "none";
-    document.getElementById("logInbtn").style.display = "inline-block";
-    document.getElementById("regbtn").style.display = "inline-block";
-    document.getElementById("logOutbtn").style.display = "none";
-  }
 
   function actualizarInterfazLogueado(nombre) {
     userName.textContent = nombre;

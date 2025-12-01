@@ -62,6 +62,55 @@ function actualizarSesionLogIn(nombre) {
   document.getElementById("logOutbtn").style.display = "inline-block";
 }
 
+const logout = async () => {
+  try {
+    const res = await fetch("http://localhost:3000/auth/logout", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+
+    if (res.ok) {
+      Swal.fire({
+        title: "Sesión Cerrada Con Éxito!!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      })
+
+    } else {
+      const data = await res.json();
+      Swal.fire({
+        title: data?.error ?? `Error al cerrar sesión`,
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+    }
+  } catch (err) {
+    console.error("Error al conectar con el servidor:", err);
+    Swal.fire({
+      title: "Error de conexión",
+      icon: "error",
+      confirmButtonText: "Ok",
+    });
+  } finally {
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("correo");
+    localStorage.removeItem("nombre");
+
+    actualizarSesionLogOut();
+  }
+};
+
+function actualizarSesionLogOut() {
+    document.getElementById("userName").style.display = "none";
+    document.getElementById("userIcon").style.display = "none";
+    document.getElementById("logInbtn").style.display = "inline-block";
+    document.getElementById("regbtn").style.display = "inline-block";
+    document.getElementById("logOutbtn").style.display = "none";
+  }
+
 const getProd = async (filtros = {}) => {
   const cleanFilters = Object.fromEntries(
     Object.entries(filtros).filter(([_, v]) => v != null && v !== "")
@@ -149,6 +198,7 @@ const updateProd = async (id, formData) => {
 
 const servicios = {
   login,
+  logout,
   getProd,
   addProduct,
   deleteProd,
