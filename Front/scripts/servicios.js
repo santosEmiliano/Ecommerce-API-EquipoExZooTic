@@ -378,16 +378,88 @@ const updateProd = async (id, formData) => {
         body: formData,
       }
     );
+
     if (!response.ok) {
       const res = await response.json();
       throw new Error(res.message || "Error al actualizar");
     }
+    
     return await response.json();
   } catch (error) {
     console.error("Error en updateProd:", error);
     throw error;
   }
 };
+
+const obtenerVentasCategoria = async () => {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/stats/ventas-categoria`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
+      }
+    );
+
+    if (!response.ok) {
+      const res = await response.json();
+      throw new Error(res.message || "Error al obtener las ventas por categoria");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error en obtenerVentasCategoria:", error);
+    throw error;
+  }
+}
+
+const obtenerVentasTotales = async () => {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/stats/ventas-total`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
+      }
+    );
+
+    if (!response.ok) {
+      const res = await response.json();
+      throw new Error(res.message || "Error al obtener las ventas totales");
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error("Error en obtenerVentasTotales:", error);
+    throw error;
+  }
+}
+
+const obtenerExistencias = async () => {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/stats/existencias`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
+      }
+    );
+    if (!response.ok) {
+      const res = await response.json();
+      throw new Error(res.message || "Error al obtener el reporte de existencias");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error en obtenerExistencias:", error);
+    throw error;
+  }
+}
 
 const servicios = {
   login,
@@ -403,6 +475,9 @@ const servicios = {
   enviarCorreoSuscripcion,
   pagar,
   obtenerResumenCompra,
+  obtenerVentasCategoria,
+  obtenerVentasTotales,
+  obtenerExistencias
 };
 
 export default servicios;
