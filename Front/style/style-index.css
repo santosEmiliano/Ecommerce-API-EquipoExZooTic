@@ -90,7 +90,7 @@ html {
   transition: 0.4s ease-in;
   color: var(--color--blanco-hueso);
   border-radius: 20px;
-  border: 2px solid white;
+  border: 2px solid var(--color--blanco-hueso);
 }
 .main-boton:hover {
   transform: translateX(2vw);
@@ -98,8 +98,8 @@ html {
   border-color: var(--color--verde-lima);
 }
 .main-titulo {
-  color: white;
-  text-shadow: 2px 2px 4px black;
+  color: var(--color--blanco-hueso);
+  text-shadow: 2px 2px 4px var(--color-negro);
 }
 .main-descripcion {
   color: var(--color--blanco-hueso);
@@ -108,14 +108,14 @@ html {
 /* Sección Apuntes */
 .datos-seccion {
   background-image: url("https://static.vecteezy.com/system/resources/thumbnails/002/173/386/small/wood-texture-background-free-vector.jpg");
-  background-color: #7b5e43;
+  background-color: var(--color--cafe-tierra);
   padding: 8vh 5vw;
   box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-top: 10px solid #5d4037;
-  border-bottom: 10px solid #5d4037;
+  border-top: 10px solid var(--color--cafe-madera);
+  border-bottom: 10px solid var(--color--cafe-madera);
 }
 .datos-titulo {
   color: var(--color--verde-lima);
@@ -134,7 +134,7 @@ html {
   width: 280px;
   padding: 25px;
   font-family: "Comic Sans MS", cursive;
-  color: #333;
+  color: var(--color--gris-oscuro);
   box-shadow: 5px 10px 15px rgba(0, 0, 0, 0.3);
   position: relative;
   transition: transform 0.3s;
@@ -148,27 +148,27 @@ html {
 .field-note h4 {
   font-size: 1.4rem;
   margin-bottom: 10px;
-  border-bottom: 2px dashed #999;
+  border-bottom: 2px dashed var(--color--gris-medio);
   padding-bottom: 5px;
   color: var(--color--cafe-tierra);
 }
 .note-yellow {
-  background: #fff9c4;
+  background: var(--color-amarillo);
   transform: rotate(-3deg);
 }
 .note-green {
-  background: #dcedc8;
+  background: var(--color--verde-claro);
   transform: rotate(2deg);
   margin-top: 20px;
 }
 .note-blue {
-  background: #b3e5fc;
+  background: var(--color-celeste);
   transform: rotate(-2deg);
 }
 .pin {
   width: 15px;
   height: 15px;
-  background: radial-gradient(circle at 5px 5px, red, darkred);
+  background: radial-gradient(circle at 5px 5px, var(--color-rojo), darkred);
   border-radius: 50%;
   position: absolute;
   top: 10px;
@@ -194,10 +194,10 @@ html {
   flex-wrap: wrap;
   justify-content: center;
   gap: 50px;
-  border-bottom: 10px solid #3e2723;
+  border-bottom: 10px solid var(--color--cafe-madera);
 }
 .polaroid {
-  background: white;
+  background: var(--color--blanco-hueso);
   padding: 15px 15px 50px 15px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
   transform: rotate(var(--rotation));
@@ -223,9 +223,9 @@ html {
 .polaroid .photo {
   width: 100%;
   height: 250px;
-  background: #222;
+  background: var(--color-negro);
   overflow: hidden;
-  border: 1px solid #eee;
+  border: 1px solid var(--color-gris-claro);
 }
 .polaroid img {
   width: 100%;
@@ -242,12 +242,12 @@ html {
   text-align: center;
   margin-top: 20px;
   font-family: "Comic Sans MS", cursive;
-  color: #444;
+  color: var(--color--gris-oscuro);
 }
 .polaroid .caption h4 {
   font-size: 1.6rem;
   margin-bottom: 5px;
-  color: #222;
+  color: var(--color-negro);
 }
 
 /* Sección Destacado */
@@ -258,7 +258,7 @@ html {
   background: linear-gradient(
     135deg,
     var(--color--blanco-hueso) 0%,
-    #e0e0e0 100%
+    var(--color-gris-claro) 100%
   );
   padding: 10vh 10vw;
   margin: 10vh 5vw;
@@ -282,7 +282,7 @@ html {
   color: var(--color--cafe-tierra);
   margin-bottom: 4vh;
   font-size: 3vh;
-  background: var(--color--amarillo-suave);
+  background: var(--color-amarillo);
   display: inline-block;
   padding: 5px 15px;
   transform: rotate(-2deg);
@@ -325,7 +325,7 @@ html {
 }
 .boton-secundario {
   background-color: var(--color--verde-bosque);
-  color: white;
+  color: var(--color--blanco-hueso);
   padding: 1.5vh 3vw;
   border: none;
   border-radius: 20px;
@@ -361,7 +361,7 @@ html {
   left: 50%;
   transform: translateX(-50%);
   background: var(--color--cafe-tierra);
-  color: white;
+  color: var(--color--blanco-hueso);
   padding: 5px 20px;
   font-weight: bold;
   font-size: 0.9rem;
@@ -413,7 +413,7 @@ html {
   outline: 8px solid var(--color--verde-bosque);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
   text-align: center;
-  color: white;
+  color: var(--color--blanco-hueso);
 }
 .suscripcion-content h2 {
   font-size: 5vh;
@@ -439,6 +439,8 @@ html {
   width: 350px;
   font-size: 2vh;
   outline: none;
+  background-color: var(--color--blanco-hueso);
+  color: var(--color-negro);
 }
 .suscripcion-form input:focus {
   border-color: var(--color--verde-lima);
@@ -453,17 +455,17 @@ html {
   font-weight: 800;
   cursor: pointer;
   font-size: 2vh;
-  box-shadow: 0 5px 0 var(--color--amarillo-ocre);
+  box-shadow: 0 5px 0 var(--color--cafe-madera);
   text-transform: uppercase;
 }
 .suscripcion-form button:hover {
-  background-color: var(--color--amarillo-suave);
+  background-color: var(--color-amarillo);
   transform: translateY(-2px);
-  box-shadow: 0 7px 0 var(--color--amarillo-ocre);
+  box-shadow: 0 7px 0 var(--color--cafe-madera);
 }
 .suscripcion-form button:active {
   transform: translateY(4px);
-  box-shadow: 0 0 0 var(--color--amarillo-ocre);
+  box-shadow: 0 0 0 var(--color--cafe-madera);
 }
 
 /* Sección Comentarios */
@@ -536,7 +538,7 @@ html {
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background-color: white;
+  background-color: var(--color--blanco-hueso);
   -webkit-mask-position: center;
   mask-position: center;
   -webkit-mask-repeat: no-repeat;
@@ -555,7 +557,7 @@ html {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: white;
+  background-color: var(--color--blanco-hueso);
   z-index: 0;
 }
 #content-inner {

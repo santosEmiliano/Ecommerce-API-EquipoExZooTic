@@ -23,22 +23,42 @@
         </a>
       </div>
       <div class="header-derecha">
-        <a href="index.html" class="header-link">Inicio</a>
+        <a href="#" class="header-link">Inicio</a>
         <div class="submenu-container">
-          <a href="tienda.html" class="header-link submenu-btn">Nuestros Animales</a>
-          <ul class="header-submenu">
-            <li><a href="#" class="header-submenu-link">Categoría 1</a></li>
-            <li><a href="#" class="header-submenu-link">Categoría 2</a></li>
-            <li><a href="#" class="header-submenu-link">Categoría 3</a></li>
-          </ul>
+          <a href="tienda.html" class="header-link submenu-btn"
+            >Nuestros Animales</a
+          >
         </div>
         <a href="contacto.html" class="header-link">Contacto</a>
         <a href="preguntas.html" class="header-link">Preguntas</a>
         <a href="nosotros.html" class="header-link">Nosotros</a>
+
         <div class="nombreUsuario">
-          <i id="userIcon" class="fa-solid fa-user-tie"></i>
+          <i id="userIcon" class="fa-solid fa-user user-name"></i>
           <span id="userName" class="user-name"></span>
         </div>
+
+        <button id="logInbtn" title="Login">
+          <span class="loginStyle">Iniciar Sesión</span>
+        </button>
+
+        <button id="logOutbtn" title="LogOut">
+          <span class="loginStyle">Cerrar Sesión</span>
+        </button>
+
+        <button id="regbtn" title="Register">
+          <span class="loginStyle">Regístrate</span>
+        </button>
+
+        <button
+          style="display: none"
+          id="cartBtn"
+          class="cart-button"
+          title="Ver Carrito"
+        >
+          <i class="fa-solid fa-basket-shopping"></i>
+          <span class="cart-count">0</span>
+        </button>
       </div>
     </nav>
 
@@ -136,5 +156,6 @@
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="./scripts/styles.js"></script>
     <script src="./scripts/admin.js" type="module"></script>
+    <script src="./scripts/accesibilidad.js"></script>
   </body>
 </html>

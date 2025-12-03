@@ -65,23 +65,17 @@
 .biome-btn .icon {
   font-size: 22px;
 }
+
 .biome-btn .label {
   font-weight: bold;
   font-size: 15px;
-  color: #555;
+  color: var(--color--gris-medio);
 }
 
 .biome-btn:hover {
   background: rgba(0, 0, 0, 0.05);
 }
 
-/* REFACTORIZACIÓN: Se agregó la clase .active a estos selectores.
-   Antes: .bg-selva .biome-btn[data-biome="selva"]
-   Ahora: .bg-selva .biome-btn.active[data-biome="selva"]
-   
-   Esto asegura que el botón solo se pinte cuando se le ha dado click (tiene clase active),
-   aunque el fondo de la página coincida con el bioma.
-*/
 .bg-selva .biome-btn.active[data-biome="selva"],
 .bg-oceano .biome-btn.active[data-biome="oceano"],
 .bg-desierto .biome-btn.active[data-biome="desierto"] {
@@ -94,10 +88,12 @@
   border-color: #66bb6a;
   color: #2e7d32;
 }
+
 .bg-oceano .biome-btn.active[data-biome="oceano"] {
   border-color: #4fc3f7;
   color: #0277bd;
 }
+
 .bg-desierto .biome-btn.active[data-biome="desierto"] {
   border-color: #ffb74d;
   color: #ef6c00;
@@ -152,7 +148,7 @@
 .search-explorer input:focus {
   width: 280px;
   outline: none;
-  border-color: #7ab24e;
+  border-color: var(--color-verde);
   background: white;
 }
 
@@ -161,7 +157,7 @@
   left: 15px;
   top: 50%;
   transform: translateY(-50%);
-  color: #888;
+  color: var(--color--gris-medio);
   font-size: 14px;
 }
 
@@ -173,7 +169,6 @@
   max-width: 1300px;
   margin: 40px auto;
   width: 90%;
-
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(5px);
   border-radius: 20px;
@@ -185,10 +180,12 @@
   --color-primary: #7ab24e;
   --color-accent: #ff6b6b;
 }
+
 .card-acuatico {
   --color-primary: #44c2dd;
   --color-accent: #ff9f43;
 }
+
 .card-desierto {
   --color-primary: #ffb74d;
   --color-accent: #8d6e63;
@@ -346,6 +343,7 @@
 
 .vine-range {
   -webkit-appearance: none;
+  appearance: none;
   width: 150px;
   height: 8px;
   background: linear-gradient(
