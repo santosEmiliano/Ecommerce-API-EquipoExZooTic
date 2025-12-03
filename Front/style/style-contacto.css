@@ -73,7 +73,7 @@ h1.main-title {
   text-align: center;
   font-size: 5vh;
   margin-bottom: 1vh;
-  color: #fff;
+  color: var(--color--blanco-hueso);
   text-shadow: 0 4px 8px rgba(0,0,0,0.9);
   font-family: 'DynaPuff', cursive;
 }
@@ -92,7 +92,7 @@ h6.sub-title {
   max-width: 450px;
   width: 90%;
   padding: 35px 40px;
-  background-color: #fcf8e3;
+  background-color: var(--color--blanco-hueso);
   background-image: url("https://www.transparenttextures.com/patterns/cream-paper.png");
   border-radius: 3px;
   box-shadow: 
@@ -115,7 +115,7 @@ h6.sub-title {
   transform: translateX(-50%) rotate(3deg);
   width: 110px;
   height: 40px;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(244, 244, 241, 0.5);
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   backdrop-filter: blur(2px);
   z-index: 10;
@@ -152,7 +152,7 @@ h6.sub-title {
   border-bottom: 2px dashed var(--color--gris-medio);
   background: transparent;
   font-size: 1.8vh;
-  color: var(--color--negro);
+  color: var(--color-negro);
   font-family: 'Indie Flower', 'Comic Sans MS', cursive;
   transition: 0.3s ease;
 }
@@ -165,7 +165,7 @@ h6.sub-title {
 
 .area-mensaje {
   resize: vertical;
-  background-image: linear-gradient(transparent, transparent 28px, #ccc 29px);
+  background-image: linear-gradient(transparent, transparent 28px, var(--color-gris-claro) 29px);
   background-size: 100% 29px;
   line-height: 29px;
   height: 120px;
@@ -180,7 +180,7 @@ h6.sub-title {
 
 .btn-enviar {
   background-color: var(--color--verde-bosque);
-  color: white;
+  color: var(--color--blanco-hueso);
   border: none;
   padding: 10px 25px;
   font-size: 1.8vh;

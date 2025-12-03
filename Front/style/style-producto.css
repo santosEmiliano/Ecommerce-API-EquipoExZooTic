@@ -9,36 +9,38 @@
   --color-azul-oscuro: #403786;
   --color-gris-claro: #dadada;
   --color-verde-oscuro: #4c5f41;
-  --color-negro: #111110; /* verdes */
+  --color-negro: #111110;
   --color--verde-claro: #9fdc7a;
   --color--verde-medio: #6fae5c;
   --color--verde-bosque: #2f5d34;
   --color--verde-musgo: #597a4a;
   --color--verde-menta: #90d8c2;
   --color--verde-lima: #c7e86a;
-  --color--verde-clarísimo: #fffdf6; /* azules */
+  --color--verde-clarísimo: #fffdf6;
   --color--azul-cielo: #7dd5ef;
   --color--azul-profundo: #2b2f5b;
   --color--azul-turquesa: #2fb8b0;
-  --color--azul-gris: #8aa9b1; /* amarillos/naranjas */
+  --color--azul-gris: #8aa9b1;
   --color--amarillo-suave: #f3e57c;
   --color--amarillo-ocre: #d3a724;
-  --color--naranja-suave: #e8a16a; /* cafés */
+  --color--naranja-suave: #e8a16a;
   --color--cafe-madera: #6a4a2b;
   --color--cafe-claro: #d7b89c;
   --color--cafe-arena: #c9a27d;
-  --color--cafe-tierra: #8b5e34; /* grises */
+  --color--cafe-tierra: #8b5e34;
   --color--gris-medio: #a0a0a0;
   --color--gris-oscuro: #5a5a5a;
-  --color--blanco-hueso: #f4f4f1; /* extras */
+  --color--blanco-hueso: #f4f4f1;
   --color--verde-hoover: #4fe721;
   --color--cafe-hoover: #4e342e;
   --color--gris-borde: #c5c5c5;
 }
+
 body {
   min-height: 100vh;
   margin: 0;
 }
+
 .contenedor-principal {
   max-width: 90vw;
   margin: 5vh auto;
@@ -47,6 +49,7 @@ body {
   border-radius: 2vw;
   animation: fadeInUp 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
 }
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -57,6 +60,7 @@ body {
     transform: translateY(0);
   }
 }
+
 .ruta-navegacion {
   margin-bottom: 3vh;
   color: var(--color--gris-borde);
@@ -65,6 +69,7 @@ body {
   gap: 0.8vw;
   flex-wrap: wrap;
 }
+
 .ruta-navegacion a {
   text-decoration: none;
   color: var(--color--verde-medio);
@@ -73,18 +78,21 @@ body {
   background: rgba(255, 255, 255, 0.5);
   border-radius: 1.5vw;
 }
+
 .ruta-navegacion a:hover {
   background: var(--color--blanco-hueso);
   color: var(--color--verde-bosque);
   transform: translateY(-0.3vh);
   box-shadow: 0 0.2vh 0.5vh rgba(0, 0, 0, 0.1);
 }
+
 .ficha-producto {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5vw;
   margin-bottom: 6vh;
 }
+
 .imagen-principal-contenedor {
   position: relative;
   background: var(--color--gris-oscuro);
@@ -95,18 +103,22 @@ body {
   transform: rotate(-1deg);
   transition: transform 0.4s ease;
 }
+
 .imagen-principal-contenedor:hover {
   transform: rotate(0deg) scale(1.02);
 }
+
 .imagen-grande {
   width: 100%;
   height: 40vh;
   object-fit: cover;
 }
+
 .titulo-producto {
   font-size: 2.5vw;
   margin-bottom: 0.5vh;
 }
+
 .precio-contenedor {
   display: flex;
   align-items: center;
@@ -116,11 +128,13 @@ body {
   padding: 1.5vh 1.5vw;
   border-radius: 1.5vw;
 }
+
 .precio-actual {
   font-size: 2.2vw;
   font-weight: 800;
   color: var(--color--verde-medio);
 }
+
 .disponible {
   background: var(--color--verde-claro);
   color: var(--color--verde-bosque);
@@ -129,12 +143,14 @@ body {
   font-weight: 600;
   font-size: 1vw;
 }
+
 .descripcion {
   line-height: 1.8;
   color: var(--color-gris-claro);
   margin-bottom: 2.5vh;
   font-size: 1.1vw;
 }
+
 .lista-caracteristicas {
   list-style: none;
   margin-bottom: 3.5vh;
@@ -142,6 +158,7 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(12vw, 1fr));
   gap: 1.5vw;
 }
+
 .lista-caracteristicas li {
   background: var(--color--blanco-hueso);
   padding: 1vh 1vw;
@@ -149,11 +166,13 @@ body {
   border-left: 0.4vw solid var(--color--verde-medio);
   font-size: 0.95vw;
 }
+
 .acciones-producto {
   display: flex;
   gap: 1.5vw;
   flex-wrap: wrap;
 }
+
 .selector-cantidad {
   display: flex;
   gap: 1vw;
@@ -163,6 +182,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .selector-cantidad input {
   width: 5vw;
   border: none;
@@ -171,6 +191,7 @@ body {
   font-weight: bold;
   text-align: center;
 }
+
 .boton-comprar {
   flex: 1;
   background: var(--color-rojo);
@@ -183,10 +204,12 @@ body {
   transition: all 0.3s ease;
   min-width: 15vw;
 }
+
 .boton-comprar:hover {
   transform: translateY(-0.3vh) scale(1.02);
   background: var(--color-rojo);
 }
+
 .boton-carrito {
   width: 5vh;
   height: 5vh;
@@ -198,31 +221,37 @@ body {
   cursor: pointer;
   transition: all 0.3s;
 }
+
 .boton-carrito:hover {
   background: var(--color--verde-medio);
   color: var(--color--blanco-hueso);
   transform: rotate(15deg);
 }
+
 .garantia-legal {
   color: var(--color--gris-medio);
   text-align: center;
   margin-top: 2vh;
   font-size: 0.9vw;
 }
+
 .titulo-seccion {
   font-size: 1.8vw;
   margin-bottom: 3vh;
   text-align: center;
 }
+
 .grid-cuidados {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20vw, 1fr));
   gap: 3vw;
 }
+
 .tarjeta-cuidado h4 {
   color: var(--color--verde-medio);
   font-size: 1.2vw;
 }
+
 .tarjeta-cuidado {
   background-color: var(--color--verde-clarísimo);
   color: var(--color--gris-oscuro);
@@ -233,37 +262,38 @@ body {
   position: relative;
   font-size: 1vw;
 }
+
 .seccion-explorar {
   margin-top: 6vh;
   padding-top: 2vh;
   border-top: 0.2vh dashed rgba(0, 0, 0, 0.1);
 }
+
 .grid-categorias {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(25vw, 1fr));
   gap: 2.5vw;
   padding: 1vh 1vw;
 }
+
 .card-categoria {
   position: relative;
-  /* height: 20vh;  <-- BORRA O COMENTA ESTA LÍNEA */
-  height: 28vh; /* <-- AGREGA ESTA NUEVA ALTURA. 
-                   Aumentamos el alto para que la imagen se vea más completa. */
+  height: 28vh;
   border-radius: 1.5vw;
   overflow: hidden;
   text-decoration: none;
   box-shadow: 0 0.4vw 1.5vw rgba(0, 0, 0, 0.1);
   transition: 0.4s;
   background: var(--color--gris-borde);
-  
-  /* Aseguramos que el contenido se posicione bien (esto ya lo tenías del paso anterior) */
   display: flex;
   flex-direction: column;
-  justify-content: flex-end; 
+  justify-content: flex-end;
 }
+
 .card-categoria:hover {
   transform: translateY(-0.8vh) scale(1.02);
 }
+
 .img-wrapper img {
   width: 100%;
   height: 100%;
@@ -271,22 +301,38 @@ body {
   transition: transform 0.6s ease;
   opacity: 0.8;
 }
+
 .card-categoria:hover .img-wrapper img {
   transform: scale(1.15);
   opacity: 0.6;
 }
+
 .contenido-cat {
-  position: relative;
-  z-index: 2;
-  height: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 10px;
+  box-sizing: border-box;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
-  color: var(--color--blanco-hueso);
-  text-align: center;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  gap: 8px;
+  transition: all 0.3s ease;
 }
+
+.card-categoria h4 {
+  margin: 0;
+  color: var(--color--blanco-hueso);
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  font-family: "Segoe UI", sans-serif;
+  letter-spacing: 0.5px;
+}
+
 .btn-ver {
   margin-top: 1.5vh;
   font-size: 0.9vw;
@@ -317,52 +363,13 @@ body {
   object-fit: cover;
   border-radius: 50%;
   transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
-  pointer-events: none; /* Para que no interfiera con clicks */
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  pointer-events: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* --- Actualización para las tarjetas de recomendación --- */
-
-.card-categoria {
-  /* Aseguramos que el contenido se posicione bien */
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end; /* Empuja el contenido abajo */
-}
-
-.contenido-cat {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 15px 10px;
-  box-sizing: border-box;
-  
-  /* Gradiente más oscuro abajo para que las letras blancas resalten */
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
-  
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.3s ease;
-}
-
-.card-categoria h4 {
-  margin: 0;
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 700;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-  font-family: "Segoe UI", sans-serif;
-  letter-spacing: 0.5px;
-}
-
-/* Estilo del nuevo botón "Adoptar" en recomendados */
 .btn-mini-adoptar {
-  background: #ff6b6b; /* Color acento de tu tienda (rojo suave) */
-  color: white;
+  background: var(--color-rojo);
+  color: var(--color--blanco-hueso);
   border: none;
   padding: 6px 16px;
   border-radius: 20px;
@@ -373,17 +380,16 @@ body {
   align-items: center;
   gap: 6px;
   transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Efecto Hover en la tarjeta completa */
 .card-categoria:hover .btn-mini-adoptar {
   transform: scale(1.1);
-  background: #ff5252; /* Rojo más vivo al pasar el mouse */
-  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+  background: var(--color-rojo);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .card-categoria:hover .img-wrapper img {
-  transform: scale(1.1); /* Zoom suave a la imagen */
-  opacity: 1; /* Mantenemos la imagen brillante */
+  transform: scale(1.1);
+  opacity: 1;
 }
