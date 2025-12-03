@@ -63,7 +63,7 @@ const enviarCorreoSub = async (req, res) => {
 
             htmlCupon = `<img src="cid:cupon_img_random" alt="Cupon de descuento" style="width: 100%; max-width: 600px; border-radius: 8px;"/>`;
         } else {
-            console.log("Error: No se encontro la imagen en la ruta:", rutaImagen);
+            console.log("Error: No se encontraron las imagenes en la rutas:", rutaCupon, rutaLogo);
         }
 
         // Estructuracion del correo

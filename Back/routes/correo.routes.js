@@ -77,68 +77,7 @@ router.post('/suscripcion', correoContoller.enviarCorreoSub);
 // Ruta para el correo del Contacto --------------------------------------------------------------------------------------------------
 router.post('/contacto', correoContoller.enviarCorreoContacto);
 
-/*
-    Esta ruta va a hacer lo siguiente:
-     - Obtiene los datos que envia el usuario
-     - Manda correo de que sera atendido 
-    
-    Llamada:
 
-    Servicios.js:
-        const enviarCorreoContacto = async (formData) =>{
-            try {
-                // formData es un objeto JSON { nombre, email, mensaje }
-                const response = await fetch("http://localhost:3000/api/contacto", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(formData),
-                });
-                
-                if (!response.ok) {
-                    const res = await response.json();
-                    throw new Error(res.message || "Error al enviar mensaje");
-                }
-                return await response.json();
-            } catch (error) {
-                console.error("Error al momento de hacer la peticion contacto:", error);
-                throw error;
-            }
-        };
-
-        //AGREGAR EL EXPORT DE LA FUNCION
-    
-    Codigo para donde lo vayan a manipular lo del contacto:
-
-        import servicios from "./servicios.js";
-
-        const formContacto = document.getElementById("formularioContacto");
-
-        if (formContacto) {
-            formContacto.addEventListener("submit", async (e) => {
-                e.preventDefault();
-                
-                const datos = {
-                    nombre: document.getElementById("nombre").value,
-                    email: document.getElementById("correo").value,
-                    mensaje: document.getElementById("comentario").value
-                };
-
-                try {
-                    const data = await servicios.enviarCorreoContacto(datos);
-                    
-                    if(data.status === "success") {
-                        alert("Mensaje enviado correctamente. Te contactaremos pronto.");
-                        formContacto.reset(); // Limpiar formulario
-                    }
-                } catch (error) {
-                    alert(error.message);
-                }
-            });
-        }
-
-
-
-*/
 
 module.exports = router;
 

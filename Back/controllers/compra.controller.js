@@ -38,7 +38,7 @@ const obtenerResumenCompra = async (req, res) => {
         const productosCarrito = await carritoModel.getCarritoUsuario(idUser);
 
         //Si intentan comprar sin nada en el carrito no les va a salir nada obviamente.
-        if (!itemsCarritoBD || itemsCarritoBD.length === 0) {
+        if (!productosCarrito || productosCarrito.length === 0) {
              return res.json({
                 status: "success",
                 carrito: [],
@@ -230,7 +230,7 @@ const confirmarCompra = async (req, res) => {
 
             await transporter.sendMail(mailOptions);
             console.log("Correo con PDF enviado correctamente.");
-
+            
         }).catch(error => {
             console.error("Error al generar PDF o enviar correo:", error);
         });
