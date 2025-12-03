@@ -54,8 +54,6 @@ const getExistencias = async (req, res) => {
 
         //Objeto de reoprte que vamos a enviar al front
         const reporte = {};
-        
-        productos.map(producto => producto.categoria);
 
         productos.forEach(producto => {
 
