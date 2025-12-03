@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // --- 1. INYECTAR EL WIDGET ---
   const widgetDiv = document.createElement("div");
   widgetDiv.id = "widget-acc-container";
   widgetDiv.innerHTML = `
@@ -26,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   document.body.appendChild(widgetDiv);
 
-  // --- 2. REFERENCIAS ---
   const btnToggle = document.getElementById("btn-acc-toggle");
   const menu = document.getElementById("menu-acc");
   const checkDark = document.getElementById("toggle-dark");
@@ -34,12 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnDec = document.getElementById("btn-dec-font");
   const btnReset = document.getElementById("btn-reset-font");
 
-  // --- 3. ABRIR/CERRAR MENÚ ---
   btnToggle.addEventListener("click", () => {
     menu.classList.toggle("mostrar");
   });
 
-  // --- 4. MODO OSCURO (Esto sigue igual, usando CSS Variables) ---
   if (localStorage.getItem("theme") === "dark") {
     document.body.classList.add("dark-mode");
     checkDark.checked = true;
@@ -55,23 +51,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // --- 5. LOGICA DE FUERZA BRUTA PARA FUENTES ---
-
-  // Lista de etiquetas que contienen texto
   const textTags =
     "h1, h2, h3, h4, h5, h6, p, span, a, li, button, input, label, td, th, blockquote";
   let elements = document.querySelectorAll(textTags);
-  let currentZoom = parseFloat(localStorage.getItem("zoomLevel")) || 1; // 1 = 100%
+  let currentZoom = parseFloat(localStorage.getItem("zoomLevel")) || 1;
 
-  // Función para guardar el tamaño original de CADA elemento al cargar la página
   function initOriginalSizes() {
     elements.forEach((el) => {
-      // Solo guardamos si no tiene ya un tamaño guardado
       if (!el.dataset.originalSize) {
         const style = window.getComputedStyle(el);
-        const fontSize = parseFloat(style.fontSize); // Obtiene el valor en px (ej: "16")
+        const fontSize = parseFloat(style.fontSize);
 
-        // Evitamos guardar si es 0 o inválido
         if (fontSize > 0) {
           el.dataset.originalSize = fontSize;
         }
@@ -79,30 +69,25 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Función para aplicar el zoom
   function applyZoom(factor) {
     elements.forEach((el) => {
       const originalSize = parseFloat(el.dataset.originalSize);
       if (originalSize) {
         const newSize = originalSize * factor;
-        el.style.fontSize = `${newSize}px`; // Forzamos el tamaño en px inline
+        el.style.fontSize = `${newSize}px`;
       }
     });
     localStorage.setItem("zoomLevel", factor);
   }
 
-  // Inicializamos
   initOriginalSizes();
 
-  // Si había un zoom guardado, lo aplicamos
   if (currentZoom !== 1) {
     applyZoom(currentZoom);
   }
 
-  // Eventos de botones
   btnInc.addEventListener("click", () => {
     if (currentZoom < 1.5) {
-      // Máximo 150%
       currentZoom += 0.1;
       applyZoom(currentZoom);
     }
@@ -110,7 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   btnDec.addEventListener("click", () => {
     if (currentZoom > 0.7) {
-      // Mínimo 70%
       currentZoom -= 0.1;
       applyZoom(currentZoom);
     }
@@ -119,9 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
   btnReset.addEventListener("click", () => {
     currentZoom = 1;
     applyZoom(currentZoom);
-    // Opcional: limpiar estilos inline para volver al CSS puro
     elements.forEach((el) => (el.style.fontSize = ""));
-
-    
   });
 });
