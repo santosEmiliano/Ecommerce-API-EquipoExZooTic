@@ -14,8 +14,8 @@ const router = express.Router();
 router.get(
     '/ventas-categoria', 
     tokens.verifyToken, 
-    tokens.verifyAdmin  
-    //Aqui va el controller
+    tokens.verifyAdmin, 
+    statsFunctions.getPorCategoria
 )
 
 /*
@@ -32,8 +32,8 @@ router.get(
 router.get(
     '/ventas-total', 
     tokens.verifyToken, 
-    tokens.verifyAdmin  
-    //Aqui va el controller
+    tokens.verifyAdmin,
+    statsFunctions.getVentasTotales
 )
 
 /*
@@ -50,8 +50,8 @@ router.get(
 router.get(
     '/existencias', 
     tokens.verifyToken, 
-    tokens.verifyAdmin  
-    //Aqui va el controller
+    tokens.verifyAdmin,
+    statsFunctions.getExistencias
 )
 
 /*

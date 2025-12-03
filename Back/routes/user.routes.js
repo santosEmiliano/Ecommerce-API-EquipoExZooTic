@@ -71,4 +71,35 @@ try {
 //ruta log out
 router.post("/logOut", tokens.verifyToken, usersFuncion.logOut);
 
+//crear usuario
+router.post("/usuario", usersFuncion.createUser);
+
+/*
+async function crearUsuario() {
+    try {
+        const response = await fetch("http://localhost:3000/usuario", {//fetchito
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nombre: "Daniel",
+                correo: "daniel@example.com",
+                contrasena: "123456",
+                pais: "México"
+            })
+        });
+        if (!response.ok) {
+            throw new Error("Error en la petición: " + response.status);
+        }
+        const data = await response.json();
+        console.log("Respuesta del servidor:", data);//quitar eszto si no lo kieres
+        console.log(data.token);//guardar!!!
+        console.log(data.id);//guardar!!!
+    } catch (error) {
+        console.error("Error al crear usuario:", error);
+    }
+}
+*/
+
 module.exports = router;

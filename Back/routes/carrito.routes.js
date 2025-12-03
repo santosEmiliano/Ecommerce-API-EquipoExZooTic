@@ -1,6 +1,7 @@
 //      RUTAS PARA LAS FUNCIONES DEL CARRITO (BASICAMENTE UN CRUD DEL CARRITO)
 
 //          IMPORTS PROVENIENTES DEL MIDDLEWARE
+const tokens = require("../middleware/verifyToken");
 
 //          IMPORTS QUE PROVIENEN DEL CONTROLLER
 const carritoFunctions = require('../controllers/carrito.controller');
@@ -10,7 +11,7 @@ const express = require("express");
 const router = express.Router();
 
 //  Ruta para obtener los datos del carrito de un usuario -----------------------------------------------------------------------------------------------------------------------
-router.get('/carrito/:idUsuario', carritoFunctions.readCarrito);
+router.get('/carrito/:idUsuario', tokens.verifyToken, carritoFunctions.readCarrito);
 
 //Descripcion del funcionamiento y llamada
 /*
@@ -32,7 +33,7 @@ router.get('/carrito/:idUsuario', carritoFunctions.readCarrito);
 */
 
 //  Ruta para agregar un producto al carrito de un usuario -----------------------------------------------------------------------------------------------------------------------
-router.post('/carrito/:idUsuario', carritoFunctions.agregarProducto);
+router.post('/carrito/:idUsuario', tokens.verifyToken, carritoFunctions.agregarProducto);
 
 //Descripcion del funcionamiento y llamada
 /*
@@ -51,7 +52,7 @@ router.post('/carrito/:idUsuario', carritoFunctions.agregarProducto);
 */
 
 //  Ruta para modificar un producto en el carrito de un usuario -----------------------------------------------------------------------------------------------------------------------
-router.put('/carrito/:idUsuario/producto/:idProducto', carritoFunctions.modificarProducto);
+router.put('/carrito/:idUsuario/producto/:idProducto', tokens.verifyToken, carritoFunctions.modificarProducto);
 
 //Descripcion del funcionamiento y llamada
 /*
@@ -69,7 +70,7 @@ router.put('/carrito/:idUsuario/producto/:idProducto', carritoFunctions.modifica
 */
 
 //  Ruta para eliminar un producto del carrito de un usuario -----------------------------------------------------------------------------------------------------------------------
-router.delete('/carrito/:idUsuario/producto/:idProducto', carritoFunctions.eliminarProducto);
+router.delete('/carrito/:idUsuario/producto/:idProducto', tokens.verifyToken, carritoFunctions.eliminarProducto);
 
 //Descripcion del funcionamiento y llamada
 /*
@@ -83,7 +84,7 @@ router.delete('/carrito/:idUsuario/producto/:idProducto', carritoFunctions.elimi
 */
 
 //  Ruta para eliminar todo el carrito de un usuario -----------------------------------------------------------------------------------------------------------------------
-router.delete('/carrito/:idUsuario', carritoFunctions.eliminarCarrito);
+router.delete('/carrito/:idUsuario', tokens.verifyToken, carritoFunctions.eliminarCarrito);
 
 //Descripcion del funcionamiento y llamada
 /*

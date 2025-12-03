@@ -18,7 +18,7 @@ async function agregarPago(ventasCategorias) {
 
 async function obtenerVentas() {
     try {
-        const [rows] = pool.query('SELECT * FROM ventas')
+        const [rows] = await pool.query('SELECT * FROM ventas')
         return rows;
     } catch (error) {
         console.error("Error al obtener las ventas:", error);
