@@ -64,9 +64,54 @@ async function buscarId(id) {
   return datos;
 }
 
+// ------------ IMPLEMTENTACION 3 INTENTOS PARA LOGEARSE -------------
+
+// Funcion para buscar usuario por correo
+async function buscarCorreo(correo) {
+  try{
+    const [rows] = await pool.query("SELECT * FROM users WHERE correo = ?", [correo]);
+    return rows[0] || null;
+  } catch (error){
+    console.error("Error buscando usuario por correo:", error);
+    return null;
+  }
+}
+
+// Funcion para sumar intentos
+async function sumarIntento(id) {
+  try{
+    await pool.query ("UPDATE users SET intentos = intentos + 1 WHERE id = ?", [id]);
+  } catch (error){
+    console.error("Error al sumar intento:", error);
+  }
+}
+
+// Funcion para bloquear al usuario despues de 3 intentos
+async function bloquearUsuario(id) {
+  try{
+    await pool.query("UPDATE users SET tiempo_bloqueo = DATE_ADD(NOW(), INTERVAL 5 MINUTE) WHERE id = ?", [id]);
+  } catch (error){
+    console.error("Error al bloquear al usuario:", error);
+  }
+}
+
+// Funcion para resetear los intentos del usuario
+async function resetearIntentos(id) {
+  try{
+    await pool.query("UPDATE users SET intentos = 0, tiempo_bloqueo = NULL WHERE id = ?", [id]);
+  } catch(error){
+    console.error("Error al resetear los intentos:", error);
+  }
+  
+}
+
 module.exports = {
   userNew,
   coincidencias,
   logear,
   buscarId,
+  buscarCorreo,
+  sumarIntento,
+  bloquearUsuario,
+  resetearIntentos
 };
