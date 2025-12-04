@@ -12,6 +12,7 @@ const carritoRoutes = require("./routes/carrito.routes"); //Rutas del carrito
 const correoRoutes = require("./routes/correo.routes"); //Rutas del correo
 const userRoutes = require("./routes/user.routes"); // Rutas del usuario
 const statsRoutes = require("./routes/stats.routes"); //Rutas de estadisticas del admin
+const captchaRoutes = require("./routes/captcha.routes");
 
 //Importacion de la conexion a la base de datos
 const pool = require("./db/conexion");
@@ -32,6 +33,7 @@ app.use("/api", carritoRoutes);
 app.use("/api", correoRoutes);
 app.use("/auth", userRoutes); // Endpoints de autenticación
 app.use('/stats', statsRoutes);
+app.use("/captcha",captchaRoutes);
 
 // Funcion que hace una consulta de prueba mínima que
 // confirma que todo el circuito conexión → consulta → respuesta está funcionando

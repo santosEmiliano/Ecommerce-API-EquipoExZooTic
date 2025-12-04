@@ -1,4 +1,4 @@
-const login = async (correo, contrasena) => {
+const login = async (correo, contrasena, captcha) => {
   try {
     const respuesta = await fetch("http://localhost:3000/auth/login", {
       method: "POST",
@@ -8,6 +8,7 @@ const login = async (correo, contrasena) => {
       body: JSON.stringify({
         correo: correo,
         contrasena: contrasena,
+        captcha: captcha,
       }),
     });
 
@@ -31,7 +32,8 @@ const login = async (correo, contrasena) => {
         localStorage.setItem("id", data.datos.id); ///--------->>>>
       } else {
         Swal.fire({
-          title: "Credenciales incorrectas! 👹",
+          title: data.message || "Credenciales incorrectas 👹",
+          //title: "Credenciales incorrectas! 👹",
           icon: "error",
           confirmButtonText: "Ok",
         });
@@ -456,6 +458,12 @@ const obtenerExistencias = async () => {
     throw error;
   }
 }
+const cargarCaptcha = async () => {
+  const res = await fetch("http://localhost:3000/captcha");
+      const svg = await res.text();
+      document.getElementById("captchaContainer").innerHTML = svg;
+}
+
 
 const servicios = {
   login,
@@ -473,7 +481,8 @@ const servicios = {
   obtenerResumenCompra,
   obtenerVentasCategoria,
   obtenerVentasTotales,
-  obtenerExistencias
+  obtenerExistencias,
+  cargarCaptcha,  
 };
 
 export default servicios;

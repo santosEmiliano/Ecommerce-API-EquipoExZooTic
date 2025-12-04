@@ -1104,5 +1104,151 @@ body.dark-mode i {
   color: inherit;
 }
 
+/* --- NUEVOS ESTILOS PARA AGRUPAR EL INPUT Y EL BOTÓN --- */
+
+.captcha-group {
+    /* Habilita Flexbox para alinear los elementos horizontalmente */
+    display: flex;
+    align-items: center; /* Centra verticalmente el input y el botón */
+    gap: 10px; /* Espacio entre el campo de texto y el botón */
+    width: 100%;
+    margin-bottom: 5px; /* Margen inferior para separarlo de otros elementos */
+}
+
+/* Ajuste para el Input de Texto: Ocupa la mayor parte del espacio */
+.captcha-group #captchaTxt {
+    flex-grow: 1; /* Permite que el input crezca para llenar el espacio disponible */
+    margin: 0; /* Asegura que no tenga márgenes molestos que Flexbox pueda ignorar */
+}
+
+/* Ajuste para el Botón de Regenerar: No crece y mantiene su tamaño */
+.captcha-group #btnRegenerarCaptcha {
+    flex-shrink: 0; /* Evita que el botón se encoja */
+    margin: 0; /* Quita los márgenes anteriores que podrían desalinearlo */
+    /* Asegura que tenga el tamaño que definiste */
+    width: 40px; 
+    height: 40px;
+}
+
+/* --- ESTILOS PARA LOS ELEMENTOS DEL CAPTCHA DENTRO DEL FORMULARIO SLIDING --- */
+
+/* Contenedor del Captcha */
+#captchaContainer {
+  /* Asegura que el contenedor tenga un fondo claro como el input normal */
+  background-color: #eee;
+  /* Margen para separarlo de otros elementos */
+  margin: 6px 0;
+  /* El mismo padding para que se vea como un campo de entrada */
+  padding: 12px 15px;
+  width: auto;
+  /* Borde redondeado */
+  border-radius: 10px;
+  /* Borde sutil */
+  border: 2px solid transparent;
+  /* Transición para el efecto de foco */
+  transition: 0.3s;
+  /* Estilos para el texto/imagen del captcha */
+  display: flex; /* Para centrar o alinear contenido si el captcha es una imagen */
+  justify-content: center;
+  align-items: center;
+  font-size: 24px; /* Un tamaño visible para el código */
+  font-weight: bold;
+  color: var(--color--verde-bosque); /* Color de texto del bosque */
+  /* Puedes añadir un estilo de fuente divertido o formal si es solo texto */
+  font-family: "Kablammo", cursive; /* Usando una fuente exótica/temática */
+  letter-spacing: 3px; /* Espaciado para mejorar la legibilidad */
+  user-select: none; /* Evita que el usuario seleccione el texto del captcha */
+  height: 50px; /* Altura definida para el área de visualización */
+}
+
+
+/* Efecto visual de foco para el contenedor del captcha */
+#formLogin:focus-within #captchaContainer {
+  border-color: var(--color--verde-medio);
+  background-color: #fff;
+}
+
+
+/* Input de Texto para Escribir el Captcha */
+#captchaTxt {
+  /* Hereda los estilos de los inputs normales, pero lo forzamos a quedar bien */
+  background-color: #eee;
+  border: 2px solid transparent;
+  padding: 12px 15px;
+  margin: 6px 0; /* Un poco más de margen inferior para separarlo del botón */
+  width: 100%;
+  border-radius: 10px;
+  outline: none;
+  transition: 0.3s;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  box-sizing: border-box; /* Asegura que el padding no cambie el ancho total */
+}
+
+#captchaTxt:focus {
+  border-color: var(--color--verde-medio);
+  background-color: #fff;
+}
+
+/* Botón de Regenerar Captcha */
+#btnRegenerarCaptcha {
+  /* Lo hago parecer un ícono o un pequeño botón utilitario */
+  background-color: var(--color--verde-claro);
+  border: none;
+  border-radius: 50%; /* Lo hace redondo */
+  width: 40px; /* Tamaño del círculo */
+  height: 40px;
+  padding: 0; /* Quita el padding por defecto */
+  margin: 5px auto 15px; /* Centrado y con margen */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  /* Icono (simulación con Font Awesome) */
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  color: var(--color--verde-bosque);
+
+  /* Pongo el icono de Font Awesome de recargar/refresh para la simulación */
+  content: "\f2f1"; /* Código Unicode para fa-solid fa-arrows-rotate (Asegúrate de que Font Awesome esté cargado) */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+}
+
+#btnRegenerarCaptcha::before {
+  /* Esto es lo que realmente hace aparecer el ícono de recargar */
+  content: "\f2f1"; 
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+}
+
+#btnRegenerarCaptcha:hover {
+  background-color: var(--color--verde-lima);
+  transform: rotate(45deg); /* Efecto visual de "girar" al regenerar */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Ajuste adicional para la disposición, si necesitas agrupar el input del captcha y el botón de refrescar */
+/* Si se llegara a necesitar, puedes envolver #captchaTxt y #btnRegenerarCaptcha en un div y darle display: flex; */
+.captcha-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 5px; /* Ajusta el margen si usas un grupo */
+}
+
+/* Asegurando que el input del captcha ocupe su espacio si se agrupa con el botón */
+.captcha-group #captchaTxt {
+    flex-grow: 1;
+    margin: 0; /* Quitar márgenes si está en un grupo */
+}
+
+/* Si decides no usar el grupo, asegura que el botón Regenerar no tenga margen automático */
+#btnRegenerarCaptcha {
+    margin: 5px 0 15px 0; /* Ajuste si está solo */
+}
+
 body.dark-mode a img[src*=".png"] {
 }
