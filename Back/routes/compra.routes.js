@@ -1,6 +1,7 @@
 //      RUTAS PARA LAS FUNCIONES DE COMPRA (Obtener datos de compra, confirmar compra)
 
 //          IMPORTS PROVENIENTES DEL MIDDLEWARE
+const tokens = require("../middleware/verifyToken");
 
 //          IMPORTS QUE PROVIENEN DEL CONTROLLER
 const compraFunctions = require('../controllers/compra.controller');
@@ -10,7 +11,7 @@ const express = require("express");
 const router = express.Router();
 
 //  Ruta para obtener enviar los datos de la compra al front -----------------------------------------------------------------------------------------------------------------------
-router.get('/compra/:id', compraFunctions.obtenerResumenCompra);
+router.get('/compra/:id', tokens.verifyToken ,compraFunctions.obtenerResumenCompra);
 
 //Descripcion del funcionamiento y llamada
 /*
@@ -33,7 +34,7 @@ router.get('/compra/:id', compraFunctions.obtenerResumenCompra);
 
 
 //  Ruta para confirmar la compra -----------------------------------------------------------------------------------------------------------------------
-router.post('/compra/:id', compraFunctions.confirmarCompra);
+router.post('/compra/:id', tokens.verifyToken ,compraFunctions.confirmarCompra);
 
 //Descripcion del funcionamiento y llamada
 /*

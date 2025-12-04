@@ -239,8 +239,6 @@ const obtenerResumenCompra = async () => {
   }
 };
 
-//
-
 const enviarCorreoSuscripcion = async (email) => {
   try {
     const response = await fetch("http://localhost:3000/api/suscripcion", {
@@ -260,7 +258,6 @@ const enviarCorreoSuscripcion = async (email) => {
     throw error;
   }
 };
-//jajajaj
 
 const signIn = async (_nombre, _correo, _pais, _contrasena) => {
   try {
@@ -311,7 +308,6 @@ const getProd = async (filtros = {}) => {
   }
 };
 
-// --- NUEVA FUNCIÓN AGREGADA ---
 const getProdById = async (id) => {
     try {
         const response = await fetch(`http://localhost:3000/api/crud/productos/${id}`);
@@ -378,10 +374,12 @@ const updateProd = async (id, formData) => {
         body: formData,
       }
     );
+
     if (!response.ok) {
       const res = await response.json();
       throw new Error(res.message || "Error al actualizar");
     }
+    
     return await response.json();
   } catch (error) {
     console.error("Error en updateProd:", error);
@@ -389,13 +387,83 @@ const updateProd = async (id, formData) => {
   }
 };
 
+const obtenerVentasCategoria = async () => {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/stats/ventas-categoria`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
+      }
+    );
+
+    if (!response.ok) {
+      const res = await response.json();
+      throw new Error(res.message || "Error al obtener las ventas por categoria");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error en obtenerVentasCategoria:", error);
+    throw error;
+  }
+}
+
+const obtenerVentasTotales = async () => {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/stats/ventas-total`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
+      }
+    );
+
+    if (!response.ok) {
+      const res = await response.json();
+      throw new Error(res.message || "Error al obtener las ventas totales");
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error("Error en obtenerVentasTotales:", error);
+    throw error;
+  }
+}
+
+const obtenerExistencias = async () => {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/stats/existencias`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
+      }
+    );
+    if (!response.ok) {
+      const res = await response.json();
+      throw new Error(res.message || "Error al obtener el reporte de existencias");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error en obtenerExistencias:", error);
+    throw error;
+  }
+}
+
 const servicios = {
   login,
   actualizarSesionLogIn,
   logout,
   signIn,
   getProd,
-  getProdById, // Exportamos la nueva función
+  getProdById, 
   addProduct,
   deleteProd,
   updateProd,
@@ -403,6 +471,9 @@ const servicios = {
   enviarCorreoSuscripcion,
   pagar,
   obtenerResumenCompra,
+  obtenerVentasCategoria,
+  obtenerVentasTotales,
+  obtenerExistencias
 };
 
 export default servicios;

@@ -6,14 +6,13 @@ const tokens = require("../middleware/verifyToken");
 
 //          IMPORTS QUE PROVIENEN DEL CONTROLLER
 const crudFunctions = require("../controllers/crud.controller");
-const usersFuncion = require("../controllers/user.controller");
 
 //Imports de express
 const express = require("express");
 const router = express.Router();
 
 //  Ruta para obtener todos los productos (Y sus derivadas de Query Params) -----------------------------------------------------------------------------------------------------------------------
-router.get("/productos", crudFunctions.readProductos);
+router.get("/productos", tokens.verifyToken, crudFunctions.readProductos);
 
 //Descripcion del funcionamiento y llamada
 /*
@@ -34,7 +33,7 @@ router.get("/productos", crudFunctions.readProductos);
 */
 
 //  Ruta para obtener un solo producto por su ID -----------------------------------------------------------------------------------------------------------------------
-router.get("/productos/:id", crudFunctions.readProdId);
+router.get("/productos/:id", tokens.verifyToken, crudFunctions.readProdId);
 
 //Descripcion del funcionamiento y llamada
 /*
@@ -187,37 +186,6 @@ router.delete(
         console.error(error);
     }
 */
-
-//crear usuario
-router.post("/usuario", usersFuncion.createUser);
-
-/*
-async function crearUsuario() {
-    try {
-        const response = await fetch("http://localhost:3000/usuario", {//fetchito
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                nombre: "Daniel",
-                correo: "daniel@example.com",
-                contrasena: "123456",
-                pais: "México"
-            })
-        });
-        if (!response.ok) {
-            throw new Error("Error en la petición: " + response.status);
-        }
-        const data = await response.json();
-        console.log("Respuesta del servidor:", data);//quitar eszto si no lo kieres
-        console.log(data.token);//guardar!!!
-        console.log(data.id);//guardar!!!
-    } catch (error) {
-        console.error("Error al crear usuario:", error);
-    }
-}
-    */
 
 //colocar esto para proteger las rutas  tokens.verifyToken,tokens.verifyAdmin,
 //headers: {
