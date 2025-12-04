@@ -239,8 +239,6 @@ const obtenerResumenCompra = async () => {
   }
 };
 
-//
-
 const enviarCorreoSuscripcion = async (email) => {
   try {
     const response = await fetch("http://localhost:3000/api/suscripcion", {
@@ -260,7 +258,6 @@ const enviarCorreoSuscripcion = async (email) => {
     throw error;
   }
 };
-//jajajaj
 
 const signIn = async (_nombre, _correo, _pais, _contrasena) => {
   try {
@@ -311,7 +308,6 @@ const getProd = async (filtros = {}) => {
   }
 };
 
-// --- NUEVA FUNCIÓN AGREGADA ---
 const getProdById = async (id) => {
     try {
         const response = await fetch(`http://localhost:3000/api/crud/productos/${id}`);
@@ -467,7 +463,7 @@ const servicios = {
   logout,
   signIn,
   getProd,
-  getProdById, // Exportamos la nueva función
+  getProdById, 
   addProduct,
   deleteProd,
   updateProd,
