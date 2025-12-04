@@ -1250,5 +1250,12 @@ body.dark-mode i {
     margin: 5px 0 15px 0; /* Ajuste si está solo */
 }
 
+#mensajeBloqueo {
+  margin: 10px 0; 
+  color: #e8332f; 
+  font-weight: bold; 
+  display: none;
+}
+
 body.dark-mode a img[src*=".png"] {
 }
