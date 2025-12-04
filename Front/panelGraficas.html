@@ -19,6 +19,16 @@
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      /* Usamos !important para ganarle a cualquier instrucción de JavaScript */
+      #logInbtn, 
+      #logOutbtn, 
+      #regbtn, 
+      #cartBtn{ 
+        display: none !important; 
+      }
+    </style>
+  </head>
   </head>
 
   <body>
@@ -44,17 +54,12 @@
           <span id="userName" class="user-name"></span>
         </div>
 
-        <button style="display: none;" id="logInbtn" title="Login">
+        <button style="display: none" id="logInbtn" title="Login">
           <span class="loginStyle">Iniciar Sesión</span>
         </button>
 
-        <button style="display: none;" id="logOutbtn" title="LogOut">
+        <button style="display: none" id="logOutbtn" title="LogOut">
           <span class="loginStyle">Cerrar Sesión</span>
-        </button>
-
-        <!-- Boton -->
-        <button id="adminbtn" title="Edit" style="display: none">
-          <span class="loginStyle">Editar</span>
         </button>
 
         <button
@@ -135,7 +140,6 @@
       </p>
     </footer>
 
-    
     <div id="authModal" class="modal-overlay">
       <div class="container-slid" id="container-slid">
         <span class="icon-close"><i class="fa-solid fa-xmark"></i></span>
@@ -187,8 +191,17 @@
             <div id="captchaContainer"></div>
 
             <div class="captcha-group">
-                <input type="text" id="captchaTxt" placeholder="Escribe el captcha" required>
-                <button type="button" id="btnRegenerarCaptcha" class="refresh-btn"></button>
+              <input
+                type="text"
+                id="captchaTxt"
+                placeholder="Escribe el captcha"
+                required
+              />
+              <button
+                type="button"
+                id="btnRegenerarCaptcha"
+                class="refresh-btn"
+              ></button>
             </div>
 
             <p id="mensajeBloqueo"></p>
@@ -216,7 +229,10 @@
               <button class="ghost" id="signUp">Registrarse</button>
             </div>
           </div>
-
+        </div>
+      </div>
+    </div>
+    <script src="./scripts/app.js" type="module"></script>
     <script src="./scripts/estadisticas.js" type="module"></script>
     <script src="./scripts/accesibilidad.js"></script>
     <script src="./scripts/styles.js" type="module"></script>

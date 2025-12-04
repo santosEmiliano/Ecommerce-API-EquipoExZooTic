@@ -1,38 +1,32 @@
 import servicios from "./servicios.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  // --- REFERENCIAS AL DOM ---
   const authModal = document.getElementById("authModal");
   const container = document.getElementById("container-slid");
 
-  // Header Buttons
   const logInBtn = document.getElementById("logInbtn");
   const logOutBtn = document.getElementById("logOutbtn");
-
-  // User Info
-  const userName = document.getElementById("userName");
-  const userIcon = document.getElementById("userIcon");
-
-  // Modal Buttons
   const signUpButton = document.getElementById("signUp");
   const signInButton = document.getElementById("signIn");
+  
+  const userName = document.getElementById("userName");
+  const userIcon = document.getElementById("userIcon");
   const iconClose = document.querySelector(".icon-close");
 
-  servicios.verificarBloqueo();
+  if (servicios.verificarBloqueo) servicios.verificarBloqueo();
 
-  // --- ESTADO INICIAL ---
-  logOutBtn.style.display = "none";
-  userIcon.style.display = "none";
-  userName.style.display = "none";
+  if (logOutBtn) logOutBtn.style.display = "none";
+  if (userIcon) userIcon.style.display = "none";
+  if (userName) userName.style.display = "none";
 
   const usuarioGuardado = localStorage.getItem("nombre");
   if (usuarioGuardado) {
-    servicios.actualizarSesionLogIn(localStorage.getItem("nombre"));
+    servicios.actualizarSesionLogIn(usuarioGuardado);
   }
 
   const cerrarModalConAnimacion = () => {
+    if (!authModal) return;
     authModal.classList.add("closing");
-
     authModal.addEventListener(
       "animationend",
       () => {
@@ -43,120 +37,109 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   };
 
-  // --- ABRIR MODAL ---
-  logInBtn.addEventListener("click", () => {
-    servicios.cargarCaptcha();
-    
-    authModal.classList.remove("closing");
-    
-    authModal.style.display = "flex";
-    container.classList.remove("right-panel-active");
-  });
+  if (logInBtn) {
+    logInBtn.addEventListener("click", () => {
+      servicios.cargarCaptcha();
+      if (authModal) {
+        authModal.classList.remove("closing");
+        authModal.style.display = "flex";
+      }
+      if (container) container.classList.remove("right-panel-active");
+    });
+  }
 
-  signUpButton.addEventListener("click", () => {
-    container.classList.add("right-panel-active");
-  });
+  if (signUpButton && container) {
+    signUpButton.addEventListener("click", () => {
+      container.classList.add("right-panel-active");
+    });
+  }
 
-  signInButton.addEventListener("click", () => {
-    container.classList.remove("right-panel-active");
-  });
+  if (signInButton && container) {
+    signInButton.addEventListener("click", () => {
+      container.classList.remove("right-panel-active");
+    });
+  }
 
-  // --- CERRAR MODAL (Botón X) ---
-  iconClose.addEventListener("click", () => {
-    cerrarModalConAnimacion();
-  });
+  if (iconClose) {
+    iconClose.addEventListener("click", cerrarModalConAnimacion);
+  }
 
-  // --- CERRAR MODAL (Click afuera) ---
+  // Cerrar modal al dar click afuera
   window.addEventListener("click", (e) => {
-    if (e.target === authModal) {
+    if (authModal && e.target === authModal) {
       cerrarModalConAnimacion();
     }
   });
 
-  const btnAcceder = document.getElementById("btnAcceder");
-
-  if (btnAcceder) {
-    btnAcceder.addEventListener("click", async (e) => {
-      e.preventDefault();
-
-      const correo = document.getElementById("login").value.trim();
-      const contrasena = document.getElementById("password").value.trim();
-      const captcha = document.getElementById("captchaTxt").value.trim();
-
-      if (!captcha) {
-        Swal.fire({
-          title: "Ingresa captcha",
-          icon: "error",
-          confirmButtonText: "Ok",
-        });
-        return;
-      }
-      if (!correo || !contrasena) {
-        Swal.fire({
-          title: "Ingresa correo y contraseña",
-          icon: "error",
-          confirmButtonText: "Ok",
-        });
-        return;
-      }
-
-      await servicios.login(correo, contrasena, captcha);
-      servicios.cargarCaptcha();
-      document.getElementById("login").value = "";
-      document.getElementById("password").value = "";
-      document.getElementById("captchaTxt").value = "";
+  // --- LOGOUT ---
+  if (logOutBtn) {
+    logOutBtn.addEventListener("click", () => {
+      servicios.logout();
     });
   }
 
-  // --- REGISTRO ---
+  const btnAcceder = document.getElementById("btnAcceder");
+  if (btnAcceder) {
+    btnAcceder.addEventListener("click", async (e) => {
+      e.preventDefault();
+      const correoInput = document.getElementById("login");
+      const passInput = document.getElementById("password");
+      const captchaInput = document.getElementById("captchaTxt");
+
+      if (!captchaInput.value.trim()) {
+        Swal.fire({ title: "Ingresa captcha", icon: "error", confirmButtonText: "Ok" });
+        return;
+      }
+      if (!correoInput.value.trim() || !passInput.value.trim()) {
+        Swal.fire({ title: "Ingresa correo y contraseña", icon: "error", confirmButtonText: "Ok" });
+        return;
+      }
+
+      await servicios.login(correoInput.value.trim(), passInput.value.trim(), captchaInput.value.trim());
+      servicios.cargarCaptcha();
+      
+      correoInput.value = "";
+      passInput.value = "";
+      captchaInput.value = "";
+    });
+  }
 
   const btnRegistrarse = document.getElementById("btnRegistrarse");
-
   if (btnRegistrarse) {
     btnRegistrarse.addEventListener("click", async (e) => {
       e.preventDefault();
+      const pass1 = document.getElementById("regPass");
+      const pass2 = document.getElementById("regPass2");
 
-      if (
-        document.getElementById("regPass").value !=
-        document.getElementById("regPass2").value
-      ) {
-        Swal.fire({
-          title: "Las contraseñas no coinciden",
-          icon: "error",
-          confirmButtonText: "Ok",
-        });
+      if (pass2 && pass1.value !== pass2.value) {
+        Swal.fire({ title: "Las contraseñas no coinciden", icon: "error", confirmButtonText: "Ok" });
         return;
       }
 
       const nombre = document.getElementById("regName").value;
       const pais = document.getElementById("regCountry").value;
       const correo = document.getElementById("regEmail").value;
-      const contrasena = document.getElementById("regPass").value;
+      const contrasena = pass1.value;
 
       servicios.signIn(nombre, correo, pais, contrasena);
 
       document.getElementById("regName").value = "";
       document.getElementById("regCountry").value = "";
       document.getElementById("regEmail").value = "";
-      document.getElementById("regPass").value = "";
+      pass1.value = "";
+      if (pass2) pass2.value = "";
 
-      container.classList.remove("right-panel-active");
+      if (container) container.classList.remove("right-panel-active");
     });
   }
 
-  // --- LOGOUT ---
-  logOutBtn.addEventListener("click", () => {
-    servicios.logout();
-  });
-
-  //-- Regenerar captcha
   const btnRegenerarCaptcha = document.getElementById("btnRegenerarCaptcha");
-  if(btnRegenerarCaptcha){
-      btnRegenerarCaptcha.addEventListener("click", () => {
-        servicios.cargarCaptcha();
-      });
+  if (btnRegenerarCaptcha) {
+    btnRegenerarCaptcha.addEventListener("click", () => {
+      servicios.cargarCaptcha();
+    });
   }
-  
+
   if (typeof toast !== "function") {
     window.toast = function (msg, color) {
       Toastify({
