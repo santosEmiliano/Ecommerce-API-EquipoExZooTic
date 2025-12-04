@@ -12,7 +12,7 @@ const express = require("express");
 const router = express.Router();
 
 //  Ruta para obtener todos los productos (Y sus derivadas de Query Params) -----------------------------------------------------------------------------------------------------------------------
-router.get("/productos", tokens.verifyToken, crudFunctions.readProductos);
+router.get("/productos", crudFunctions.readProductos);
 
 //Descripcion del funcionamiento y llamada
 /*
@@ -33,7 +33,7 @@ router.get("/productos", tokens.verifyToken, crudFunctions.readProductos);
 */
 
 //  Ruta para obtener un solo producto por su ID -----------------------------------------------------------------------------------------------------------------------
-router.get("/productos/:id", tokens.verifyToken, crudFunctions.readProdId);
+router.get("/productos/:id", crudFunctions.readProdId);
 
 //Descripcion del funcionamiento y llamada
 /*

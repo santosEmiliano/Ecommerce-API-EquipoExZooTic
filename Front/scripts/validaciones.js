@@ -26,13 +26,7 @@ async function obntenerDatos() {
         
         if(data.user.admin==1){
             editar.style.display="block";
-        }else{
-            Swal.fire({
-            title: "Usuario No autorizado",
-            icon: "error"
-            });
         }
-        
         
     } catch (error) {
         console.error("Error:", error);

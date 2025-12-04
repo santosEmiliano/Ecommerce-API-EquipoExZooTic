@@ -201,7 +201,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (event) {
       event.stopPropagation();
     }
-
+    if (!localStorage.getItem("token")) {
+        Swal.fire({
+          icon: "error",
+          title: "Inicia sesión",
+          text: "Debes iniciar sesión para adoptar",
+        });
+        return;
+    }
     // 1. Guardar ID en localStorage
     localStorage.setItem("productoSeleccionado", id);
 
