@@ -152,13 +152,52 @@ h3 {
 
 .form-group input[type="text"],
 .form-group input[type="email"],
-.form-group input[type="tel"] {
+.form-group input[type="tel"], 
+.form-group select{
   width: 100%;
   padding: 1.5vh;
   border: 0.2vh solid var(--color--cafe-claro);
   border-radius: 1vh;
   font-size: 1.8vh;
   transition: border-color 0.2s, box-shadow 0.2s;
+  background-color: var(--color--blanco-hueso);
+  font-family: inherit;
+  color: var(--color-negro);
+}
+
+/* --- ESTILOS PERSONALIZADOS PARA EL SELECT --- */
+.form-group select {
+  appearance: none;        /* Quita la flecha nativa en estándares modernos */
+  -webkit-appearance: none; /* Safari y Chrome viejos */
+  -moz-appearance: none;    /* Firefox */
+  cursor: pointer;
+
+  /* Flechita SVG personalizada (Color: #2f5d34 - verde bosque) */
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%232f5d34%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1.5vh center;
+  background-size: 1.2vh auto; /* Tamaño de la flechita */
+  padding-right: 4vh; /* Espacio extra a la derecha para que el texto no tape la flecha */
+}
+
+/* Efecto Hover */
+.form-group select:hover {
+  border-color: var(--color--verde-medio);
+}
+
+/* Efecto Focus (Cuando le das click) */
+.form-group select:focus {
+  outline: none;
+  border-color: var(--color--verde-agua);
+  box-shadow: 0 0 0 0.3vh rgba(29, 142, 122, 0.2); /* Sutil brillo verde agua */
+}
+
+/* Estilo para las opciones desplegables */
+.form-group select option {
+  background-color: var(--color--blanco-hueso);
+  color: var(--color--verde-bosque);
+  padding: 10px;
+  font-weight: 600;
 }
 
 .form-group input:focus {
