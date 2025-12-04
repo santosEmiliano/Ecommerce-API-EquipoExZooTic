@@ -374,7 +374,7 @@ const enviarCorreoSuscripcion = async (email) => {
 
 const signIn = async (_nombre, _correo, _pais, _contrasena) => {
   try {
-    const response = await fetch("http://localhost:3000/api/crud/usuario", {
+    const response = await fetch("http://localhost:3000/auth/usuario", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

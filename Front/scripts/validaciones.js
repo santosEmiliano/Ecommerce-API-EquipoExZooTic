@@ -5,9 +5,11 @@ editar.addEventListener("click",()=>{
     window.location.href = "panelAdmin.html";
 })
 
-obntenerDatos();
+if(localStorage.getItem("nombre")){
+    obtenerDatos();
+}
 
-async function obntenerDatos() {
+async function obtenerDatos() {
     
     try {
             

@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const signUpButton = document.getElementById("signUp");
   const signInButton = document.getElementById("signIn");
   const iconClose = document.querySelector(".icon-close");
-  
 
   // Forms
   const formLogin = document.getElementById("formLogin");
@@ -86,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         return;
       }
-      if (!correo || !contrasena ) {
+      if (!correo || !contrasena) {
         Swal.fire({
           title: "Ingresa correo y contraseña",
           icon: "error",
@@ -111,6 +110,18 @@ document.addEventListener("DOMContentLoaded", () => {
     btnRegistrarse.addEventListener("click", async (e) => {
       e.preventDefault();
 
+      if (
+        document.getElementById("regPass").value !=
+        document.getElementById("regPass2").value
+      ) {
+        Swal.fire({
+          title: "Las contraseñas no coinciden",
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
+        return;
+      }
+
       const nombre = document.getElementById("regName").value;
       const pais = document.getElementById("regCountry").value;
       const correo = document.getElementById("regEmail").value;
@@ -134,8 +145,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //-- Regenerar captcha
   const btnRegenerarCaptcha = document.getElementById("btnRegenerarCaptcha");
-    btnRegenerarCaptcha.addEventListener("click", () => {
-      servicios.cargarCaptcha();
+  btnRegenerarCaptcha.addEventListener("click", () => {
+    servicios.cargarCaptcha();
   });
 
   // Definición de Toast si no existe
