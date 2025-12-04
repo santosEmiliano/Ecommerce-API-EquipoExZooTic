@@ -49,6 +49,11 @@
           <span class="loginStyle">Regístrate</span>
         </button>
 
+        <!-- Boton -->
+        <button id="adminbtn" title="Edit" style="display: none">
+          <span class="loginStyle">Editar</span>
+        </button>
+
         <button
           style="display: none"
           id="cartBtn"
@@ -61,137 +66,132 @@
       </div>
     </nav>
 
-    <body>
-      <main>
-        <div class="container-pregunta">
-          <button class="btn-pregunta">
-            <h2 class="titulo-pregunta">
-              1. ¿Es legal tener este animal como mascota en mi ciudad/país?
-            </h2>
-          </button>
-          <p class="respuesta-pregunta">
-            Esta es la pregunta más importante. Por el momento no es legal
-            poseer uno de estos animales de manera privada, pero eso no nos
-            impide venderte ni a ti comprarnos.
-          </p>
-        </div>
-        <div class="container-pregunta">
-          <button class="btn-pregunta">
-            <h2 class="titulo-pregunta">
-              2. ¿Qué permisos o documentación necesito para comprarlo?
-            </h2>
-          </button>
-          <p class="respuesta-pregunta">
-            Muchos animales exóticos, incluso siendo legales, requieren permisos
-            especiales (como los apéndices CITES) o registros locales. En este
-            caso no necesitas ningún documento o requisito previo.
-          </p>
-        </div>
-        <div class="container-pregunta">
-          <button class="btn-pregunta">
-            <h2 class="titulo-pregunta">
-              3. ¿Sus animales son criados en cautiverio (CRIANZA) o capturados
-              en la naturaleza (silvestres)?
-            </h2>
-          </button>
-          <p class="respuesta-pregunta">
-            Todos nuestros animales son tomados de su habitad natural para
-            posteriormente mantenerlos en un ambiente controlado para su venta.
-          </p>
-        </div>
-        <div class="container-pregunta">
-          <button class="btn-pregunta">
-            <h2 class="titulo-pregunta">
-              4. ¿Cómo garantizan el bienestar del animal durante el envío?
-            </h2>
-          </button>
-          <p class="respuesta-pregunta">
-            El animal es transportado en una jaula ambientada con todas las
-            cosas necesarias para mantenerlo con vida durante el lapso del
-            envío. Este va en un camión monitoreado todo el tiempo para
-            garantizar su entrega en tiempo y forma.
-          </p>
-        </div>
-        <div class="container-pregunta">
-          <button class="btn-pregunta">
-            <h2 class="titulo-pregunta">
-              5. ¿Qué tipo de garantía de salud ofrecen?
-            </h2>
-          </button>
-          <p class="respuesta-pregunta">
-            Esto es crucial. Con nosotros cuenta con la única garantía de
-            entregarlo, por cuestiones del negocio no podemos brindarle algo
-            extra, la mercancía no es remplazable de manera sencilla.
-          </p>
-        </div>
-        <div class="container-pregunta">
-          <button class="btn-pregunta">
-            <h2 class="titulo-pregunta">
-              6. ¿Qué tipo de dieta específica y hábitat (terrario, jaula,
-              acuario) necesita este animal?
-            </h2>
-          </button>
-          <p class="respuesta-pregunta">
-            Dependiendo del animal va a depender su alimentación, se verifica su
-            especie, genero, masa corporal para poder adaptarle una dieta,
-            nosotros te ofrecemos lo recomendado para cada animal.
-          </p>
-        </div>
-        <div class="container-pregunta">
-          <button class="btn-pregunta">
-            <h2 class="titulo-pregunta">
-              7. ¿Cuál es la esperanza de vida y el tamaño adulto de este
-              animal?
-            </h2>
-          </button>
-          <p class="respuesta-pregunta">
-            En nuestra pagina hay fotografías con las que puedes ver las
-            dimensiones del animal y sobre la esperanza de vida va a depender
-            enormemente de la especia del animal y los cuidados que se le
-            brinden.
-          </p>
-        </div>
-        <div class="container-pregunta">
-          <button class="btn-pregunta">
-            <h2 class="titulo-pregunta">
-              8. ¿Este animal es recomendado para dueños principiantes o solo
-              para expertos?
-            </h2>
-          </button>
-          <p class="respuesta-pregunta">
-            Se recomienda que los dueños del animal sean muy consientes que
-            están comprando un animal exotico que necesita cuidados muy
-            específicos, por esta razón no puede ser cualquier persona la que se
-            adueñe de este.
-          </p>
-        </div>
-        <div class="container-pregunta">
-          <button class="btn-pregunta">
-            <h2 class="titulo-pregunta">
-              9. ¿Qué hago si tengo una emergencia veterinaria? ¿Tienen
-              veterinarios de exóticos recomendados?
-            </h2>
-          </button>
-          <p class="respuesta-pregunta">
-            Nosotros no contamos con servicio medico para las especies que
-            vendemos, toda la atención medica va por parte de los dueños de los
-            animales, se recomienda que antes que cualquier emergencia se tenga
-            conocimiento de un veterinario que pueda atender esa especie.
-          </p>
-        </div>
-        <div class="container-pregunta">
-          <button class="btn-pregunta">
-            <h2 class="titulo-pregunta">
-              10. ¿Cuál es su política de devoluciones o reubicación?
-            </h2>
-          </button>
-          <p class="respuesta-pregunta">
-            Por cuestiones de seguridad no tenemos servicio de devoluciones o
-            cualquier cosa parecida.
-          </p>
-        </div>
-      </main>
-    </body>
+    <main>
+      <div class="container-pregunta">
+        <button class="btn-pregunta">
+          <h2 class="titulo-pregunta">
+            1. ¿Es legal tener este animal como mascota en mi ciudad/país?
+          </h2>
+        </button>
+        <p class="respuesta-pregunta">
+          Esta es la pregunta más importante. Por el momento no es legal poseer
+          uno de estos animales de manera privada, pero eso no nos impide
+          venderte ni a ti comprarnos.
+        </p>
+      </div>
+      <div class="container-pregunta">
+        <button class="btn-pregunta">
+          <h2 class="titulo-pregunta">
+            2. ¿Qué permisos o documentación necesito para comprarlo?
+          </h2>
+        </button>
+        <p class="respuesta-pregunta">
+          Muchos animales exóticos, incluso siendo legales, requieren permisos
+          especiales (como los apéndices CITES) o registros locales. En este
+          caso no necesitas ningún documento o requisito previo.
+        </p>
+      </div>
+      <div class="container-pregunta">
+        <button class="btn-pregunta">
+          <h2 class="titulo-pregunta">
+            3. ¿Sus animales son criados en cautiverio (CRIANZA) o capturados en
+            la naturaleza (silvestres)?
+          </h2>
+        </button>
+        <p class="respuesta-pregunta">
+          Todos nuestros animales son tomados de su habitad natural para
+          posteriormente mantenerlos en un ambiente controlado para su venta.
+        </p>
+      </div>
+      <div class="container-pregunta">
+        <button class="btn-pregunta">
+          <h2 class="titulo-pregunta">
+            4. ¿Cómo garantizan el bienestar del animal durante el envío?
+          </h2>
+        </button>
+        <p class="respuesta-pregunta">
+          El animal es transportado en una jaula ambientada con todas las cosas
+          necesarias para mantenerlo con vida durante el lapso del envío. Este
+          va en un camión monitoreado todo el tiempo para garantizar su entrega
+          en tiempo y forma.
+        </p>
+      </div>
+      <div class="container-pregunta">
+        <button class="btn-pregunta">
+          <h2 class="titulo-pregunta">
+            5. ¿Qué tipo de garantía de salud ofrecen?
+          </h2>
+        </button>
+        <p class="respuesta-pregunta">
+          Esto es crucial. Con nosotros cuenta con la única garantía de
+          entregarlo, por cuestiones del negocio no podemos brindarle algo
+          extra, la mercancía no es remplazable de manera sencilla.
+        </p>
+      </div>
+      <div class="container-pregunta">
+        <button class="btn-pregunta">
+          <h2 class="titulo-pregunta">
+            6. ¿Qué tipo de dieta específica y hábitat (terrario, jaula,
+            acuario) necesita este animal?
+          </h2>
+        </button>
+        <p class="respuesta-pregunta">
+          Dependiendo del animal va a depender su alimentación, se verifica su
+          especie, genero, masa corporal para poder adaptarle una dieta,
+          nosotros te ofrecemos lo recomendado para cada animal.
+        </p>
+      </div>
+      <div class="container-pregunta">
+        <button class="btn-pregunta">
+          <h2 class="titulo-pregunta">
+            7. ¿Cuál es la esperanza de vida y el tamaño adulto de este animal?
+          </h2>
+        </button>
+        <p class="respuesta-pregunta">
+          En nuestra pagina hay fotografías con las que puedes ver las
+          dimensiones del animal y sobre la esperanza de vida va a depender
+          enormemente de la especia del animal y los cuidados que se le brinden.
+        </p>
+      </div>
+      <div class="container-pregunta">
+        <button class="btn-pregunta">
+          <h2 class="titulo-pregunta">
+            8. ¿Este animal es recomendado para dueños principiantes o solo para
+            expertos?
+          </h2>
+        </button>
+        <p class="respuesta-pregunta">
+          Se recomienda que los dueños del animal sean muy consientes que están
+          comprando un animal exotico que necesita cuidados muy específicos, por
+          esta razón no puede ser cualquier persona la que se adueñe de este.
+        </p>
+      </div>
+      <div class="container-pregunta">
+        <button class="btn-pregunta">
+          <h2 class="titulo-pregunta">
+            9. ¿Qué hago si tengo una emergencia veterinaria? ¿Tienen
+            veterinarios de exóticos recomendados?
+          </h2>
+        </button>
+        <p class="respuesta-pregunta">
+          Nosotros no contamos con servicio medico para las especies que
+          vendemos, toda la atención medica va por parte de los dueños de los
+          animales, se recomienda que antes que cualquier emergencia se tenga
+          conocimiento de un veterinario que pueda atender esa especie.
+        </p>
+      </div>
+      <div class="container-pregunta">
+        <button class="btn-pregunta">
+          <h2 class="titulo-pregunta">
+            10. ¿Cuál es su política de devoluciones o reubicación?
+          </h2>
+        </button>
+        <p class="respuesta-pregunta">
+          Por cuestiones de seguridad no tenemos servicio de devoluciones o
+          cualquier cosa parecida.
+        </p>
+      </div>
+    </main>
 
     <div id="authModal" class="modal-overlay">
       <div class="container-slid" id="container-slid">
@@ -289,5 +289,6 @@
     <script src="./scripts/styles.js"></script>
     <script src="./scripts/preguntas.js"></script>
     <script src="./scripts/accesibilidad.js"></script>
+    <script src="./scripts/validaciones.js"></script>
   </body>
 </html>

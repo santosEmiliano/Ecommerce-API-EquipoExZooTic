@@ -154,6 +154,7 @@ body {
 /*botones de login*/
 #logInbtn,
 #logOutbtn,
+#adminbtn,
 #regbtn {
   height: 5.5vh;
   width: auto;
@@ -168,6 +169,7 @@ body {
 }
 
 #logInbtn:hover,
+#adminbtn:hover,
 #logOutbtn:hover,
 #regbtn:hover {
   background: var(--color--verde-lima);
