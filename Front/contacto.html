@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style/style-base.css" />
     <link rel="stylesheet" href="./style/style-contacto.css" />
-    <title>Tienda en línea</title>
+    <title>Busca a la manada | ExZooTic</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -13,6 +13,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="icon" href="/Front/media/logo.png" />
   </head>
   <body>
     <!-- header -->
@@ -23,7 +24,7 @@
         </a>
       </div>
       <div class="header-derecha">
-        <a href="#" class="header-link">Inicio</a>
+        <a href="index.html" class="header-link">Inicio</a>
         <div class="submenu-container">
           <a href="tienda.html" class="header-link submenu-btn"
             >Nuestros Animales</a
@@ -51,9 +52,9 @@
         </button>
 
         <!-- Boton -->
-          <button id="adminbtn" title="Edit" style="display: none;">
-              <span class="loginStyle">Editar</span>
-          </button>
+        <button id="adminbtn" title="Edit" style="display: none">
+          <span class="loginStyle">Editar</span>
+        </button>
 
         <button
           style="display: none"
@@ -66,60 +67,59 @@
         </button>
       </div>
     </nav>
-    <body>
-      <main>
-        <h1 class="main-title">¿Tienes algo que comentarnos? 🦜</h1>
-        <h6 class="sub-title">¡Envíanos tus coordenadas y cuéntanos todo!</h6>
 
-        <div class="formulario-container">
-          <div class="tape-deco"></div>
+    <main>
+      <h1 class="main-title">¿Tienes algo que comentarnos? 🦜</h1>
+      <h6 class="sub-title">¡Envíanos tus coordenadas y cuéntanos todo!</h6>
 
-          <form id="formularioContacto">
-            <div class="input-group">
-              <label for="nombre">Nombre del Explorador:</label>
-              <input
-                type="text"
-                id="nombre"
-                class="textFrom"
-                placeholder="Ej: Indiana Jones"
-                required
-              />
+      <div class="formulario-container">
+        <div class="tape-deco"></div>
+
+        <form id="formularioContacto">
+          <div class="input-group">
+            <label for="nombre">Nombre del Explorador:</label>
+            <input
+              type="text"
+              id="nombre"
+              class="textFrom"
+              placeholder="Ej: Indiana Jones"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <label for="email">Frecuencia de Radio (Correo):</label>
+            <input
+              type="email"
+              id="email"
+              class="textFrom"
+              placeholder="ejemplo@exzootic.com"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <label for="comentario">Reporte de Campo:</label>
+            <textarea
+              id="comentario"
+              class="textFrom area-mensaje"
+              placeholder="Escribe tu mensaje aquí..."
+              rows="4"
+              required
+            ></textarea>
+          </div>
+
+          <div class="div4 action-area">
+            <button type="submit" class="btn-enviar">
+              <i class="fa-regular fa-paper-plane"></i> Enviar Mensaje
+            </button>
+            <div class="stamp-deco">
+              <i class="fa-solid fa-paw"></i>
             </div>
-
-            <div class="input-group">
-              <label for="email">Frecuencia de Radio (Correo):</label>
-              <input
-                type="email"
-                id="email"
-                class="textFrom"
-                placeholder="ejemplo@exzootic.com"
-                required
-              />
-            </div>
-
-            <div class="input-group">
-              <label for="comentario">Reporte de Campo:</label>
-              <textarea
-                id="comentario"
-                class="textFrom area-mensaje"
-                placeholder="Escribe tu mensaje aquí..."
-                rows="4"
-                required
-              ></textarea>
-            </div>
-
-            <div class="div4 action-area">
-              <button type="submit" class="btn-enviar">
-                <i class="fa-regular fa-paper-plane"></i> Enviar Mensaje
-              </button>
-              <div class="stamp-deco">
-                <i class="fa-solid fa-paw"></i>
-              </div>
-            </div>
-          </form>
-        </div>
-      </main>
-    </body>
+          </div>
+        </form>
+      </div>
+    </main>
 
     <div id="authModal" class="modal-overlay">
       <div class="container-slid" id="container-slid">
@@ -204,7 +204,7 @@
       <h4><button class="footer-contacto">Da click aquí!</button></h4>
       <h4 class="footer-titulo">Siguenos en nuestras redes sociales</h4>
       <div class="footer-redes">
-        <a href="#" target="_blank"
+        <a href="https://www.instagram.com/exzoo.tic/" target="_blank"
           ><i class="fa-brands fa-instagram footer-icon"></i
         ></a>
       </div>

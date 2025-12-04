@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="./style/style-base.css" />
     <link rel="stylesheet" href="./style/style-admin.css" />
     <link rel="stylesheet" href="./style/style-GrafFinan.css" />
-    <title>Panel de Gráficas y Finanzas</title>
+    <link rel="icon" href="/Front/media/logo.png" />
+    <title>Signos vitales del Hábitat | ExZooTic</title>
 
     <link
       rel="stylesheet"
@@ -14,13 +15,13 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="stylesheet" href="./style/style-base.css" />
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
 
   <body>
-    <!-- HEADER -->
     <nav class="header">
       <div class="header-izquierda">
         <a href="index.html" class="nav-logo">
@@ -28,7 +29,7 @@
         </a>
       </div>
       <div class="header-derecha">
-        <a href="#" class="header-link">Inicio</a>
+        <a href="index.html" class="header-link">Inicio</a>
         <div class="submenu-container">
           <a href="tienda.html" class="header-link submenu-btn"
             >Nuestros Animales</a
@@ -56,9 +57,9 @@
         </button>
 
         <!-- Boton -->
-          <button id="adminbtn" title="Edit" style="display: none;">
-              <span class="loginStyle">Editar</span>
-          </button>
+        <button id="adminbtn" title="Edit" style="display: none">
+          <span class="loginStyle">Editar</span>
+        </button>
 
         <button
           style="display: none"
@@ -137,6 +138,79 @@
         © 2025 Proyecto académico, no es una tienda real.
       </p>
     </footer>
+
+    
+    <div id="authModal" class="modal-overlay">
+      <div class="container-slid" id="container-slid">
+        <span class="icon-close"><i class="fa-solid fa-xmark"></i></span>
+
+        <div class="form-container sign-up-container">
+          <form id="formRegister">
+            <h1>Crear Cuenta</h1>
+            <input type="text" id="regName" placeholder="Nombre" required />
+
+            <select id="regCountry" name="pais">
+              <option value="" disabled selected>Selecciona un país</option>
+              <option value="uruguay">Uruguay</option>
+              <option value="paraguay">Paraguay</option>
+              <option value="ecuador">Ecuador</option>
+              <option value="méxico">México</option>
+              <option value="argentina">Argentina</option>
+              <option value="hungría">Hungría</option>
+              <option value="alemania">Alemania</option>
+              <option value="sudáfrica">Sudáfrica</option>
+              <option value="egipto">Egipto</option>
+              <option value="singapur">Singapur</option>
+              <option value="indonesia">Indonesia</option>
+              <option value="australia">Australia</option>
+              <option value="fiji">Fiji</option>
+              <option value="resto del Mundo">Resto del Mundo</option>
+            </select>
+
+            <input type="email" id="regEmail" placeholder="Correo" required />
+            <input
+              type="password"
+              id="regPass"
+              placeholder="Contraseña"
+              required
+            />
+            <button type="button" id="btnRegistrarse">Registrarse</button>
+          </form>
+        </div>
+
+        <div class="form-container sign-in-container">
+          <form id="formLogin">
+            <h1>Iniciar Sesión</h1>
+            <input type="text" id="login" placeholder="Correo" required />
+            <input
+              type="password"
+              id="password"
+              placeholder="Contraseña"
+              required
+            />
+            <a href="#">¿Olvidaste tu contraseña?</a>
+            <button type="button" id="btnAcceder">Acceder</button>
+          </form>
+        </div>
+
+        <div class="overlay-container">
+          <div class="overlay">
+            <div class="overlay-panel overlay-left">
+              <h1>¡Hola, Explorador!</h1>
+              <p>
+                Ingresa tus datos personales para comenzar tu aventura en la
+                selva.
+              </p>
+              <button class="ghost" id="signIn">Iniciar Sesión</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+              <h1>¡Bienvenido de nuevo!</h1>
+              <p>
+                Para mantenerte conectado con nosotros, por favor inicia sesión.
+              </p>
+              <button class="ghost" id="signUp">Registrarse</button>
+            </div>
+          </div>
 
     <script src="./scripts/estadisticas.js" type="module"></script>
     <script src="./scripts/accesibilidad.js"></script>
