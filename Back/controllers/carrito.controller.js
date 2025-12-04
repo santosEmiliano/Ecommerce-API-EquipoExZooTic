@@ -9,7 +9,7 @@ const readCarrito = async (req, res) => {
     if (isNaN(idUsuario)) { return res.status(400).json({ mensaje: 'ID inválido, debe ser un número.' }); }
     
     try {
-        const carrito = await carritoModel.getCarritoUsuario(idUsuario);
+        const carrito = await carritoModel.getCarritoFront(idUsuario);
 
         if (!carrito) return res.status(404).json({ mensaje: 'Carrito no encontrado' });
 
@@ -162,6 +162,7 @@ const eliminarCarrito = async (req, res) => {
         res.status(500).json({ mensaje: 'Error al eliminar el carrito' });
     }
 }
+
 
 module.exports = {
     readCarrito,

@@ -95,10 +95,33 @@ async function deleteCarrito(id) {
     }
 }
 
+async function getCarritoFront(idUser) {
+    try {
+        const query = `
+            SELECT 
+                p.id, 
+                p.nombre, 
+                p.precio, 
+                p.imagen, 
+                p.categoria,
+                c.cantidad 
+            FROM carritos c
+            JOIN productos p ON c.producto = p.id
+            WHERE c.usuario = ?
+        `;
+        const [rows] = await pool.query(query, [id]);
+        return rows;  
+    } catch (error) {
+        console.error("Error al obtener el carrito:", error);
+        return null;
+    }
+}
+
 module.exports = {
     getCarritoUsuario,
     addProducto,
     updateProducto,
     deleteProducto,
-    deleteCarrito
+    deleteCarrito,
+    getCarritoFront
 }
