@@ -88,12 +88,28 @@
 
         <!-- CONTENIDO -->
         <section class="admin-content">
-          <h1>Gráfica de Ventas</h1>
-          <!-- SOLO LA GRÁFICA DE BARRAS -->
-          <div class="charts-grid">
-            <div class="chart-box">
-              <h3 class="chart-title">Ganancias por categoría</h3>
-              <canvas id="barChart"></canvas>
+          <h1>REPORTE DE ESTADISTICAS</h1>
+
+          <div class="dashboard-scroll">
+            <div class="stats-summary">
+              <h2>💰 Total Histórico de Ventas</h2>
+              <h1 id="total-ventas-display">Cargando...</h1>
+              <p>Suma total de ingresos acumulados</p>
+            </div>
+
+            <!-- SOLO LA GRÁFICA DE BARRAS -->
+            <div class="charts-grid">
+              <div class="chart-box">
+                <h3 class="chart-title">Ganancias por categoría</h3>
+                <canvas id="barChart"></canvas>
+              </div>
+            </div>
+
+            <div class="inventory-report">
+              <h2>📦 Reporte de Inventario</h2>
+              <div id="inventory-container">
+                <p>Cargando inventario...</p>
+              </div>
             </div>
           </div>
         </section>
