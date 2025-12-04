@@ -24,6 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const formLogin = document.getElementById("formLogin");
   const formRegister = document.getElementById("formRegister");
 
+  servicios.verificarBloqueo();
+
   // --- ESTADO INICIAL ---
   logOutBtn.style.display = "none";
   userIcon.style.display = "none";

@@ -12,13 +12,27 @@ const login = async (correo, contrasena, captcha) => {
       }),
     });
 
+    const btnAcceder = document.getElementById("btnAcceder");
+
     let data;
 
     try {
       data = await respuesta.json();
 
       if (respuesta.ok) {
+        // Si entra bien, quitamos cualquier bloqueo anterior 
+        localStorage.removeItem("bloqueo_tiempo");
+        document.getElementById("mensajeBloqueo").style.display = "none";
+
+        if(btnAcceder) {
+          btnAcceder.disabled = false;
+          btnAcceder.innerHTML = "Acceder";
+          btnAcceder.style.opacity = "1";
+          btnAcceder.style.cursor = "pointer";
+        }
+
         actualizarSesionLogIn(data.datos.nombre);
+
         Swal.fire({
           title: "Sesión Iniciada Con Éxito!!",
           icon: "success",
@@ -30,7 +44,31 @@ const login = async (correo, contrasena, captcha) => {
         localStorage.setItem("correo", data.datos.correo);
         localStorage.setItem("pais", data.datos.pais); 
         localStorage.setItem("id", data.datos.id); 
-      } else {
+      } else if(respuesta.status === 403){
+        // Cuenta bloqueada
+
+        // Calculamos los 5 minutos para el cronometro
+        let tiempoGuardado = localStorage.getItem("bloqueo_tiempo");
+        let tiempoDebloqueo
+
+        if(tiempoGuardado && parent(tiempoGuardado) > Date.now()){
+          tiempoDebloqueo = parseInt(tiempoGuardado);
+        } else{
+          tiempoDebloqueo = Date.now() + (5 * 60 * 1000);
+          localStorage.setItem("bloqueo_tiempo", tiempoDebloqueo);  
+        }
+
+        iniciarCronometro(tiempoDebloqueo);
+
+        Swal.fire({
+          title: "Cuenta Bloqueada 🔒",
+          text: data.mensaje || "Has excedido el número de intentos.",
+          icon: "warning",
+          confirmButtonText: "Ok",
+        });
+      } else{
+        // Contraseña incorrecta
+
         Swal.fire({
           title: data.message || "Credenciales incorrectas 👹",
           icon: "error",
@@ -50,6 +88,82 @@ const login = async (correo, contrasena, captcha) => {
     });
   }
 };
+
+function iniciarCronometro(tiempoDebloqueo){
+  const btnAcceder = document.getElementById("btnAcceder");
+  const mensaje = document.getElementById("mensajeBloqueo");
+
+  if(!btnAcceder || !mensaje) return;
+
+  btnAcceder.desable = true;
+  btnAcceder.style.pointerEvents = "none"; 
+  btnAcceder.style.opacity = "0.5";
+  btnAcceder.style.backgroundColor = "#ccc";
+  btnAcceder.style.color = "#000";
+  btnAcceder.style.cursor = "not-allowed";
+
+  mensaje.style.display = "block";
+
+  if (window.cronometroLogin) clearInterval(window.cronometroLogin);
+
+  window.cronometroLogin = setInterval(() =>{
+    const tiempoAhora = Date.now();
+    const tiempoBloqueo = tiempoDebloqueo - tiempoAhora;
+
+    if(tiempoBloqueo < 0){
+      clearInterval(window.cronometroLogin);
+      localStorage.removeItem("bloqueo_tiempo");
+
+      mensaje.style.display = "none";
+      mensaje.innerHTML = "";
+
+      btnAcceder.disabled = false;
+      btnAcceder.style.pointerEvents = "auto";
+      btnAcceder.style.opacity = "1";
+      btnAcceder.style.backgroundColor = "var(--color--verde-bosque)";
+      btnAcceder.style.color = "#000";
+      btnAcceder.style.cursor = "pointer";
+      btnAcceder.innerHTML = "Acceder";
+
+      return;
+    }
+
+    const min = Math.floor((tiempoBloqueo % (1000 * 60 * 60)) / (1000 * 60));
+    const seg = Math.floor((tiempoBloqueo % (1000 * 60)) / 1000);
+
+    mensaje.innerHTML = `Esperar: ${min}m ${seg}s para intentar de nuevo`;
+    btnAcceder.innerHTML = `Bloqueado (${min}:${seg < 10 ? '0' + seg : seg})`; 
+  }, 1000);
+}
+
+function verificarBloqueo(){
+  const bloqueo = localStorage.getItem("bloqueo_tiempo");
+
+  if(bloqueo){
+    const tiempoBloqueo = parseInt(bloqueo);
+
+    if (tiempoBloqueo > Date.now()){
+      iniciarCronometro(tiempoBloqueo);
+    } else{
+      localStorage.removeItem("bloqueo_tiempo");
+
+      const mensaje = document.getElementById("mensajeBloqueo");
+      const btnAcceder = document.getElementById("btnAcceder");
+      
+      if (mensaje) {
+          mensaje.style.display = "none";
+          mensaje.innerHTML = "";
+      }
+      
+      if (btnAcceder) {
+          btnAcceder.disabled = false;
+          btnAcceder.style.opacity = "1";
+          btnAcceder.style.cursor = "pointer";
+          btnAcceder.innerHTML = "Acceder";
+      }
+    }
+  }
+}
 
 function actualizarSesionLogIn(nombre) {
   const modal = document.getElementById("authModal");
@@ -465,6 +579,8 @@ const cargarCaptcha = async () => {
 const servicios = {
   login,
   actualizarSesionLogIn,
+  verificarBloqueo,
+  iniciarCronometro,
   logout,
   signIn,
   getProd,
