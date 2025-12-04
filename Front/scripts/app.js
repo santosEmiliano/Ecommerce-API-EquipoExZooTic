@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Header Buttons
   const logInBtn = document.getElementById("logInbtn");
-  const regBtn = document.getElementById("regbtn");
   const logOutBtn = document.getElementById("logOutbtn");
 
   // User Info
@@ -18,11 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const signUpButton = document.getElementById("signUp");
   const signInButton = document.getElementById("signIn");
   const iconClose = document.querySelector(".icon-close");
-  
-
-  // Forms
-  const formLogin = document.getElementById("formLogin");
-  const formRegister = document.getElementById("formRegister");
 
   servicios.verificarBloqueo();
 
@@ -36,19 +30,29 @@ document.addEventListener("DOMContentLoaded", () => {
     servicios.actualizarSesionLogIn(localStorage.getItem("nombre"));
   }
 
+  const cerrarModalConAnimacion = () => {
+    authModal.classList.add("closing");
+
+    authModal.addEventListener(
+      "animationend",
+      () => {
+        authModal.style.display = "none";
+        authModal.classList.remove("closing");
+      },
+      { once: true }
+    );
+  };
+
   // --- ABRIR MODAL ---
   logInBtn.addEventListener("click", () => {
     servicios.cargarCaptcha();
+    
+    authModal.classList.remove("closing");
+    
     authModal.style.display = "flex";
     container.classList.remove("right-panel-active");
   });
 
-  regBtn.addEventListener("click", () => {
-    authModal.style.display = "flex";
-    container.classList.add("right-panel-active");
-  });
-
-  // --- SLIDER INTERNO ---
   signUpButton.addEventListener("click", () => {
     container.classList.add("right-panel-active");
   });
@@ -57,14 +61,15 @@ document.addEventListener("DOMContentLoaded", () => {
     container.classList.remove("right-panel-active");
   });
 
-  // --- CERRAR MODAL ---
+  // --- CERRAR MODAL (Botón X) ---
   iconClose.addEventListener("click", () => {
-    authModal.style.display = "none";
+    cerrarModalConAnimacion();
   });
 
+  // --- CERRAR MODAL (Click afuera) ---
   window.addEventListener("click", (e) => {
     if (e.target === authModal) {
-      authModal.style.display = "none";
+      cerrarModalConAnimacion();
     }
   });
 
@@ -86,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         return;
       }
-      if (!correo || !contrasena ) {
+      if (!correo || !contrasena) {
         Swal.fire({
           title: "Ingresa correo y contraseña",
           icon: "error",
@@ -111,6 +116,18 @@ document.addEventListener("DOMContentLoaded", () => {
     btnRegistrarse.addEventListener("click", async (e) => {
       e.preventDefault();
 
+      if (
+        document.getElementById("regPass").value !=
+        document.getElementById("regPass2").value
+      ) {
+        Swal.fire({
+          title: "Las contraseñas no coinciden",
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
+        return;
+      }
+
       const nombre = document.getElementById("regName").value;
       const pais = document.getElementById("regCountry").value;
       const correo = document.getElementById("regEmail").value;
@@ -134,11 +151,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //-- Regenerar captcha
   const btnRegenerarCaptcha = document.getElementById("btnRegenerarCaptcha");
-    btnRegenerarCaptcha.addEventListener("click", () => {
-      servicios.cargarCaptcha();
-  });
-
-  // Definición de Toast si no existe
+  if(btnRegenerarCaptcha){
+      btnRegenerarCaptcha.addEventListener("click", () => {
+        servicios.cargarCaptcha();
+      });
+  }
+  
   if (typeof toast !== "function") {
     window.toast = function (msg, color) {
       Toastify({
