@@ -30,14 +30,29 @@ document.addEventListener("DOMContentLoaded", () => {
     servicios.actualizarSesionLogIn(localStorage.getItem("nombre"));
   }
 
+  const cerrarModalConAnimacion = () => {
+    authModal.classList.add("closing");
+
+    authModal.addEventListener(
+      "animationend",
+      () => {
+        authModal.style.display = "none";
+        authModal.classList.remove("closing");
+      },
+      { once: true }
+    );
+  };
+
   // --- ABRIR MODAL ---
   logInBtn.addEventListener("click", () => {
     servicios.cargarCaptcha();
+    
+    authModal.classList.remove("closing");
+    
     authModal.style.display = "flex";
     container.classList.remove("right-panel-active");
   });
 
-  // --- SLIDER INTERNO ---
   signUpButton.addEventListener("click", () => {
     container.classList.add("right-panel-active");
   });
@@ -46,14 +61,15 @@ document.addEventListener("DOMContentLoaded", () => {
     container.classList.remove("right-panel-active");
   });
 
-  // --- CERRAR MODAL ---
+  // --- CERRAR MODAL (Botón X) ---
   iconClose.addEventListener("click", () => {
-    authModal.style.display = "none";
+    cerrarModalConAnimacion();
   });
 
+  // --- CERRAR MODAL (Click afuera) ---
   window.addEventListener("click", (e) => {
     if (e.target === authModal) {
-      authModal.style.display = "none";
+      cerrarModalConAnimacion();
     }
   });
 
@@ -135,11 +151,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //-- Regenerar captcha
   const btnRegenerarCaptcha = document.getElementById("btnRegenerarCaptcha");
-  btnRegenerarCaptcha.addEventListener("click", () => {
-    servicios.cargarCaptcha();
-  });
-
-  // Definición de Toast si no existe
+  if(btnRegenerarCaptcha){
+      btnRegenerarCaptcha.addEventListener("click", () => {
+        servicios.cargarCaptcha();
+      });
+  }
+  
   if (typeof toast !== "function") {
     window.toast = function (msg, color) {
       Toastify({
