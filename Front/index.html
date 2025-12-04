@@ -300,8 +300,14 @@
                   placeholder="Contraseña"
                   required
                 />
-                <a href="#">¿Olvidaste tu contraseña?</a>
-                <button type="button" id="btnAcceder">Acceder</button>
+              <div id="captchaContainer"></div>
+
+              <div class="captcha-group">
+                  <input type="text" id="captchaTxt" placeholder="Escribe el captcha" required>
+                  <button type="button" id="btnRegenerarCaptcha" class="refresh-btn"></button>
+              </div>
+            <a href="#">¿Olvidaste tu contraseña?</a>
+            <button type="button" id="btnAcceder">Acceder</button>
               </form>
             </div>
 
@@ -343,6 +349,34 @@
             © 2025 Proyecto académico, no es una tienda real.
           </p>
         </footer>
+      </div>
+    </div>
+    <div id="authModal" class="modal-overlay">
+      <div class="container-slid" id="container-slid">
+        <span class="icon-close"><i class="fa-solid fa-xmark"></i></span>
+
+        
+
+
+        <div class="overlay-container">
+          <div class="overlay">
+            <div class="overlay-panel overlay-left">
+              <h1>¡Hola, Explorador!</h1>
+              <p>
+                Ingresa tus datos personales para comenzar tu aventura en la
+                selva.
+              </p>
+              <button class="ghost" id="signIn">Iniciar Sesión</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+              <h1>¡Bienvenido de nuevo!</h1>
+              <p>
+                Para mantenerte conectado con nosotros, por favor inicia sesión.
+              </p>
+              <button class="ghost" id="signUp">Registrarse</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

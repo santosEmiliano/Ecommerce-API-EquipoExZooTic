@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const signUpButton = document.getElementById("signUp");
   const signInButton = document.getElementById("signIn");
   const iconClose = document.querySelector(".icon-close");
+  
 
   // Forms
   const formLogin = document.getElementById("formLogin");
@@ -35,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- ABRIR MODAL ---
   logInBtn.addEventListener("click", () => {
+    servicios.cargarCaptcha();
     authModal.style.display = "flex";
     container.classList.remove("right-panel-active");
   });
@@ -72,8 +74,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const correo = document.getElementById("login").value.trim();
       const contrasena = document.getElementById("password").value.trim();
+      const captcha = document.getElementById("captchaTxt").value.trim();
 
-      if (!correo || !contrasena) {
+      if (!captcha) {
+        Swal.fire({
+          title: "Ingresa captcha",
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
+        return;
+      }
+      if (!correo || !contrasena ) {
         Swal.fire({
           title: "Ingresa correo y contraseña",
           icon: "error",
@@ -82,10 +93,11 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      await servicios.login(correo, contrasena);
-
+      await servicios.login(correo, contrasena, captcha);
+      servicios.cargarCaptcha();
       document.getElementById("login").value = "";
       document.getElementById("password").value = "";
+      document.getElementById("captchaTxt").value = "";
     });
   }
 
@@ -116,6 +128,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- LOGOUT ---
   logOutBtn.addEventListener("click", () => {
     servicios.logout();
+  });
+
+  //-- Regenerar captcha
+  const btnRegenerarCaptcha = document.getElementById("btnRegenerarCaptcha");
+    btnRegenerarCaptcha.addEventListener("click", () => {
+      servicios.cargarCaptcha();
   });
 
   // Definición de Toast si no existe

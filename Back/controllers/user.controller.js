@@ -1,5 +1,6 @@
 const userModel = require("../model/userModel");
 const cosasTokens = require("./token.controller");
+const { validarCaptcha } = require("./captcha.controller");
 
 const bcrypt = require("bcryptjs"); //dependencia de hash
 
@@ -38,12 +39,21 @@ const createUser = async (req, res) => {
 //logearse
 const login = async (req, res) => {
   try {
-    const { correo, contrasena } = req.body;
+    const { correo, contrasena, captcha } = req.body;
+    if (!captcha) {
+      return res.status(400).json({ mensaje: "Faltan captcha!!" });
+    }
     if (!correo || !contrasena) {
       return res.status(400).json({ mensaje: "Faltan datos!!" });
     }
     //deshashear (es mas como desencriptar)
-
+    // Verificar CAPTCHA primero
+    if (!validarCaptcha(captcha)) {
+      return res.status(400).json({
+        success: false,
+        message: "Captcha incorrecto ",
+      });
+    }
     const userId = await userModel.logear(correo, contrasena);
 
     if (userId === null) {
