@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Header Buttons
   const logInBtn = document.getElementById("logInbtn");
-  const regBtn = document.getElementById("regbtn");
   const logOutBtn = document.getElementById("logOutbtn");
 
   // User Info
@@ -18,10 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const signUpButton = document.getElementById("signUp");
   const signInButton = document.getElementById("signIn");
   const iconClose = document.querySelector(".icon-close");
-
-  // Forms
-  const formLogin = document.getElementById("formLogin");
-  const formRegister = document.getElementById("formRegister");
 
   servicios.verificarBloqueo();
 
@@ -40,11 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
     servicios.cargarCaptcha();
     authModal.style.display = "flex";
     container.classList.remove("right-panel-active");
-  });
-
-  regBtn.addEventListener("click", () => {
-    authModal.style.display = "flex";
-    container.classList.add("right-panel-active");
   });
 
   // --- SLIDER INTERNO ---
