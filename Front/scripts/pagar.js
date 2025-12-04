@@ -1,7 +1,6 @@
 import servicios from "./servicios.js";
 //Lógica de finalizar compra
 document.addEventListener("DOMContentLoaded", () => {
-  servicios.obtenerResumenCompra();
   const radioCard = document.getElementById("pay_card");
   const radioSpei = document.getElementById("pay_spei");
   const radioOxxo = document.getElementById("pay_oxxo");
@@ -12,9 +11,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const speiRefDisplay = document.getElementById("speiRef");
 
+  const selectPais = document.getElementById("paisCompra");
+
+  servicios.obtenerResumenCompra(localStorage.getItem("pais"));
+  selectPais.value = localStorage.getItem("pais");
+
   function generateReference() {
     const randomNum = Math.floor(100000 + Math.random() * 900000);
     return `REF-${randomNum}`;
+  }
+
+  if (selectPais) {
+    selectPais.addEventListener("change", (e) => {
+      servicios.obtenerResumenCompra(selectPais.value);
+    });
   }
 
   function updatePaymentMethod() {
@@ -45,8 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   updatePaymentMethod();
 
-  document.getElementById("botonComprar").onclick=()=>{
-    servicios.pagar()
-    }
-  
+  document.getElementById("botonComprar").onclick = () => {
+    servicios.pagar();
+  };
 });

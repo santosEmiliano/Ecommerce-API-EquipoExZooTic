@@ -281,7 +281,7 @@ const pagar = async () => {
     direccion: document.getElementById("direccion").value,
     ciudad: document.getElementById("ciudad").value,
 
-    pais: localStorage.getItem("pais"),
+    pais: document.getElementById("paisCompra").value,
 
     metodoPago: document.querySelector('input[name="payment_method"]:checked').value,
     cupon: document.getElementById("descuento").value,
@@ -319,7 +319,7 @@ const pagar = async () => {
   }
 };
 
-const obtenerResumenCompra = async () => {
+const obtenerResumenCompra = async (pais) => {
   try {
     const id = localStorage.getItem("id");
     const response = await fetch(`http://localhost:3000/api/compra/${id}`, {
@@ -333,14 +333,14 @@ const obtenerResumenCompra = async () => {
     }
     const data = await response.json();
     document.getElementById("subtotal").innerHTML = `$${data.subtotal}`;
-    let paisBuscado = localStorage.getItem("pais");
 
     // Accedes al objeto específico usando corchetes
-    let datosDelPais = data.tarifas[paisBuscado];
+    let datosDelPais = data.tarifas[pais];
 
     // Ahora puedes sacar la tasa y el envío
     let tasa = datosDelPais.tasa;
     let envio = datosDelPais.envio;
+    
     // Salida: Tasa: 0.16, Envío: 150
     const impuesto = data.subtotal * tasa;
     const totalFinal = data.subtotal + impuesto + envio;

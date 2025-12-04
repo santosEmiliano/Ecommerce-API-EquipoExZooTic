@@ -121,6 +121,28 @@
 
               <div class="form-group address-grid">
                 <div>
+                  <label for="paisCompra">País</label>
+                  <select id="paisCompra" name="pais">
+                    <option value="" disabled selected>
+                      Selecciona un país
+                    </option>
+                    <option value="uruguay">Uruguay</option>
+                    <option value="paraguay">Paraguay</option>
+                    <option value="ecuador">Ecuador</option>
+                    <option value="méxico">México</option>
+                    <option value="argentina">Argentina</option>
+                    <option value="hungría">Hungría</option>
+                    <option value="alemania">Alemania</option>
+                    <option value="sudáfrica">Sudáfrica</option>
+                    <option value="egipto">Egipto</option>
+                    <option value="singapur">Singapur</option>
+                    <option value="indonesia">Indonesia</option>
+                    <option value="australia">Australia</option>
+                    <option value="fiji">Fiji</option>
+                    <option value="resto del Mundo">Resto del Mundo</option>
+                  </select>
+                </div>
+                <div>
                   <label for="ciudad">Ciudad</label>
                   <input
                     type="text"
@@ -343,11 +365,11 @@
               required
             />
             <input
-                  type="password"
-                  id="regPass2"
-                  placeholder="Vuelve a escribir la contraseña"
-                  required
-                />
+              type="password"
+              id="regPass2"
+              placeholder="Vuelve a escribir la contraseña"
+              required
+            />
             <button type="button" id="btnRegistrarse">Registrarse</button>
           </form>
         </div>
@@ -365,12 +387,21 @@
             <div id="captchaContainer"></div>
 
             <div class="captcha-group">
-                <input type="text" id="captchaTxt" placeholder="Escribe el captcha" required>
-                <button type="button" id="btnRegenerarCaptcha" class="refresh-btn"></button>
-            </div>        
-            
+              <input
+                type="text"
+                id="captchaTxt"
+                placeholder="Escribe el captcha"
+                required
+              />
+              <button
+                type="button"
+                id="btnRegenerarCaptcha"
+                class="refresh-btn"
+              ></button>
+            </div>
+
             <p id="mensajeBloqueo"></p>
-            
+
             <a href="#">¿Olvidaste tu contraseña?</a>
             <button type="button" id="btnAcceder">Acceder</button>
           </form>
