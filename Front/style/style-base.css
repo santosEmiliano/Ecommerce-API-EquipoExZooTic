@@ -1298,3 +1298,200 @@ body.dark-mode a img[src*=".png"] {
   animation: modalPopOut 0.3s ease-in forwards;
   pointer-events: none; /* Evita clics mientras se cierra */
 }
+
+/* --- CHATBOT FLOTANTE --- */
+
+/* Contenedor principal posicionado */
+#chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px; /* A la derecha, opuesto a accesibilidad */
+    z-index: 10001; /* Un poco más que el modal para que no se solape mal */
+    font-family: "Nunito", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Alineado a la derecha */
+}
+
+/* Botón flotante (Estilo similar al de accesibilidad) */
+.btn-flotante-chat {
+    background-color: var(--color--verde-bosque);
+    color: var(--color--blanco-hueso);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid var(--color--verde-lima);
+    font-size: 28px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-flotante-chat:hover {
+    transform: scale(1.1);
+    background-color: var(--color--verde-medio);
+    box-shadow: 0 6px 20px rgba(47, 93, 52, 0.6);
+}
+
+/* Ventana del Chat */
+.chat-window {
+    background-color: var(--color--blanco-hueso);
+    width: 350px;
+    height: 450px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin-bottom: 15px; /* Espacio entre ventana y botón */
+    border: 3px solid var(--color--verde-bosque);
+    
+    /* Animación de entrada */
+    transform-origin: bottom right;
+    transform: scale(0);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    pointer-events: none; /* Para no bloquear clicks cuando está oculto */
+}
+
+.chat-window.mostrar-chat {
+    transform: scale(1);
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Header del Chat */
+.chat-header {
+    background-color: var(--color--verde-bosque);
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "DynaPuff", system-ui;
+}
+
+.header-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1em;
+}
+
+.close-chat {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.close-chat:hover {
+    color: var(--color-rojo);
+    transform: scale(1.2);
+}
+
+/* Área de Mensajes */
+.chat-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #f4f7f6; /* Fondo suave */
+}
+
+/* Burbujas de mensaje */
+.message {
+    max-width: 80%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    font-size: 14px;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+.bot-message {
+    background-color: var(--color--gris-claro);
+    color: var(--color-negro);
+    align-self: flex-start;
+    border-bottom-left-radius: 2px;
+}
+
+.user-message {
+    background-color: var(--color--verde-claro);
+    color: var(--color--verde-bosque);
+    align-self: flex-end;
+    border-bottom-right-radius: 2px;
+    font-weight: 600;
+}
+
+/* Área de Input */
+.chat-input-area {
+    padding: 10px;
+    background-color: white;
+    border-top: 1px solid var(--color--gris-claro);
+    display: flex;
+    gap: 10px;
+}
+
+.chat-input-area input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 20px;
+    border: 2px solid var(--color--gris-claro);
+    outline: none;
+    font-family: "Nunito", sans-serif;
+}
+
+.chat-input-area input:focus {
+    border-color: var(--color--verde-medio);
+}
+
+.chat-input-area button {
+    background-color: var(--color--verde-bosque);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-input-area button:hover {
+    background-color: var(--color--verde-lima);
+    transform: scale(1.1);
+}
+
+/* --- PERSONALIZACIÓN DEL SCROLLBAR (Chrome, Safari, Edge) --- */
+.chat-messages::-webkit-scrollbar {
+    width: 8px; /* Ancho de la barra */
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color de fondo del riel */
+    border-radius: 4px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: var(--color--verde-medio); /* Color de la barra (tu verde) */
+    border-radius: 4px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: var(--color--verde-bosque); /* Color al pasar el mouse */
+}
+
+/* Firefox (usa propiedades diferentes) */
+.chat-messages {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color--verde-medio) #f1f1f1;
+}
