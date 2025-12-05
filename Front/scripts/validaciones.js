@@ -12,7 +12,7 @@ if (localStorage.getItem("nombre")) {
 
 async function obtenerDatos() {
   try {
-    const response = await fetch("http://72.60.228.244:3000/auth/obtenerDatos", {
+    const response = await fetch("https://72.60.228.244:3000/back/auth/obtenerDatos", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -53,8 +53,8 @@ async function testConnection() {
   }
 }
 
-app.listen(PORT, async () => {
-  console.log(`Servidor funcionando en http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", async () => {
+  console.log(`Servidor funcionando en http://0.0.0.0:${PORT}`);
   console.log("Comprobando conexion con la base de datos...");
   await testConnection();
 });
