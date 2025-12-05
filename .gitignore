@@ -3,4 +3,4 @@
 # Ignorar imagenes
 /Back/media/images
 # Ignorar datos privados
-/Back/.env
+/Back/.env 
