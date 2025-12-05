@@ -58,4 +58,56 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("botonComprar").onclick = () => {
     servicios.pagar();
   };
+
+  document.getElementById("btnValidarCupon").onclick = async () => {
+    const btn = document.getElementById("btnValidarCupon");
+    const inputCupon = document.getElementById("descuento");
+    const codigo = inputCupon.value.trim();
+
+    if(!codigo) return; 
+
+    btn.disabled = true;
+    const textoOriginal = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>'; 
+
+    try {
+        const resultado = await servicios.verificarCupon(codigo);
+
+        Swal.fire({
+          icon: "success",
+          title: "Cupón Aplicado",
+          text: `Se aplicó un descuento del ${resultado.cupon.descuento}%`,
+          timer: 2000,
+          showConfirmButton: false
+        });
+        
+        aplicarDescuentoVisual(resultado.cupon.descuento); 
+
+    } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.message || "Cupón incorrecto", 
+        }); 
+        inputCupon.value = ""; 
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = textoOriginal;
+    }
+  };
 });
+
+const aplicarDescuentoVisual = (porcentajeDescuento) => {
+    const subtotalElem = document.getElementById("subtotal");
+    const totalElem = document.getElementById("total");
+    const envioElem = document.getElementById("costoEnvio");
+
+    let subtotal = parseFloat(subtotalElem.innerText.replace('$', '')) || 0;
+    let envio = parseFloat(envioElem.innerText.replace('$', '')) || 0;
+
+    const cantidadDescontada = subtotal * (porcentajeDescuento / 100);
+    
+    const nuevoTotal = (subtotal - cantidadDescontada) + envio;
+
+    totalElem.innerText = `$${nuevoTotal.toFixed(2)}`;
+}
