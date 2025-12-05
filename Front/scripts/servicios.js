@@ -40,25 +40,8 @@ const login = async (correo, contrasena, captcha) => {
 
         actualizarSesionLogIn(data.datos.nombre);
         window.dispatchEvent(new Event("login-exitoso"));
-        try {
-          const carrito = await obtenerCarrito();
-          const carritoCount = document.querySelector(".cart-count");
 
-          if (Array.isArray(carrito)) {
-            const totalArticulos = carrito.reduce((acumulador, producto) => {
-              return acumulador + producto.cantidad;
-            }, 0);
-
-            if (carritoCount) {
-              carritoCount.innerText = totalArticulos;
-            }
-          }
-        } catch (errCarrito) {
-          console.warn(
-            "No se pudo actualizar el carrito visualmente",
-            errCarrito
-          );
-        }
+        actualizarCarrito();
 
         Swal.fire({
           title: "¡Sesión Iniciada!",
@@ -181,6 +164,25 @@ function verificarBloqueo() {
     }
   }
 }
+
+const actualizarCarrito = async () => {
+  try {
+    const carrito = await obtenerCarrito();
+    const carritoCount = document.querySelector(".cart-count");
+
+    if (Array.isArray(carrito)) {
+      const totalArticulos = carrito.reduce((acumulador, producto) => {
+        return acumulador + producto.cantidad;
+      }, 0);
+
+      if (carritoCount) {
+        carritoCount.innerText = totalArticulos;
+      }
+    }
+  } catch (errCarrito) {
+    console.warn("No se pudo actualizar el carrito visualmente", errCarrito);
+  }
+};
 
 function actualizarSesionLogIn(nombre) {
   const modal = document.getElementById("authModal");
@@ -383,7 +385,7 @@ const enviarCorreoSuscripcion = async (email) => {
     });
 
     // Si no esta logueado manda este error
-    if (response.status == 401 || response.status === 403){
+    if (response.status == 401 || response.status === 403) {
       throw new Error("REQ_LOGIN");
     }
 
@@ -391,8 +393,8 @@ const enviarCorreoSuscripcion = async (email) => {
 
     // Si ya esta suscrito
     if (!response.ok) {
-      if(res.message && res.message.includes("parte de la manada")){
-        throw new Error("ALREADY_SUB");  
+      if (res.message && res.message.includes("parte de la manada")) {
+        throw new Error("ALREADY_SUB");
       }
       throw new Error(res.message || "Error al suscribirse");
     }
@@ -841,6 +843,7 @@ const servicios = {
   solicitarRecuperacion,
   restablecerContrasena,
   verificarCupon,
+  actualizarCarrito
 };
 
 export default servicios;

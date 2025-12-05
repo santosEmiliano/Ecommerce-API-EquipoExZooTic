@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Por ahora, usamos datos de prueba si el fetch falla o está vacío
             let items = await servicios.obtenerCarrito();
             let datos = await servicios.obtenerResumenCompraCarrito();
+            servicios.actualizarCarrito();
 
             console.log(datos);
             console.log(items);
@@ -35,16 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("Error cargando carrito:", error);
             cartContainer.innerHTML = '<div class="error-msg">No pudimos abrir la mochila :(</div>';
         }
-    }
-
-    async function fetchCartItems() {
-        // TODO: Hacer fetch('http://localhost:3000/carrito', { headers: { Authorization: token } })
-        
-        // REETORNO DE INFORMACIÓN FALSA
-        return [
-            { id: 1, nombre: "Panda Gigante", precio: 5000, imagen: "/images/panda.jpg", cantidad: 1, categoria: "patrimoniales" },
-            { id: 2, nombre: "Cubo 3x3", precio: 200, imagen: "/images/cubo.jpg", cantidad: 2, categoria: "megafaunas" }
-        ];
     }
 
     function renderCart(items) {
