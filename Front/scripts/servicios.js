@@ -44,6 +44,23 @@ const login = async (correo, contrasena, captcha) => {
         localStorage.setItem("correo", data.datos.correo);
         localStorage.setItem("pais", data.datos.pais); 
         localStorage.setItem("id", data.datos.id); 
+
+        const carrito = await servicios.obtenerCarrito(); 
+        const carritoCount = document.querySelector(".cart-count");
+        if (Array.isArray(carrito)) {
+          const totalArticulos = carrito.reduce((acumulador, producto) => {
+            return acumulador + producto.cantidad; 
+          }, 0);
+
+          if (carritoCount) {
+              carritoCount.innerText = totalArticulos;
+          }
+        }
+
+        if (carritoCount) {
+          carritoCount.innerText = totalArticulos;
+        }
+
       } else if(respuesta.status === 403){
         // Cuenta bloqueada
 

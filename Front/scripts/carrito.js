@@ -117,7 +117,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (newQty < 1) return;
 
         input.value = newQty;
-        const producto = await servicios.getProdById(id);
         try {
             await servicios.modificarProductoCarrito(id, newQty);
             console.log(`Actualizando ID ${id} a cantidad ${newQty} en BD...`);
