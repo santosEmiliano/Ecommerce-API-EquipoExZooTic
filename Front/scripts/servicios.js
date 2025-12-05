@@ -746,6 +746,27 @@ const obtenerResumenCompraCarrito = async () => {
   }
 }
 
+const verificarCupon = async (cupon) => {
+  try {
+    const id = localStorage.getItem("id");
+    const response = await fetch(`http://localhost:3000/api/cupon/${cupon}`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}`, },
+    });
+
+    if (!response.ok) {
+      const res = await response.json();
+      throw new Error(res.message || "Error al verificar el cupon");
+    }
+    
+    return await response.json();
+
+  } catch (error) {
+    console.error(error);
+    throw error; 
+  }
+}
+
 const servicios = {
   login,
   actualizarSesionLogIn,
@@ -771,7 +792,8 @@ const servicios = {
   modificarProductoCarrito,
   eliminarProductoCarrito,
   eliminarCarrito,
-  obtenerResumenCompraCarrito
+  obtenerResumenCompraCarrito,
+  verificarCupon
 };
 
 export default servicios;

@@ -247,7 +247,31 @@ const confirmarCompra = async (req, res) => {
     }
 }
 
+const verificarCupon = async (req, res) => {
+    const { codigo } = req.params; 
+
+    try {
+        const datosCupon = await cuponModel.getCupon(codigo); 
+
+        if (datosCupon) {
+            return res.status(200).json({ 
+                message: "Cupon correcto",
+                cupon: datosCupon
+            });
+        }
+
+        return res.status(404).json({ 
+            message: "Cupón incorrecto o no encontrado"
+        });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ status: "error", message: "Error al verificar el cupon" });
+    }
+}
+
 module.exports = {
     obtenerResumenCompra,
-    confirmarCompra
+    confirmarCompra,
+    verificarCupon
 }
