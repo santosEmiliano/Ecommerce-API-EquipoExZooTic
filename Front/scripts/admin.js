@@ -240,9 +240,9 @@ document.addEventListener("DOMContentLoaded", () => {
                             <label>Categoría</label>
                             <select id="editCategoria" style="height: 45px;" class="input-modal" required>
                                 <option value="">Selecciona...</option>
-                                <option value="patrimoniales">Patrimoniales</option>
-                                <option value="megafaunas">Megafaunas</option>
-                                <option value="superdepredadores">Superdepredadores</option>
+                                <option value="selvaticos">Selváticos</option>
+                                <option value="sabanicos">Sabánicos</option>
+                                <option value="oceanicos">Oceanícos</option>
                             </select>
                         </div>
                     </div>
@@ -333,9 +333,9 @@ document.addEventListener("DOMContentLoaded", () => {
                             <label>Categoría</label>
                             <select id="catAlta" class="input-modal" required>
                                 <option value="">Selecciona...</option>
-                                <option value="patrimoniales">Patrimoniales</option>
-                                <option value="megafaunas">Megafaunas</option>
-                                <option value="superdepredadores">Superdepredadores</option>
+                                <option value="selvaticos">Selváticos</option>
+                                <option value="sabanicos">Sabánicos</option>
+                                <option value="oceanicos">Oceanícos</option>
                             </select>
                         </div>
                     </div>

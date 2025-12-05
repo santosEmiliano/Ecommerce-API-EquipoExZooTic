@@ -54,10 +54,15 @@
 }
 
 body {
-  background-image: url('../media/mapa.png');
-  background-size: contain;
-  background-position: center;
-  font-family: 'Nunito', sans-serif;
+  background-image: url("https://images.unsplash.com/photo-1643215328534-8b0c1ce83f88?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-color: var(--color--verde-bosque);
+  color: var(--color--cafe-madera);
+  min-height: 100vh;
+  margin: 0;
 }
 
 main {
@@ -74,8 +79,8 @@ h1.main-title {
   font-size: 5vh;
   margin-bottom: 1vh;
   color: var(--color--blanco-hueso);
-  text-shadow: 0 4px 8px rgba(0,0,0,0.9);
-  font-family: 'DynaPuff', cursive;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+  font-family: "DynaPuff", cursive;
 }
 
 h6.sub-title {
@@ -83,8 +88,8 @@ h6.sub-title {
   font-size: 2.5vh;
   margin-bottom: 5vh;
   color: var(--color--amarillo-suave);
-  text-shadow: 0 2px 4px rgba(0,0,0,0.9);
-  font-family: 'Nunito', sans-serif;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+  font-family: "Nunito", sans-serif;
   font-weight: bold;
 }
 
@@ -95,10 +100,8 @@ h6.sub-title {
   background-color: var(--color--blanco-hueso);
   background-image: url("https://www.transparenttextures.com/patterns/cream-paper.png");
   border-radius: 3px;
-  box-shadow: 
-    0 2px 5px rgba(0,0,0,0.1), 
-    0 15px 30px rgba(0,0,0,0.25);
-    
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1), 0 15px 30px rgba(0, 0, 0, 0.25);
+
   position: relative;
   transform: rotate(-2deg);
   transition: transform 0.3s ease;
@@ -116,12 +119,12 @@ h6.sub-title {
   width: 110px;
   height: 40px;
   background-color: rgba(244, 244, 241, 0.5);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(2px);
   z-index: 10;
   opacity: 0.8;
-  border-left: 2px dotted rgba(0,0,0,0.1);
-  border-right: 2px dotted rgba(0,0,0,0.1);
+  border-left: 2px dotted rgba(0, 0, 0, 0.1);
+  border-right: 2px dotted rgba(0, 0, 0, 0.1);
 }
 
 #formularioContacto {
@@ -140,7 +143,7 @@ h6.sub-title {
   font-size: 1.6vh;
   font-weight: 800;
   color: var(--color--cafe-tierra);
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -153,7 +156,7 @@ h6.sub-title {
   background: transparent;
   font-size: 1.8vh;
   color: var(--color-negro);
-  font-family: 'Indie Flower', 'Comic Sans MS', cursive;
+  font-family: "Indie Flower", "Comic Sans MS", cursive;
   transition: 0.3s ease;
 }
 
@@ -165,7 +168,11 @@ h6.sub-title {
 
 .area-mensaje {
   resize: vertical;
-  background-image: linear-gradient(transparent, transparent 28px, var(--color-gris-claro) 29px);
+  background-image: linear-gradient(
+    transparent,
+    transparent 28px,
+    var(--color-gris-claro) 29px
+  );
   background-size: 100% 29px;
   line-height: 29px;
   height: 120px;
@@ -186,7 +193,7 @@ h6.sub-title {
   font-size: 1.8vh;
   border-radius: 4px;
   cursor: pointer;
-  font-family: 'DynaPuff', cursive;
+  font-family: "DynaPuff", cursive;
   box-shadow: 2px 2px 0 var(--color-negro);
   transition: all 0.2s;
   display: flex;
@@ -207,7 +214,7 @@ h6.sub-title {
 
 .stamp-deco {
   width: 60px;
-  height: 70px; 
+  height: 70px;
   border: 3px double var(--color-rojo);
   display: flex;
   justify-content: center;
@@ -217,12 +224,18 @@ h6.sub-title {
   border-radius: 4px;
   transform: rotate(-12deg);
   opacity: 0.7;
-  mix-blend-mode: multiply; 
+  mix-blend-mode: multiply;
 }
 
 @keyframes paperSlide {
-  from { opacity: 0; transform: translateY(30px) rotate(-5deg); }
-  to { opacity: 1; transform: translateY(0) rotate(-2deg); }
+  from {
+    opacity: 0;
+    transform: translateY(30px) rotate(-5deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(-2deg);
+  }
 }
 
 .formulario-container {
@@ -230,7 +243,9 @@ h6.sub-title {
 }
 
 @media (max-width: 600px) {
-  main { margin: 4vh auto; }
+  main {
+    margin: 4vh auto;
+  }
   .formulario-container {
     padding: 25px;
   }

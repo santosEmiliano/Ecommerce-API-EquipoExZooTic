@@ -96,4 +96,6 @@ router.post('/compra/:id', tokens.verifyToken ,compraFunctions.confirmarCompra);
         }
 */
 
+router.get('/cupon/:codigo', tokens.verifyToken ,compraFunctions.verificarCupon);
+
 module.exports = router;

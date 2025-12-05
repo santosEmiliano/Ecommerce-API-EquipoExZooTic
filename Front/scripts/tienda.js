@@ -9,9 +9,29 @@ document.addEventListener("DOMContentLoaded", () => {
   const priceRange = document.getElementById("price-range");
   const priceDisplay = document.getElementById("price-val");
   const offerCheck = document.getElementById("offer-check");
+  const ambientLayer = document.getElementById("ambient-layer");
+
+  if (ambientLayer) {
+    document.addEventListener("mousemove", (e) => {
+      const x = e.clientX / window.innerWidth;
+      const y = e.clientY / window.innerHeight;
+      const moveX = (x - 0.5) * 20;
+      const moveY = (y - 0.5) * 20;
+
+      const topLeft = ambientLayer.querySelector(".top-left");
+      const topRight = ambientLayer.querySelector(".top-right");
+      const bottomLeft = ambientLayer.querySelector(".bottom-left");
+      const bottomRight = ambientLayer.querySelector(".bottom-right");
+
+      if (topLeft) topLeft.style.transform = `translate(${-moveX}px, ${-moveY}px)`;
+      if (topRight) topRight.style.transform = `scaleX(-1) translate(${moveX}px, ${-moveY}px)`;
+      if (bottomLeft) bottomLeft.style.transform = `translate(${-moveX}px, ${moveY}px)`;
+      if (bottomRight) bottomRight.style.transform = `scaleX(-1) translate(${moveX}px, ${moveY}px)`;
+    });
+  }
 
   let filtrosActuales = {
-    categoria: "",
+    categoria: "", 
     precio_max: 10000,
     en_oferta: false,
     search: "",
@@ -30,9 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   async function aplicarFiltros() {
-    productsContainer.innerHTML =
-      '<div style="position:absolute; left:46%; top: 18vh; display:flex; flex-direction:column; gap:1vw; justify-content:center; align-items:center;"><p style="text-align:center; width:100%; margin-top: 20px;">Cargando...</p> <img src="./media/carnalito.gif" alt=""></div>';
-
+    productsContainer.innerHTML = '<div class="loader-msg">Rastreando especies...</div>';
     actualizarInterfaz();
 
     const queryParams = {
@@ -49,27 +67,26 @@ document.addEventListener("DOMContentLoaded", () => {
           p.nombre.toLowerCase().includes(filtrosActuales.search)
         );
       }
-
       renderProducts(productos);
     } catch (error) {
       console.error("Error cargando tienda:", error);
-      productsContainer.innerHTML =
-        '<div class="error-msg"><h3>Se perdió la conexión con la naturaleza :(</h3></div>';
+      productsContainer.innerHTML = '<div class="error-msg"><h3>Se perdió la conexión con la naturaleza :(</h3></div>';
     }
   }
 
   biomeBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
-      // Si el botón ya estaba activo, podríamos querer desactivarlo (opcional),
-      // pero aquí asumimos comportamiento de radio button (uno a la vez).
-      biomeBtns.forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-
-      filtrosActuales.categoria = btn.dataset.cat;
-
-      const biome = btn.dataset.biome;
-      storeWrapper.className = `store-wrapper bg-${biome}`;
-
+      if (btn.classList.contains("active")) {
+          btn.classList.remove("active");
+          filtrosActuales.categoria = ""; 
+          storeWrapper.className = `store-wrapper bg-selva`;
+      } else {
+          biomeBtns.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          filtrosActuales.categoria = btn.dataset.cat;
+          const biome = btn.dataset.biome;
+          storeWrapper.className = `store-wrapper bg-${biome}`;
+      }
       aplicarFiltros();
     });
   });
@@ -78,7 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
     priceRange.addEventListener("input", (e) => {
       priceDisplay.textContent = e.target.value;
     });
-
     priceRange.addEventListener("change", (e) => {
       filtrosActuales.precio_max = e.target.value;
       aplicarFiltros();
@@ -107,20 +123,14 @@ document.addEventListener("DOMContentLoaded", () => {
         en_oferta: false,
         search: "",
       };
-
-      // Quitamos la clase active de todos los botones visualmente
       biomeBtns.forEach((b) => b.classList.remove("active"));
-
       if (priceRange) {
         priceRange.value = 10000;
         priceDisplay.textContent = 10000;
       }
       if (offerCheck) offerCheck.checked = false;
       if (searchInput) searchInput.value = "";
-
-      // Regresamos el fondo a selva por defecto, pero sin seleccionar el botón
       storeWrapper.className = "store-wrapper bg-selva";
-
       aplicarFiltros();
     });
   }
@@ -129,51 +139,49 @@ document.addEventListener("DOMContentLoaded", () => {
     productsContainer.innerHTML = "";
 
     if (!products || products.length === 0) {
-      productsContainer.innerHTML =
-        '<div class="empty-msg"><h3>No hay especies por aquí... 🦗</h3></div>';
+      productsContainer.innerHTML = '<div class="empty-msg"><h3>No hay especies con estas características.</h3></div>';
       return;
     }
 
     products.forEach((product, index) => {
-      const config = categoryMap[product.categoria] || {
-        css: "card-selva",
-        icon: "🐾",
-      };
-      const imgPath = product.imagen
-        ? `http://localhost:3000${product.imagen}`
-        : "media/logo.png";
-
+      const config = categoryMap[product.categoria] || { css: "card-selva", icon: "🐾" };
+      const imgPath = product.imagen ? `http://localhost:3000${product.imagen}` : "media/logo.png";
       const delay = index < 10 ? index * 0.1 : 0;
       const randomRotate = Math.floor(Math.random() * 6) - 3;
 
-      // Nota: onclick en el div principal también llama a addToCart
+      const sinStock = product.existencias === 0;
+      
+      const tablaAgotadoHTML = sinStock ? `
+        <div class="plank-agotado">
+            <div class="nail nail-left"></div>
+            <span class="plank-text">AGOTADO</span>
+            <div class="nail nail-right"></div>
+        </div>
+      ` : '';
+
       const cardHTML = `
-                <div class="product-card ${config.css}" 
+                <div class="product-card ${config.css} ${sinStock ? 'agotado' : ''}" 
                      style="--texture-rotate: ${randomRotate}deg; animation-delay: ${delay}s;" 
-                     onclick="addToCart(${product.id}, event)">
+                     onclick="verProducto(${product.id})">
                     
                     <div class="card-tape"></div>
                     
                     <div class="card-image-wrapper">
-                        <img src="${imgPath}" alt="${
-        product.nombre
-      }" class="animal-img" loading="lazy" onerror="this.src='media/logo.png'">
+                        ${tablaAgotadoHTML}
+                        <img src="${imgPath}" alt="${product.nombre}" class="animal-img" loading="lazy" onerror="this.src='media/logo.png'">
                         <div class="biome-badge">${config.icon}</div>
                     </div>
 
                     <div class="card-info">
                         <h3 class="animal-name">${product.nombre}</h3>
-                        ${
-                          product.descuento > 0
-                            ? `<div class="offer-badge">-${product.descuento}%</div>`
-                            : ""
-                        }
-                        <div class="price-tag"><span>$${
-                          product.precio
-                        }</span></div>
-                        <button class="btn-feed" onclick="addToCart(${
-                          product.id
-                        }, event)"> 🍎 <span class="btn-text">Adoptar</span>
+                        ${product.descuento > 0 && !sinStock ? `<div class="offer-badge">-${product.descuento}%</div>` : ""}
+                        <div class="price-tag"><span>$${product.precio}</span></div>
+                        
+                        <button class="btn-feed" 
+                                style="${sinStock ? 'background-color: #777; cursor: pointer;' : ''}"
+                                onclick="event.stopPropagation(); verProducto(${product.id})"> 
+                            ${sinStock ? '👁️' : '🍎'} 
+                            <span class="btn-text">${sinStock ? 'Ver Ficha' : 'Adoptar'}</span>
                         </button>
                     </div>
                 </div>
@@ -195,36 +203,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // --- REFACTORIZACIÓN SOLICITADA ---
-  window.addToCart = (id, event) => {
-    // Detener la propagación para evitar doble evento si se hace click en el botón dentro de la card
-    if (event) {
-      event.stopPropagation();
-    }
-    if (!localStorage.getItem("token")) {
-        Swal.fire({
-          icon: "error",
-          title: "Inicia sesión",
-          text: "Debes iniciar sesión para adoptar",
-        });
-        return;
-    }
-    // 1. Guardar ID en localStorage
+  window.verProducto = (id) => {
     localStorage.setItem("productoSeleccionado", id);
-
-    // 2. Redirigir a producto.html
     window.location.href = "producto.html";
   };
 
-  // Efecto visual simple para botones generales (opcional, mantenido del original)
   document.addEventListener("click", (e) => {
     const targetBtn = e.target.closest("button");
-    // Excluimos los botones de adoptar porque esos ahora redirigen
-    if (
-      targetBtn &&
-      !targetBtn.classList.contains("jelly-pop") &&
-      !targetBtn.classList.contains("btn-feed")
-    ) {
+    if (targetBtn && !targetBtn.classList.contains("jelly-pop")) {
       targetBtn.classList.add("jelly-pop");
       setTimeout(() => {
         targetBtn.classList.remove("jelly-pop");
