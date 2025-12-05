@@ -77,7 +77,7 @@ function cargarInformacionDOM(producto) {
   if (imagen) {
     const rutaImagen =
       producto.imagen && !producto.imagen.startsWith("http")
-        ? `https://72.60.228.244:3000/back/images/${producto.imagen}`
+        ? `/back/images/${producto.imagen}`
         : producto.imagen || "media/logo.png";
     imagen.src = rutaImagen;
     imagen.onerror = () => {
@@ -186,7 +186,7 @@ async function cargarRecomendaciones(idActual) {
 
     seleccionados.forEach((prod) => {
       const rutaImg = prod.imagen
-        ? `https://72.60.228.244:3000/back${prod.imagen}`
+        ? `/back${prod.imagen}`
         : "media/logo.png";
 
       const card = document.createElement("div");
