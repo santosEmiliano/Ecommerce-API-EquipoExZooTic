@@ -91,7 +91,7 @@ async function generarNotaPDF(datosCompra) {
           </div>
           
           <div class="fila-total">
-            <span>Impuestos (IVA):</span>
+            <span>Impuestos:</span>
             <span>${formatoMoneda(datosCompra.impuestos)}</span>
           </div>
 
