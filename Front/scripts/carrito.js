@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalEl = document.getElementById("summary-total");
     const shippingEl = document.getElementById("summary-shipping");
 
-    const TAX_RATE = 0.16; // Impuesto fijo
-    const SHIPPING_COST = 150; // Costo fijo por ahora
+    let TAX_RATE;
+    let SHIPPING_COST;
 
     initCart();
 
@@ -19,7 +19,14 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             //const items = await servicios.getCarrito();
             // Por ahora, usamos datos de prueba si el fetch falla o está vacío
-            let items = await fetchCartItems();
+            let items = await servicios.obtenerCarrito();
+            let datos = await servicios.obtenerResumenCompraCarrito();
+
+            console.log(datos);
+            console.log(items);
+
+            TAX_RATE = datos.tarifas[localStorage.getItem("pais")].tasa;
+            SHIPPING_COST = datos.tarifas[localStorage.getItem("pais")].envio;
             
             renderCart(items);
             calculateTotals(items);
@@ -110,18 +117,20 @@ document.addEventListener("DOMContentLoaded", () => {
         if (newQty < 1) return;
 
         input.value = newQty;
-        
+        const producto = await servicios.getProdById(id);
         try {
-            // await servicios.updateCartItem(id, newQty);
+            await servicios.modificarProductoCarrito(id, newQty);
             console.log(`Actualizando ID ${id} a cantidad ${newQty} en BD...`);
-            
-            // Recalcular totales mediante el endpoint del back
-            // Por ahora recargamos todo para simular
             initCart(); 
 
         } catch (error) {
-            alert("Error de conexión");
-            input.value = newQty - change; // Revertir si falla
+            Swal.fire({
+                title: "Cuidado!",
+                text: error.message,
+                icon: "warning",
+                confirmButtonText: "Okay",
+            });
+            input.value = newQty - change; 
         }
     };
 
@@ -133,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Esperar a que termine la animación para llamar al back
         setTimeout(async () => {
             try {
-                // await servicios.deleteCartItem(id);
+                await servicios.eliminarProductoCarrito(id);
                 console.log(`Eliminando ID ${id} de la BD...`);
                 
                 // Recargar

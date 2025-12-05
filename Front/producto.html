@@ -57,6 +57,7 @@
           id="cartBtn"
           class="cart-button"
           title="Ver Carrito"
+          onclick="window.location.href='carrito.html'"
         >
           <i class="fa-solid fa-basket-shopping"></i>
           <span class="cart-count">0</span>
@@ -112,14 +113,13 @@
                   name="cantidad"
                   value="1"
                   min="1"
-                  max="5"
                 />
               </div>
 
-              <button class="boton-comprar" onclick="agregarAlCarrito()">
+              <button class="boton-comprar" onclick="procesarCompra(true)">
                 Comprar Ahora
               </button>
-              <button class="boton-carrito">🛒</button>
+              <button class="boton-carrito" onclick="procesarCompra()">🛒</button>
             </div>
 
             <div class="garantia-legal">

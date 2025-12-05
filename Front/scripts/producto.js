@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 1. Verificar si hay un ID guardado en localStorage
   const idProducto = localStorage.getItem("productoSeleccionado");
 
+
   if (!idProducto) {
     Swal.fire({
       title: "¡Ups!",
@@ -23,7 +24,28 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (producto) {
       cargarInformacionDOM(producto);
       
-      // 3. Cargar recomendaciones (pasamos el ID actual para excluirlo)
+      const inputCantidad = document.getElementById("cantidad");
+
+      inputCantidad.max = producto.existencias;
+      inputCantidad.min = 1;
+
+      inputCantidad.addEventListener('input', function() {
+        const valorActual = parseInt(this.value);
+        const maximo = parseInt(this.max);
+
+        if (valorActual > maximo) {
+          this.value = maximo; 
+          Swal.fire({
+            title: "¡Ups!",
+            text: `Solo tenemos ${maximo} animalitos disponibles.`,
+            icon: "warning",
+            confirmButtonText: "Okay",
+          });
+        }
+        if (valorActual < 1) {
+            this.value = 1;
+        }
+      });
       cargarRecomendaciones(producto.id);
 
     } else {
@@ -157,19 +179,77 @@ async function cargarRecomendaciones(idActual) {
   }
 }
 
-// Lógica del botón principal de comprar/adoptar (Visual)
-window.agregarAlCarrito = () => {
-    if (typeof Toastify === "function") {
-        Toastify({
-            text: "¡Añadido al formulario de adopción!",
-            duration: 3000,
-            gravity: "bottom",
-            position: "right",
-            style: {
-                background: "linear-gradient(to right, #7ab24e, #597a4a)",
-            },
-        }).showToast();
+window.procesarCompra = async (redireccionar = false) => {
+  const inputCantidad = document.getElementById("cantidad");
+  const idProducto = localStorage.getItem("productoSeleccionado");
+  
+  // Validamos que exista el ID del producto
+  if (!idProducto) {
+    mostrarNotificacion("Error: No se ha seleccionado ningún producto.", "error");
+    return; // Detenemos este rollo
+  }
+
+  // Validamos que la cantidad sea un número válido
+  const valorCantidad = parseInt(inputCantidad.value);
+
+  if (isNaN(valorCantidad) || valorCantidad < 1) {
+    mostrarNotificacion("Por favor, ingresa una cantidad válida (mínimo 1).", "error");
+    return; // Detenemos este show
+  }
+
+  // Validamos contra el máximo 
+  if (inputCantidad.max && valorCantidad > parseInt(inputCantidad.max)) {
+    mostrarNotificacion(`Solo hay ${inputCantidad.max} unidades disponibles.`, "error");
+    return;
+  }
+
+  try {
+    // Preparamos el objeto para enviar al servicio
+    const datosParaEnviar = {
+      idProducto: idProducto,
+      cantidad: valorCantidad 
+    };
+
+    // Llamamos al servicio y ESPERAMOS (await) la respuesta
+    await servicios.addProductoCarrito(datosParaEnviar);
+
+    if (redireccionar) {
+      mostrarNotificacion("¡Producto añadido! Redirigiendo...", "success");
+
+      setTimeout(() => {
+          window.location.href = "./pagar.html"; 
+      }, 1500);
+    } else {
+      mostrarNotificacion("¡Producto añadido! ", "success");
     }
+
+  } catch (error) {
+    console.error(error);
+    mostrarNotificacion(error.message || "Hubo un error al procesar la compra.", "error");
+  }
+};
+
+// Mensaje del toastify
+const mostrarNotificacion = (mensaje, tipo) => {
+  if (typeof Toastify === "function") {
+    const background = tipo === "success" 
+      ? "linear-gradient(to right, #7ab24e, #597a4a)"
+      : "linear-gradient(to right, #ff5f6d, #ffc371)"; 
+
+    Toastify({
+      text: mensaje,
+      duration: 3000,
+      gravity: "bottom",
+      position: "right",
+      style: { background: background },
+    }).showToast();
+  } else {
+    Swal.fire({
+      title: tipo,
+      text: mensaje,
+      icon: tipo,
+    });
+  }
 };
 
 /* --- UTILIDADES VISUALES (Relleno de datos faltantes en BD y animaciones) --- */
