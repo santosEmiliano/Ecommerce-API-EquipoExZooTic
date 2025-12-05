@@ -1,11 +1,11 @@
-//Animación de scroll
 const observerOptions = {
   threshold: 0.1,
   rootMargin: "0px 0px -50px 0px",
 };
 
 if (localStorage.getItem("correo")) {
-  document.getElementById("input-email-suscripcion").value = localStorage.getItem("correo");
+  const emailInput = document.getElementById("input-email-suscripcion");
+  if (emailInput) emailInput.value = localStorage.getItem("correo");
 }
 
 const observer = new IntersectionObserver((entries) => {
@@ -37,7 +37,6 @@ document.querySelectorAll(".main-descripcion").forEach((el) => {
   observer.observe(el);
 });
 
-//Sección Main
 const ZOOM_SCROLL_RANGE = 1200;
 const INITIAL_MASK_SIZE = 600;
 
