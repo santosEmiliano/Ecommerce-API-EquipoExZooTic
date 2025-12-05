@@ -230,6 +230,12 @@ window.procesarCompra = async (redireccionar = false) => {
   }
 
   try {
+
+    if(!localStorage.getItem("token")){
+      mostrarNotificacion("Debes iniciar sesión para añadir al carrito", "error");
+      return;
+    }
+
     const datosParaEnviar = {
       idProducto: idProducto,
       cantidad: valorCantidad 
