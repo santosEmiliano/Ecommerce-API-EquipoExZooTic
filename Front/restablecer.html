@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restablecer Contraseña | ExZooTic</title>
+    
+    <link rel="stylesheet" href="./style/style-base.css">
+    <link rel="stylesheet" href="./style/style-index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="./style/style-restablecer-contrasena.css">
+
+    <style>
+        
+    </style>
+</head>
+<body>
+
+    <div class="reset-container">
+        <h1>Nueva Contraseña 🔐</h1>
+        <p>Ingresa tu nueva contraseña para recuperar el acceso a la selva.</p>
+        
+        <form id="formResetPass">
+            <div class="input-group">
+                <input type="password" id="newPass" placeholder="Nueva contraseña" required minlength="6">
+            </div>
+            <div class="input-group">
+                <input type="password" id="confirmPass" placeholder="Confirmar contraseña" required>
+            </div>
+            
+            <button type="submit" class="btn-reset" id="btnSubmit">Actualizar</button>
+        </form>
+
+        <a href="index.html" class="back-link">
+            <i class="fa-solid fa-arrow-left"></i> Regresar al inicio
+        </a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+        document.getElementById('formResetPass').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btnSubmit = document.getElementById("btnSubmit");
+            const p1 = document.getElementById('newPass').value;
+            const p2 = document.getElementById('confirmPass').value;
+            
+            // 1. Obtener el token de la URL (lo que está después de ?token=...)
+            const params = new URLSearchParams(window.location.search);
+            const token = params.get('token');
+
+            // Validaciones
+            if (p1 !== p2) {
+                return Swal.fire('Error', 'Las contraseñas no coinciden', 'error');
+            }
+            if (!token) {
+                return Swal.fire('Error', 'Token no válido o no encontrado en el link', 'error');
+            }
+
+            // Bloquear botón para evitar doble clic
+            btnSubmit.disabled = true;
+            btnSubmit.innerText = "Actualizando...";
+
+            try {
+                // 2. Enviar al Backend
+                const res = await fetch('http://localhost:3000/auth/reset-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ token: token, nuevaContrasena: p1 })
+                });
+                
+                const data = await res.json();
+
+                if (res.ok) {
+                    // Éxito
+                    Swal.fire({
+                        title: '¡Éxito!',
+                        text: 'Contraseña actualizada correctamente.',
+                        icon: 'success',
+                        confirmButtonText: 'Ir a Iniciar Sesión'
+                    }).then(() => {
+                        window.location.href = 'index.html'; // Redirigir al login
+                    });
+                } else {
+                    // Error (Token vencido, inválido, etc)
+                    Swal.fire('Error', data.message, 'error');
+                    btnSubmit.disabled = false;
+                    btnSubmit.innerText = "Actualizar";
+                }
+            } catch (error) {
+                console.error(error);
+                Swal.fire('Error', 'No se pudo conectar con el servidor', 'error');
+                btnSubmit.disabled = false;
+                btnSubmit.innerText = "Actualizar";
+            }
+        });
+    </script>
+
+</body>
+</html>

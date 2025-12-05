@@ -105,6 +105,41 @@ async function resetearIntentos(id) {
   
 }
 
+// ------------------- IMPLEMENTACION OLVIDASTE TU CONTRASEÑA -------------------------
+// Guardar token de recuperacion y su expiracion
+async function guardarTokenRecuperacion(email, token) {
+  try{
+    // El DATE_ADD(NOW(), INTERVAL 1 HOUR)  le da 1 hora de vida al token
+    await pool.query("UPDATE users SET reset_token = ?, reset_expire = DATE_ADD(NOW(), INTERVAL 1 HOUR) WHERE correo = ?", [token, email]);
+    return true;
+  } catch(error){
+    console.error("Error guardando token:", error);
+    return false;
+  }
+}
+
+// Funcion para buscar al usuario por token no expirado
+async function buscarToken(token) {
+  try{
+    const [rows] = await pool.query("SELECT * FROM users WHERE reset_token = ? AND reset_expire > NOW()", [token]);
+    return rows[0] || null;
+  } catch(error){
+    console.error("Error buscando por token:", error);
+    return null;
+  }
+}
+
+// Funcion para actualizar la contraseña y borrar el token
+async function actualizarContrasena(id, nuevaContrasena) {
+  try{
+    await pool.query("UPDATE users SET contrasena = ?, reset_token = NULL, reset_expire = NULL WHERE id = ?", [nuevaContrasena, id]);
+    return true;
+  } catch (error){
+    console.error("Error actualizando password:", error);
+    return false;
+  }
+}
+
 module.exports = {
   userNew,
   coincidencias,
@@ -113,5 +148,8 @@ module.exports = {
   buscarCorreo,
   sumarIntento,
   bloquearUsuario,
-  resetearIntentos
+  resetearIntentos,
+  guardarTokenRecuperacion,
+  buscarToken,
+  actualizarContrasena
 };

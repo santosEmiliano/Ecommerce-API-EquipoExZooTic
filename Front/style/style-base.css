@@ -1529,6 +1529,32 @@ body.dark-mode a img[src*=".png"] {
     transform: scale(1);
     opacity: 1;
     
-    /* --- AGREGA ESTA LÍNEA --- */
     pointer-events: auto; /* Ahora sí, permite clics dentro del chat */
+}
+
+.forgot-password-container {
+  left: 0;
+  width: 50%;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(100%); 
+  transition: all 0.6s ease-in-out;
+  pointer-events: none; 
+}
+
+.container-slid.show-forgot .sign-in-container {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.container-slid.show-forgot .forgot-password-container {
+  transform: translateY(0);
+  opacity: 1;
+  z-index: 5;
+  pointer-events: all;
+}
+
+.container-slid.show-forgot .overlay-container {
+  transform: translateX(0); 
 }

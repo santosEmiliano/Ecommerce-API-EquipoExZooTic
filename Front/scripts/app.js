@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const userIcon = document.getElementById("userIcon");
   const iconClose = document.querySelector(".icon-close");
 
+  const btnOlvidePass = document.getElementById("btnOlvidasteContra");
+
   if (servicios.verificarBloqueo) servicios.verificarBloqueo();
 
   if (logOutBtn) logOutBtn.style.display = "none";
@@ -130,6 +132,57 @@ document.addEventListener("DOMContentLoaded", () => {
       if (pass2) pass2.value = "";
 
       if (container) container.classList.remove("right-panel-active");
+    });
+  }
+
+  if (btnOlvidePass) {
+    btnOlvidePass.addEventListener("click", (e) => {
+      e.preventDefault();
+      container.classList.add("show-forgot");
+    });
+  }
+
+  if (btnVolverLogin) {
+    btnVolverLogin.addEventListener("click", (e) => {
+      e.preventDefault();
+      container.classList.remove("show-forgot");
+    });
+  }
+
+  if (formForgot) {
+    formForgot.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      
+      const emailInput = document.getElementById("forgotEmail");
+      const email = emailInput.value.trim();
+
+      if (!email) return Swal.fire('Error', 'Escribe tu correo', 'error');
+
+      const btnEnviar = document.getElementById("btnEnviarRecuperacion");
+      const textoOriginal = btnEnviar.innerText;
+      btnEnviar.innerText = "Enviando...";
+      btnEnviar.disabled = true;
+
+      try {
+        const data = await servicios.solicitarRecuperacion(email);
+        
+        Swal.fire({
+            icon: 'success',
+            title: '¡Correo Enviado!',
+            text: data.message,
+            confirmButtonColor: '#4C5F41'
+        }).then(() => {
+            container.classList.remove("show-forgot");
+            emailInput.value = "";
+        });
+
+      } catch (error) {
+        console.error(error);
+        Swal.fire('Error', 'No se pudo conectar con el servidor', 'error');
+      } finally {
+        btnEnviar.innerText = textoOriginal;
+        btnEnviar.disabled = false;
+      }
     });
   }
 

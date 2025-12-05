@@ -1,8 +1,21 @@
 const userModel = require("../model/userModel");
 const cosasTokens = require("./token.controller");
 const { validarCaptcha } = require("./captcha.controller");
+const tokenfunctions = require("./token.controller");
 
 const bcrypt = require("bcryptjs"); //dependencia de hash
+const nodemailer = require('nodemailer');
+
+// Configuramos transporter
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_PASS,
+  },
+});
 
 const createUser = async (req, res) => {
   try {
@@ -121,8 +134,89 @@ const logOut = async (req, res) => {
   res.json({ mensaje: "Toekn revocado con exito" });
 };
 
+const solicitarRecuperacion = async (req, res) => {
+  const {correo} = req.body;
+
+  try{
+    // Verificamos que el usuario exista
+    const user = await userModel.buscarCorreo(correo);
+
+    if(!user){
+      return res.json({ message: "No se encontro el usuario."});
+    }
+
+    // Generar token
+    const token = tokenfunctions.generarToken(user.id);
+
+    // Guardamos el token en base de datos
+    const guardado = await userModel.guardarTokenRecuperacion(correo, token);
+
+    if(!guardado){
+      return res.status(500).json({message: "Error al guardar el token."});
+    }
+
+    const urlFront = process.env.FRONTEND_URL || 'http://127.0.0.1:5500';
+    const link = `${urlFront}/Front/restablecer.html?token=${token}`; // Cambiar esto cuando lo subamos al hosting
+
+    const mailOptions = {
+      from: `"ExZooTic - Soporte" <${process.env.GMAIL_USER}>`,
+      to: correo,
+      subject: "Recupera tu acceso a la selva 🔐",
+      html: `
+        <div style="font-family: sans-serif; text-align: center; color: #333;">
+          <h1 style="color: #4C5F41;">Recuperación de Contraseña</h1>
+          <p>Hola <strong>${user.nombre}</strong>,</p>
+          <p>Recibimos una solicitud para restablecer tu contraseña.</p>
+          <p>Da click en el siguiente botón para crear una nueva:</p>
+          <br>
+          <a href="${link}" style="background-color: #E67E22; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;">Restablecer Contraseña</a>
+          <br><br>
+          <p style="font-size: 12px; color: #777;">Este enlace expira en 1 hora.</p>
+        </div>
+      `
+    };
+
+    await transporter.sendMail(mailOptions);
+    res.json({mensaje: "Correo enviado. Revisa tu bandeja de entrada. ;)"});
+  } catch(error){
+    console.error("Error al recuperar contraseña:", error);
+    res.status(500).json({message: "Error interno del servidor en la recuperacion de contraseña"});
+  }
+}
+
+const restablecerContrasena = async (req, res) => {
+  const { token, nuevaContrasena } = req.body;
+
+  try{
+    // Buscamos el usuario por token
+    const user = await userModel.buscarToken(token);
+
+    if(!user){
+      return res.status(400).json({ message: "El enlace es invalido o ha expirado."});
+    }
+
+    // Encriptamos la nueva contraseña
+    const saltos = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(nuevaContrasena, saltos);
+
+    // Actualizamos la nueva base de datos
+    const actualizando = await userModel.actualizarContrasena(user.id, hash);
+
+    if(actualizando){
+      res.json({message: "¡Contraseña Actualizada con Exito!"});
+    } else{
+      res.status(500).json({message: "No se pudo actualizar la contrasña :(."});
+    }
+  } catch (error) {
+    console.error("Error al restablecer:", error);
+    res.status(500).json({message: "Error en el servidor al actualizar contraseña"});
+  }
+}
+
 module.exports = {
   createUser,
   login,
   logOut,
+  solicitarRecuperacion,
+  restablecerContrasena
 };

@@ -102,4 +102,10 @@ async function crearUsuario() {
 }
 */
 
+// Ruta para solicitar la recuperacion 
+router.post("/forgot-password", usersFuncion.solicitarRecuperacion);
+
+// Ruta para guardar la nueva contraseña 
+router.post("/reset-password", usersFuncion.restablecerContrasena);
+
 module.exports = router;
