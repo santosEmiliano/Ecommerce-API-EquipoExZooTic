@@ -746,6 +746,51 @@ const obtenerResumenCompraCarrito = async () => {
   }
 }
 
+// FETCH PARA OLVIDAR CONTRASEÑA
+const solicitarRecuperacion = async (email) => {
+  try {
+    const response = await fetch("http://localhost:3000/auth/forgot-password", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ correo: email }),
+    });
+
+    if (!response.ok) {
+      const res = await response.json();
+      throw new Error(res.message || "Error al solicitar recuperación");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error en solicitarRecuperacion:", error);
+    throw error;
+  }
+};
+
+const restablecerContrasena = async (token, nuevaContrasena) => {
+  try {
+    const response = await fetch("http://localhost:3000/auth/reset-password", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token, nuevaContrasena }),
+    });
+
+    if (!response.ok) {
+      const res = await response.json();
+      throw new Error(res.message || "Error al restablecer contraseña");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error en restablecerContrasena:", error);
+    throw error;
+  }
+};
+
 const servicios = {
   login,
   actualizarSesionLogIn,
@@ -771,7 +816,9 @@ const servicios = {
   modificarProductoCarrito,
   eliminarProductoCarrito,
   eliminarCarrito,
-  obtenerResumenCompraCarrito
+  obtenerResumenCompraCarrito,
+  solicitarRecuperacion,
+  restablecerContrasena  
 };
 
 export default servicios;
