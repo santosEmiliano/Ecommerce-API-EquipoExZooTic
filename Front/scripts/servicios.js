@@ -1,3 +1,5 @@
+import validaciones from "./validaciones.js";
+
 const login = async (correo, contrasena, captcha) => {
   try {
     const respuesta = await fetch("http://localhost:3000/auth/login", {
@@ -207,6 +209,8 @@ function actualizarSesionLogIn(nombre) {
 
   const logoutBtn = document.getElementById("logOutbtn");
   if (logoutBtn) logoutBtn.style.display = "inline-block";
+
+  validaciones.obtenerDatos();
 }
 
 const logout = async () => {
@@ -263,6 +267,9 @@ function actualizarSesionLogOut() {
 
   const logoutBtn = document.getElementById("logOutbtn");
   if (logoutBtn) logoutBtn.style.display = "none";
+
+  const adminBtn = document.getElementById("adminbtn");
+  if (adminBtn) adminBtn.style.display = "none";
 }
 
 const enviarCorreoContacto = async (formData) => {

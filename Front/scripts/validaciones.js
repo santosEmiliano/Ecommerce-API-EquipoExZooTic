@@ -33,3 +33,9 @@ async function obtenerDatos() {
     console.error("Error:", error);
   }
 }
+
+const validaciones = {
+  obtenerDatos
+}
+
+export default validaciones;
