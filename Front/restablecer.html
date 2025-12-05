@@ -38,64 +38,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
-    <script>
-        document.getElementById('formResetPass').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const btnSubmit = document.getElementById("btnSubmit");
-            const p1 = document.getElementById('newPass').value;
-            const p2 = document.getElementById('confirmPass').value;
-            
-            // 1. Obtener el token de la URL (lo que está después de ?token=...)
-            const params = new URLSearchParams(window.location.search);
-            const token = params.get('token');
-
-            // Validaciones
-            if (p1 !== p2) {
-                return Swal.fire('Error', 'Las contraseñas no coinciden', 'error');
-            }
-            if (!token) {
-                return Swal.fire('Error', 'Token no válido o no encontrado en el link', 'error');
-            }
-
-            // Bloquear botón para evitar doble clic
-            btnSubmit.disabled = true;
-            btnSubmit.innerText = "Actualizando...";
-
-            try {
-                // 2. Enviar al Backend
-                const res = await fetch('http://localhost:3000/auth/reset-password', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ token: token, nuevaContrasena: p1 })
-                });
-                
-                const data = await res.json();
-
-                if (res.ok) {
-                    // Éxito
-                    Swal.fire({
-                        title: '¡Éxito!',
-                        text: 'Contraseña actualizada correctamente.',
-                        icon: 'success',
-                        confirmButtonText: 'Ir a Iniciar Sesión'
-                    }).then(() => {
-                        window.location.href = 'index.html'; // Redirigir al login
-                    });
-                } else {
-                    // Error (Token vencido, inválido, etc)
-                    Swal.fire('Error', data.message, 'error');
-                    btnSubmit.disabled = false;
-                    btnSubmit.innerText = "Actualizar";
-                }
-            } catch (error) {
-                console.error(error);
-                Swal.fire('Error', 'No se pudo conectar con el servidor', 'error');
-                btnSubmit.disabled = false;
-                btnSubmit.innerText = "Actualizar";
-            }
-        });
-    </script>
+    <script src="./scripts/restablecer.js"></script>
 
 </body>
 </html>
