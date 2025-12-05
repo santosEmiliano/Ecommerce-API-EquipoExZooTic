@@ -305,14 +305,26 @@
                 />
                 <div id="captchaContainer"></div>
 
-                <div class="captcha-group"><input type="text" id="captchaTxt" placeholder="Escribe el captcha" required/>
-                   <button type="button" id="btnRegenerarCaptcha" class="refresh-btn"></button>
+                <div class="captcha-group">
+                  <input
+                    type="text"
+                    id="captchaTxt"
+                    placeholder="Escribe el captcha"
+                    required
+                  />
+                  <button
+                    type="button"
+                    id="btnRegenerarCaptcha"
+                    class="refresh-btn"
+                  ></button>
                 </div>
 
                 <p id="mensajeBloqueo"></p>
 
-                <a href="#" id="btnOlvidasteContra" style="cursor: pointer;">¿Olvidaste tu contraseña?</a>
-                
+                <a href="#" id="btnOlvidasteContra" style="cursor: pointer"
+                  >¿Olvidaste tu contraseña?</a
+                >
+
                 <button type="button" id="btnAcceder">Acceder</button>
               </form>
             </div>
@@ -321,10 +333,21 @@
               <form id="formForgot">
                 <h1>Recuperar Cuenta</h1>
                 <span>Ingresa tu correo para buscarte</span>
-                <input type="email" id="forgotEmail" placeholder="Correo electrónico" required />
-                <button type="submit" id="btnEnviarRecuperacion">Enviar Correo</button>
-                <a href="#" id="btnVolverLogin" style="margin-top: 15px; font-weight: bold; cursor: pointer;">
-                    <i class="fa-solid fa-arrow-left"></i> Volver a Iniciar Sesión
+                <input
+                  type="email"
+                  id="forgotEmail"
+                  placeholder="Correo electrónico"
+                  required
+                />
+                <button type="submit" id="btnEnviarRecuperacion">
+                  Enviar Correo
+                </button>
+                <a
+                  href="#"
+                  id="btnVolverLogin"
+                  style="margin-top: 15px; font-weight: bold; cursor: pointer"
+                >
+                  <i class="fa-solid fa-arrow-left"></i> Volver a Iniciar Sesión
                 </a>
               </form>
             </div>
@@ -400,8 +423,8 @@
     <script src="./scripts/app.js" type="module"></script>
     <script src="./scripts/index.js" type="module"></script>
     <script src="./scripts/suscripcion.js" type="module"></script>
-    <script src="./scripts/accesibilidad.js"></script>
     <script src="./scripts/validaciones.js"></script>
     <script src="./scripts/chatbot.js" type="module"></script>
+    <script src="./scripts/accesibilidad.js " type="module"></script>
   </body>
 </html>
