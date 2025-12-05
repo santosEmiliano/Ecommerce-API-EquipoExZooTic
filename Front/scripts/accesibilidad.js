@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (token) {
       try {
         const response = await fetch(
-          "http://localhost:3000/auth/obtenerDatos",
+          "http://72.60.228.244:3000/auth/obtenerDatos",
           {
             method: "POST",
             headers: {
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const token = localStorage.getItem("token");
     if (token) {
       try {
-        await fetch("http://localhost:3000/auth/guardar-preferencias", {
+        await fetch("http://72.60.228.244:3000;./auth/guardar-preferencias", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

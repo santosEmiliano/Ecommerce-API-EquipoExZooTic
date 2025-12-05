@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       productos.forEach((producto) => {
-        const imgPath = producto.imagen ? `http://localhost:3000${producto.imagen}` : 'media/logo.png';
+        const imgPath = producto.imagen ? `http://72.60.228.244:3000${producto.imagen}` : 'media/logo.png';
         
         html += `
             <div class="card">
@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function mostrarDetalles(producto) {
-    const imgPath = producto.imagen ? `http://localhost:3000${producto.imagen}` : 'media/logo.png';
+    const imgPath = producto.imagen ? `http://72.60.228.244:3000${producto.imagen}` : 'media/logo.png';
 
     modal.innerHTML = `
         <div class="admin-modal-card">
@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function mostrarEdicion(producto) {
-    const imgPath = producto.imagen ? `http://localhost:3000${producto.imagen}` : 'media/logo.png';
+    const imgPath = producto.imagen ? `http://72.60.228.244:3000${producto.imagen}` : 'media/logo.png';
 
     modal.innerHTML = `
         <div class="admin-modal-card">
