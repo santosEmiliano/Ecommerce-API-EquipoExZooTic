@@ -38,9 +38,9 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const categoryMap = {
-    patrimoniales: { css: "card-selva", biome: "selva", icon: "🌿" },
-    megafaunas: { css: "card-acuatico", biome: "oceano", icon: "🌊" },
-    superdepredadores: { css: "card-desierto", biome: "desierto", icon: "🦁" },
+    selvaticos: { css: "card-selva", biome: "selva", icon: "🌿" },
+    oceanicos: { css: "card-acuatico", biome: "oceano", icon: "🌊" },
+    sabanicos: { css: "card-desierto", biome: "desierto", icon: "🦁" },
   };
 
   initStore();
@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     products.forEach((product, index) => {
       const config = categoryMap[product.categoria] || { css: "card-selva", icon: "🐾" };
-      const imgPath = product.imagen ? `http://localhost:3000${product.imagen}` : "media/logo.png";
+      const imgPath = product.imagen ? `http://72.60.228.244:3000${product.imagen}` : "media/logo.png";
       const delay = index < 10 ? index * 0.1 : 0;
       const randomRotate = Math.floor(Math.random() * 6) - 3;
 

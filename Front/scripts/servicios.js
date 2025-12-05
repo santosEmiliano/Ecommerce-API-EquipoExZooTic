@@ -2,7 +2,7 @@ import validaciones from "./validaciones.js";
 
 const login = async (correo, contrasena, captcha) => {
   try {
-    const respuesta = await fetch("http://localhost:3000/auth/login", {
+    const respuesta = await fetch("http://72.60.228.244:3000/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -217,7 +217,7 @@ function actualizarSesionLogIn(nombre) {
 
 const logout = async () => {
   try {
-    const res = await fetch("http://localhost:3000/auth/logout", {
+    const res = await fetch("http://72.60.228.244:3000/auth/logout", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -276,7 +276,7 @@ function actualizarSesionLogOut() {
 
 const enviarCorreoContacto = async (formData) => {
   try {
-    const response = await fetch("http://localhost:3000/api/contacto", {
+    const response = await fetch("http://72.60.228.244:3000/api/contacto", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -311,7 +311,7 @@ const pagar = async () => {
   const id = localStorage.getItem("id");
 
   try {
-    const response = await fetch(`http://localhost:3000/api/compra/${id}`, {
+    const response = await fetch(`http://72.60.228.244:3000/api/compra/${id}`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -345,7 +345,7 @@ const pagar = async () => {
 const obtenerResumenCompra = async (pais) => {
   try {
     const id = localStorage.getItem("id");
-    const response = await fetch(`http://localhost:3000/api/compra/${id}`, {
+    const response = await fetch(`http://72.60.228.244:3000/api/compra/${id}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     });
@@ -375,7 +375,7 @@ const obtenerResumenCompra = async (pais) => {
 
 const enviarCorreoSuscripcion = async (email) => {
   try {
-    const response = await fetch("http://localhost:3000/api/suscripcion", {
+    const response = await fetch("http://72.60.228.244:3000/api/suscripcion", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -408,7 +408,7 @@ const enviarCorreoSuscripcion = async (email) => {
 
 const signIn = async (_nombre, _correo, _pais, _contrasena) => {
   try {
-    const response = await fetch("http://localhost:3000/auth/usuario", {
+    const response = await fetch("http://72.60.228.244:3000/auth/usuario", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -444,7 +444,7 @@ const getProd = async (filtros = {}) => {
 
   try {
     const response = await fetch(
-      `http://localhost:3000/api/crud/productos?${params}`
+      `http://72.60.228.244:3000/api/crud/productos?${params}`
     );
     if (!response.ok) throw new Error("Error al obtener productos");
     const data = await response.json();
@@ -458,7 +458,7 @@ const getProd = async (filtros = {}) => {
 const getProdById = async (id) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/crud/productos/${id}`
+      `http://72.60.228.244:3000/api/crud/productos/${id}`
     );
     if (!response.ok) throw new Error("Producto no encontrado");
     return await response.json();
@@ -470,7 +470,7 @@ const getProdById = async (id) => {
 
 const addProduct = async (formData) => {
   try {
-    const response = await fetch("http://localhost:3000/api/crud/productos", {
+    const response = await fetch("http://72.60.228.244:3000/api/crud/productos", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -492,7 +492,7 @@ const addProduct = async (formData) => {
 const deleteProd = async (id) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/crud/productos/${id}`,
+      `http://72.60.228.244:3000/api/crud/productos/${id}`,
       {
         method: "DELETE",
         headers: {
@@ -514,7 +514,7 @@ const deleteProd = async (id) => {
 const updateProd = async (id, formData) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/crud/productos/${id}`,
+      `http://72.60.228.244:3000/api/crud/productos/${id}`,
       {
         method: "PUT",
         headers: {
@@ -539,7 +539,7 @@ const updateProd = async (id, formData) => {
 const obtenerVentasCategoria = async () => {
   try {
     const response = await fetch(
-      `http://localhost:3000/stats/ventas-categoria`,
+      `http://72.60.228.244:3000/stats/ventas-categoria`,
       {
         method: "GET",
         headers: {
@@ -562,7 +562,7 @@ const obtenerVentasCategoria = async () => {
 
 const obtenerVentasTotales = async () => {
   try {
-    const response = await fetch(`http://localhost:3000/stats/ventas-total`, {
+    const response = await fetch(`http://72.60.228.244:3000/stats/ventas-total`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -583,7 +583,7 @@ const obtenerVentasTotales = async () => {
 
 const obtenerExistencias = async () => {
   try {
-    const response = await fetch(`http://localhost:3000/stats/existencias`, {
+    const response = await fetch(`http://72.60.228.244:3000/stats/existencias`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -602,7 +602,7 @@ const obtenerExistencias = async () => {
 
 const cargarCaptcha = async () => {
   try {
-    const res = await fetch("http://localhost:3000/captcha");
+    const res = await fetch("http://72.60.228.244:3000/captcha");
     const svg = await res.text();
     const container = document.getElementById("captchaContainer");
     if (container) container.innerHTML = svg;
@@ -614,7 +614,7 @@ const cargarCaptcha = async () => {
 const obtenerCarrito = async () => {
   const id = localStorage.getItem("id");
   try {
-    const response = await fetch(`http://localhost:3000/api/carrito/${id}`, {
+    const response = await fetch(`http://72.60.228.244:3000/api/carrito/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -636,7 +636,7 @@ const obtenerCarrito = async () => {
 const addProductoCarrito = async (dataObjeto) => {
   const id = localStorage.getItem("id");
   try {
-    const response = await fetch(`http://localhost:3000/api/carrito/${id}`, {
+    const response = await fetch(`http://72.60.228.244:3000/api/carrito/${id}`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -661,7 +661,7 @@ const modificarProductoCarrito = async (idProducto, cantidad) => {
   const idUsuario = localStorage.getItem("id");
   try {
     const response = await fetch(
-      `http://localhost:3000/api/carrito/${idUsuario}/producto/${idProducto}`,
+      `http://72.60.228.244:3000/api/carrito/${idUsuario}/producto/${idProducto}`,
       {
         method: "PUT",
         headers: {
@@ -688,7 +688,7 @@ const eliminarProductoCarrito = async (idProducto) => {
   const idUsuario = localStorage.getItem("id");
   try {
     const response = await fetch(
-      `http://localhost:3000/api/carrito/${idUsuario}/producto/${idProducto}`,
+      `http://72.60.228.244:3000/api/carrito/${idUsuario}/producto/${idProducto}`,
       {
         method: "DELETE",
         headers: {
@@ -712,7 +712,7 @@ const eliminarProductoCarrito = async (idProducto) => {
 const eliminarCarrito = async () => {
   const id = localStorage.getItem("id");
   try {
-    const response = await fetch(`http://localhost:3000/api/carrito/${id}`, {
+    const response = await fetch(`http://72.60.228.244:3000/api/carrito/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -734,7 +734,7 @@ const eliminarCarrito = async () => {
 const obtenerResumenCompraCarrito = async () => {
   try {
     const id = localStorage.getItem("id");
-    const response = await fetch(`http://localhost:3000/api/compra/${id}`, {
+    const response = await fetch(`http://72.60.228.244:3000/api/compra/${id}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     });
@@ -752,7 +752,7 @@ const obtenerResumenCompraCarrito = async () => {
 const verificarCupon = async (cupon) => {
   try {
     const id = localStorage.getItem("id");
-    const response = await fetch(`http://localhost:3000/api/cupon/${cupon}`, {
+    const response = await fetch(`http://72.60.228.244:3000/api/cupon/${cupon}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     });
@@ -772,7 +772,7 @@ const verificarCupon = async (cupon) => {
 // FETCH PARA OLVIDAR CONTRASEÑA
 const solicitarRecuperacion = async (email) => {
   try {
-    const response = await fetch("http://localhost:3000/auth/forgot-password", {
+    const response = await fetch("http://72.60.228.244:3000/auth/forgot-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -794,7 +794,7 @@ const solicitarRecuperacion = async (email) => {
 
 const restablecerContrasena = async (token, nuevaContrasena) => {
   try {
-    const response = await fetch("http://localhost:3000/auth/reset-password", {
+    const response = await fetch("http://72.60.228.244:3000/auth/reset-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
