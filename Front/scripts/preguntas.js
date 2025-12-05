@@ -1,41 +1,47 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const preguntas = document.querySelectorAll(".btn-pregunta");
-
-  const ALTURA_MAXIMA = 500;
+  const preguntas = document.querySelectorAll(".container-pregunta");
 
   preguntas.forEach((pregunta) => {
-    pregunta.addEventListener("click", function () {
-      this.classList.toggle("activa");
+    const btn = pregunta.querySelector(".btn-pregunta");
+    const resp = pregunta.querySelector(".respuesta-pregunta");
 
-      const respuesta = this.nextElementSibling;
+    btn.addEventListener("click", () => {
+      const estabaAbierta = pregunta.classList.contains("active");
 
-      if (respuesta.style.maxHeight) {
-        respuesta.style.maxHeight = null;
-        respuesta.style.overflowY = null;
-        respuesta.classList.remove("mostrar");
-      } else {
-        document.querySelectorAll(".respuesta-pregunta").forEach((item) => {
-          item.style.maxHeight = null;
-          item.style.overflowY = null;
-          item.classList.remove("mostrar");
-        });
+      preguntas.forEach((p) => {
+        p.classList.remove("active");
+        p.querySelector(".respuesta-pregunta").classList.remove("respuesta-activa");
+      });
 
-        document.querySelectorAll(".btn-pregunta").forEach((btn) => {
-          if (btn !== this) btn.classList.remove("activa");
-        });
+      if (!estabaAbierta) {
+        pregunta.classList.add("active");
+        resp.classList.add("respuesta-activa");
 
-        respuesta.classList.add("mostrar");
-
-        const alturaTotal = respuesta.scrollHeight + 500;
-
-        if (alturaTotal > ALTURA_MAXIMA) {
-          respuesta.style.maxHeight = ALTURA_MAXIMA + "px";
-          respuesta.style.overflowY = "auto";
-        } else {
-          respuesta.style.maxHeight = alturaTotal + "px";
-          respuesta.style.overflowY = "hidden";
-        }
+        setTimeout(() => {
+          pregunta.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        }, 300);
       }
     });
+  });
+
+  const observerOptions = {
+    threshold: 0.15,
+    rootMargin: "0px 0px -50px 0px"
+  };
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  preguntas.forEach((pregunta) => {
+    observer.observe(pregunta);
   });
 });
