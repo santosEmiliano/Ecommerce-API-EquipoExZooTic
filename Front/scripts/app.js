@@ -197,15 +197,27 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         const data = await servicios.solicitarRecuperacion(email);
 
-        Swal.fire({
-          icon: "success",
-          title: "¡Correo Enviado!",
-          text: data.message,
-          confirmButtonColor: "#4C5F41",
-        }).then(() => {
-          container.classList.remove("show-forgot");
-          emailInput.value = "";
-        });
+        if (data.message == "No se encontro el usuario.") {
+          Swal.fire({
+            icon: "warning",
+            title: "¡Usuario inexistente!",
+            text: data.message,
+            confirmButtonColor: "#4C5F41",
+          }).then(() => {
+            container.classList.remove("show-forgot");
+            emailInput.value = "";
+          });
+        } else {
+          Swal.fire({
+            icon: "success",
+            title: "¡Correo Enviado!",
+            text: data.message,
+            confirmButtonColor: "#4C5F41",
+          }).then(() => {
+            container.classList.remove("show-forgot");
+            emailInput.value = "";
+          });
+        }
       } catch (error) {
         console.error(error);
         Swal.fire("Error", "No se pudo conectar con el servidor", "error");
