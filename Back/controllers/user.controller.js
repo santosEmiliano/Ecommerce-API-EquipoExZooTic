@@ -155,8 +155,7 @@ const solicitarRecuperacion = async (req, res) => {
       return res.status(500).json({message: "Error al guardar el token."});
     }
 
-    const urlFront = process.env.FRONTEND_URL || 'http://127.0.0.1:5500';
-    const link = `${urlFront}/Front/restablecer.html?token=${token}`; // Cambiar esto cuando lo subamos al hosting
+    const link = `https://exzootic.store/restablecer.html?token=${token}`;
 
     const mailOptions = {
       from: `"ExZooTic - Soporte" <${process.env.GMAIL_USER}>`,
