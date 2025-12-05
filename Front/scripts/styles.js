@@ -75,3 +75,9 @@ function toast(msg, color) {
     },
   }).showToast();
 }
+
+const style = {
+  toast
+}
+
+export default style;

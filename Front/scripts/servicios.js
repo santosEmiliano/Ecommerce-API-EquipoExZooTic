@@ -316,6 +316,7 @@ const pagar = async () => {
     if (response.ok) {
       Swal.fire({
         title: "Compra realizada con exito!!",
+        text: "La nota se envio a tu correo electronico :)",
         icon: "success",
         confirmButtonText: "Ok",
       });
@@ -374,12 +375,22 @@ const enviarCorreoSuscripcion = async (email) => {
       body: JSON.stringify({ email }),
     });
 
+    // Si no esta logueado manda este error
+    if (response.status == 401 || response.status === 403){
+      throw new Error("REQ_LOGIN");
+    }
+
+    const res = await response.json();
+
+    // Si ya esta suscrito
     if (!response.ok) {
-      const res = await response.json();
+      if(res.message && res.message.includes("parte de la manada")){
+        throw new Error("ALREADY_SUB");  
+      }
       throw new Error(res.message || "Error al suscribirse");
     }
 
-    return await response.json();
+    return res;
   } catch (error) {
     console.error("Error suscripcion:", error);
     throw error;

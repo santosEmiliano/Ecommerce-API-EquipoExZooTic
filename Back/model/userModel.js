@@ -140,6 +140,17 @@ async function actualizarContrasena(id, nuevaContrasena) {
   }
 }
 
+// Cambiar el estado de suscripción a 1 
+async function userSuscrito(id) {
+  try {
+    await pool.query("UPDATE users SET suscripcion = 1 WHERE id = ?", [id]);
+    return true;
+  } catch (error) {
+    console.error("Error al marcar suscripción:", error);
+    return false;
+  }
+}
+
 module.exports = {
   userNew,
   coincidencias,
@@ -151,5 +162,6 @@ module.exports = {
   resetearIntentos,
   guardarTokenRecuperacion,
   buscarToken,
-  actualizarContrasena
+  actualizarContrasena,
+  userSuscrito
 };

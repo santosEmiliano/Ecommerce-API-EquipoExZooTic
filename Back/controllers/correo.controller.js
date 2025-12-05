@@ -6,6 +6,9 @@ const fs = require('fs');
 // Importamos el model del cupon
 const cuponModel = require('../model/cuponModel');
 
+// Importamos el model del userModel
+const userModel = require("../model/userModel");
+
 // Configuracion del transporter 
 const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -22,10 +25,23 @@ const enviarCorreoSub = async (req, res) => {
     // Obtenciun de datos del body
     const {email} = req.body;
 
+    const userId = req.userId;
+
     // Validacion de envio de datos para el correo
     if (!email) return res.status(400).json({ message: "El correo no fue recibido" });
 
     try{
+        const user = await userModel.buscarId(userId);
+
+        if(!user){
+            return res.status(404).json({message: "Usuario no encontrado."});
+        }
+
+        // Validacion para saber si ya esta suscrito
+        if(user.suscripcion == 1){
+            return res.status(400).json({message: "Ya eres parte de la manada. NO PUEDES SUSCRIBIRTE"});
+        }
+
         // Obtenemos un cupon al azar
         const cupon = await cuponModel.getCuponRandom();
 
@@ -101,6 +117,9 @@ const enviarCorreoSub = async (req, res) => {
 
         // Enviamos el correo
         await transporter.sendMail(mailOptions);
+
+        await userModel.userSuscrito(userId);
+        
         res.json({ status: "success", message: "Correo de suscripcion enviado", cupon:cupon.codigo });
     } catch (error) {
         console.log("Error en el envio de la suscripcion", error);
