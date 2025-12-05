@@ -18,16 +18,6 @@ router.get(
     statsFunctions.getPorCategoria
 )
 
-/*
-    Descripcion:
-    Obtiene los datos estructurados en arrays para el funcionamiento de la grafica en el front
-*/
-
-/*
-    Llamada:
-    
-*/
-
 //  Ruta para obtener el total vendido de la tienda
 router.get(
     '/ventas-total', 
@@ -36,16 +26,6 @@ router.get(
     statsFunctions.getVentasTotales
 )
 
-/*
-    Descripcion:
-    Obtiene el total vendido de todas las categorias y lo envia al front
-*/
-
-/*
-    Llamada:
-    
-*/
-
 //  Ruta para obtener un reporte de existencias por categoria
 router.get(
     '/existencias', 
@@ -53,15 +33,5 @@ router.get(
     tokens.verifyAdmin,
     statsFunctions.getExistencias
 )
-
-/*
-    Descripcion:
-    Organiza los productos con sus existencias por categoria, esto creo que va en PDF
-*/
-
-/*
-    Llamada:
-    
-*/
 
 module.exports = router;

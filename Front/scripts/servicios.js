@@ -37,7 +37,7 @@ const login = async (correo, contrasena, captcha) => {
         localStorage.setItem("id", data.datos.id);
 
         actualizarSesionLogIn(data.datos.nombre);
-
+        window.dispatchEvent(new Event("login-exitoso"));
         try {
           const carrito = await obtenerCarrito();
           const carritoCount = document.querySelector(".cart-count");
@@ -304,9 +304,9 @@ const pagar = async () => {
   try {
     const response = await fetch(`http://localhost:3000/api/compra/${id}`, {
       method: "POST",
-      headers: { 
+      headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(datosEnvio),
     });
@@ -745,21 +745,20 @@ const verificarCupon = async (cupon) => {
     const id = localStorage.getItem("id");
     const response = await fetch(`http://localhost:3000/api/cupon/${cupon}`, {
       method: "GET",
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}`, },
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     });
 
     if (!response.ok) {
       const res = await response.json();
       throw new Error(res.message || "Error al verificar el cupon");
     }
-    
-    return await response.json();
 
+    return await response.json();
   } catch (error) {
     console.error(error);
-    throw error; 
+    throw error;
   }
-}
+};
 
 // FETCH PARA OLVIDAR CONTRASEÑA
 const solicitarRecuperacion = async (email) => {
@@ -833,8 +832,8 @@ const servicios = {
   eliminarCarrito,
   obtenerResumenCompraCarrito,
   solicitarRecuperacion,
-  restablecerContrasena,  
-  verificarCupon
+  restablecerContrasena,
+  verificarCupon,
 };
 
 export default servicios;
