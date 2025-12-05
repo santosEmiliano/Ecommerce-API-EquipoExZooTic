@@ -73,7 +73,18 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <input type="text" class="qty-input" value="${item.cantidad}" readonly>
                                 <button class="qty-btn btn-plus" onclick="updateQty(${item.id}, 1)">+</button>
                             </div>
-                            <div class="item-price">$${(item.precio * item.cantidad).toFixed(2)}</div>
+                            
+                            <div class="prices-wrapper" style="text-align: right; display: flex; flex-direction: column; justify-content: center;">
+                                
+                                <span class="unit-price" style="font-size: 0.85rem; color: #777; margin-bottom: 2px;">
+                                    Unitario: $${parseFloat(item.precio).toFixed(2)}
+                                </span>
+
+                                <span class="item-price" style="font-weight: bold; font-size: 1.2rem; color: var(--color--verde-bosque);">
+                                    $${(item.precio * item.cantidad).toFixed(2)}
+                                </span>
+                                
+                            </div>
                         </div>
                     </div>
 
