@@ -792,27 +792,6 @@ const solicitarRecuperacion = async (email) => {
   }
 };
 
-const restablecerContrasena = async (token, nuevaContrasena) => {
-  try {
-    const response = await fetch("/back/auth/reset-password", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ token, nuevaContrasena }),
-    });
-
-    if (!response.ok) {
-      const res = await response.json();
-      throw new Error(res.message || "Error al restablecer contraseña");
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Error en restablecerContrasena:", error);
-    throw error;
-  }
-};
 
 const servicios = {
   login,
@@ -841,7 +820,6 @@ const servicios = {
   eliminarCarrito,
   obtenerResumenCompraCarrito,
   solicitarRecuperacion,
-  restablecerContrasena,
   verificarCupon,
   actualizarCarrito
 };
