@@ -1495,3 +1495,40 @@ body.dark-mode a img[src*=".png"] {
     scrollbar-width: thin;
     scrollbar-color: var(--color--verde-medio) #f1f1f1;
 }
+
+#chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10001;
+    font-family: "Nunito", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    
+    /* --- AGREGA ESTA LÍNEA --- */
+    pointer-events: none; /* Deja pasar los clics a través del área vacía */
+}
+
+.btn-flotante-chat {
+    /* ... (tus otros estilos) ... */
+    
+    /* --- AGREGA ESTA LÍNEA --- */
+    pointer-events: auto; /* Reactiva los clics solo para el botón */
+}
+
+.chat-window {
+    /* ... (tus otros estilos: background, width, transition, etc.) ... */
+    
+    /* --- AGREGA O MODIFICA ESTO --- */
+    pointer-events: none; /* Por defecto, ignorar clics (está oculta) */
+}
+
+/* Y busca la clase donde se muestra: */
+.chat-window.mostrar-chat {
+    transform: scale(1);
+    opacity: 1;
+    
+    /* --- AGREGA ESTA LÍNEA --- */
+    pointer-events: auto; /* Ahora sí, permite clics dentro del chat */
+}
