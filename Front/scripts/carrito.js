@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         items.forEach(item => {
-            const imgPath = item.imagen.startsWith('http') ? item.imagen : `http://72.60.228.244:3000${item.imagen}`;
+            const imgPath = item.imagen.startsWith('http') ? item.imagen : `https://72.60.228.244:3000/back${item.imagen}`;
             
             const itemHTML = `
                 <div class="cart-item" data-id="${item.id}">
