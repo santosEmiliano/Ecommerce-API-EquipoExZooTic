@@ -151,4 +151,26 @@ document.addEventListener("DOMContentLoaded", () => {
       }).showToast();
     };
   }
+  actualizarContadorCarrito();
 });
+
+const actualizarContadorCarrito = async () => {
+  if (localStorage.getItem("id")) {
+    try {
+      const carrito = await servicios.obtenerCarrito(); 
+
+      if (Array.isArray(carrito)) {
+        const totalArticulos = carrito.reduce((acumulador, producto) => {
+          return acumulador + producto.cantidad; 
+        }, 0);
+
+        const carritoCount = document.querySelector(".cart-count"); 
+        if (carritoCount) {
+            carritoCount.innerText = totalArticulos;
+        }
+      }
+    } catch (error) {
+      console.error("Error al actualizar contador:", error);
+    }
+  }
+};
