@@ -304,7 +304,10 @@ const pagar = async () => {
   try {
     const response = await fetch(`http://localhost:3000/api/compra/${id}`, {
       method: "POST",
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      headers: { 
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(datosEnvio),
     });
 

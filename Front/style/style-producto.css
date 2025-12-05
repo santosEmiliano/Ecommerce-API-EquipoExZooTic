@@ -393,3 +393,28 @@ body {
   transform: scale(1.1);
   opacity: 1;
 }
+
+/* Estado Agotado en Detalle de Producto */
+.btn-disabled {
+    background-color: #a0a0a0 !important; /* Gris */
+    color: #e0e0e0 !important;
+    cursor: not-allowed !important;
+    box-shadow: none !important;
+    transform: none !important;
+    border: 2px dashed #777 !important;
+}
+
+.stock-agotado {
+    background-color: var(--color-rojo) !important;
+    color: white !important;
+    font-weight: 800;
+    letter-spacing: 1px;
+    box-shadow: 0 0 10px rgba(232, 51, 47, 0.5);
+    animation: shake 0.5s ease-in-out; /* Una pequeña sacudida de negación */
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
