@@ -13,66 +13,67 @@ const login = async (correo, contrasena, captcha) => {
     });
 
     const btnAcceder = document.getElementById("btnAcceder");
-
     let data;
 
     try {
       data = await respuesta.json();
 
       if (respuesta.ok) {
-        // Si entra bien, quitamos cualquier bloqueo anterior 
         localStorage.removeItem("bloqueo_tiempo");
-        document.getElementById("mensajeBloqueo").style.display = "none";
+        const mensajeBloqueo = document.getElementById("mensajeBloqueo");
+        if (mensajeBloqueo) mensajeBloqueo.style.display = "none";
 
-        if(btnAcceder) {
+        if (btnAcceder) {
           btnAcceder.disabled = false;
           btnAcceder.innerHTML = "Acceder";
           btnAcceder.style.opacity = "1";
           btnAcceder.style.cursor = "pointer";
         }
 
-        actualizarSesionLogIn(data.datos.nombre);
-
-        Swal.fire({
-          title: "Sesión Iniciada Con Éxito!!",
-          icon: "success",
-          confirmButtonText: "Ok",
-        });
-
         localStorage.setItem("token", data.token);
         localStorage.setItem("nombre", data.datos.nombre);
         localStorage.setItem("correo", data.datos.correo);
-        localStorage.setItem("pais", data.datos.pais); 
-        localStorage.setItem("id", data.datos.id); 
+        localStorage.setItem("pais", data.datos.pais);
+        localStorage.setItem("id", data.datos.id);
 
-        const carrito = await servicios.obtenerCarrito(); 
-        const carritoCount = document.querySelector(".cart-count");
-        if (Array.isArray(carrito)) {
-          const totalArticulos = carrito.reduce((acumulador, producto) => {
-            return acumulador + producto.cantidad; 
-          }, 0);
+        actualizarSesionLogIn(data.datos.nombre);
 
-          if (carritoCount) {
+        try {
+          const carrito = await obtenerCarrito();
+          const carritoCount = document.querySelector(".cart-count");
+
+          if (Array.isArray(carrito)) {
+            const totalArticulos = carrito.reduce((acumulador, producto) => {
+              return acumulador + producto.cantidad;
+            }, 0);
+
+            if (carritoCount) {
               carritoCount.innerText = totalArticulos;
+            }
           }
+        } catch (errCarrito) {
+          console.warn(
+            "No se pudo actualizar el carrito visualmente",
+            errCarrito
+          );
         }
 
-        if (carritoCount) {
-          carritoCount.innerText = totalArticulos;
-        }
-
-      } else if(respuesta.status === 403){
-        // Cuenta bloqueada
-
-        // Calculamos los 5 minutos para el cronometro
+        Swal.fire({
+          title: "¡Sesión Iniciada!",
+          text: `Bienvenido, ${data.datos.nombre}`,
+          icon: "success",
+          confirmButtonText: "Ok",
+          timer: 2000,
+        });
+      } else if (respuesta.status === 403) {
         let tiempoGuardado = localStorage.getItem("bloqueo_tiempo");
-        let tiempoDebloqueo
+        let tiempoDebloqueo;
 
-        if(tiempoGuardado && parent(tiempoGuardado) > Date.now()){
+        if (tiempoGuardado && parseInt(tiempoGuardado) > Date.now()) {
           tiempoDebloqueo = parseInt(tiempoGuardado);
-        } else{
-          tiempoDebloqueo = Date.now() + (5 * 60 * 1000);
-          localStorage.setItem("bloqueo_tiempo", tiempoDebloqueo);  
+        } else {
+          tiempoDebloqueo = Date.now() + 5 * 60 * 1000;
+          localStorage.setItem("bloqueo_tiempo", tiempoDebloqueo);
         }
 
         iniciarCronometro(tiempoDebloqueo);
@@ -83,9 +84,8 @@ const login = async (correo, contrasena, captcha) => {
           icon: "warning",
           confirmButtonText: "Ok",
         });
-      } else{
-        // Contraseña incorrecta
-
+      } else {
+        // --- CREDENCIALES INCORRECTAS ---
         Swal.fire({
           title: data.message || "Credenciales incorrectas 👹",
           icon: "error",
@@ -94,26 +94,25 @@ const login = async (correo, contrasena, captcha) => {
       }
     } catch (parseErr) {
       console.warn("Respuesta no es JSON del servidor", parseErr);
-      data = {};
     }
   } catch (error) {
     console.error("Error al llamar a la API:", error);
     Swal.fire({
-      title: "Error al llamar al servidor°",
+      title: "Error al llamar al servidor",
       icon: "error",
       confirmButtonText: "Ok",
     });
   }
 };
 
-function iniciarCronometro(tiempoDebloqueo){
+function iniciarCronometro(tiempoDebloqueo) {
   const btnAcceder = document.getElementById("btnAcceder");
   const mensaje = document.getElementById("mensajeBloqueo");
 
-  if(!btnAcceder || !mensaje) return;
+  if (!btnAcceder || !mensaje) return;
 
-  btnAcceder.desable = true;
-  btnAcceder.style.pointerEvents = "none"; 
+  btnAcceder.disabled = true;
+  btnAcceder.style.pointerEvents = "none";
   btnAcceder.style.opacity = "0.5";
   btnAcceder.style.backgroundColor = "#ccc";
   btnAcceder.style.color = "#000";
@@ -123,11 +122,11 @@ function iniciarCronometro(tiempoDebloqueo){
 
   if (window.cronometroLogin) clearInterval(window.cronometroLogin);
 
-  window.cronometroLogin = setInterval(() =>{
+  window.cronometroLogin = setInterval(() => {
     const tiempoAhora = Date.now();
     const tiempoBloqueo = tiempoDebloqueo - tiempoAhora;
 
-    if(tiempoBloqueo < 0){
+    if (tiempoBloqueo < 0) {
       clearInterval(window.cronometroLogin);
       localStorage.removeItem("bloqueo_tiempo");
 
@@ -137,8 +136,8 @@ function iniciarCronometro(tiempoDebloqueo){
       btnAcceder.disabled = false;
       btnAcceder.style.pointerEvents = "auto";
       btnAcceder.style.opacity = "1";
-      btnAcceder.style.backgroundColor = "var(--color--verde-bosque)";
-      btnAcceder.style.color = "#000";
+      btnAcceder.style.backgroundColor = "";
+      btnAcceder.style.color = "";
       btnAcceder.style.cursor = "pointer";
       btnAcceder.innerHTML = "Acceder";
 
@@ -149,34 +148,33 @@ function iniciarCronometro(tiempoDebloqueo){
     const seg = Math.floor((tiempoBloqueo % (1000 * 60)) / 1000);
 
     mensaje.innerHTML = `Esperar: ${min}m ${seg}s para intentar de nuevo`;
-    btnAcceder.innerHTML = `Bloqueado (${min}:${seg < 10 ? '0' + seg : seg})`; 
+    btnAcceder.innerHTML = `Bloqueado (${min}:${seg < 10 ? "0" + seg : seg})`;
   }, 1000);
 }
 
-function verificarBloqueo(){
+function verificarBloqueo() {
   const bloqueo = localStorage.getItem("bloqueo_tiempo");
 
-  if(bloqueo){
+  if (bloqueo) {
     const tiempoBloqueo = parseInt(bloqueo);
 
-    if (tiempoBloqueo > Date.now()){
+    if (tiempoBloqueo > Date.now()) {
       iniciarCronometro(tiempoBloqueo);
-    } else{
+    } else {
       localStorage.removeItem("bloqueo_tiempo");
-
       const mensaje = document.getElementById("mensajeBloqueo");
       const btnAcceder = document.getElementById("btnAcceder");
-      
+
       if (mensaje) {
-          mensaje.style.display = "none";
-          mensaje.innerHTML = "";
+        mensaje.style.display = "none";
+        mensaje.innerHTML = "";
       }
-      
+
       if (btnAcceder) {
-          btnAcceder.disabled = false;
-          btnAcceder.style.opacity = "1";
-          btnAcceder.style.cursor = "pointer";
-          btnAcceder.innerHTML = "Acceder";
+        btnAcceder.disabled = false;
+        btnAcceder.style.opacity = "1";
+        btnAcceder.style.cursor = "pointer";
+        btnAcceder.innerHTML = "Acceder";
       }
     }
   }
@@ -184,28 +182,31 @@ function verificarBloqueo(){
 
 function actualizarSesionLogIn(nombre) {
   const modal = document.getElementById("authModal");
-  if(modal) modal.style.display = "none";
-  
+  if (modal) {
+    modal.classList.remove("closing");
+    modal.style.display = "none";
+  }
+
   const userDisplay = document.getElementById("userName");
-  if(userDisplay) {
-      userDisplay.style.display = "inline-block";
-      userDisplay.innerHTML = `${nombre}`;
+  if (userDisplay) {
+    userDisplay.style.display = "inline-block";
+    userDisplay.innerHTML = `${nombre}`;
   }
 
   const userIcon = document.getElementById("userIcon");
-  if(userIcon) userIcon.style.display = "inline-block";
+  if (userIcon) userIcon.style.display = "inline-block";
 
   const cartBtn = document.getElementById("cartBtn");
-  if(cartBtn) cartBtn.style.display = "inline-block";
+  if (cartBtn) cartBtn.style.display = "inline-block";
 
   const loginBtn = document.getElementById("logInbtn");
-  if(loginBtn) loginBtn.style.display = "none";
+  if (loginBtn) loginBtn.style.display = "none";
 
   const regBtn = document.getElementById("regbtn");
-  if(regBtn) regBtn.style.display = "none";
+  if (regBtn) regBtn.style.display = "none";
 
   const logoutBtn = document.getElementById("logOutbtn");
-  if(logoutBtn) logoutBtn.style.display = "inline-block";
+  if (logoutBtn) logoutBtn.style.display = "inline-block";
 }
 
 const logout = async () => {
@@ -219,25 +220,17 @@ const logout = async () => {
 
     if (res.ok) {
       Swal.fire({
-        title: "Sesión Cerrada Con Éxito!!",
+        title: "Sesión Cerrada",
         icon: "success",
         confirmButtonText: "Ok",
+        timer: 1500,
       });
     } else {
       const data = await res.json();
-      Swal.fire({
-        title: data?.error ?? `Error al cerrar sesión`,
-        icon: "error",
-        confirmButtonText: "Ok",
-      });
+      console.warn("Logout server message:", data);
     }
   } catch (err) {
     console.error("Error al conectar con el servidor:", err);
-    Swal.fire({
-      title: "Error de conexión",
-      icon: "error",
-      confirmButtonText: "Ok",
-    });
   } finally {
     localStorage.removeItem("token");
     localStorage.removeItem("correo");
@@ -246,37 +239,39 @@ const logout = async () => {
     localStorage.removeItem("pais");
 
     actualizarSesionLogOut();
+
+    const carritoCount = document.querySelector(".cart-count");
+    if (carritoCount) carritoCount.innerText = "0";
   }
 };
 
 function actualizarSesionLogOut() {
   const userDisplay = document.getElementById("userName");
-  if(userDisplay) userDisplay.style.display = "none";
+  if (userDisplay) userDisplay.style.display = "none";
 
   const userIcon = document.getElementById("userIcon");
-  if(userIcon) userIcon.style.display = "none";
+  if (userIcon) userIcon.style.display = "none";
 
   const cartBtn = document.getElementById("cartBtn");
-  if(cartBtn) cartBtn.style.display = "none";
+  if (cartBtn) cartBtn.style.display = "none";
 
   const loginBtn = document.getElementById("logInbtn");
-  if(loginBtn) loginBtn.style.display = "inline-block";
+  if (loginBtn) loginBtn.style.display = "inline-block";
 
   const regBtn = document.getElementById("regbtn");
-  if(regBtn) regBtn.style.display = "inline-block";
+  if (regBtn) regBtn.style.display = "inline-block";
 
   const logoutBtn = document.getElementById("logOutbtn");
-  if(logoutBtn) logoutBtn.style.display = "none";
+  if (logoutBtn) logoutBtn.style.display = "none";
 }
 
 const enviarCorreoContacto = async (formData) => {
   try {
-    // formData es un objeto JSON { nombre, email, mensaje }
     const response = await fetch("http://localhost:3000/api/contacto", {
       method: "POST",
-      headers: { 
+      headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json" 
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
     });
@@ -287,7 +282,7 @@ const enviarCorreoContacto = async (formData) => {
     }
     return await response.json();
   } catch (error) {
-    console.error("Error al momento de hacer la peticion contacto:", error);
+    console.error("Error contacto:", error);
     throw error;
   }
 };
@@ -297,21 +292,20 @@ const pagar = async () => {
     nombre: document.getElementById("nombre").value,
     direccion: document.getElementById("direccion").value,
     ciudad: document.getElementById("ciudad").value,
-
     pais: document.getElementById("paisCompra").value,
-
-    metodoPago: document.querySelector('input[name="payment_method"]:checked').value,
+    metodoPago: document.querySelector('input[name="payment_method"]:checked')
+      .value,
     cupon: document.getElementById("descuento").value,
     email: document.getElementById("email").value,
   };
 
-  const id = localStorage.getItem("id"); 
+  const id = localStorage.getItem("id");
 
   try {
     const response = await fetch(`http://localhost:3000/api/compra/${id}`, {
       method: "POST",
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}`, },
-      body: JSON.stringify(datosEnvio), 
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      body: JSON.stringify(datosEnvio),
     });
 
     const data = await response.json();
@@ -320,7 +314,6 @@ const pagar = async () => {
       Swal.fire({
         title: "Compra realizada con exito!!",
         icon: "success",
-
         confirmButtonText: "Ok",
       });
     } else {
@@ -341,7 +334,7 @@ const obtenerResumenCompra = async (pais) => {
     const id = localStorage.getItem("id");
     const response = await fetch(`http://localhost:3000/api/compra/${id}`, {
       method: "GET",
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}`, },
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     });
 
     if (response.status === 404) {
@@ -351,20 +344,14 @@ const obtenerResumenCompra = async (pais) => {
     const data = await response.json();
     document.getElementById("subtotal").innerHTML = `$${data.subtotal}`;
 
-    // Accedes al objeto específico usando corchetes
     let datosDelPais = data.tarifas[pais];
-
-    // Ahora puedes sacar la tasa y el envío
     let tasa = datosDelPais.tasa;
-
     let envio = datosDelPais.envio;
 
-    document.getElementById("costoEnvio"). innerHTML = `$${envio}`;
-    
-    // Salida: Tasa: 0.16, Envío: 150
-    const impuesto = data.subtotal * tasa;
+    document.getElementById("costoEnvio").innerHTML = `$${envio}`;
 
-    document.getElementById("impuestos").innerHTML = `$${impuesto}`
+    const impuesto = data.subtotal * tasa;
+    document.getElementById("impuestos").innerHTML = `$${impuesto}`;
 
     const totalFinal = data.subtotal + impuesto + envio;
     document.getElementById("total").innerHTML = `$${totalFinal}`;
@@ -377,9 +364,10 @@ const enviarCorreoSuscripcion = async (email) => {
   try {
     const response = await fetch("http://localhost:3000/api/suscripcion", {
       method: "POST",
-      headers: { 
-        Authorization: `Bearer ${localStorage.getItem("token")}`, 
-        "Content-Type": "application/json" },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ email }),
     });
 
@@ -390,7 +378,7 @@ const enviarCorreoSuscripcion = async (email) => {
 
     return await response.json();
   } catch (error) {
-    console.error("Error al momento de hacer la peticion suscripcion:", error);
+    console.error("Error suscripcion:", error);
     throw error;
   }
 };
@@ -413,7 +401,7 @@ const signIn = async (_nombre, _correo, _pais, _contrasena) => {
     if (!response.ok) {
       throw new Error("Error en la petición: " + response.status);
     } else {
-      const data = await response.json();
+      // const data = await response.json();
       Swal.fire({
         title: "Cuenta registrada exitosamente!!",
         icon: "success",
@@ -445,14 +433,16 @@ const getProd = async (filtros = {}) => {
 };
 
 const getProdById = async (id) => {
-    try {
-        const response = await fetch(`http://localhost:3000/api/crud/productos/${id}`);
-        if (!response.ok) throw new Error("Producto no encontrado");
-        return await response.json();
-    } catch (error) {
-        console.error("Error obteniendo producto individual:", error);
-        return null;
-    }
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/crud/productos/${id}`
+    );
+    if (!response.ok) throw new Error("Producto no encontrado");
+    return await response.json();
+  } catch (error) {
+    console.error("Error obteniendo producto individual:", error);
+    return null;
+  }
 };
 
 const addProduct = async (formData) => {
@@ -515,7 +505,7 @@ const updateProd = async (id, formData) => {
       const res = await response.json();
       throw new Error(res.message || "Error al actualizar");
     }
-    
+
     return await response.json();
   } catch (error) {
     console.error("Error en updateProd:", error);
@@ -531,13 +521,13 @@ const obtenerVentasCategoria = async () => {
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
-        }
+        },
       }
     );
 
     if (!response.ok) {
       const res = await response.json();
-      throw new Error(res.message || "Error al obtener las ventas por categoria");
+      throw new Error(res.message || "Error ventas categoria");
     }
 
     return await response.json();
@@ -545,76 +535,72 @@ const obtenerVentasCategoria = async () => {
     console.error("Error en obtenerVentasCategoria:", error);
     throw error;
   }
-}
+};
 
 const obtenerVentasTotales = async () => {
   try {
-    const response = await fetch(
-      `http://localhost:3000/stats/ventas-total`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        }
-      }
-    );
+    const response = await fetch(`http://localhost:3000/stats/ventas-total`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
 
     if (!response.ok) {
       const res = await response.json();
-      throw new Error(res.message || "Error al obtener las ventas totales");
+      throw new Error(res.message || "Error ventas totales");
     }
-    
+
     return await response.json();
   } catch (error) {
     console.error("Error en obtenerVentasTotales:", error);
     throw error;
   }
-}
+};
 
 const obtenerExistencias = async () => {
   try {
-    const response = await fetch(
-      `http://localhost:3000/stats/existencias`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        }
-      }
-    );
+    const response = await fetch(`http://localhost:3000/stats/existencias`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
     if (!response.ok) {
       const res = await response.json();
-      throw new Error(res.message || "Error al obtener el reporte de existencias");
+      throw new Error(res.message || "Error existencias");
     }
     return await response.json();
   } catch (error) {
     console.error("Error en obtenerExistencias:", error);
     throw error;
   }
-}
+};
 
 const cargarCaptcha = async () => {
-  const res = await fetch("http://localhost:3000/captcha");
-      const svg = await res.text();
-      document.getElementById("captchaContainer").innerHTML = svg;
-}
+  try {
+    const res = await fetch("http://localhost:3000/captcha");
+    const svg = await res.text();
+    const container = document.getElementById("captchaContainer");
+    if (container) container.innerHTML = svg;
+  } catch (e) {
+    console.error("Error cargando captcha", e);
+  }
+};
 
 const obtenerCarrito = async () => {
   const id = localStorage.getItem("id");
   try {
-    const response = await fetch(
-      `http://localhost:3000/api/carrito/${id}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        }
-      }
-    );
+    const response = await fetch(`http://localhost:3000/api/carrito/${id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
 
     if (!response.ok) {
       const res = await response.json();
-      throw new Error(res.message || "Error al obtener el carrito del usuario");
+      throw new Error(res.message || "Error obteniendo carrito");
     }
 
     return await response.json();
@@ -622,26 +608,23 @@ const obtenerCarrito = async () => {
     console.error("Error en obtenerCarrito:", error);
     throw error;
   }
-}
+};
 
-const addProductoCarrito = async (dataObjeto) => { 
+const addProductoCarrito = async (dataObjeto) => {
   const id = localStorage.getItem("id");
   try {
-    const response = await fetch(
-      `http://localhost:3000/api/carrito/${id}`, 
-      {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json" 
-        },
-        body: JSON.stringify(dataObjeto),
-      }
-    );
+    const response = await fetch(`http://localhost:3000/api/carrito/${id}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataObjeto),
+    });
 
     if (!response.ok) {
       const res = await response.json();
-      throw new Error(res.message || "Error al agregar producto al carrito");
+      throw new Error(res.message || "Error agregando al carrito");
     }
 
     return await response.json();
@@ -655,20 +638,20 @@ const modificarProductoCarrito = async (idProducto, cantidad) => {
   const idUsuario = localStorage.getItem("id");
   try {
     const response = await fetch(
-      `http://localhost:3000/api/carrito/${idUsuario}/producto/${idProducto}`, 
+      `http://localhost:3000/api/carrito/${idUsuario}/producto/${idProducto}`,
       {
         method: "PUT",
         headers: {
-          "Authorization": `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json" 
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ cantidad: cantidad }) 
+        body: JSON.stringify({ cantidad: cantidad }),
       }
     );
 
     if (!response.ok) {
       const res = await response.json();
-      throw new Error(res.message || "Error al modificar producto del carrito");
+      throw new Error(res.message || "Error modificando carrito");
     }
 
     return await response.json();
@@ -682,7 +665,7 @@ const eliminarProductoCarrito = async (idProducto) => {
   const idUsuario = localStorage.getItem("id");
   try {
     const response = await fetch(
-      `http://localhost:3000/api/carrito/${idUsuario}/producto/${idProducto}`, 
+      `http://localhost:3000/api/carrito/${idUsuario}/producto/${idProducto}`,
       {
         method: "DELETE",
         headers: {
@@ -693,7 +676,7 @@ const eliminarProductoCarrito = async (idProducto) => {
 
     if (!response.ok) {
       const res = await response.json();
-      throw new Error(res.message || "Error al eliminar producto del carrito");
+      throw new Error(res.message || "Error eliminando producto");
     }
 
     return await response.json();
@@ -706,19 +689,16 @@ const eliminarProductoCarrito = async (idProducto) => {
 const eliminarCarrito = async () => {
   const id = localStorage.getItem("id");
   try {
-    const response = await fetch(
-      `http://localhost:3000/api/carrito/${id}`, 
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
+    const response = await fetch(`http://localhost:3000/api/carrito/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
 
     if (!response.ok) {
       const res = await response.json();
-      throw new Error(res.message || "Error al eliminar carrito");
+      throw new Error(res.message || "Error eliminando carrito");
     }
 
     return await response.json();
@@ -733,18 +713,18 @@ const obtenerResumenCompraCarrito = async () => {
     const id = localStorage.getItem("id");
     const response = await fetch(`http://localhost:3000/api/compra/${id}`, {
       method: "GET",
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}`, },
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     });
 
     if (response.status === 404) {
       const res = await response.json();
-      throw new Error(res.message || "Error al obtener resumen de compra");
+      throw new Error(res.message || "Error resumen compra");
     }
     return await response.json();
   } catch (error) {
     console.error(error);
   }
-}
+};
 
 const servicios = {
   login,
@@ -754,7 +734,7 @@ const servicios = {
   logout,
   signIn,
   getProd,
-  getProdById, 
+  getProdById,
   addProduct,
   deleteProd,
   updateProd,
@@ -767,11 +747,11 @@ const servicios = {
   obtenerExistencias,
   cargarCaptcha,
   obtenerCarrito,
-  addProductoCarrito, 
+  addProductoCarrito,
   modificarProductoCarrito,
   eliminarProductoCarrito,
   eliminarCarrito,
-  obtenerResumenCompraCarrito
+  obtenerResumenCompraCarrito,
 };
 
 export default servicios;
