@@ -178,9 +178,6 @@ module.exports = {
   guardarTokenRecuperacion,
   buscarToken,
   actualizarContrasena,
-<<<<<<< Updated upstream
-  userSuscrito
-=======
+  userSuscrito,
   actualizarPreferencias
->>>>>>> Stashed changes
 };
