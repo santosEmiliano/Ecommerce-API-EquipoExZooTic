@@ -1,28 +1,26 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const widgetDiv = document.createElement("div");
   widgetDiv.id = "widget-acc-container";
   widgetDiv.innerHTML = `
-        <div id="menu-acc" class="menu-acc">
-            <div class="item-acc">
-                <span>Modo Oscuro</span>
-                <label class="switch">
-                    <input type="checkbox" id="toggle-dark">
-                    <span class="slider"></span>
-                </label>
-            </div>
-            <div class="item-acc">
-                <span>Tamaño Letra</span>
-                <div style="display: flex; gap: 5px;">
-                    <button id="btn-dec-font" class="btn-font-control">-</button>
-                    <button id="btn-reset-font" class="btn-font-control" style="width: auto; padding: 0 10px;">Reset</button>
-                    <button id="btn-inc-font" class="btn-font-control">+</button>
-                </div>
-            </div>
-        </div>
-        <button id="btn-acc-toggle" class="btn-flotante" title="Accesibilidad">
-            <i class="fa-solid fa-universal-access"></i>
-        </button>
-    `;
+          <div id="menu-acc" class="menu-acc">
+              <div class="item-acc">
+                  <span>Modo Oscuro</span>
+                  <label class="switch">
+                      <input type="checkbox" id="toggle-dark">
+                      <span class="slider"></span>
+                  </label>
+              </div>
+              <div class="item-acc">
+                  <span>Tamaño Letra</span>
+                  <div style="display: flex; gap: 5px;">
+                      <button id="btn-dec-font" class="btn-font-control">-</button>
+                      <button id="btn-reset-font" class="btn-font-control">Reset</button>
+                      <button id="btn-inc-font" class="btn-font-control">+</button>
+                  </div>
+              </div>
+          </div>
+          <button id="btn-acc-toggle" class="btn-flotante"><i class="fa-solid fa-universal-access"></i></button>
+      `;
   document.body.appendChild(widgetDiv);
 
   const btnToggle = document.getElementById("btn-acc-toggle");
@@ -32,77 +30,140 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnDec = document.getElementById("btn-dec-font");
   const btnReset = document.getElementById("btn-reset-font");
 
-  btnToggle.addEventListener("click", () => {
-    menu.classList.toggle("mostrar");
-  });
+  const textTags =
+    "h1, h2, h3, h4, h5, h6, p, span, a, li, button, input, label, td, th";
+  let elements = document.querySelectorAll(textTags);
+  let currentZoom = 1;
 
-  if (localStorage.getItem("theme") === "dark") {
-    document.body.classList.add("dark-mode");
-    checkDark.checked = true;
+  async function sincronizarPreferencias() {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      try {
+        const response = await fetch(
+          "http://localhost:3000/auth/obtenerDatos",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.user) {
+            if (data.user.tema_pref) {
+              localStorage.setItem("theme", data.user.tema_pref);
+            }
+            if (data.user.zoom_pref) {
+              localStorage.setItem("zoomLevel", data.user.zoom_pref);
+            }
+          }
+        }
+      } catch (error) {
+        console.error("❌ Error conectando con preferencias:", error);
+      }
+    }
+
+    const temaFinal = localStorage.getItem("theme") || "light";
+    const zoomFinal = parseFloat(localStorage.getItem("zoomLevel")) || 1;
+
+    aplicarTema(temaFinal);
+    aplicarZoom(zoomFinal);
   }
 
-  checkDark.addEventListener("change", () => {
-    if (checkDark.checked) {
+  async function guardarCambio(tipo, valor) {
+    if (tipo === "theme") localStorage.setItem("theme", valor);
+    if (tipo === "zoom") localStorage.setItem("zoomLevel", valor);
+
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        await fetch("http://localhost:3000/auth/guardar-preferencias", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            tema: localStorage.getItem("theme"),
+            zoom: localStorage.getItem("zoomLevel"),
+          }),
+        });
+      } catch (error) {
+        console.error("Error guardando:", error);
+      }
+    }
+  }
+
+  function aplicarTema(tema) {
+    if (tema === "dark") {
       document.body.classList.add("dark-mode");
-      localStorage.setItem("theme", "dark");
+      checkDark.checked = true;
     } else {
       document.body.classList.remove("dark-mode");
-      localStorage.setItem("theme", "light");
+      checkDark.checked = false;
     }
-  });
-
-  const textTags =
-    "h1, h2, h3, h4, h5, h6, p, span, a, li, button, input, label, td, th, blockquote";
-  let elements = document.querySelectorAll(textTags);
-  let currentZoom = parseFloat(localStorage.getItem("zoomLevel")) || 1;
+  }
 
   function initOriginalSizes() {
     elements.forEach((el) => {
       if (!el.dataset.originalSize) {
         const style = window.getComputedStyle(el);
         const fontSize = parseFloat(style.fontSize);
-
-        if (fontSize > 0) {
-          el.dataset.originalSize = fontSize;
-        }
+        if (fontSize > 0) el.dataset.originalSize = fontSize;
       }
     });
   }
 
-  function applyZoom(factor) {
+  function aplicarZoom(factor) {
+    currentZoom = factor;
     elements.forEach((el) => {
       const originalSize = parseFloat(el.dataset.originalSize);
       if (originalSize) {
-        const newSize = originalSize * factor;
-        el.style.fontSize = `${newSize}px`;
+        el.style.fontSize = `${originalSize * factor}px`;
       }
     });
-    localStorage.setItem("zoomLevel", factor);
   }
 
-  initOriginalSizes();
+  btnToggle.addEventListener("click", () => menu.classList.toggle("mostrar"));
 
-  if (currentZoom !== 1) {
-    applyZoom(currentZoom);
-  }
+  checkDark.addEventListener("change", () => {
+    const nuevoTema = checkDark.checked ? "dark" : "light";
+    aplicarTema(nuevoTema);
+    guardarCambio("theme", nuevoTema);
+  });
 
   btnInc.addEventListener("click", () => {
     if (currentZoom < 1.5) {
-      currentZoom += 0.1;
-      applyZoom(currentZoom);
+      let nuevoZoom = parseFloat((currentZoom + 0.1).toFixed(1));
+      aplicarZoom(nuevoZoom);
+      guardarCambio("zoom", nuevoZoom);
     }
   });
 
   btnDec.addEventListener("click", () => {
     if (currentZoom > 0.7) {
-      currentZoom -= 0.1;
-      applyZoom(currentZoom);
+      let nuevoZoom = parseFloat((currentZoom - 0.1).toFixed(1));
+      aplicarZoom(nuevoZoom);
+      guardarCambio("zoom", nuevoZoom);
     }
   });
 
   btnReset.addEventListener("click", () => {
-    currentZoom = 1;
-    applyZoom(currentZoom);
-    elements.forEach((el) => (el.style.fontSize = ""));
+    aplicarZoom(1);
+    guardarCambio("zoom", 1);
+  });
+
+  initOriginalSizes();
+  await sincronizarPreferencias();
+
+  initOriginalSizes();
+  await sincronizarPreferencias();
+
+  window.addEventListener("login-exitoso", async () => {
+    await sincronizarPreferencias();
   });
 });

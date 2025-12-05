@@ -213,10 +213,33 @@ const restablecerContrasena = async (req, res) => {
   }
 }
 
+const guardarPreferencias = async (req, res) => {
+  try {
+    const userId = req.userId; 
+    const { tema, zoom } = req.body;
+
+    if (!userId) {
+      return res.status(401).json({ mensaje: "Usuario no identificado" });
+    }
+
+    const actualizado = await userModel.actualizarPreferencias(userId, tema, zoom);
+
+    if (actualizado) {
+      return res.status(200).json({ mensaje: "Preferencias guardadas" });
+    } else {
+      return res.status(500).json({ mensaje: "Error al guardar en BD" });
+    }
+  } catch (error) {
+    console.error("Error en controller preferencias:", error);
+    return res.status(500).json({ mensaje: "Error del servidor" });
+  }
+};
+
 module.exports = {
   createUser,
   login,
   logOut,
   solicitarRecuperacion,
-  restablecerContrasena
+  restablecerContrasena,
+  guardarPreferencias
 };

@@ -59,9 +59,24 @@ async function buscarId(id) {
     pais: rows[0].pais,
     suscripcion: rows[0].suscripcion,
     admin: rows[0].admin,
+    tema_pref: rows[0].tema_pref || 'light',
+    zoom_pref: rows[0].zoom_pref || 1.0
   };
 
   return datos;
+}
+
+async function actualizarPreferencias(id, tema, zoom) {
+  try {
+    await pool.query(
+      "UPDATE users SET tema_pref = ?, zoom_pref = ? WHERE id = ?",
+      [tema, zoom, id]
+    );
+    return true;
+  } catch (error) {
+    console.error("Error al actualizar preferencias:", error);
+    return false;
+  }
 }
 
 // ------------ IMPLEMTENTACION 3 INTENTOS PARA LOGEARSE -------------
@@ -163,5 +178,9 @@ module.exports = {
   guardarTokenRecuperacion,
   buscarToken,
   actualizarContrasena,
+<<<<<<< Updated upstream
   userSuscrito
+=======
+  actualizarPreferencias
+>>>>>>> Stashed changes
 };
