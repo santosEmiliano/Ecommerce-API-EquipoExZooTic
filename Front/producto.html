@@ -99,9 +99,20 @@
             <br />
 
             <ul class="lista-caracteristicas">
-              <li><strong>Edad:</strong>edad</li>
-              <li><strong>Sexo:</strong>sexo</li>
-              <li><strong>Alimentación:</strong>Alimentación</li>
+              <li>
+                <strong>Procedencia:</strong>
+                <span>Legal / Criadero</span>
+              </li>
+
+              <li>
+                <strong>Salud:</strong>
+                <span>Certificada por Vet 🩺</span>
+              </li>
+
+              <li>
+                <strong>Entrega:</strong>
+                <span>Especializada</span>
+              </li>
             </ul>
 
             <div class="acciones-producto">
@@ -119,7 +130,9 @@
               <button class="boton-comprar" onclick="procesarCompra(true)">
                 Comprar Ahora
               </button>
-              <button class="boton-carrito" onclick="procesarCompra()">🛒</button>
+              <button class="boton-carrito" onclick="procesarCompra()">
+                🛒
+              </button>
             </div>
 
             <div class="garantia-legal">
@@ -132,20 +145,24 @@
         </div>
 
         <section class="info-adicional">
-          <h3 class="titulo-seccion">Cuidados Básicos</h3>
+          <h3 class="titulo-seccion">Requisitos para Adopción</h3>
           <div class="grid-cuidados">
+            
             <div class="tarjeta-cuidado">
-              <h4>Temperatura</h4>
-              <p>Temperatura</p>
+              <h4><i class="fa-solid fa-house-chimney"></i> Hábitat</h4>
+              <p>Es indispensable contar con la instalación adecuada antes de recibir al ejemplar.</p>
             </div>
+
             <div class="tarjeta-cuidado">
-              <h4>Cama</h4>
-              <p>cama</p>
+              <h4><i class="fa-solid fa-bowl-food"></i> Dieta</h4>
+              <p>Recomendamos adquirir el kit de alimentación inicial disponible en nuestra tienda.</p>
             </div>
+
             <div class="tarjeta-cuidado">
-              <h4>Dieta</h4>
-              <p>dieta</p>
+              <h4><i class="fa-solid fa-hand-holding-heart"></i> Compromiso</h4>
+              <p>Adquirir un ejemplar es una responsabilidad a largo plazo. ¡Ámalo y cuídalo!</p>
             </div>
+
           </div>
         </section>
 
@@ -222,11 +239,11 @@
               required
             />
             <input
-                  type="password"
-                  id="regPass2"
-                  placeholder="Vuelve a escribir la contraseña"
-                  required
-                />
+              type="password"
+              id="regPass2"
+              placeholder="Vuelve a escribir la contraseña"
+              required
+            />
             <button type="button" id="btnRegistrarse">Registrarse</button>
           </form>
         </div>
@@ -244,8 +261,17 @@
             <div id="captchaContainer"></div>
 
             <div class="captcha-group">
-                <input type="text" id="captchaTxt" placeholder="Escribe el captcha" required>
-                <button type="button" id="btnRegenerarCaptcha" class="refresh-btn"></button>
+              <input
+                type="text"
+                id="captchaTxt"
+                placeholder="Escribe el captcha"
+                required
+              />
+              <button
+                type="button"
+                id="btnRegenerarCaptcha"
+                class="refresh-btn"
+              ></button>
             </div>
 
             <p id="mensajeBloqueo"></p>

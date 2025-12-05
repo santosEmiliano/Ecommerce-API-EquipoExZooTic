@@ -60,7 +60,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  initRandomizers();
   initVisualEffects();
 });
 
@@ -276,63 +275,6 @@ const mostrarNotificacion = (mensaje, tipo) => {
   }
 };
 
-function initRandomizers() {
-  const opcionesEdad = [
-    "Cría (3 meses)",
-    "Juvenil (6 meses)",
-    "Sub-adulto (9 meses)",
-    "Adulto (1-2 años)",
-    "Adulto Reproductor",
-    "Senior (+5 años)",
-  ];
-  const opcionesSexo = ["Macho", "Hembra", "Sin sexar (Indefinido)"];
-  const opcionesAlimentacion = [
-    "Insectívoro",
-    "Carnívoro",
-    "Herbívoro",
-    "Omnívoro",
-    "Frugívoro",
-  ];
-
-  const obtenerAleatorio = (lista) => lista[Math.floor(Math.random() * lista.length)];
-
-  const itemsLista = document.querySelectorAll(".lista-caracteristicas li");
-  if (itemsLista.length >= 3) {
-    itemsLista[0].innerHTML = `<strong>Edad:</strong> ${obtenerAleatorio(opcionesEdad)}`;
-    itemsLista[1].innerHTML = `<strong>Sexo:</strong> ${obtenerAleatorio(opcionesSexo)}`;
-    itemsLista[2].innerHTML = `<strong>Alimentación:</strong> ${obtenerAleatorio(opcionesAlimentacion)}`;
-  }
-
-  const textosTemperatura = [
-    "Zona caliente (30-32°C) y zona fría (24-26°C).",
-    "Temperatura ambiente constante (22-25°C).",
-    "Requiere foco de calor a 35°C y UVB.",
-    "Humedad alta (80%) y temperatura (26-28°C).",
-    "Agua climatizada a 24-26°C.",
-  ];
-  const textosHabitat = [
-    "Mínimo 60x45x30 cm. Sustrato de fibra de coco.",
-    "Terrario vertical de malla con ramas.",
-    "Acuario de 80 litros con zona seca.",
-    "Jaula espaciosa con base sólida.",
-    "Tupper o rack con buena ventilación.",
-  ];
-  const textosDieta = [
-    "Grillos, tenebrios y calcio.",
-    "Vegetales de hoja verde y fruta.",
-    "Ratones descongelados semanalmente.",
-    "Pienso especializado y heno.",
-    "Pescado de río y pellets.",
-  ];
-
-  const tarjetasCuidado = document.querySelectorAll(".tarjeta-cuidado p");
-  if (tarjetasCuidado.length >= 3) {
-    tarjetasCuidado[0].innerText = obtenerAleatorio(textosTemperatura);
-    tarjetasCuidado[1].innerText = obtenerAleatorio(textosHabitat);
-    tarjetasCuidado[2].innerText = obtenerAleatorio(textosDieta);
-  }
-}
-
 function initVisualEffects() {
   const contenedorImg = document.querySelector(".imagen-principal-contenedor");
   
@@ -349,8 +291,6 @@ function initVisualEffects() {
       contenedorImg.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)`;
     });
   }
-
-  const elementosAnimables = document.querySelectorAll(".tarjeta-cuidado, .card-categoria");
   
   setTimeout(() => {
       const observador = new IntersectionObserver(
