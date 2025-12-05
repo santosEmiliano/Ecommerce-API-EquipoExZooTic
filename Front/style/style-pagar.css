@@ -424,3 +424,41 @@ h3 {
     padding: 2vh 3vw;
   }
 }
+
+.coupon-group {
+  display: flex;
+  gap: 1vh;
+  align-items: stretch;
+}
+
+.coupon-group input[type="text"] {
+  flex: 1;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-validar {
+  background-color: var(--color--verde-claro);
+  color: var(--color--verde-bosque);
+  border: 0.2vh solid var(--color--verde-bosque);
+  border-radius: 1vh;
+  width: 23vh;
+  font-size: 2vh;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: center;
+  gap: .5vw;
+  align-items: center;
+}
+
+.btn-validar:hover {
+  background-color: var(--color--verde-lima);
+  transform: scale(1.05);
+  box-shadow: 0 0.2vh 0.5vh rgba(0,0,0,0.1);
+}
+
+.btn-validar:active {
+  transform: scale(0.95);
+  background-color: var(--color--verde-medio);
+}

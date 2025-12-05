@@ -339,10 +339,16 @@ const obtenerResumenCompra = async (pais) => {
 
     // Ahora puedes sacar la tasa y el envío
     let tasa = datosDelPais.tasa;
+
     let envio = datosDelPais.envio;
+
+    document.getElementById("costoEnvio"). innerHTML = `$${envio}`;
     
     // Salida: Tasa: 0.16, Envío: 150
     const impuesto = data.subtotal * tasa;
+
+    document.getElementById("impuestos").innerHTML = `$${impuesto}`
+
     const totalFinal = data.subtotal + impuesto + envio;
     document.getElementById("total").innerHTML = `$${totalFinal}`;
   } catch (error) {
