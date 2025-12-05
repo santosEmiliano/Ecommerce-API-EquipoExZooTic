@@ -101,13 +101,15 @@ const aplicarDescuentoVisual = (porcentajeDescuento) => {
     const subtotalElem = document.getElementById("subtotal");
     const totalElem = document.getElementById("total");
     const envioElem = document.getElementById("costoEnvio");
+    const impuestoElem = document.getElementById("impuestos");
 
     let subtotal = parseFloat(subtotalElem.innerText.replace('$', '')) || 0;
     let envio = parseFloat(envioElem.innerText.replace('$', '')) || 0;
+    let impuestos = parseFloat(impuestoElem.innerText.replace('$', '')) || 0;
 
-    const cantidadDescontada = subtotal * (porcentajeDescuento / 100);
+    const cantidadDescontada = subtotal * (porcentajeDescuento);
     
-    const nuevoTotal = (subtotal - cantidadDescontada) + envio;
+    const nuevoTotal = (subtotal - cantidadDescontada) + envio + impuestos;
 
     totalElem.innerText = `$${nuevoTotal.toFixed(2)}`;
 }

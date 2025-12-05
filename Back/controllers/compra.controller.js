@@ -162,7 +162,7 @@ const confirmarCompra = async (req, res) => {
         }
 
         console.log(subtotal, impuesto, costoEnvio, descuento);
-        const totalFinal = subtotal + impuesto + costoEnvio - descuento;
+        const totalFinal = (subtotal - descuento) + impuesto + costoEnvio ;
         console.log(totalFinal);
 
         //PARTE 3: GUARDAR EN LAS CATEGORIAS LOS PAGOS
