@@ -144,15 +144,20 @@ async function cargarReporteExistencias() {
                 <tbody>
                     ${productos
                       .map((prod) => {
-                        const stockBajo = prod.existencias < 5;
+                        let claseEstado = "";
+                        let estadoTexto = "";
 
-                        const claseEstado = stockBajo
-                          ? 'class="status-danger"'
-                          : 'class="status-ok"';
-                        const estadoTexto = stockBajo
-                          ? "⚠️ BAJO STOCK"
-                          : "✅ OK";
-
+                        if(prod.existencias <= 0){
+                          claseEstado = 'class="status-danger"';
+                          estadoTexto = "⛔ AGOTADO";
+                        } else if(prod.existencias < 5) {
+                          claseEstado = 'class="status-warnig"';
+                          estadoTexto = "⚠️ BAJO STOCK";
+                        } else{
+                          claseEstado = 'class="status-ok"';
+                          estadoTexto = "✅ STOCK SUFICIENTE"
+                        }
+                        
                         return `
                             <tr>
                                 <td>#${prod.id}</td>
@@ -165,7 +170,6 @@ async function cargarReporteExistencias() {
                       .join("")}
                 </tbody>
             `;
-
       categoriaBloque.appendChild(tabla);
       container.appendChild(categoriaBloque);
     }

@@ -277,6 +277,12 @@
   font-weight: bold;
 }
 
+.status-warning {
+  color: var(--color-amarillo);
+  font-weight: bold;
+  text-align: center;
+}
+
 .status-danger {
   color: var(--color-rojo);
   font-weight: 800;
