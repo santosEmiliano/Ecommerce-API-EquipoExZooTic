@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const logOutBtn = document.getElementById("logOutbtn");
   const signUpButton = document.getElementById("signUp");
   const signInButton = document.getElementById("signIn");
-  
+
   const userName = document.getElementById("userName");
   const userIcon = document.getElementById("userIcon");
   const iconClose = document.querySelector(".icon-close");
@@ -89,17 +89,29 @@ document.addEventListener("DOMContentLoaded", () => {
       const captchaInput = document.getElementById("captchaTxt");
 
       if (!captchaInput.value.trim()) {
-        Swal.fire({ title: "Ingresa captcha", icon: "error", confirmButtonText: "Ok" });
+        Swal.fire({
+          title: "Ingresa captcha",
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
         return;
       }
       if (!correoInput.value.trim() || !passInput.value.trim()) {
-        Swal.fire({ title: "Ingresa correo y contraseña", icon: "error", confirmButtonText: "Ok" });
+        Swal.fire({
+          title: "Ingresa correo y contraseña",
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
         return;
       }
 
-      await servicios.login(correoInput.value.trim(), passInput.value.trim(), captchaInput.value.trim());
+      await servicios.login(
+        correoInput.value.trim(),
+        passInput.value.trim(),
+        captchaInput.value.trim()
+      );
       servicios.cargarCaptcha();
-      
+
       correoInput.value = "";
       passInput.value = "";
       captchaInput.value = "";
@@ -114,7 +126,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const pass2 = document.getElementById("regPass2");
 
       if (pass2 && pass1.value !== pass2.value) {
-        Swal.fire({ title: "Las contraseñas no coinciden", icon: "error", confirmButtonText: "Ok" });
+        Swal.fire({
+          title: "Las contraseñas no coinciden",
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
         return;
       }
 
@@ -123,6 +139,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const correo = document.getElementById("regEmail").value;
       const contrasena = pass1.value;
 
+      if (!nombre || !pais || !correo || !contrasena) {
+        Swal.fire({
+          title: "Ingresa todos los campos",
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
+        return;
+      }
+
       servicios.signIn(nombre, correo, pais, contrasena);
 
       document.getElementById("regName").value = "";
@@ -130,6 +155,12 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("regEmail").value = "";
       pass1.value = "";
       if (pass2) pass2.value = "";
+
+      Swal.fire({
+        title: "Ya formas parte de la familia ExZootic!",
+        icon: "success",
+        confirmButtonText: "Ok",
+      });
 
       if (container) container.classList.remove("right-panel-active");
     });
@@ -152,11 +183,11 @@ document.addEventListener("DOMContentLoaded", () => {
   if (formForgot) {
     formForgot.addEventListener("submit", async (e) => {
       e.preventDefault();
-      
+
       const emailInput = document.getElementById("forgotEmail");
       const email = emailInput.value.trim();
 
-      if (!email) return Swal.fire('Error', 'Escribe tu correo', 'error');
+      if (!email) return Swal.fire("Error", "Escribe tu correo", "error");
 
       const btnEnviar = document.getElementById("btnEnviarRecuperacion");
       const textoOriginal = btnEnviar.innerText;
@@ -165,20 +196,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
       try {
         const data = await servicios.solicitarRecuperacion(email);
-        
-        Swal.fire({
-            icon: 'success',
-            title: '¡Correo Enviado!',
-            text: data.message,
-            confirmButtonColor: '#4C5F41'
-        }).then(() => {
-            container.classList.remove("show-forgot");
-            emailInput.value = "";
-        });
 
+        Swal.fire({
+          icon: "success",
+          title: "¡Correo Enviado!",
+          text: data.message,
+          confirmButtonColor: "#4C5F41",
+        }).then(() => {
+          container.classList.remove("show-forgot");
+          emailInput.value = "";
+        });
       } catch (error) {
         console.error(error);
-        Swal.fire('Error', 'No se pudo conectar con el servidor', 'error');
+        Swal.fire("Error", "No se pudo conectar con el servidor", "error");
       } finally {
         btnEnviar.innerText = textoOriginal;
         btnEnviar.disabled = false;
@@ -210,16 +240,16 @@ document.addEventListener("DOMContentLoaded", () => {
 const actualizarContadorCarrito = async () => {
   if (localStorage.getItem("id")) {
     try {
-      const carrito = await servicios.obtenerCarrito(); 
+      const carrito = await servicios.obtenerCarrito();
 
       if (Array.isArray(carrito)) {
         const totalArticulos = carrito.reduce((acumulador, producto) => {
-          return acumulador + producto.cantidad; 
+          return acumulador + producto.cantidad;
         }, 0);
 
-        const carritoCount = document.querySelector(".cart-count"); 
+        const carritoCount = document.querySelector(".cart-count");
         if (carritoCount) {
-            carritoCount.innerText = totalArticulos;
+          carritoCount.innerText = totalArticulos;
         }
       }
     } catch (error) {
