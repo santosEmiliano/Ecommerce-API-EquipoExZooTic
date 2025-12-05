@@ -109,7 +109,7 @@ async function getCarritoFront(idUser) {
             JOIN productos p ON c.producto = p.id
             WHERE c.usuario = ?
         `;
-        const [rows] = await pool.query(query, [id]);
+        const [rows] = await pool.query(query, [idUser]);
         return rows;  
     } catch (error) {
         console.error("Error al obtener el carrito:", error);

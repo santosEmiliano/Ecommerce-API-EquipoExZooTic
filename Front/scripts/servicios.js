@@ -569,12 +569,159 @@ const obtenerExistencias = async () => {
     throw error;
   }
 }
+
 const cargarCaptcha = async () => {
   const res = await fetch("http://localhost:3000/captcha");
       const svg = await res.text();
       document.getElementById("captchaContainer").innerHTML = svg;
 }
 
+const obtenerCarrito = async () => {
+  const id = localStorage.getItem("id");
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/carrito/${id}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
+      }
+    );
+
+    if (!response.ok) {
+      const res = await response.json();
+      throw new Error(res.message || "Error al obtener el carrito del usuario");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error en obtenerCarrito:", error);
+    throw error;
+  }
+}
+
+const addProductoCarrito = async (dataObjeto) => { 
+  const id = localStorage.getItem("id");
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/carrito/${id}`, 
+      {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json" 
+        },
+        body: JSON.stringify(dataObjeto),
+      }
+    );
+
+    if (!response.ok) {
+      const res = await response.json();
+      throw new Error(res.message || "Error al agregar producto al carrito");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error en addProductoCarrito:", error);
+    throw error;
+  }
+};
+
+const modificarProductoCarrito = async (idProducto, cantidad) => {
+  const idUsuario = localStorage.getItem("id");
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/carrito/${idUsuario}/producto/${idProducto}`, 
+      {
+        method: "PUT",
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json" 
+        },
+        body: JSON.stringify({ cantidad: cantidad }) 
+      }
+    );
+
+    if (!response.ok) {
+      const res = await response.json();
+      throw new Error(res.message || "Error al modificar producto del carrito");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error en modificarProductoCarrito:", error);
+    throw error;
+  }
+};
+
+const eliminarProductoCarrito = async (idProducto) => {
+  const idUsuario = localStorage.getItem("id");
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/carrito/${idUsuario}/producto/${idProducto}`, 
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      const res = await response.json();
+      throw new Error(res.message || "Error al eliminar producto del carrito");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error en eliminarProductoCarrito:", error);
+    throw error;
+  }
+};
+
+const eliminarCarrito = async () => {
+  const id = localStorage.getItem("id");
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/carrito/${id}`, 
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      const res = await response.json();
+      throw new Error(res.message || "Error al eliminar carrito");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error en eliminarCarrito:", error);
+    throw error;
+  }
+};
+
+const obtenerResumenCompraCarrito = async () => {
+  try {
+    const id = localStorage.getItem("id");
+    const response = await fetch(`http://localhost:3000/api/compra/${id}`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}`, },
+    });
+
+    if (response.status === 404) {
+      const res = await response.json();
+      throw new Error(res.message || "Error al obtener resumen de compra");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 const servicios = {
   login,
@@ -595,7 +742,13 @@ const servicios = {
   obtenerVentasCategoria,
   obtenerVentasTotales,
   obtenerExistencias,
-  cargarCaptcha,  
+  cargarCaptcha,
+  obtenerCarrito,
+  addProductoCarrito, 
+  modificarProductoCarrito,
+  eliminarProductoCarrito,
+  eliminarCarrito,
+  obtenerResumenCompraCarrito
 };
 
 export default servicios;

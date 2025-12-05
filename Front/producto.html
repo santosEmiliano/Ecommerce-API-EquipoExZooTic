@@ -117,14 +117,13 @@
                   name="cantidad"
                   value="1"
                   min="1"
-                  max="5"
                 />
               </div>
 
-              <button class="boton-comprar" onclick="agregarAlCarrito()">
+              <button class="boton-comprar" onclick="procesarCompra(true)">
                 Comprar Ahora
               </button>
-              <button class="boton-carrito" onclick="window.location.href='carrito.html'">🛒</button>
+              <button class="boton-carrito" onclick="procesarCompra()">🛒</button>
             </div>
 
             <div class="garantia-legal">

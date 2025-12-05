@@ -93,17 +93,6 @@
               <span id="summary-shipping">Calculando...</span>
             </div>
 
-            <div class="coupon-section">
-              <input
-                type="text"
-                placeholder="¿Tienes un cupón?"
-                id="coupon-input"
-              />
-              <button id="apply-coupon-btn">
-                <i class="fa-solid fa-ticket"></i>
-              </button>
-            </div>
-
             <div class="divider"></div>
 
             <div class="summary-total">
@@ -111,7 +100,7 @@
               <span id="summary-total">$0.00</span>
             </div>
 
-            <button id="checkout-btn" class="checkout-btn">
+            <button id="checkout-btn" class="checkout-btn" onclick="window.location.href='carrito.html'">
               Proceder al Pago <i class="fa-solid fa-paw"></i>
             </button>
 
@@ -228,6 +217,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./scripts/servicios.js" type="module"></script>
     <script src="./scripts/carrito.js" type="module"></script>
     <script src="./scripts/accesibilidad.js"></script>
