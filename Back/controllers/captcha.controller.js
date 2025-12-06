@@ -1,50 +1,46 @@
 const svgCaptcha = require("svg-captcha");
+const redis = require("../redisCliente/redisCliente"); // tu archivo con Upstash
 
-// Aquí guardaremos los captchas generados
-// Ejemplo: { "ab123": "k9x2p", "f88dd": "wq7ss" }
-const captchas = {};
+// Generar captcha
+exports.getCaptcha = async (req, res) => {
+  try {
+    const captcha = svgCaptcha.create({
+      size: 5,
+      noise: 2,
+      color: true,
+      background: "#f4f4f1",
+    });
 
-exports.captchas = captchas;
+    const captchaId = Math.random().toString(36).substring(2, 12);
 
-exports.getCaptcha = (req, res) => {
-  const captcha = svgCaptcha.create({
-    size: 5,
-    noise: 2,
-    color: true,
-    background: "#f4f4f1",
-  });
+    // Guardar captcha en Redis con expiración de 5 minutos
+    await redis.set(`captcha:${captchaId}`, captcha.text.toLowerCase(), {
+      ex: 300, // segundos
+    });
 
-  // Generar un id único para este captcha
-  const captchaId = Math.random().toString(36).substring(2, 12);
-
-  // Guardar el texto del captcha
-
-  console.log("antes de tolower",captcha.text.toLowerCase());
-  captchas[captchaId] = captcha.text.toLowerCase();
-
-  console.log("que guardo captchas",captchas[captchaId]);
-  // Enviar tanto la imagen como el id
-  res.json({
-    captchaId,
-    svg: captcha.data
-  });
+    res.json({
+      captchaId,
+      svg: captcha.data,
+    });
+  } catch (error) {
+    console.error("Error generando captcha:", error);
+    res.status(500).json({ message: "Error generando captcha" });
+  }
 };
 
-exports.validarCaptcha = (captchaId, captcha) => {
-  console.log("capturaId",captchaId);
-  console.log("captcha",captcha);
+// Validar captcha
+exports.validarCaptcha = async (captchaId, captcha) => {
+  if (!captchaId || !captcha) return false;
 
-  const correcto = captchas[captchaId];
-  console.log("captchas",captchas[captchaId]);
-  console.log("correcto",correcto);
+  const key = `captcha:${captchaId}`;
+  const correcto = await redis.get(key);
+
   if (!correcto) return false;
 
-  console.log("PASA!!!");
   const esValido = correcto === captcha.toLowerCase();
 
-  console.log("segundo PASEEEEE");
   if (esValido) {
-    delete captchas[captchaId]; // limpiar captcha usado
+    await redis.del(key); // limpiar captcha usado
   }
 
   return esValido;

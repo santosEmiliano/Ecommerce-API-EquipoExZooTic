@@ -58,7 +58,7 @@ const login = async (req, res) => {
     console.log("Contraseña recibida:", contrasena);
     console.log("Captcha recibido:", captcha);
     console.log("CaptchaId recibido:", captchaId);
-    
+
 
     if (!captcha) {
       return res.status(400).json({ mensaje: "Faltan captcha!!" });
@@ -72,7 +72,7 @@ const login = async (req, res) => {
     // Verificar CAPTCHA primero
     
 
-    if (!validarCaptcha(captchaId, captcha)) {
+    if (!(await validarCaptcha(captchaId, captcha))) {
       return res.status(400).json({ success: false, message: "Captcha incorrecto" });
     }
 
