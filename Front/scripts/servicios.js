@@ -11,6 +11,7 @@ const login = async (correo, contrasena, captcha) => {
         correo: correo,
         contrasena: contrasena,
         captcha: captcha,
+        captchaId: localStorage.getItem("captchaId"),
       }),
     });
 
@@ -601,14 +602,13 @@ const obtenerExistencias = async () => {
 };
 
 const cargarCaptcha = async () => {
-  try {
+  
     const res = await fetch("/back/captcha");
-    const svg = await res.text();
-    const container = document.getElementById("captchaContainer");
-    if (container) container.innerHTML = svg;
-  } catch (e) {
-    console.error("Error cargando captcha", e);
-  }
+    const data = await res.json();
+    localStorage.setItem("captchaId",data.captchaId);
+    document.getElementById("captchaContainer").innerHTML = data.svg;
+
+
 };
 
 const obtenerCarrito = async () => {

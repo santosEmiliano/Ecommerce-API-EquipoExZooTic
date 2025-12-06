@@ -64,7 +64,7 @@ const login = async (req, res) => {
 
     //deshashear (es mas como desencriptar)
     // Verificar CAPTCHA primero
-    if (!validarCaptcha(captcha, req)) {   // <--- AQUÍ ESTÁ LA CORRECCIÓN
+    if (!validarCaptcha(captcha)) {   // <--- AQUÍ ESTÁ LA CORRECCIÓN
       return res.status(400).json({
         success: false,
         message: "Captcha incorrecto",

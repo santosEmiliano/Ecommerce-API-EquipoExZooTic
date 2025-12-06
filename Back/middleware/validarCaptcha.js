@@ -1,15 +1,15 @@
 const { captchas } = require("../controllers/captcha.controller");
 
-function validateCaptcha(req, res, next) {
-  const { captchaId, captchaText } = req.body;
-  const validCaptcha = captchas[captchaId];
+module.exports = (req, res, next) => {
+  const { captchaId, captchaTxt } = req.body;
 
-  if (!validCaptcha || validCaptcha !== captchaText.toLowerCase()) {
-    return res.status(400).json({ success: false, message: "Captcha invalido." });
+  const guardado = captchas[captchaId];
+
+  if (!guardado || guardado !== captchaTxt.toLowerCase()) {
+    return res.status(400).json({ success: false, message: "Captcha inválido." });
   }
 
-  delete captchas[captchaId];
-  next(); // Si todo está bien, pasa al siguiente paso (el login)
-}
+  delete captchas[captchaId]; // eliminarlo después de usarlo
 
-module.exports = validateCaptcha;
+  next();
+};

@@ -1,7 +1,10 @@
 const svgCaptcha = require("svg-captcha");
 
-// Mapa: ip -> captcha
-const captchas = new Map();
+// Aquí guardaremos los captchas generados
+// Ejemplo: { "ab123": "k9x2p", "f88dd": "wq7ss" }
+const captchas = {};
+
+exports.captchas = captchas;
 
 exports.getCaptcha = (req, res) => {
   const captcha = svgCaptcha.create({
@@ -11,17 +14,29 @@ exports.getCaptcha = (req, res) => {
     background: "#f4f4f1",
   });
 
-  const ip = req.ip.replace("::ffff:", "");
+  // Generar un id único para este captcha
+  const captchaId = Math.random().toString(36).substring(2, 12);
 
-  captchas.set(ip, captcha.text.toLowerCase());
+  // Guardar el texto del captcha
+  captchas[captchaId] = captcha.text.toLowerCase();
 
-  res.type("svg");
-  res.status(200).send(captcha.data);
+  // Enviar tanto la imagen como el id
+  res.json({
+    captchaId,
+    svg: captcha.data
+  });
 };
 
-exports.validarCaptcha = (inputText, req) => {
-  const ip = req.ip.replace("::ffff:", "");
-  const stored = captchas.get(ip);
+exports.validarCaptcha = (captchaId, captchaTxt) => {
+  const correcto = captchas[captchaId];
 
-  return inputText && inputText.toLowerCase() === stored;
+  if (!correcto) return false;
+
+  const esValido = correcto === captchaTxt.toLowerCase();
+
+  if (esValido) {
+    delete captchas[captchaId]; // limpiar captcha usado
+  }
+
+  return esValido;
 };
