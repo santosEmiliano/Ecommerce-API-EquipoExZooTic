@@ -72,9 +72,9 @@ const login = async (req, res) => {
     // Verificar CAPTCHA primero
     
 
-    if (!(await validarCaptcha(captchaId, captcha))) {
-      return res.status(400).json({ success: false, message: "Captcha incorrecto" });
-    }
+    if (!await validarCaptcha(captchaId, captcha)) {
+    return res.status(400).json({ success: false, message: "Captcha incorrecto" });
+  }
 
     // Para loguear buscamos por correo
     /*Esto lo hago por que si esta bloqueado, a pesar de que 
