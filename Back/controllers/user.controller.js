@@ -52,7 +52,13 @@ const createUser = async (req, res) => {
 //logearse
 const login = async (req, res) => {
   try {
-    const { correo, contrasena, captcha } = req.body;
+    const { correo, contrasena, captcha, captchaId } = req.body;
+
+    console.log("Correo recibido:", correo);
+    console.log("Contraseña recibida:", contrasena);
+    console.log("Captcha recibido:", captcha);
+    console.log("CaptchaId recibido:", captchaId);
+    
 
     if (!captcha) {
       return res.status(400).json({ mensaje: "Faltan captcha!!" });
@@ -64,11 +70,10 @@ const login = async (req, res) => {
 
     //deshashear (es mas como desencriptar)
     // Verificar CAPTCHA primero
-    if (!validarCaptcha(captcha)) {   // <--- AQUÍ ESTÁ LA CORRECCIÓN
-      return res.status(400).json({
-        success: false,
-        message: "Captcha incorrecto",
-      });
+    
+
+    if (!validarCaptcha(captchaId, captcha)) {
+      return res.status(400).json({ success: false, message: "Captcha incorrecto" });
     }
 
     // Para loguear buscamos por correo
