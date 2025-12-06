@@ -10,7 +10,7 @@ const login = async (correo, contrasena, captcha) => {
       body: JSON.stringify({
         correo: correo,
         contrasena: contrasena,
-        captcha: captcha,
+        captchaTxt: captcha,
         captchaId: localStorage.getItem("captchaId"),
       }),
     });
