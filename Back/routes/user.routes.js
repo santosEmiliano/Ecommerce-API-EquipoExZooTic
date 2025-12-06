@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const validarCaptcha = require("../middlewares/validarCaptcha");
+const validarCaptcha = require("../middleware/validarCaptcha");
 
 const usersFuncion = require("../controllers/user.controller");
 
