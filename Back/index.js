@@ -4,7 +4,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
-
+const session = require("express-session");
 //Importaciones de las rutas
 const crudRoutes = require("./routes/crud.routes"); //Rutas del CRUD
 const compraRoutes = require("./routes/compra.routes"); //Rutas de compra
@@ -22,11 +22,22 @@ const pool = require("./db/conexion");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+
 //Activamos el cors
 app.use(cors());
 app.use(express.json());
+
+
+
 app.use(express.urlencoded({ extended: true })); // Para que entienda formularios
 
+// Configuración de session
+app.use(session({
+  secret: process.env.SESSION_SECRET || "clave_secreta", // clave para firmar cookies
+  resave: false,       // no guardar sesión si no cambió
+  saveUninitialized: false, // no guardar sesiones vacías
+  cookie: { maxAge: 10 * 60 * 1000 } // 10 minutos de duración de la cookie
+}));
 //Use de las rutas para que el index sepa manejarlas
 app.use("/api/crud", crudRoutes);
 app.use("/api", compraRoutes);

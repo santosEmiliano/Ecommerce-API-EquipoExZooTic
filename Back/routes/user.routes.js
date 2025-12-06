@@ -1,12 +1,13 @@
 const express = require("express");
 const router = express.Router();
+const validarCaptcha = require("../middleware/validarCaptcha");
 
 const usersFuncion = require("../controllers/user.controller");
 
 const tokens = require("../middleware/verifyToken");
 const { datosToken } = require("../controllers/token.controller");
 
-router.post("/login", usersFuncion.login);
+router.post("/login",validarCaptcha, usersFuncion.login);
 
 router.post("/obtenerDatos", tokens.verifyToken, datosToken);
 

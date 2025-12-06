@@ -1,8 +1,5 @@
 const svgCaptcha = require("svg-captcha");
 
-// Mapa: ip -> captcha
-const captchas = new Map();
-
 exports.getCaptcha = (req, res) => {
   const captcha = svgCaptcha.create({
     size: 5,
@@ -11,17 +8,22 @@ exports.getCaptcha = (req, res) => {
     background: "#f4f4f1",
   });
 
-  const ip = req.ip.replace("::ffff:", "");
+  // Guardar el captcha en la sesión del usuario
+  req.session.captcha = captcha.text.toLowerCase();
 
-  captchas.set(ip, captcha.text.toLowerCase());
-
-  res.type("svg");
-  res.status(200).send(captcha.data);
+  res.json({
+    svg: captcha.data
+  });
 };
 
-exports.validarCaptcha = (inputText, req) => {
-  const ip = req.ip.replace("::ffff:", "");
-  const stored = captchas.get(ip);
+exports.validarCaptcha = (req, captcha) => {
+  if (!req.session.captcha) return false;
 
-  return inputText && inputText.toLowerCase() === stored;
+  const esValido = req.session.captcha === captcha.toLowerCase();
+
+  if (esValido) {
+    delete req.session.captcha; // borrar captcha usado
+  }
+
+  return esValido;
 };

@@ -54,6 +54,11 @@ const login = async (req, res) => {
   try {
     const { correo, contrasena, captcha } = req.body;
 
+    console.log("Correo recibido:", correo);
+    console.log("Contraseña recibida:", contrasena);
+    console.log("Captcha recibido:", captcha);
+
+
     if (!captcha) {
       return res.status(400).json({ mensaje: "Faltan captcha!!" });
     }
@@ -64,12 +69,9 @@ const login = async (req, res) => {
 
     //deshashear (es mas como desencriptar)
     // Verificar CAPTCHA primero
-    if (!validarCaptcha(captcha, req)) {   // <--- AQUÍ ESTÁ LA CORRECCIÓN
-      return res.status(400).json({
-        success: false,
-        message: "Captcha incorrecto",
-      });
-    }
+    
+
+
 
     // Para loguear buscamos por correo
     /*Esto lo hago por que si esta bloqueado, a pesar de que 
