@@ -2,6 +2,8 @@ import validaciones from "./validaciones.js";
 
 const login = async (correo, contrasena, captcha) => {
   try {
+    console.log("Captcha a enviar:", captchaInput.value);
+    console.log("CaptchaId a enviar:", localStorage.getItem("captchaId"));
     const respuesta = await fetch("/back/auth/login", {
       method: "POST",
       headers: {
@@ -17,7 +19,7 @@ const login = async (correo, contrasena, captcha) => {
 
     const btnAcceder = document.getElementById("btnAcceder");
     let data;
-
+    
     try {
       data = await respuesta.json();
 
@@ -602,14 +604,21 @@ const obtenerExistencias = async () => {
 };
 
 const cargarCaptcha = async () => {
-  
+  try {
     const res = await fetch("/back/captcha");
     const data = await res.json();
-    localStorage.setItem("captchaId",data.captchaId);
+
+    console.log("---- CAPTCHA GENERADO ----");
+    console.log("CaptchaId generado:", data.captchaId);
+    console.log("SVG del captcha:", data.svg);
+
+    localStorage.setItem("captchaId", data.captchaId);
     document.getElementById("captchaContainer").innerHTML = data.svg;
-
-
+  } catch (error) {
+    console.error("Error al cargar captcha:", error);
+  }
 };
+
 
 const obtenerCarrito = async () => {
   const id = localStorage.getItem("id");

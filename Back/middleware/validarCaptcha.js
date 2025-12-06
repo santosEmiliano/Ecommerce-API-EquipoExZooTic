@@ -5,6 +5,7 @@ module.exports = (req, res, next) => {
 
   console.log("Todos los captchas guardados:", captchas);
   console.log("CaptchaId recibido:", captchaId);
+  console.log("Texto recibido:", captcha);
 
   const guardado = captchas[captchaId];
 
@@ -13,7 +14,7 @@ module.exports = (req, res, next) => {
     return res.status(400).json({ success: false, message: "Captcha inválido o expirado." });
   }
 
-  if (guardado !== captcha.toLowerCase()) {
+  if (guardado.toLowerCase() !== captcha.toLowerCase()) {
     return res.status(400).json({ success: false, message: "Captcha incorrecto." });
   }
 
