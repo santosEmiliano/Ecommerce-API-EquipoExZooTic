@@ -32,11 +32,14 @@ exports.getCaptcha = (req, res) => {
 
 exports.validarCaptcha = (captchaId, captcha) => {
   const correcto = captchas[captchaId];
-
+  console.log("captchas",captchas[captchaId]);
+  console.log("correcto",correcto);
   if (!correcto) return false;
 
+  console.log("PASA!!!");
   const esValido = correcto === captcha.toLowerCase();
 
+  console.log("segundo PASEEEEE");
   if (esValido) {
     delete captchas[captchaId]; // limpiar captcha usado
   }
