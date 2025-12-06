@@ -64,8 +64,11 @@ const login = async (req, res) => {
 
     //deshashear (es mas como desencriptar)
     // Verificar CAPTCHA primero
-    if (!validarCaptcha(captcha)) {
-      return res.status(400).json({success: false, message: "Captcha incorrecto ",});
+    if (!validarCaptcha(captcha, req)) {   // <--- AQUÍ ESTÁ LA CORRECCIÓN
+      return res.status(400).json({
+        success: false,
+        message: "Captcha incorrecto",
+      });
     }
 
     // Para loguear buscamos por correo
