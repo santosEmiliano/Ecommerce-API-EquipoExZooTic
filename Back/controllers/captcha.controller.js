@@ -1,6 +1,7 @@
 const svgCaptcha = require("svg-captcha");
 
-let actualCaptcha = "";
+// Mapa: ip -> captcha
+const captchas = new Map();
 
 exports.getCaptcha = (req, res) => {
   const captcha = svgCaptcha.create({
@@ -10,11 +11,17 @@ exports.getCaptcha = (req, res) => {
     background: "#f4f4f1",
   });
 
-  actualCaptcha = captcha.text.toLowerCase();
+  const ip = req.ip.replace("::ffff:", "");
+
+  captchas.set(ip, captcha.text.toLowerCase());
+
   res.type("svg");
   res.status(200).send(captcha.data);
 };
 
-exports.validarCaptcha = (inputText) => {
-  return inputText && inputText.toLowerCase() === actualCaptcha;
+exports.validarCaptcha = (inputText, req) => {
+  const ip = req.ip.replace("::ffff:", "");
+  const stored = captchas.get(ip);
+
+  return inputText && inputText.toLowerCase() === stored;
 };
