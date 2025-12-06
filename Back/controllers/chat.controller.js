@@ -37,6 +37,80 @@ const chatWithGemini = async (req, res) => {
         INVENTARIO EN TIEMPO REAL (BASE DE DATOS): 
         ${inventarioTexto}
 
+        Tarifas y precios de envío por país:
+          {
+          "uruguay": {
+            "nombre": "Uruguay",
+            "tasa": 0.22,
+            "envio": 550
+          },
+          "paraguay": {
+            "nombre": "Paraguay",
+            "tasa": 0.10,
+            "envio": 500
+          },
+          "ecuador": {
+            "nombre": "Ecuador",
+            "tasa": 0.15,
+            "envio": 450
+          },
+          "méxico": {
+            "nombre": "México",
+            "tasa": 0.16,
+            "envio": 150
+          },
+          "argentina": {
+            "nombre": "Argentina",
+            "tasa": 0.75,
+            "envio": 600
+          },
+          "hungría": {
+            "nombre": "Hungría",
+            "tasa": 0.27,
+            "envio": 1200
+          },
+          "alemania": {
+            "nombre": "Alemania",
+            "tasa": 0.19,
+            "envio": 1100
+          },
+          "sudáfrica": {
+            "nombre": "Sudáfrica",
+            "tasa": 0.15,
+            "envio": 1600
+          },
+          "egipto": {
+            "nombre": "Egipto",
+            "tasa": 0.14,
+            "envio": 1500
+          },
+          "singapur": {
+            "nombre": "Singapur",
+            "tasa": 0.09,
+            "envio": 1900
+          },
+          "indonesia": {
+            "nombre": "Indonesia",
+            "tasa": 0.11,
+            "envio": 2100
+          },
+          "australia": {
+            "nombre": "Australia",
+            "tasa": 0.10,
+            "envio": 2500
+          },
+          "fiji": {
+            "nombre": "Fiji",
+            "tasa": 0.15,
+            "envio": 3200
+          },
+          "resto del Mundo": {
+            "nombre": "Resto del Mundo",
+            "tasa": 0.15,
+            "envio": 2000
+          }
+        }
+
         REGLAS:
         1. Responde basándote EXCLUSIVAMENTE en el INVENTARIO de arriba.
         2. Si el stock es 0, informa amablemente que está agotado pero sugiere otro animal de la misma categoría.
