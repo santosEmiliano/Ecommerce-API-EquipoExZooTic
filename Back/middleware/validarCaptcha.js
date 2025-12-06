@@ -19,7 +19,7 @@ module.exports = (req, res, next) => {
 
   console.log("captcha--->",captcha);
   if (guardado.toLowerCase() !== captcha.toLowerCase()) {
-    console.log("guardado:",guardado,toLowerCase());
+    console.log("guardado:",guardado.toLowerCase());
     console.log("captcha: ",captcha.toLowerCase());
     return res.status(400).json({ success: false, message: "Captcha incorrecto." });
   }
