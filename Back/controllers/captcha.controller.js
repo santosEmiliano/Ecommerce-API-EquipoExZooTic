@@ -31,6 +31,9 @@ exports.getCaptcha = (req, res) => {
 };
 
 exports.validarCaptcha = (captchaId, captcha) => {
+  console.log("capturaId",captchaId);
+  console.log("captcha",captcha);
+
   const correcto = captchas[captchaId];
   console.log("captchas",captchas[captchaId]);
   console.log("correcto",correcto);
