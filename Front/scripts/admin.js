@@ -207,7 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div style="display: flex; gap: 15px; align-items: center;">
                             <img src="${imgPath}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px; border: 1px solid #ccc;">
                             <div style="flex: 1;">
-                                <label style="font-size: 12px; color: gray;">Cambiar imagen (opcional):</label>
+                                <label style="font-size: 12px; color: gray;">Cambiar imagen (opcional) (No cargar imagenes mayores a 1MB):</label>
                                 <input type="file" id="nuevaImagen" accept="image/*" class="input-modal">
                             </div>
                         </div>
