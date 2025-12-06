@@ -2,7 +2,6 @@ import validaciones from "./validaciones.js";
 
 const login = async (correo, contrasena, captcha) => {
   try {
-    console.log("Captcha a enviar:", captchaInput.value);
     console.log("CaptchaId a enviar:", localStorage.getItem("captchaId"));
     const respuesta = await fetch("/back/auth/login", {
       method: "POST",

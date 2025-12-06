@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
         passInput.value.trim(),
         captchaInput.value.trim()
       );
-      //servicios.cargarCaptcha();
+      servicios.cargarCaptcha();
 
       correoInput.value = "";
       passInput.value = "";
