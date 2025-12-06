@@ -1,14 +1,17 @@
-const { validarCaptcha } = require("../controllers/captcha.controller");
-
 module.exports = (req, res, next) => {
-  const { captcha } = req.body;
-
-  console.log("Captcha recibido:", captcha);
+  console.log("Captcha recibido:", req.body.captcha);
   console.log("Captcha en sesión:", req.session.captcha);
 
-  if (!validarCaptcha(req, captcha)) {
-    return res.status(400).json({ success: false, message: "Captcha incorrecto o expirado." });
+  if (!req.session.captcha) {
+    return res.status(400).json({ success: false, message: "Captcha expirado o no generado." });
   }
+
+  if (req.session.captcha.toLowerCase() !== req.body.captcha.toLowerCase()) {
+    return res.status(400).json({ success: false, message: "Captcha incorrecto." });
+  }
+
+  // Limpiar captcha usado
+  delete req.session.captcha;
 
   next();
 };
