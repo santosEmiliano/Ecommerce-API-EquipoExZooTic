@@ -5,6 +5,9 @@ module.exports = (req, res, next) => {
 
   const guardado = captchas[captchaId];
 
+  console.log("req.body:", req.body);
+  console.log("captchaId:", captchaId, "captchaTxt:", captchaTxt);
+
   if (!guardado || guardado !== captchaTxt.toLowerCase()) {
     return res.status(400).json({ success: false, message: "Captcha inválido." });
   }
