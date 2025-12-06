@@ -3,22 +3,18 @@ const { captchas } = require("../controllers/captcha.controller");
 module.exports = (req, res, next) => {
   const { captchaId, captcha } = req.body;
 
-  if (!captchaId || !captcha) {
-    return res.status(400).json({ success: false, message: "Captcha y captchaId son requeridos." });
-  }
+  console.log("Todos los captchas guardados:", captchas);
+  console.log("CaptchaId recibido:", captchaId);
 
   const guardado = captchas[captchaId];
-
-  console.log("req.body:", req.body);
-  console.log("captchaId:", captchaId, "captcha:", captcha);
-  console.log("guardado:", guardado);
-
-  if (!guardado || guardado.toLowerCase() !== captcha.toLowerCase()) {
-    return res.status(400).json({ success: false, message: "Captcha inválido." });
+  if (!guardado) {
+    return res.status(400).json({ success: false, message: "Captcha inválido o expirado." });
   }
 
-  // Ya usado, eliminarlo
-  delete captchas[captchaId];
+  if (guardado.toLowerCase() !== captcha.toLowerCase()) {
+    return res.status(400).json({ success: false, message: "Captcha incorrecto." });
+  }
 
+  delete captchas[captchaId];
   next();
 };
