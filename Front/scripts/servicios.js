@@ -2,7 +2,6 @@ import validaciones from "./validaciones.js";
 
 const login = async (correo, contrasena, captcha) => {
   try {
-    console.log("CaptchaId a enviar:", localStorage.getItem("captchaId"));
     const respuesta = await fetch("/back/auth/login", {
       method: "POST",
       headers: {
@@ -607,9 +606,7 @@ const cargarCaptcha = async () => {
     const data = await res.json();
 
     console.log("---- CAPTCHA GENERADO ----");
-    console.log("CaptchaId generado:", data.captchaId);
 
-    localStorage.setItem("captchaId", data.captchaId);
     document.getElementById("captchaContainer").innerHTML = data.svg;
   } catch (error) {
     console.error("Error al cargar captcha:", error);

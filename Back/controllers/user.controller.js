@@ -52,12 +52,11 @@ const createUser = async (req, res) => {
 //logearse
 const login = async (req, res) => {
   try {
-    const { correo, contrasena, captcha, captchaId } = req.body;
+    const { correo, contrasena, captcha } = req.body;
 
     console.log("Correo recibido:", correo);
     console.log("Contraseña recibida:", contrasena);
     console.log("Captcha recibido:", captcha);
-    console.log("CaptchaId recibido:", captchaId);
 
 
     if (!captcha) {
@@ -72,7 +71,7 @@ const login = async (req, res) => {
     // Verificar CAPTCHA primero
     
 
-    if (!await validarCaptcha(captchaId, captcha)) {
+    if (!await validarCaptcha( captcha)) {
     return res.status(400).json({ success: false, message: "Captcha incorrecto" });
   }
 
