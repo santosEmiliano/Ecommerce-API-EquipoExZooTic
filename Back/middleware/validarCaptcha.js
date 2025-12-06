@@ -13,11 +13,14 @@ module.exports = (req, res, next) => {
   console.log("captchasALGO:",guardado);
   // validar existencia antes de usar toLowerCase()
   if (!guardado) {
+    console.log("Es aqui",guardado);
     return res.status(400).json({ success: false, message: "Captcha inválido o expirado." });
   }
 
   console.log("captcha--->",captcha);
   if (guardado.toLowerCase() !== captcha.toLowerCase()) {
+    console.log("guardado:",guardado,toLowerCase());
+    console.log("captcha: ",captcha.toLowerCase());
     return res.status(400).json({ success: false, message: "Captcha incorrecto." });
   }
 
