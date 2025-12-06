@@ -27,12 +27,12 @@ exports.getCaptcha = (req, res) => {
   });
 };
 
-exports.validarCaptcha = (captchaId, captchaTxt) => {
+exports.validarCaptcha = (captchaId, captcha) => {
   const correcto = captchas[captchaId];
 
   if (!correcto) return false;
 
-  const esValido = correcto === captchaTxt.toLowerCase();
+  const esValido = correcto === captcha.toLowerCase();
 
   if (esValido) {
     delete captchas[captchaId]; // limpiar captcha usado

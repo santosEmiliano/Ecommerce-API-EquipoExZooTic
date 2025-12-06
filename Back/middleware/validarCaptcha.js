@@ -1,11 +1,11 @@
 const { captchas } = require("../controllers/captcha.controller");
 
 module.exports = (req, res, next) => {
-  const { captchaId, captchaTxt } = req.body;
+  const { captchaId, captcha } = req.body;
 
   const guardado = captchas[captchaId];
 
-  if (!guardado || guardado !== captchaTxt.toLowerCase()) {
+  if (!guardado || guardado !== captcha.toLowerCase()) {
     return res.status(400).json({ success: false, message: "Captcha inválido." });
   }
 

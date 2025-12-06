@@ -11,7 +11,7 @@ const login = async (correo, contrasena, captcha) => {
         correo: correo,
         contrasena: contrasena,
         captcha: captcha,
-        captchaId: localStorage.getItem("captchaId"),
+        captchaId: localStorage.getItem("captchaId")
       }),
     });
 
