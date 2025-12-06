@@ -124,7 +124,13 @@ async function generarNotaPDF(datosCompra) {
   // Lanzar Puppeteer y generar PDF
   const browser = await puppeteer.launch({ 
     headless: "new",
-    args: ['--no-sandbox'] 
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage', 
+      '--single-process', 
+      '--no-zygote'
+      ] 
   }); 
   const page = await browser.newPage();
   

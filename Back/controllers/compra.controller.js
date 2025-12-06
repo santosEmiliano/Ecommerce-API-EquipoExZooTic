@@ -183,89 +183,64 @@ const confirmarCompra = async (req, res) => {
     //PARTE 4: LIMPIAR EL CARRITO DEL USUARIO
     await carritoModel.deleteCarrito(idUser);
 
-    // ======= Correo =======
-
-    // Preparamos Logo
-    const rutaLogo = path.join(__dirname, "../media/logo.png"); // Verifica que esta ruta sea correcta en tu proyecto
-    let logoBase64 = "";
-
+    // --- GENERAR PDF Y ENVIAR CORREO ---
     try {
-      if (fs.existsSync(rutaLogo)) {
-        const logoBuffer = fs.readFileSync(rutaLogo);
-        logoBase64 = `data:image/png;base64,${logoBuffer.toString("base64")}`;
+      const rutaLogo = path.join(__dirname, "../media/logo.png");
+      let logoBase64 = "";
+      try {
+        if (fs.existsSync(rutaLogo)) {
+          const logoBuffer = fs.readFileSync(rutaLogo);
+          logoBase64 = `data:image/png;base64,${logoBuffer.toString("base64")}`;
+        }
+      } catch (e) {
+        console.log("Sin logo");
       }
-    } catch (e) {
-      console.log(
-        "No se pudo cargar el logo para el PDF, se enviará sin logo."
-      );
-    }
 
-    // Preparamos los datos del PDF
-    const datosPDF = {
-      id: Date.now(),
-      cliente: {
-        nombre: datosFormulario.nombre || "Cliente ExZooTic",
-        email: datosFormulario.email,
-        direccion: datosFormulario.direccion,
-      },
-      productos: carrito,
-      subtotal: subtotal,
-      impuestos: impuesto,
-      envio: costoEnvio,
-      descuento: descuento,
-      totalGeneral: totalFinal,
-      logoUrl: logoBase64,
-    };
+      const datosPDF = {
+        id: Date.now(),
+        cliente: {
+          nombre: datosFormulario.nombre || "Cliente",
+          email: datosFormulario.email,
+          direccion: datosFormulario.direccion,
+        },
+        productos: carrito,
+        subtotal: subtotal,
+        impuestos: impuesto,
+        envio: costoEnvio,
+        descuento: descuento,
+        totalGeneral: totalFinal,
+        logoUrl: logoBase64,
+      };
 
-    // Generamos PDF y enviamos el correo
-    console.log(`Iniciando proceso de correo para: ${datosFormulario.email}`);
-
-    try {
-      console.log(
-        `Generando PDF y enviando correo a: ${datosFormulario.email}`
-      );
-
+      console.log("Generando PDF...");
       const pdfBuffer = await generarNotaPDF(datosPDF);
 
+      console.log("Enviando correo...");
       const mailOptions = {
         from: `"ExZooTic - Ventas" <${process.env.GMAIL_USER}>`,
         to: datosFormulario.email,
         subject: `Confirmación de Compra - Pedido #${datosPDF.id}`,
-        html: `
-            <h1>¡Gracias por tu compra, ${datosPDF.cliente.nombre}!</h1>
-            <p>Tu pedido ha sido confirmado y tus animales están siendo preparados para el viaje.</p>
-            <p>Adjunto encontrarás tu nota de compra detallada.</p>
-            <hr>
-            <p>Atte: El equipo de ExZooTic 🐾</p>
-        `,
+        html: `<h1>¡Gracias por tu compra!</h1><p>Total: $${totalFinal}</p>`,
         attachments: [
-          {
-            filename: `NotaCompra-${datosPDF.id}.pdf`,
-            content: pdfBuffer,
-            contentType: "application/pdf",
-          },
+          { filename: `NotaCompra-${datosPDF.id}.pdf`, content: pdfBuffer },
         ],
       };
 
       await transporter.sendMail(mailOptions);
-      console.log("Correo con PDF enviado correctamente.");
-
-
-      res.json({
-        status: "success",
-        message: "Compra realizada con éxito",
-        total_cobrado: totalFinal,
-      });
-    } catch (error) {
-      console.error("Error en el proceso de compra:", error);
-
-      res
-        .status(500)
-        .json({
-          status: "error",
-          message: "Error al procesar la compra o enviar el comprobante.",
-        });
+      console.log("Correo enviado.");
+    } catch (emailError) {
+      console.error(
+        "ALERTA: Compra exitosa pero falló el correo/PDF:",
+        emailError
+      );
     }
+
+    // --- RESPUESTA EXITOSA AL CLIENTE ---
+    res.json({
+      status: "success",
+      message: "Compra realizada con éxito",
+      total_cobrado: totalFinal,
+    });
   } catch (error) {
     console.error(error);
     res
