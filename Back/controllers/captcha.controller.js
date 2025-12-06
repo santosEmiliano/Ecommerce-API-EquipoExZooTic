@@ -18,8 +18,11 @@ exports.getCaptcha = (req, res) => {
   const captchaId = Math.random().toString(36).substring(2, 12);
 
   // Guardar el texto del captcha
+
+  console.log("antes de tolower",captcha.text.toLowerCase());
   captchas[captchaId] = captcha.text.toLowerCase();
 
+  console.log("que guardo captchas",captchas[captchaId]);
   // Enviar tanto la imagen como el id
   res.json({
     captchaId,
