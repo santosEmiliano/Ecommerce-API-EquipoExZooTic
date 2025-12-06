@@ -303,7 +303,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="modal-body">
                 <form id="formAltaModal" class="form-alta">
                     <div class="form-group">
-                        <label>Imagen</label>
+                        <label>Imagen (No cargar imagenes mayores a 1MB)</label>
                         <input type="file" id="imagenAlta" accept="image/*" class="input-modal" required />
                     </div>
                     <div class="form-group">
@@ -365,7 +365,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
       try {
         await servicios.addProduct(formData);
-        alert("Producto guardado");
+
+        Swal.fire({
+          title: `Producto Guardado!!`,
+          icon: "success",
+          confirmButtonText: "Ok",
+        });
+
         cerrarModalConAnimacion();
         cargarProductos();
       } catch (error) {
