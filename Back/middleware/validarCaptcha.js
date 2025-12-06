@@ -5,11 +5,15 @@ module.exports = (req, res, next) => {
 
   const guardado = captchas[captchaId];
 
-  if (!guardado || guardado !== captcha.toLowerCase()) {
+  if (!guardado || guardado.toLowerCase() !== captcha.toLowerCase()) {
+    console.log("req.body:", req.body);
+    console.log("captchaId:", captchaId, "captcha enviado:", captcha);
+    console.log("captcha guardado:", guardado);
     return res.status(400).json({ success: false, message: "Captcha inválido." });
   }
 
-  delete captchas[captchaId]; // eliminarlo después de usarlo
+  // Si es correcto, eliminarlo para que no se use otra vez
+  delete captchas[captchaId];
 
   next();
 };
