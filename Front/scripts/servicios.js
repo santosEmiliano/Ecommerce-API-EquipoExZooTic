@@ -11,6 +11,7 @@ const login = async (correo, contrasena, captcha) => {
         correo: correo,
         contrasena: contrasena,
         captcha: captcha,
+        captchaId: captchaId,
       }),
     });
 
@@ -600,12 +601,19 @@ const obtenerExistencias = async () => {
   }
 };
 
+let captchaId = null;
+
 const cargarCaptcha = async () => {
   try {
     const res = await fetch("/back/captcha");
-    const svg = await res.text();
+    const data = await res.json(); // ← ya no es solo SVG
+
+    captchaId = data.id;  // ← GUARDAMOS EL ID
+    const svg = data.svg; // ← obtenemos el SVG
+
     const container = document.getElementById("captchaContainer");
     if (container) container.innerHTML = svg;
+
   } catch (e) {
     console.error("Error cargando captcha", e);
   }

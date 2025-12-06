@@ -52,9 +52,9 @@ const createUser = async (req, res) => {
 //logearse
 const login = async (req, res) => {
   try {
-    const { correo, contrasena, captcha } = req.body;
+    const { correo, contrasena, captcha, captchaId } = req.body;
 
-    if (!captcha) {
+    if (!captcha || !captchaId) {
       return res.status(400).json({ mensaje: "Faltan captcha!!" });
     }
 
@@ -62,74 +62,73 @@ const login = async (req, res) => {
       return res.status(400).json({ mensaje: "Faltan datos!!" });
     }
 
-    //deshashear (es mas como desencriptar)
     // Verificar CAPTCHA primero
-    if (!validarCaptcha(captcha, req)) {   // <--- AQUÍ ESTÁ LA CORRECCIÓN
+    if (!validarCaptcha(captchaId, captcha)) {
       return res.status(400).json({
         success: false,
         message: "Captcha incorrecto",
       });
     }
 
-    // Para loguear buscamos por correo
-    /*Esto lo hago por que si esta bloqueado, a pesar de que 
-    ponga la contraseña bien, si esta bloqueado, no le va a permitir
-    loguearse, hasta que pase el tiempo.*/
+    // BUSCAR por correo
     const user = await userModel.buscarCorreo(correo);
 
     if (!user) {
       return res.status(400).json({ mensaje: "Credenciales incorrectas" });
     }
 
-    // Verificamos si el usuario esta bloqueado
+    // Verificar bloqueos
     if (user.tiempo_bloqueo){
       const fechaAhora = new Date();
       const fechaDesbloqueo = new Date(user.tiempo_bloqueo);
 
-      // No lo dejamos pasar si la fecha de desbloqueo es mayor a la actual
       if (fechaAhora < fechaDesbloqueo){
         const minRes = Math.ceil((fechaDesbloqueo - fechaAhora) / 60000);
-        
-        return res.status(403).json({mensaje: `Cuenta bloqueada temporalmente. Intenta de nuevo en ${minRes} minutos.`});
-      } else{
-        // Si ya no esta bloqueado (Es decir ya paso el tiempo)
+        return res.status(403).json({
+          mensaje: `Cuenta bloqueada temporalmente. Intenta de nuevo en ${minRes} minutos.`
+        });
+      } else {
         await userModel.resetearIntentos(user.id);
         user.intentos = 0;
       }
     }
 
-    // Verificamos contraseña
+    // Verificar contraseña
     const passValida = await bcrypt.compare(contrasena, user.contrasena);
 
-    
     if (!passValida){
-      // Si la contaseña es incorrecta
-      
       await userModel.sumarIntento(user.id);
       const intentosAct = user.intentos + 1;
 
-      // Si gasto sus 3 intentos lo bloqueamos
       if (intentosAct >= 3){
         await userModel.bloquearUsuario(user.id);
-        return res.status(403).json({mensaje: "Has alcanzado 3 intentos fallidos. Cuenta bloqueada por 5 minutos."});
+        return res.status(403).json({
+          mensaje: "Has alcanzado 3 intentos fallidos. Cuenta bloqueada por 5 minutos."
+        });
       }
 
-      // Si solamente fallo 1 o 2 veces
-      return res.status(400).json({mensaje: `Constraseña incorrecta. Te quedan ${3 - intentosAct} intentos.`});
+      return res.status(400).json({
+        mensaje: `Contraseña incorrecta. Te quedan ${3 - intentosAct} intentos.`
+      });
     }
 
-    // Si ya paso todas las validaciones, lo logueamos
+    // Login exitoso
     await userModel.resetearIntentos(user.id);
 
-    const token = cosasTokens.generarToken(user.id); //obten el token
+    const token = cosasTokens.generarToken(user.id);
     const datos = await userModel.buscarId(user.id);
 
-    return res.status(200).json({ mensaje: "Logeado!", token, datos });
+    return res.status(200).json({
+      mensaje: "Logeado!",
+      token,
+      datos
+    });
+
   } catch (error) {
+    console.error(error);
     return res.status(500).json({ mensaje: "error al logearse!" });
   }
 };
-
 //logout
 const logOut = async (req, res) => {
   const token = req.token;
