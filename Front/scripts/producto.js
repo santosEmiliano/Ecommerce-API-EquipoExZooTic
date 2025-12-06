@@ -77,7 +77,7 @@ function cargarInformacionDOM(producto) {
   if (imagen) {
     const rutaImagen =
       producto.imagen && !producto.imagen.startsWith("http")
-        ? `/back/images/${producto.imagen}`
+        ? `/back${producto.imagen}`
         : producto.imagen || "media/logo.png";
     imagen.src = rutaImagen;
     imagen.onerror = () => {
