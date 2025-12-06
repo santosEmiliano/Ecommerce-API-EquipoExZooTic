@@ -16,6 +16,7 @@ module.exports = (req, res, next) => {
     return res.status(400).json({ success: false, message: "Captcha inválido o expirado." });
   }
 
+  console.log("captcha--->",captcha);
   if (guardado.toLowerCase() !== captcha.toLowerCase()) {
     return res.status(400).json({ success: false, message: "Captcha incorrecto." });
   }
