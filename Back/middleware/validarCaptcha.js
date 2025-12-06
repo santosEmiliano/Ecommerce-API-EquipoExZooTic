@@ -3,12 +3,14 @@ const { captchas } = require("../controllers/captcha.controller");
 module.exports = (req, res, next) => {
   const { captchaId, captcha } = req.body;
 
+  console.log("PID del proceso:", process.pid);
   console.log("Todos los captchas guardados:", captchas);
-  console.log("CaptchaId recibido:", captchaId);
-  console.log("Texto recibido:", captcha);
+  console.log("CaptchaId recibido:", req.body.captchaId);
+  console.log("Texto recibido:", req.body.captcha);
 
   const guardado = captchas[captchaId];
 
+  console.log("captchasALGO:",guardado);
   // validar existencia antes de usar toLowerCase()
   if (!guardado) {
     return res.status(400).json({ success: false, message: "Captcha inválido o expirado." });
