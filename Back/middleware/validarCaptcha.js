@@ -1,7 +1,7 @@
 const { captchas } = require("../controllers/captcha.controller");
 
 module.exports = (req, res, next) => {
-  const { captchaId, captchaTxt } = req.body;
+  const { captchaId, captcha: captchaTxt } = req.body;
 
   const guardado = captchas[captchaId];
 
