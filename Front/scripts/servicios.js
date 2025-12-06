@@ -12,7 +12,6 @@ const login = async (correo, contrasena, captcha) => {
         correo: correo,
         contrasena: contrasena,
         captcha: captcha,
-        captchaId: localStorage.getItem("captchaId")
       }),
     });
 
@@ -609,7 +608,6 @@ const cargarCaptcha = async () => {
 
     console.log("---- CAPTCHA GENERADO ----");
     console.log("CaptchaId generado:", data.captchaId);
-    console.log("SVG del captcha:", data.svg);
 
     localStorage.setItem("captchaId", data.captchaId);
     document.getElementById("captchaContainer").innerHTML = data.svg;
